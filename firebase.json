@@ -1,0 +1,23 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/node_modules/**",
+      "**/.git/**",
+      ".firebaserc",
+      "README.md",
+      "FIREBASE_SETUP.md",
+      "DEPLOY_GUIDE.md",
+      "admin.html",
+      "js/admin.js",
+      "data/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/admin",
+        "destination": "/admin-firebase.html"
+      }
+    ]
+  }
+}

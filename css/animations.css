@@ -1,0 +1,101 @@
+/* パフォーマンス最適化 - ハードウェアアクセラレーション */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* スムーズなスクロール */
+html {
+    scroll-behavior: smooth;
+}
+
+/* トランジション最適化 */
+.transition-all,
+.transition-transform,
+.transition-opacity {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ホバーエフェクト最適化 */
+.group:hover .group-hover\:scale-105 {
+    transform: scale(1.05) translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+.group:hover .group-hover\:translate-x-1 {
+    transform: translateX(0.25rem) translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* アニメーションのちらつき防止 */
+.will-change-transform {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* スムーズなフェードイン */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* 影のパフォーマンス最適化 */
+.hover\:shadow-lg {
+    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 画像の最適化 */
+img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0);
+}
+
+/* カードアニメーションの最適化 */
+.group {
+    transform: translateZ(0);
+}
+
+/* バウンスアニメーションの最適化 */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0) translateZ(0);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+        transform: translateY(-10px) translateZ(0);
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+}
+
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
+
+/* スピンアニメーションの最適化 */
+@keyframes spin {
+    from {
+        transform: rotate(0deg) translateZ(0);
+    }
+    to {
+        transform: rotate(360deg) translateZ(0);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
