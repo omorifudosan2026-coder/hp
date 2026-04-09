@@ -31,15 +31,15 @@ firebase login
 ### 3. プロジェクトを初期化（初回のみ）
 
 ```bash
-cd /Users/r_mizuguchi/Desktop/omori-real-estate
+cd /path/to/omori
 firebase init hosting
 ```
 
-質問に答える：
-- **プロジェクト**: 作成したFirebaseプロジェクトを選択
-- **公開ディレクトリ**: `.` (ドットを入力)
+質問に答える（本リポジトリは既に `firebase.json` あり）：
+- **プロジェクト**: 作成した Firebase プロジェクトを選択
+- **公開ディレクトリ**: `_site`（Eleventy のビルド出力）
 - **SPA設定**: `No`
-- **上書き**: `No`
+- **上書き**: 既存設定がある場合は `No`
 
 ### 4. プロジェクトIDを設定
 
@@ -53,9 +53,10 @@ firebase init hosting
 }
 ```
 
-### 5. デプロイ！
+### 5. ビルドしてデプロイ
 
 ```bash
+npm run build
 firebase deploy --only hosting
 ```
 
@@ -135,9 +136,10 @@ DNS設定後、Firebaseが自動でSSL証明書を発行します。
 
 ## 🔄 更新する時
 
-サイトを更新したら、再度デプロイするだけ：
+サイトを更新したら、ビルドしてからデプロイ：
 
 ```bash
+npm run build
 firebase deploy --only hosting
 ```
 
@@ -147,26 +149,12 @@ firebase deploy --only hosting
 
 ## 📁 デプロイされるファイル
 
-`firebase.json` で設定されているファイルがデプロイされます：
+`firebase.json` の `hosting.public` は **`_site`** です。次の手順のあと、その中身だけが Hosting に上がります。
 
-✅ **デプロイされる:**
-- `index.html`
-- `properties.html`
-- `news.html`
-- `works.html`
-- `company.html`
-- `contact.html`
-- `concept.html`
-- `login.html`
-- `admin-firebase.html`
-- `css/`, `js/`, `images/` フォルダ
-- `firebase-config.js`
+1. `npm run build` … Eleventy が HTML を生成し、PostCSS が `css/main.css` を出力。`js/`・`images/`・`firebase-config.js` も `_site/` に揃う。
+2. `firebase deploy --only hosting` … **`_site/` 以下**が公開される。
 
-❌ **デプロイされない:**
-- `admin.html`（旧バージョン）
-- `js/admin.js`（旧バージョン）
-- `data/` フォルダ（JSONファイルは不要）
-- `README.md`, `FIREBASE_SETUP.md` など
+**含まれないもの:** `src/`、`package.json`、`README.md`、`node_modules` など（ビルドに含めていないものはデプロイされません）。
 
 ---
 
@@ -264,18 +252,21 @@ Firebase Hosting では、以下の情報が自動で記録されます：
 
 ### 1. 開発
 
-ローカルで開発・確認
+ローカルで開発・確認（**既定はポート 8080**。`8000` は使わない）
 
 ```bash
-# Live Server などでローカル確認
-python3 -m http.server 8000
+npm run dev
+# ブラウザ: http://localhost:8080/
 ```
+
+（ビルド済み `_site/` だけを静的配信したい場合は `cd _site && python3 -m http.server 8080` など）
 
 ### 2. テスト
 
 Firebase Hosting にデプロイ
 
 ```bash
+npm run build
 firebase deploy --only hosting
 ```
 

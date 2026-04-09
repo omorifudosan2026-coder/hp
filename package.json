@@ -1,0 +1,35 @@
+{
+  "name": "omori",
+  "version": "1.0.0",
+  "description": "物件探しからリノベーション、売買まで。ワンストップで叶える、理想の住まいづくり。",
+  "main": "firebase-config.js",
+  "scripts": {
+    "build:css": "postcss src/css/main.css -o _site/css/main.css",
+    "build:html": "eleventy",
+    "build": "npm run build:html && npm run build:css",
+    "dev:css": "postcss src/css/main.css -o _site/css/main.css --watch",
+    "dev:html": "eleventy --serve",
+    "dev": "npm-run-all --parallel dev:css dev:html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/omorifudosan2026-coder/hp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/omorifudosan2026-coder/hp/issues"
+  },
+  "homepage": "https://github.com/omorifudosan2026-coder/hp#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.5",
+    "@tailwindcss/postcss": "^4.2.2",
+    "autoprefixer": "^10.4.27",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.5.9",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.2.2"
+  }
+}

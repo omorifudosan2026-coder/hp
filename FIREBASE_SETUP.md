@@ -149,18 +149,18 @@ service firebase.storage {
 ## ✅ ステップ6: 動作確認
 
 ### 6-1. ローカルサーバーを起動
-```bash
-# VS Codeの拡張機能「Live Server」を使用するか、
-# Pythonの場合:
-cd /path/to/omori-real-estate
-python3 -m http.server 8000
+プロジェクトルートで次を実行します（Eleventy + CSS ウォッチ。既定は `http://localhost:8080`）。
 
-# Node.jsの場合:
-npx http-server
+```bash
+cd /path/to/omori
+npm install
+npm run dev
 ```
 
+（ビルド済みの `_site/` だけを静的配信したい場合は、`_site` に移動して `python3 -m http.server 8080` などでも可。）
+
 ### 6-2. 管理画面にログイン
-1. ブラウザで `http://localhost:8000/login.html` にアクセス
+1. ブラウザで `http://localhost:8080/login.html` にアクセス
 2. ステップ3で作成したメールアドレスとパスワードでログイン
 3. ログイン成功すると管理画面に移動します
 
@@ -171,7 +171,7 @@ npx http-server
 4. 保存成功の通知が表示されれば OK！
 
 ### 6-4. 公開ページを確認
-1. ブラウザで `http://localhost:8000/properties.html` にアクセス
+1. ブラウザで `http://localhost:8080/properties.html` にアクセス
 2. 追加した物件が表示されれば成功！
 
 ---
@@ -204,7 +204,8 @@ firebase login
 # プロジェクトを初期化
 firebase init hosting
 
-# デプロイ
+# ビルドしてデプロイ（Hosting の公開ディレクトリは _site）
+npm run build
 firebase deploy --only hosting
 ```
 
