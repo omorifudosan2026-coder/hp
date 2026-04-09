@@ -28,10 +28,16 @@ jobs:
           npm run build
 
       - name: Google Auth
+        id: auth
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: "projects/460681881130/locations/global/workloadIdentityPools/github-actions-pool-2/providers/github-provider-2"
           service_account: "github-actions-deploy@omorifudosan.iam.gserviceaccount.com"
+          create_credentials_file: true
+          project_id: omorifudosan
 
       - name: Deploy to Firebase Hosting
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+          CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: ${{ steps.auth.outputs.credentials_file_path }}
         run: npx firebase-tools@latest deploy --only hosting --project omorifudosan --non-interactive
