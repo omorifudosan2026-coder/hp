@@ -40,4 +40,5 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
           CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE: ${{ steps.auth.outputs.credentials_file_path }}
-        run: npx firebase-tools@latest deploy --only hosting --project omorifudosan --non-interactive
+        # 失敗時は「login?」より手前の本当の理由がログに出る。安定後は --debug を外してよい
+        run: npx firebase-tools@latest deploy --only hosting --project omorifudosan --non-interactive --debug
