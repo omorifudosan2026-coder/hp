@@ -32,7 +32,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: "projects/460681881130/locations/global/workloadIdentityPools/github-actions-pool-2/providers/github-provider-2"
-          service_account: "github-actions-deploy@omorifudosan.iam.gserviceaccount.com"
+          service_account: "github-actions-deploy@project-ffe31484-7e1d-4a44-ae2.iam.gserviceaccount.com"
           create_credentials_file: true
           project_id: omorifudosan
 
