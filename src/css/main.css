@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #F59E0B;
+  --color-secondary: #1e3a5f;
+  --color-navy: #2c3e50;
+  --color-orange: #F59E0B;
+  --color-orange-600: #d97706;
+}
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+
+* {
+  font-family: 'Noto Sans JP', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ヘッダーの影を完全に削除 */
+header,
+header * {
+  box-shadow: none !important;
+}
+
+/* Animation utilities */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) translateZ(0); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+  50%       { transform: translateY(-10px) translateZ(0); animation-timing-function: cubic-bezier(0,0,0.2,1); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg) translateZ(0); }
+  to   { transform: rotate(360deg) translateZ(0); }
+}
+
+.fade-in-up     { animation: fadeInUp 0.8s ease-out; }
+.fade-in        { animation: fadeIn 0.8s ease-out; }
+.animate-fade-in{ animation: fadeIn 0.6s ease-out forwards; }
+.animate-bounce { animation: bounce 2s infinite; }
+.animate-spin   { animation: spin 1s linear infinite; }
+
+body {
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* Hardware acceleration */
+.will-change-transform {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.group {
+  transform: translateZ(0);
+}
+
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar       { width: 10px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #F59E0B; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #d97706; }
+
+/* Hover utilities */
+.hover-lift { transition: transform 0.3s ease; }
+.hover-lift:hover { transform: translateY(-5px); }
+
+.card-hover { transition: all 0.3s ease; }
+.card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+
+/* Form focus */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.15);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #F59E0B 0%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Loading spinner */
+.loading {
+  display: inline-block;
+  width: 20px; height: 20px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+/* Timeline */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: #F59E0B;
+}
+
+/* Mobile section padding */
+@media (max-width: 768px) {
+  section { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+}
+
+/* Print */
+@media print {
+  header, footer, .no-print { display: none; }
+  body { font-size: 12pt; }
+}
