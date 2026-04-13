@@ -17,6 +17,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "js": "js" });
   eleventyConfig.addPassthroughCopy({ "images": "images" });
   eleventyConfig.addPassthroughCopy({ "firebase-config.js": "firebase-config.js" });
+  // robots は src に置いているが、文字列1引数だと cwd の ./robots.txt を探して失敗するため明示する
+  eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
 
   // CSS は postcss-cli でビルドするため passthrough しない（main.css を出力）
   // main.css の内容が変わると URL のクエリも変わり、ブラウザキャッシュ事故を避ける

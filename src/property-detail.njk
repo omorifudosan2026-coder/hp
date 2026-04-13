@@ -1,0 +1,58 @@
+---
+layout: base.njk
+permalink: /property-detail.html
+title: 物件詳細
+activePage: properties
+firebase: true
+description: 掲載物件の詳細情報です。
+pageScript: js/property-detail.js
+---
+
+    <section class="pt-32 pb-24 bg-gray-50 min-h-screen">
+        <div class="container mx-auto px-6 md:px-12">
+            <div id="detail-loading" class="text-center py-20">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                <p class="text-gray-500 mt-4">読み込み中...</p>
+            </div>
+            <div id="detail-error" class="hidden text-center py-20 max-w-xl mx-auto">
+                <p class="text-gray-700 text-lg mb-6" id="detail-error-text"></p>
+                <a href="/properties.html" class="inline-flex items-center gap-2 px-6 py-3 bg-navy text-white rounded-full font-semibold hover:bg-navy/90">物件一覧へ戻る</a>
+            </div>
+            <article id="detail-content" class="hidden max-w-4xl mx-auto">
+                <a href="/properties.html" class="text-sm text-primary font-semibold hover:underline mb-8 inline-block">← 物件一覧</a>
+                <div class="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden">
+                    <div id="detail-hero" class="relative h-72 md:h-96 bg-gray-100"></div>
+                    <div class="p-8 md:p-12">
+                        <div id="detail-label-wrap" class="mb-4"></div>
+                        <h1 id="detail-title" class="text-3xl md:text-4xl font-bold text-navy mb-4"></h1>
+                        <p id="detail-area" class="text-gray-600 mb-8 flex items-center gap-2"></p>
+                        <div class="grid md:grid-cols-2 gap-6 mb-10">
+                            <div class="bg-orange/5 rounded-2xl p-6 border border-orange/20">
+                                <p class="text-sm text-gray-600 mb-1">価格</p>
+                                <p id="detail-price" class="text-2xl font-bold text-navy"></p>
+                            </div>
+                            <div class="bg-navy/5 rounded-2xl p-6 border border-navy/20">
+                                <p class="text-sm text-gray-600 mb-1">間取り</p>
+                                <p id="detail-layout" class="text-2xl font-bold text-navy"></p>
+                            </div>
+                            <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                                <p class="text-sm text-gray-600 mb-1">専有面積</p>
+                                <p id="detail-area-size" class="text-xl font-bold text-navy"></p>
+                            </div>
+                            <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                                <p class="text-sm text-gray-600 mb-1">築年数</p>
+                                <p id="detail-age" class="text-xl font-bold text-navy"></p>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-100 pt-8">
+                            <h2 class="text-lg font-bold text-navy mb-4">物件説明</h2>
+                            <p id="detail-description" class="text-gray-700 leading-relaxed whitespace-pre-line"></p>
+                        </div>
+                        <div class="mt-10">
+                            <a href="/contact.html" class="inline-flex items-center gap-2 px-8 py-4 bg-orange text-white rounded-full font-bold hover:bg-orange-600 transition">この物件について問い合わせる</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>

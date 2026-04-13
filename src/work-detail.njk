@@ -1,0 +1,32 @@
+---
+layout: base.njk
+permalink: /work-detail.html
+title: 施工事例詳細
+activePage: works
+firebase: true
+description: リノベーション施工事例の詳細です。
+pageScript: js/work-detail.js
+---
+
+    <section class="pt-32 pb-24 bg-white min-h-screen">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div id="detail-loading" class="text-center py-20">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                <p class="text-gray-500 mt-4">読み込み中...</p>
+            </div>
+            <div id="detail-error" class="hidden text-center py-20">
+                <p class="text-gray-700 mb-6" id="detail-error-text"></p>
+                <a href="/works.html" class="text-primary font-semibold hover:underline">施工事例一覧へ</a>
+            </div>
+            <article id="detail-content" class="hidden">
+                <a href="/works.html" class="text-sm text-primary font-semibold hover:underline mb-8 inline-block">← 施工事例一覧</a>
+                <div id="detail-hero" class="relative h-72 md:h-96 rounded-3xl overflow-hidden bg-gray-100 mb-10"></div>
+                <h1 id="detail-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4"></h1>
+                <p id="detail-meta" class="text-gray-600 mb-8"></p>
+                <p id="detail-cost" class="text-xl font-bold text-primary mb-10"></p>
+                <div id="detail-description" class="text-gray-700 leading-relaxed whitespace-pre-line mb-10"></div>
+                <div id="detail-gallery" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10"></div>
+                <a href="/contact.html" class="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-full font-bold hover:bg-orange-600 transition">この事例について相談する</a>
+            </article>
+        </div>
+    </section>

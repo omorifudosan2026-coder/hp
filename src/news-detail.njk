@@ -1,0 +1,30 @@
+---
+layout: base.njk
+permalink: /news-detail.html
+title: お知らせ詳細
+activePage: news
+firebase: true
+description: 大森不動産からのお知らせ詳細です。
+pageScript: js/news-detail.js
+---
+
+    <section class="pt-32 pb-24 bg-white min-h-screen">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <div id="detail-loading" class="text-center py-20">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                <p class="text-gray-500 mt-4">読み込み中...</p>
+            </div>
+            <div id="detail-error" class="hidden text-center py-20">
+                <p class="text-gray-700 mb-6" id="detail-error-text"></p>
+                <a href="/news.html" class="text-primary font-semibold hover:underline">お知らせ一覧へ</a>
+            </div>
+            <article id="detail-content" class="hidden">
+                <a href="/news.html" class="text-sm text-primary font-semibold hover:underline mb-8 inline-block">← お知らせ一覧</a>
+                <span id="detail-category" class="inline-block px-4 py-1 rounded-full text-sm font-semibold mb-4"></span>
+                <time id="detail-date" class="text-sm text-gray-500 block mb-4"></time>
+                <h1 id="detail-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-8"></h1>
+                <div id="detail-image-wrap" class="mb-8 hidden"></div>
+                <div id="detail-body" class="prose prose-neutral max-w-none text-gray-700 leading-relaxed whitespace-pre-line"></div>
+            </article>
+        </div>
+    </section>

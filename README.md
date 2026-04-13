@@ -260,7 +260,7 @@ npm run build
 
 - [Firebase Setup Guide](docs/FIREBASE_SETUP.md) - Firebaseの初期設定
 - [Deploy Guide](docs/DEPLOY_GUIDE.md) - サイトの公開方法
-- [本番コンテンツ整備チェックリスト](docs/本番コンテンツ整備チェックリスト.md) - ダミー・暫定の差し替え項目
+- [本番コンテンツ整備チェックリスト](docs/本番コンテンツ整備チェックリスト.md) - ダミー・暫定の差し替え項目（公開前に必ず実データ・法務文面へ差し替え。`privacy` / `terms` の `noindex` は正式文面公開後に外す運用とする）
 - [Eleventy 公式ドキュメント](https://www.11ty.dev/docs/)
 - [Tailwind CSS 公式ドキュメント](https://tailwindcss.com/docs)
 - [Firebase 公式ドキュメント](https://firebase.google.com/docs)

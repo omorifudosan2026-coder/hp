@@ -3,7 +3,7 @@
 // 認証チェック
 auth.onAuthStateChanged((user) => {
     if (!user) {
-        window.location.href = 'login.html';
+        window.location.href = '/login.html';
     } else {
         document.getElementById('user-email').textContent = user.email;
         // データの初期読み込み
@@ -17,7 +17,7 @@ auth.onAuthStateChanged((user) => {
 document.getElementById('logout-btn').addEventListener('click', async () => {
     if (confirm('ログアウトしますか？')) {
         await auth.signOut();
-        window.location.href = 'login.html';
+        window.location.href = '/login.html';
     }
 });
 
@@ -474,19 +474,23 @@ function openWorkModal(id = null) {
     const modal = document.getElementById('work-modal');
     const form = document.getElementById('work-form');
     const title = document.getElementById('work-modal-title');
-    
+    const mainImageInput = document.getElementById('work-image-file');
+
     form.reset();
     document.getElementById('work-image-preview').classList.add('hidden');
     document.getElementById('work-images-preview').classList.add('hidden');
-    
+    mainImageInput.value = '';
+
     if (id) {
         title.textContent = '施工事例を編集';
+        mainImageInput.removeAttribute('required');
         loadWorkData(id);
     } else {
         title.textContent = '施工事例を追加';
         document.getElementById('work-id').value = '';
+        mainImageInput.setAttribute('required', 'required');
     }
-    
+
     modal.classList.remove('hidden');
     modal.classList.add('flex');
 }
@@ -555,21 +559,37 @@ document.getElementById('work-form').addEventListener('submit', async (e) => {
             imageUrl = await uploadImage(imageFile, 'works');
         }
         
-        // 追加画像のアップロード
         const imagesFiles = document.getElementById('work-images-file').files;
-        let imagesUrls = [];
-        if (imagesFiles.length > 0) {
-            for (let file of imagesFiles) {
-                const url = await uploadImage(file, 'works');
-                imagesUrls.push(url);
-            }
+        const existingImagesRaw = document.getElementById('work-images').value;
+        let existingImages = [];
+        try {
+            existingImages = existingImagesRaw ? JSON.parse(existingImagesRaw) : [];
+            if (!Array.isArray(existingImages)) existingImages = [];
+        } catch {
+            existingImages = [];
         }
-        
+
+        let imagesUrls;
+        if (imagesFiles.length > 0) {
+            const uploaded = [];
+            for (const file of imagesFiles) {
+                uploaded.push(await uploadImage(file, 'works'));
+            }
+            imagesUrls = id ? existingImages.concat(uploaded) : uploaded;
+        } else {
+            imagesUrls = id ? existingImages : [];
+        }
+
+        if (!id && !imageFile && !imageUrl) {
+            alert('メイン画像を選択してください。');
+            return;
+        }
+
         const data = {
             title: document.getElementById('work-title').value,
             area: document.getElementById('work-area').value,
             layout: document.getElementById('work-layout').value,
-            cost: parseInt(document.getElementById('work-cost').value),
+            cost: parseInt(document.getElementById('work-cost').value, 10),
             description: document.getElementById('work-description').value,
             image: imageUrl,
             images: imagesUrls,
@@ -615,15 +635,32 @@ async function deleteWork(id) {
 
 // ========== ユーティリティ関数 ==========
 
+function buildSafeStorageObjectName(file, folder) {
+    const ts = Date.now();
+    const rand = Math.random().toString(36).slice(2, 10);
+    const raw = file && file.name ? file.name : '';
+    const dot = raw.lastIndexOf('.');
+    let ext = dot >= 0 ? raw.slice(dot) : '';
+    ext = ext.replace(/[^.a-zA-Z0-9]/g, '').slice(0, 12);
+    if (!ext || ext === '.') ext = '.jpg';
+    return `${folder}/${ts}_${rand}${ext}`;
+}
+
 async function uploadImage(file, folder) {
-    const timestamp = Date.now();
-    const filename = `${folder}/${timestamp}_${file.name}`;
+    const filename = buildSafeStorageObjectName(file, folder);
     const storageRef = storage.ref(filename);
-    
-    await storageRef.put(file);
-    const url = await storageRef.getDownloadURL();
-    
-    return url;
+    try {
+        await storageRef.put(file);
+        return await storageRef.getDownloadURL();
+    } catch (err) {
+        console.error('Storage upload:', err);
+        const code = err && err.code;
+        const hint =
+            code === 'storage/unauthorized'
+                ? 'ログイン状態と Storage のセキュリティルールを確認してください。'
+                : '画像のアップロードに失敗しました。時間をおいて再度お試しください。';
+        throw new Error(hint);
+    }
 }
 
 function showNotification(message) {
@@ -640,3 +677,19 @@ function showNotification(message) {
         }, 300);
     }, 3000);
 }
+
+document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const pairs = [
+        ['property-modal', closePropertyModal],
+        ['news-modal', closeNewsModal],
+        ['work-modal', closeWorkModal],
+    ];
+    for (const [modalId, closeFn] of pairs) {
+        const el = document.getElementById(modalId);
+        if (el && !el.classList.contains('hidden')) {
+            closeFn();
+            break;
+        }
+    }
+});
