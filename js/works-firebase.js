@@ -38,7 +38,7 @@ async function loadWorks() {
 function createWorkCard(work) {
     const imageHtml = work.image ? 
         `<img src="${work.image}" alt="${work.title}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">` :
-        `<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20"></div>`;
+        `<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-orange/10"></div>`;
     
     return `
         <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
@@ -59,7 +59,7 @@ function createWorkCard(work) {
                         <p class="text-xs text-gray-500">施工費用</p>
                         <p class="text-lg font-bold text-primary">${work.cost.toLocaleString()}万円</p>
                     </div>
-                    <a href="#" class="inline-flex items-center text-primary font-semibold hover:gap-2 transition-all">
+                    <a href="/contact.html" class="inline-flex items-center text-primary font-semibold hover:gap-2 transition-all">
                         詳しく見る
                         <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
