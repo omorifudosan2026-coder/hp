@@ -1,9 +1,125 @@
 // Firebase管理画面のJavaScript
 
+const AREA_PREFS = ['東京都', '神奈川県', '埼玉県', '千葉県'];
+
+function openAdminModal(modalEl) {
+    modalEl.classList.remove('hidden');
+    modalEl.classList.add('flex');
+    modalEl.classList.remove('admin-modal--open');
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            modalEl.classList.add('admin-modal--open');
+        });
+    });
+}
+
+function closeAdminModal(modalEl, afterClose) {
+    modalEl.classList.remove('admin-modal--open');
+    setTimeout(() => {
+        modalEl.classList.add('hidden');
+        modalEl.classList.remove('flex');
+        if (typeof afterClose === 'function') afterClose();
+    }, 240);
+}
+
+function parseStoredArea(raw) {
+    const area = String(raw || '').trim();
+    if (!area) return { pref: '東京都', suffix: '', useCustom: false };
+    if (AREA_PREFS.includes(area)) return { pref: area, suffix: '', useCustom: false };
+    const hit = AREA_PREFS.find((p) => area.startsWith(p));
+    if (hit) return { pref: hit, suffix: area.slice(hit.length).trim(), useCustom: false };
+    return { pref: 'その他', suffix: area, useCustom: true };
+}
+
+function composeAreaFromFields(prefSelectId, suffixInputId, customInputId) {
+    const pref = document.getElementById(prefSelectId).value;
+    const suffix = document.getElementById(suffixInputId).value.trim();
+    const custom = document.getElementById(customInputId).value.trim();
+    if (pref === 'その他') {
+        if (!custom) throw new Error('「その他」を選んだ場合は所在地を入力してください。');
+        return custom;
+    }
+    return suffix ? `${pref}${suffix}` : pref;
+}
+
+function updatePropertyAreaFieldVisibility() {
+    const pref = document.getElementById('property-area-pref').value;
+    const suffixWrap = document.getElementById('property-area-suffix-wrap');
+    const customWrap = document.getElementById('property-area-custom-wrap');
+    const customInput = document.getElementById('property-area-custom');
+    if (pref === 'その他') {
+        suffixWrap.classList.add('hidden');
+        customWrap.classList.remove('hidden');
+        customInput.required = true;
+    } else {
+        suffixWrap.classList.remove('hidden');
+        customWrap.classList.add('hidden');
+        customInput.required = false;
+    }
+}
+
+function updateWorkAreaFieldVisibility() {
+    const pref = document.getElementById('work-area-pref').value;
+    const suffixWrap = document.getElementById('work-area-suffix-wrap');
+    const customWrap = document.getElementById('work-area-custom-wrap');
+    const customInput = document.getElementById('work-area-custom');
+    if (pref === 'その他') {
+        suffixWrap.classList.add('hidden');
+        customWrap.classList.remove('hidden');
+        customInput.required = true;
+    } else {
+        suffixWrap.classList.remove('hidden');
+        customWrap.classList.add('hidden');
+        customInput.required = false;
+    }
+}
+
+function parseWorkImagesJson(raw) {
+    try {
+        const v = raw ? JSON.parse(raw) : [];
+        return Array.isArray(v) ? v.filter(Boolean) : [];
+    } catch {
+        return [];
+    }
+}
+
+function renderWorkAdditionalThumbnails(urls) {
+    const container = document.getElementById('work-images-preview');
+    if (!container) return;
+    container.innerHTML = '';
+    const list = Array.isArray(urls) ? urls.filter(Boolean) : [];
+    if (list.length === 0) {
+        container.classList.add('hidden');
+        return;
+    }
+    list.forEach((url) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'relative';
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = '';
+        img.className = 'w-full h-24 object-cover rounded-lg border border-gray-200';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className =
+            'absolute top-1 right-1 px-2 py-0.5 text-xs bg-red-600 text-white rounded opacity-95 hover:bg-red-700';
+        btn.textContent = '削除';
+        btn.addEventListener('click', () => {
+            const next = parseWorkImagesJson(document.getElementById('work-images').value).filter((u) => u !== url);
+            document.getElementById('work-images').value = JSON.stringify(next);
+            renderWorkAdditionalThumbnails(next);
+        });
+        wrap.appendChild(img);
+        wrap.appendChild(btn);
+        container.appendChild(wrap);
+    });
+    container.classList.remove('hidden');
+}
+
 // 認証チェック
 auth.onAuthStateChanged((user) => {
     if (!user) {
-        window.location.href = 'login.html';
+        window.location.href = '/login.html';
     } else {
         document.getElementById('user-email').textContent = user.email;
         // データの初期読み込み
@@ -17,7 +133,7 @@ auth.onAuthStateChanged((user) => {
 document.getElementById('logout-btn').addEventListener('click', async () => {
     if (confirm('ログアウトしますか？')) {
         await auth.signOut();
-        window.location.href = 'login.html';
+        window.location.href = '/login.html';
     }
 });
 
@@ -105,6 +221,10 @@ function openPropertyModal(id = null) {
     
     form.reset();
     document.getElementById('property-image-preview').classList.add('hidden');
+    document.getElementById('property-area-pref').value = '東京都';
+    document.getElementById('property-area-suffix').value = '';
+    document.getElementById('property-area-custom').value = '';
+    updatePropertyAreaFieldVisibility();
     
     if (id) {
         title.textContent = '物件を編集';
@@ -114,8 +234,7 @@ function openPropertyModal(id = null) {
         document.getElementById('property-id').value = '';
     }
     
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+    openAdminModal(modal);
 }
 
 async function loadPropertyData(id) {
@@ -125,7 +244,11 @@ async function loadPropertyData(id) {
         
         document.getElementById('property-id').value = id;
         document.getElementById('property-title').value = property.title;
-        document.getElementById('property-area').value = property.area;
+        const parsedArea = parseStoredArea(property.area);
+        document.getElementById('property-area-pref').value = parsedArea.pref;
+        document.getElementById('property-area-suffix').value = parsedArea.useCustom ? '' : parsedArea.suffix;
+        document.getElementById('property-area-custom').value = parsedArea.useCustom ? parsedArea.suffix : '';
+        updatePropertyAreaFieldVisibility();
         document.getElementById('property-price').value = property.price;
         document.getElementById('property-layout').value = property.layout;
         document.getElementById('property-area-size').value = property.areaSize;
@@ -148,9 +271,9 @@ async function loadPropertyData(id) {
 
 function closePropertyModal() {
     const modal = document.getElementById('property-modal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    document.getElementById('property-form').reset();
+    closeAdminModal(modal, () => {
+        document.getElementById('property-form').reset();
+    });
 }
 
 // 画像プレビュー
@@ -188,7 +311,7 @@ document.getElementById('property-form').addEventListener('submit', async (e) =>
         
         const data = {
             title: document.getElementById('property-title').value,
-            area: document.getElementById('property-area').value,
+            area: composeAreaFromFields('property-area-pref', 'property-area-suffix', 'property-area-custom'),
             price: parseInt(document.getElementById('property-price').value),
             layout: document.getElementById('property-layout').value,
             areaSize: parseFloat(document.getElementById('property-area-size').value),
@@ -306,8 +429,7 @@ function openNewsModal(id = null) {
         document.getElementById('news-date').valueAsDate = new Date();
     }
     
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+    openAdminModal(modal);
 }
 
 async function loadNewsData(id) {
@@ -336,9 +458,9 @@ async function loadNewsData(id) {
 
 function closeNewsModal() {
     const modal = document.getElementById('news-modal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    document.getElementById('news-form').reset();
+    closeAdminModal(modal, () => {
+        document.getElementById('news-form').reset();
+    });
 }
 
 document.getElementById('news-image-file').addEventListener('change', function(e) {
@@ -474,21 +596,30 @@ function openWorkModal(id = null) {
     const modal = document.getElementById('work-modal');
     const form = document.getElementById('work-form');
     const title = document.getElementById('work-modal-title');
-    
+    const mainImageInput = document.getElementById('work-image-file');
+    const galleryPrev = document.getElementById('work-images-preview');
+
     form.reset();
     document.getElementById('work-image-preview').classList.add('hidden');
-    document.getElementById('work-images-preview').classList.add('hidden');
-    
+    galleryPrev.innerHTML = '';
+    galleryPrev.classList.add('hidden');
+    mainImageInput.value = '';
+    document.getElementById('work-area-pref').value = '東京都';
+    document.getElementById('work-area-suffix').value = '';
+    document.getElementById('work-area-custom').value = '';
+    updateWorkAreaFieldVisibility();
+
     if (id) {
         title.textContent = '施工事例を編集';
+        mainImageInput.removeAttribute('required');
         loadWorkData(id);
     } else {
         title.textContent = '施工事例を追加';
         document.getElementById('work-id').value = '';
+        mainImageInput.setAttribute('required', 'required');
     }
-    
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+
+    openAdminModal(modal);
 }
 
 async function loadWorkData(id) {
@@ -498,12 +629,18 @@ async function loadWorkData(id) {
         
         document.getElementById('work-id').value = id;
         document.getElementById('work-title').value = work.title;
-        document.getElementById('work-area').value = work.area;
+        const parsedArea = parseStoredArea(work.area);
+        document.getElementById('work-area-pref').value = parsedArea.pref;
+        document.getElementById('work-area-suffix').value = parsedArea.useCustom ? '' : parsedArea.suffix;
+        document.getElementById('work-area-custom').value = parsedArea.useCustom ? parsedArea.suffix : '';
+        updateWorkAreaFieldVisibility();
         document.getElementById('work-layout').value = work.layout;
         document.getElementById('work-cost').value = work.cost;
         document.getElementById('work-description').value = work.description;
         document.getElementById('work-image').value = work.image || '';
-        document.getElementById('work-images').value = work.images ? JSON.stringify(work.images) : '';
+        const gallery = Array.isArray(work.images) ? work.images.filter(Boolean) : [];
+        document.getElementById('work-images').value = gallery.length ? JSON.stringify(gallery) : '';
+        renderWorkAdditionalThumbnails(gallery);
         
         if (work.image) {
             const preview = document.getElementById('work-image-preview');
@@ -519,9 +656,9 @@ async function loadWorkData(id) {
 
 function closeWorkModal() {
     const modal = document.getElementById('work-modal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    document.getElementById('work-form').reset();
+    closeAdminModal(modal, () => {
+        document.getElementById('work-form').reset();
+    });
 }
 
 document.getElementById('work-image-file').addEventListener('change', function(e) {
@@ -555,21 +692,37 @@ document.getElementById('work-form').addEventListener('submit', async (e) => {
             imageUrl = await uploadImage(imageFile, 'works');
         }
         
-        // 追加画像のアップロード
         const imagesFiles = document.getElementById('work-images-file').files;
-        let imagesUrls = [];
-        if (imagesFiles.length > 0) {
-            for (let file of imagesFiles) {
-                const url = await uploadImage(file, 'works');
-                imagesUrls.push(url);
-            }
+        const existingImagesRaw = document.getElementById('work-images').value;
+        let existingImages = [];
+        try {
+            existingImages = existingImagesRaw ? JSON.parse(existingImagesRaw) : [];
+            if (!Array.isArray(existingImages)) existingImages = [];
+        } catch {
+            existingImages = [];
         }
-        
+
+        let imagesUrls;
+        if (imagesFiles.length > 0) {
+            const uploaded = [];
+            for (const file of imagesFiles) {
+                uploaded.push(await uploadImage(file, 'works'));
+            }
+            imagesUrls = id ? existingImages.concat(uploaded) : uploaded;
+        } else {
+            imagesUrls = id ? existingImages : [];
+        }
+
+        if (!id && !imageFile && !imageUrl) {
+            alert('メイン画像を選択してください。');
+            return;
+        }
+
         const data = {
             title: document.getElementById('work-title').value,
-            area: document.getElementById('work-area').value,
+            area: composeAreaFromFields('work-area-pref', 'work-area-suffix', 'work-area-custom'),
             layout: document.getElementById('work-layout').value,
-            cost: parseInt(document.getElementById('work-cost').value),
+            cost: parseInt(document.getElementById('work-cost').value, 10),
             description: document.getElementById('work-description').value,
             image: imageUrl,
             images: imagesUrls,
@@ -615,15 +768,32 @@ async function deleteWork(id) {
 
 // ========== ユーティリティ関数 ==========
 
+function buildSafeStorageObjectName(file, folder) {
+    const ts = Date.now();
+    const rand = Math.random().toString(36).slice(2, 10);
+    const raw = file && file.name ? file.name : '';
+    const dot = raw.lastIndexOf('.');
+    let ext = dot >= 0 ? raw.slice(dot) : '';
+    ext = ext.replace(/[^.a-zA-Z0-9]/g, '').slice(0, 12);
+    if (!ext || ext === '.') ext = '.jpg';
+    return `${folder}/${ts}_${rand}${ext}`;
+}
+
 async function uploadImage(file, folder) {
-    const timestamp = Date.now();
-    const filename = `${folder}/${timestamp}_${file.name}`;
+    const filename = buildSafeStorageObjectName(file, folder);
     const storageRef = storage.ref(filename);
-    
-    await storageRef.put(file);
-    const url = await storageRef.getDownloadURL();
-    
-    return url;
+    try {
+        await storageRef.put(file);
+        return await storageRef.getDownloadURL();
+    } catch (err) {
+        console.error('Storage upload:', err);
+        const code = err && err.code;
+        const hint =
+            code === 'storage/unauthorized'
+                ? 'ログイン状態と Storage のセキュリティルールを確認してください。'
+                : '画像のアップロードに失敗しました。時間をおいて再度お試しください。';
+        throw new Error(hint);
+    }
 }
 
 function showNotification(message) {
@@ -640,3 +810,22 @@ function showNotification(message) {
         }, 300);
     }, 3000);
 }
+
+document.getElementById('property-area-pref').addEventListener('change', updatePropertyAreaFieldVisibility);
+document.getElementById('work-area-pref').addEventListener('change', updateWorkAreaFieldVisibility);
+
+document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const pairs = [
+        ['property-modal', closePropertyModal],
+        ['news-modal', closeNewsModal],
+        ['work-modal', closeWorkModal],
+    ];
+    for (const [modalId, closeFn] of pairs) {
+        const el = document.getElementById(modalId);
+        if (el && !el.classList.contains('hidden')) {
+            closeFn();
+            break;
+        }
+    }
+});

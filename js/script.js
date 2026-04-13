@@ -1,13 +1,5 @@
-// Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
+    // モバイルメニューは header.js に一本化（二重トグル防止）
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -43,18 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 
-    // Header scroll effect (影なし)
-    let lastScroll = 0;
-    const header = document.querySelector('header');
-    
-    window.addEventListener('scroll', function() {
-        const currentScroll = window.pageYOffset;
-        
-        // スクロール時も影を追加しない（デザインの要望通り）
-        
-        lastScroll = currentScroll;
-    });
-
     // Form validation
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
@@ -63,13 +43,19 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Get form values
             const name = document.getElementById('name').value.trim();
+            const furigana = document.getElementById('furigana').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
+            const inquiryType = document.getElementById('inquiry-type').value;
             const message = document.getElementById('message').value.trim();
+            const privacyAgree = document.getElementById('privacy-agree').checked;
             
-            // Simple validation
-            if (!name || !email || !message) {
+            if (!name || !furigana || !email || !phone || !inquiryType || !message) {
                 showNotification('error', '必須項目をすべて入力してください。');
+                return;
+            }
+            if (!privacyAgree) {
+                showNotification('error', 'プライバシーポリシーへの同意が必要です。');
                 return;
             }
             
@@ -80,19 +66,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Show loading
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<span class="loading mr-2"></span>送信中...';
             submitBtn.disabled = true;
-            
-            // Simulate form submission (replace with actual submission logic)
-            setTimeout(() => {
-                showNotification('success', 'お問い合わせを送信しました。担当者より折り返しご連絡いたします。');
-                contactForm.reset();
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
+            // 送信先 API は未接続（Firestore / Functions 等で実装予定）
+            showNotification('error', '現在、フォームからの送信は準備中です。お急ぎの方はお電話にてお問い合わせください。');
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
         });
     }
 
@@ -118,6 +99,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
         </svg>
     `;
+    backToTopBtn.type = 'button';
+    backToTopBtn.setAttribute('aria-label', 'ページ先頭へ戻る');
     backToTopBtn.className = 'fixed bottom-8 right-8 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-orange-600 transition opacity-0 pointer-events-none z-50';
     backToTopBtn.id = 'back-to-top';
     document.body.appendChild(backToTopBtn);
@@ -145,17 +128,26 @@ function showNotification(type, message) {
         type === 'success' ? 'bg-green-500' : 'bg-red-500'
     } text-white transform translate-x-full transition-transform duration-300`;
     
-    notification.innerHTML = `
-        <div class="flex items-center">
-            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                ${type === 'success' 
-                    ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>'
-                    : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>'
-                }
-            </svg>
-            <span>${message}</span>
-        </div>
-    `;
+    const wrap = document.createElement('div');
+    wrap.className = 'flex items-center';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'w-6 h-6 mr-3');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('d', type === 'success'
+        ? 'M5 13l4 4L19 7'
+        : 'M6 18L18 6M6 6l12 12');
+    svg.appendChild(path);
+    const span = document.createElement('span');
+    span.textContent = message;
+    wrap.appendChild(svg);
+    wrap.appendChild(span);
+    notification.appendChild(wrap);
     
     document.body.appendChild(notification);
     
@@ -170,68 +162,3 @@ function showNotification(type, message) {
         }, 300);
     }, 5000);
 }
-
-// Filter functionality for works page
-function filterWorks(category) {
-    const workItems = document.querySelectorAll('.work-item');
-    
-    workItems.forEach(item => {
-        if (category === 'all' || item.dataset.category === category) {
-            item.style.display = 'block';
-            setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'scale(1)';
-            }, 10);
-        } else {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-                item.style.display = 'none';
-            }, 300);
-        }
-    });
-    
-    // Update active filter button
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('bg-primary', 'text-white');
-        btn.classList.add('bg-gray-200', 'text-gray-700');
-    });
-    
-    event.target.classList.remove('bg-gray-200', 'text-gray-700');
-    event.target.classList.add('bg-primary', 'text-white');
-}
-
-// Modal functionality
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-}
-
-// Close modal on outside click
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('modal-backdrop')) {
-        e.target.closest('.modal').classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-});
-
-// Close modal on escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.classList.add('hidden');
-        });
-        document.body.style.overflow = 'auto';
-    }
-});
