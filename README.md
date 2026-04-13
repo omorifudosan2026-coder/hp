@@ -59,8 +59,7 @@ omori/
 ├── postcss.config.js
 ├── package.json
 ├── .github/workflows/deploy.yml  # main へ push でビルド＆デプロイ（WIF）
-├── FIREBASE_SETUP.md
-├── DEPLOY_GUIDE.md
+├── docs/                       # 手順書・本番向けチェックリスト
 └── README.md
 ```
 
@@ -78,7 +77,7 @@ npm install
 
 ### 2. Firebase の設定
 
-詳しい手順は [FIREBASE_SETUP.md](FIREBASE_SETUP.md) を参照してください。
+詳しい手順は [docs/FIREBASE_SETUP.md](docs/FIREBASE_SETUP.md) を参照してください。
 
 `firebase-config.js` に Firebase プロジェクトの設定情報を記入します。
 
@@ -118,7 +117,7 @@ npm run build
 firebase deploy --only hosting
 ```
 
-詳しい手順は [DEPLOY_GUIDE.md](DEPLOY_GUIDE.md) を参照してください。
+詳しい手順は [docs/DEPLOY_GUIDE.md](docs/DEPLOY_GUIDE.md) を参照してください。
 
 ### GitHub Actions（自動デプロイ）
 
@@ -259,8 +258,9 @@ npm run build
 
 ## 📚 ドキュメント
 
-- [Firebase Setup Guide](FIREBASE_SETUP.md) - Firebaseの初期設定
-- [Deploy Guide](DEPLOY_GUIDE.md) - サイトの公開方法
+- [Firebase Setup Guide](docs/FIREBASE_SETUP.md) - Firebaseの初期設定
+- [Deploy Guide](docs/DEPLOY_GUIDE.md) - サイトの公開方法
+- [本番コンテンツ整備チェックリスト](docs/本番コンテンツ整備チェックリスト.md) - ダミー・暫定の差し替え項目
 - [Eleventy 公式ドキュメント](https://www.11ty.dev/docs/)
 - [Tailwind CSS 公式ドキュメント](https://tailwindcss.com/docs)
 - [Firebase 公式ドキュメント](https://firebase.google.com/docs)

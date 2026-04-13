@@ -6,10 +6,11 @@
   "scripts": {
     "build:css": "postcss src/css/main.css -o _site/css/main.css",
     "build:html": "eleventy",
-    "build": "npm run build:html && npm run build:css",
+    "build": "npm run build:css && npm run build:html",
     "dev:css": "postcss src/css/main.css -o _site/css/main.css --watch",
     "dev:html": "eleventy --serve",
-    "dev": "npm-run-all --parallel dev:css dev:html"
+    "dev:prepare": "postcss src/css/main.css -o _site/css/main.css",
+    "dev": "npm run dev:prepare && npm-run-all --parallel dev:css dev:html"
   },
   "repository": {
     "type": "git",
