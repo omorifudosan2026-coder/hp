@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (btn) {
         btn.addEventListener('click', applyPropertyFilters);
     }
+    ['filter-area', 'filter-price', 'filter-layout'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('change', applyPropertyFilters);
+    });
 });
 
 function matchAreaFilter(p, area) {
@@ -127,26 +131,23 @@ function createPropertyCard(property) {
 
     return `
         <div class="relative group">
-            <div class="absolute inset-0 bg-gradient-to-br from-orange/10 to-transparent rounded-3xl transform rotate-2 group-hover:rotate-3 transition-transform duration-500"></div>
-            
-            <div class="relative bg-white rounded-2xl overflow-hidden border-2 border-gray-100 hover:border-orange/30 hover:shadow-2xl transition-all duration-500 ease-out will-change-transform transform hover:-translate-y-1">
+            <div class="absolute inset-0 bg-gradient-to-br from-orange/10 to-transparent rounded-3xl transform rotate-2 group-hover:rotate-3 transition-transform duration-500 pointer-events-none"></div>
+            <a href="${detailHref}" class="list-card-link list-card-elev relative block bg-white rounded-2xl overflow-hidden border-2 border-gray-100 hover:border-orange/30 will-change-transform">
                 <div class="relative h-56 bg-gray-100 overflow-hidden">
                     ${imageHtml}
-                    <div class="absolute inset-0 bg-gradient-to-t from-navy/40 via-navy/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy/40 via-navy/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out pointer-events-none"></div>
                     ${labelHtml}
-                    
-                    <div class="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                    <div class="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 pointer-events-none">
                         <div class="bg-white/90 backdrop-blur-sm rounded-xl p-3">
                             <p class="text-xs font-semibold text-navy">今すぐ見学可能</p>
                         </div>
                     </div>
                 </div>
                 <div class="p-6 relative">
-                    <div class="absolute top-0 right-6 w-3 h-3 bg-orange rounded-full -mt-1.5"></div>
-                    
+                    <div class="absolute top-0 right-6 w-3 h-3 bg-orange rounded-full -mt-1.5 pointer-events-none"></div>
                     <h3 class="text-lg font-bold text-navy mb-2 line-clamp-2">${title}</h3>
                     <div class="flex items-center text-gray-500 text-xs mb-4 font-light">
-                        <svg class="w-3.5 h-3.5 mr-1 text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-3.5 h-3.5 mr-1 text-orange shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
@@ -162,14 +163,14 @@ function createPropertyCard(property) {
                             <p class="text-xl font-bold text-navy">${layout}</p>
                         </div>
                     </div>
-                    <a href="${detailHref}" class="group/link flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-navy to-navy/90 text-white text-sm font-bold rounded-full hover:shadow-lg hover:shadow-navy/30 transition-all duration-300 ease-out">
+                    <span class="list-card-navy-cta">
                         詳細を見る
-                        <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
-                    </a>
+                    </span>
                 </div>
-            </div>
+            </a>
         </div>
     `;
 }

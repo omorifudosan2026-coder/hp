@@ -32,27 +32,27 @@
 {% endif %}
 
     <!-- Header -->
-    <header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-6 transition-all duration-300" id="header" style="box-shadow: none !important;">
+    <header class="fixed top-3 md:top-4 left-0 right-0 z-50 px-3 sm:px-4 md:px-6 transition-all duration-300 header-site" id="header">
         <div class="max-w-7xl mx-auto">
-            <div class="bg-white/90 backdrop-blur-lg rounded-full px-6 py-4" style="box-shadow: none !important;">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <a href="/index.html" class="flex items-center gap-3">
-                            <img src="/images/logo.png" alt="大森不動産" class="h-10 w-auto">
-                            <span class="text-lg font-bold text-navy tracking-tight hidden md:block">
+            <div class="header-pill bg-white/90 backdrop-blur-lg rounded-full px-3.5 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 lg:px-7 lg:py-3.5">
+                <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                        <a href="/index.html" class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                            <img src="/images/logo.png" alt="大森不動産" class="h-9 w-auto shrink-0 sm:h-10 md:h-11 lg:h-12 xl:h-14">
+                            <span class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-navy tracking-tight truncate leading-tight">
                                 大森<span class="text-orange">不動産</span>
                             </span>
                         </a>
                     </div>
 
                     <!-- Desktop Navigation -->
-                    <nav class="hidden lg:flex items-center gap-2">
-                        <a href="/concept.html" class="px-4 py-2 text-sm font-medium {{ 'text-navy font-bold bg-gray-100' if activePage == 'concept' else 'text-gray-700 hover:text-navy hover:bg-gray-50' }} rounded-full transition">サービス</a>
-                        <a href="/properties.html" class="px-4 py-2 text-sm font-medium {{ 'text-navy font-bold bg-gray-100' if activePage == 'properties' else 'text-gray-700 hover:text-navy hover:bg-gray-50' }} rounded-full transition">物件一覧</a>
-                        <a href="/works.html" class="px-4 py-2 text-sm font-medium {{ 'text-navy font-bold bg-gray-100' if activePage == 'works' else 'text-gray-700 hover:text-navy hover:bg-gray-50' }} rounded-full transition">施工事例</a>
-                        <a href="/company.html" class="px-4 py-2 text-sm font-medium {{ 'text-navy font-bold bg-gray-100' if activePage == 'company' else 'text-gray-700 hover:text-navy hover:bg-gray-50' }} rounded-full transition">会社概要</a>
-                        <a href="/news.html" class="px-4 py-2 text-sm font-medium {{ 'text-navy font-bold bg-gray-100' if activePage == 'news' else 'text-gray-700 hover:text-navy hover:bg-gray-50' }} rounded-full transition">お知らせ</a>
-                        <a href="/contact.html" class="ml-2 inline-flex items-center gap-2 px-6 py-2.5 bg-orange text-white text-sm font-medium rounded-full hover:bg-orange-600 transition">
+                    <nav class="hidden lg:flex items-center gap-1.5 xl:gap-2">
+                        <a href="/concept.html" class="header-nav-link px-4 py-2.5 text-[15px] xl:text-base font-medium rounded-full {{ 'text-navy font-bold bg-gray-100' if activePage == 'concept' else 'text-gray-700 hover:text-navy hover:bg-gray-50' }}">サービス</a>
+                        <a href="/properties.html" class="header-nav-link px-4 py-2.5 text-[15px] xl:text-base font-medium rounded-full {{ 'text-navy font-bold bg-gray-100' if activePage == 'properties' else 'text-gray-700 hover:text-navy hover:bg-gray-50' }}">物件一覧</a>
+                        <a href="/works.html" class="header-nav-link px-4 py-2.5 text-[15px] xl:text-base font-medium rounded-full {{ 'text-navy font-bold bg-gray-100' if activePage == 'works' else 'text-gray-700 hover:text-navy hover:bg-gray-50' }}">施工事例</a>
+                        <a href="/company.html" class="header-nav-link px-4 py-2.5 text-[15px] xl:text-base font-medium rounded-full {{ 'text-navy font-bold bg-gray-100' if activePage == 'company' else 'text-gray-700 hover:text-navy hover:bg-gray-50' }}">会社概要</a>
+                        <a href="/news.html" class="header-nav-link px-4 py-2.5 text-[15px] xl:text-base font-medium rounded-full {{ 'text-navy font-bold bg-gray-100' if activePage == 'news' else 'text-gray-700 hover:text-navy hover:bg-gray-50' }}">お知らせ</a>
+                        <a href="/contact.html" class="header-cta-btn ml-1 xl:ml-2 inline-flex items-center gap-2 px-6 py-3 xl:px-7 xl:py-3.5 bg-orange text-white text-[15px] xl:text-base font-medium rounded-full hover:bg-orange-600">
                             <span>お問い合わせ</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -61,25 +61,27 @@
                     </nav>
 
                     <!-- Mobile Menu Button -->
-                    <button type="button" id="mobile-menu-btn" class="lg:hidden p-2 hover:bg-gray-100 rounded-full transition" aria-controls="mobile-menu" aria-expanded="false" aria-label="メニューを開く">
-                        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
+                    <button type="button" id="mobile-menu-btn" class="lg:hidden p-2 hover:bg-gray-100 rounded-full header-nav-link hamburger-btn" aria-controls="mobile-menu" aria-expanded="false" aria-label="メニューを開く">
+                        <span class="hamburger-btn__lines" aria-hidden="true">
+                            <span class="hamburger-btn__line"></span>
+                            <span class="hamburger-btn__line"></span>
+                            <span class="hamburger-btn__line"></span>
+                        </span>
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="hidden lg:hidden mt-2" role="navigation" aria-label="モバイルメニュー">
+        <div id="mobile-menu" class="mobile-menu-panel lg:hidden mt-2 mobile-menu-panel--collapsed overflow-hidden" role="navigation" aria-label="モバイルメニュー">
             <div class="bg-white/95 backdrop-blur-lg rounded-3xl border border-gray-100/50 p-4 max-w-md mx-auto">
                 <nav class="flex flex-col gap-1">
-                    <a href="/concept.html" class="px-4 py-3 text-sm font-medium {{ 'text-navy font-bold bg-gray-100' if activePage == 'concept' else 'text-gray-700 hover:bg-gray-50' }} rounded-2xl transition">サービス</a>
-                    <a href="/properties.html" class="px-4 py-3 text-sm font-medium {{ 'text-navy font-bold bg-gray-100' if activePage == 'properties' else 'text-gray-700 hover:bg-gray-50' }} rounded-2xl transition">物件一覧</a>
-                    <a href="/works.html" class="px-4 py-3 text-sm font-medium {{ 'text-navy font-bold bg-gray-100' if activePage == 'works' else 'text-gray-700 hover:bg-gray-50' }} rounded-2xl transition">施工事例</a>
-                    <a href="/company.html" class="px-4 py-3 text-sm font-medium {{ 'text-navy font-bold bg-gray-100' if activePage == 'company' else 'text-gray-700 hover:bg-gray-50' }} rounded-2xl transition">会社概要</a>
-                    <a href="/news.html" class="px-4 py-3 text-sm font-medium {{ 'text-navy font-bold bg-gray-100' if activePage == 'news' else 'text-gray-700 hover:bg-gray-50' }} rounded-2xl transition">お知らせ</a>
-                    <a href="/contact.html" class="mt-2 px-4 py-3 bg-orange text-white text-sm font-medium text-center rounded-2xl hover:bg-orange-600 transition">お問い合わせ</a>
+                    <a href="/concept.html" class="header-nav-link px-4 py-3 text-sm font-medium rounded-2xl {{ 'text-navy font-bold bg-gray-100' if activePage == 'concept' else 'text-gray-700 hover:bg-gray-50' }}">サービス</a>
+                    <a href="/properties.html" class="header-nav-link px-4 py-3 text-sm font-medium rounded-2xl {{ 'text-navy font-bold bg-gray-100' if activePage == 'properties' else 'text-gray-700 hover:bg-gray-50' }}">物件一覧</a>
+                    <a href="/works.html" class="header-nav-link px-4 py-3 text-sm font-medium rounded-2xl {{ 'text-navy font-bold bg-gray-100' if activePage == 'works' else 'text-gray-700 hover:bg-gray-50' }}">施工事例</a>
+                    <a href="/company.html" class="header-nav-link px-4 py-3 text-sm font-medium rounded-2xl {{ 'text-navy font-bold bg-gray-100' if activePage == 'company' else 'text-gray-700 hover:bg-gray-50' }}">会社概要</a>
+                    <a href="/news.html" class="header-nav-link px-4 py-3 text-sm font-medium rounded-2xl {{ 'text-navy font-bold bg-gray-100' if activePage == 'news' else 'text-gray-700 hover:bg-gray-50' }}">お知らせ</a>
+                    <a href="/contact.html" class="header-cta-btn mt-2 px-4 py-3 bg-orange text-white text-sm font-medium text-center rounded-2xl hover:bg-orange-600">お問い合わせ</a>
                 </nav>
             </div>
         </div>

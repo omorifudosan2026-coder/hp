@@ -18,22 +18,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!mobileMenuBtn || !mobileMenu) return;
 
-    const setExpanded = (open) => {
+    const setOpen = (open) => {
         mobileMenuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        mobileMenuBtn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+        mobileMenu.classList.toggle('mobile-menu-panel--open', open);
+        mobileMenu.classList.toggle('mobile-menu-panel--collapsed', !open);
     };
 
-    setExpanded(false);
+    setOpen(false);
 
     mobileMenuBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        mobileMenu.classList.toggle('hidden');
-        setExpanded(!mobileMenu.classList.contains('hidden'));
+        const next = !mobileMenu.classList.contains('mobile-menu-panel--open');
+        setOpen(next);
     });
 
     document.addEventListener('click', (e) => {
         if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-            mobileMenu.classList.add('hidden');
-            setExpanded(false);
+            setOpen(false);
         }
     });
 });

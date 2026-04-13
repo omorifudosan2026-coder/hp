@@ -53,28 +53,33 @@ function createNewsArticle(item) {
     const detailHref = `/news-detail.html?id=${encodeURIComponent(item.id)}`;
     const excerpt = escapeHtml(excerptText(item.content, 160));
     const safeImg = trustHttpsUrl(item.image);
-    const imageHtml = safeImg
-        ? `<div class="mb-4">
-            <a href="${detailHref}"><img src="${escapeHtml(safeImg)}" alt="${title}" class="w-full rounded-lg hover:opacity-95 transition"></a>
+    const thumbHtml = safeImg
+        ? `<div class="shrink-0 w-full sm:w-32 md:w-40 mx-auto sm:mx-0">
+            <img src="${escapeHtml(safeImg)}" alt="${title}" width="160" height="120" class="w-full h-36 sm:h-28 md:h-32 object-cover rounded-xl border border-gray-100 shadow-sm transition-opacity duration-300 group-hover:opacity-90">
         </div>`
         : '';
 
     return `
-        <article class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 hover:shadow-lg transition">
-            <div class="flex flex-col md:flex-row md:items-start gap-6">
-                <div class="flex-shrink-0">
-                    <span class="inline-block px-4 py-1 ${categoryClass} rounded-full text-sm font-semibold">${escapeHtml(cat)}</span>
+        <article class="mb-6">
+            <a href="${detailHref}" class="list-card-link list-card-elev block bg-white border border-gray-200 rounded-2xl p-6 md:p-8 group">
+                <div class="flex flex-col sm:flex-row sm:items-start gap-5 md:gap-8">
+                    ${thumbHtml}
+                    <div class="flex-1 min-w-0">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="inline-block px-3 py-1 ${categoryClass} rounded-full text-xs font-semibold">${escapeHtml(cat)}</span>
+                            <time class="text-sm text-gray-500">${escapeHtml(formatDate(item.date))}</time>
+                        </div>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 transition-colors duration-300 group-hover:text-primary">${title}</h2>
+                        <p class="text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-line mb-4">${excerpt}</p>
+                        <span class="inline-flex items-center gap-1.5 text-primary font-semibold text-sm">
+                            続きを読む
+                            <svg class="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </span>
+                    </div>
                 </div>
-                <div class="flex-1 min-w-0">
-                    <time class="text-sm text-gray-500 block mb-2">${escapeHtml(formatDate(item.date))}</time>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
-                        <a href="${detailHref}" class="hover:text-primary transition">${title}</a>
-                    </h2>
-                    ${imageHtml}
-                    <p class="text-gray-600 leading-relaxed whitespace-pre-line mb-4">${excerpt}</p>
-                    <a href="${detailHref}" class="inline-flex items-center text-primary font-semibold hover:underline text-sm">続きを読む</a>
-                </div>
-            </div>
+            </a>
         </article>
     `;
 }
