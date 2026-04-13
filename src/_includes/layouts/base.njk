@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex, nofollow">
     {% endif %}
     <title>{% if title %}{{ title }} | 大森不動産{% else %}大森不動産 | リノベーションで叶える、あなたらしい暮らし{% endif %}</title>
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/main.css{% if mainCssCacheBust %}?v={{ mainCssCacheBust }}{% endif %}">
 </head>
 <body class="bg-white">
 

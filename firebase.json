@@ -6,9 +6,7 @@
       "**/node_modules/**",
       "**/.git/**",
       ".firebaserc",
-      "README.md",
-      "FIREBASE_SETUP.md",
-      "DEPLOY_GUIDE.md"
+      "README.md"
     ],
     "rewrites": [
       {
