@@ -6,53 +6,68 @@ firebase: true
 pageScript: js/index-firebase.js
 ---
 
-<!-- Hero Section：写真はセクション上端から。左テキストだけヘッダー分＋余白を padding-top で確保 -->
-<section class="hero-intro relative min-h-screen flex bg-cream">
-  <!-- 左: テキストエリア（ドットグリッド背景） -->
-  <div class="relative w-full lg:w-1/2 flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--site-header-height)+1.5rem)] md:pt-[calc(var(--site-header-height)+2rem)] px-6 md:px-10 xl:px-16 bg-dots">
-    <div class="hero-intro__stack w-full min-w-0 flex flex-col gap-7 md:gap-8">
-      <div>
-      <p class="section-label mb-8" data-hero-piece data-hero-delay="0">Real Estate &amp; Renovation</p>
-      <h1 id="hero-heading" class="hero-intro__title font-serif text-ink mb-6">
-        <span class="hero-intro__title-row">「<span class="hero-intro__lede-line">じぶんに合った</span></span>
-        <span class="hero-intro__title-row"><span class="hero-intro__lede-line">暮らしと住まい</span>」を</span>
+<!-- Hero：左に見出し＋CTA、右に写真＋写真下に英字（右からライン） -->
+<section class="hero-intro hero-intro--layout relative min-h-screen max-lg:flex max-lg:flex-col bg-cream pt-[calc(var(--site-header-height)+1.25rem)] md:pt-[calc(var(--site-header-height)+1.5rem)] pb-10 lg:pt-0 lg:pb-0">
+  <div class="hero-intro__left-col max-lg:contents lg:flex lg:flex-col lg:min-h-0 lg:items-center lg:justify-center lg:bg-dots">
+    <div class="hero-intro__title-wrap flex flex-col items-center text-center gap-7 px-6 md:px-10 xl:px-12 max-lg:max-w-xl max-lg:mb-6 lg:mb-0 lg:w-full lg:max-w-xl lg:gap-8 lg:py-4 lg:px-0">
+      <h1 id="hero-heading" class="hero-intro__title font-serif text-ink">
+        <span class="hero-intro__title-row hero-intro__title-row--lede">「<span class="hero-intro__lede-line hero-intro__lede-line--first">じぶんに合った</span><br><span class="hero-intro__lede-line hero-intro__lede-line--second">暮らしと住まい</span>」を</span>
         <em class="hero-intro__title-accent not-italic" style="color:#E8621A">あなたと一緒に考える。</em>
       </h1>
-      <p class="hero-intro__lead text-muted" data-hero-piece data-hero-delay="160">
-        お客さまの多様なニーズに沿った多彩なサービスで理想の暮らしをサポートします。
-      </p>
-      <a href="/concept.html" class="site-btn site-btn--md site-btn--outline-ink mt-5" data-hero-piece data-hero-delay="240">
+      <a href="/concept.html" class="site-btn site-btn--md site-btn--outline-ink shrink-0 self-center" data-hero-piece data-hero-delay="240">
         <span class="site-btn__inner">大森不動産とは<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
       </a>
-      </div>
-      <!-- 実績数字（上のブロックとは gap で間隔を統一） -->
-      <div class="hero-intro__stats flex gap-10 md:gap-12 pt-8" data-hero-piece data-hero-delay="320">
-      <div class="hero-intro__stat">
-        <p class="hero-intro__stat-value text-ink">
-          <span class="hero-intro__stat-figures"><span data-hero-count="300">0</span><span class="hero-intro__stat-unit">+</span></span>
-        </p>
-        <p class="hero-intro__stat-label text-muted">施工実績</p>
-      </div>
-      <div class="hero-intro__stat">
-        <p class="hero-intro__stat-value text-ink">
-          <span class="hero-intro__stat-figures"><span data-hero-count="98">0</span><span class="hero-intro__stat-unit">%</span></span>
-        </p>
-        <p class="hero-intro__stat-label text-muted">お客様満足度</p>
-      </div>
-      </div>
     </div>
   </div>
-  <!-- 右: 写真（クリップワイプ + スケール） -->
-  <div class="hidden lg:block lg:w-1/2 relative hero-intro__visual overflow-hidden">
-    <div class="hero-intro__visual-inner absolute inset-0 overflow-hidden">
-      <img src="/images/hero-bg.jpg" alt="理想の住まい" class="hero-intro__img absolute inset-0 w-full h-full object-cover">
+  <div class="hero-intro__media-col w-full lg:min-h-0 flex flex-col max-lg:mt-8 lg:pr-0">
+    <div class="hero-intro__visual-frame hidden lg:flex flex-1 min-h-0 flex-col pt-0 pb-2 xl:pb-3 mt-2 xl:mt-3">
+      <div class="hero-intro__visual relative flex-1 min-h-[min(64vh,40rem)] w-full overflow-hidden rounded-sm">
+        <div class="hero-intro__visual-inner absolute inset-0 overflow-hidden">
+          <img src="/images/hero-bg.jpg" alt="理想の住まい" class="hero-intro__img absolute inset-0 w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-0 bg-ink/10 pointer-events-none"></div>
+      </div>
     </div>
-    <div class="absolute inset-0 bg-ink/10 pointer-events-none"></div>
+    <p class="section-label hero-intro__photo-tagline shrink-0 px-6 pt-2 pb-8 md:px-10 md:pb-9 lg:px-0 lg:pt-1.5 lg:pb-10" data-hero-piece data-hero-delay="0">
+      <span class="hero-intro__photo-tagline__text">Real Estate &amp; Renovation</span>
+    </p>
+  </div>
+</section>
+
+<!-- ヒーロー直下：リード＋実績カウント -->
+<section class="hero-lede border-t border-[#E8E4DC] bg-[#FAF8F5]" aria-label="サービス概要">
+  <div class="hero-lede__shell max-w-6xl mx-auto px-6 md:px-10 xl:px-14 py-14 md:py-20 lg:py-24" data-reveal data-hero-count-root>
+    <div class="flex flex-col gap-10 lg:gap-12">
+      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-16">
+        <div class="max-w-3xl lg:pt-1">
+          <span class="hero-lede__rule font-mono-label text-[0.62rem] tracking-[0.28em] text-[#E8621A] uppercase">Philosophy</span>
+          <p class="hero-lede__text mt-4 text-ink/85 text-base md:text-lg leading-[1.85] tracking-wide font-light">
+            お客さまの多様なニーズに沿った多彩なサービスで理想の暮らしをサポートします。
+          </p>
+        </div>
+        <div class="hero-lede__aside flex flex-wrap items-end justify-end gap-10 lg:gap-12 lg:flex-nowrap lg:shrink-0">
+          <div class="hero-intro__stats hero-lede__stats flex gap-10 md:gap-12">
+            <div class="hero-intro__stat">
+              <p class="hero-intro__stat-value text-ink">
+                <span class="hero-intro__stat-figures"><span data-hero-count="300">0</span><span class="hero-intro__stat-unit">+</span></span>
+              </p>
+              <p class="hero-intro__stat-label text-muted">施工実績</p>
+            </div>
+            <div class="hero-intro__stat">
+              <p class="hero-intro__stat-value text-ink">
+                <span class="hero-intro__stat-figures"><span data-hero-count="98">0</span><span class="hero-intro__stat-unit">%</span></span>
+              </p>
+              <p class="hero-intro__stat-label text-muted">お客様満足度</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- Worries Section -->
-<section class="py-24 md:py-32">
+<section id="concerns" class="py-24 md:py-32">
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <div class="mb-16" data-reveal>
       <p class="section-label mb-6">Your Concerns</p>
