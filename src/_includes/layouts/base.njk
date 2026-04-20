@@ -16,9 +16,13 @@
   {% set ogImageFull = ogImage if ogImage else (site.url + '/images/hero-bg.jpg') %}
   <meta property="og:image" content="{{ ogImageFull }}">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css{% if mainCssCacheBust %}?v={{ mainCssCacheBust }}{% endif %}">
 </head>
 <body class="bg-white" data-page="{{ activePage }}">
+<script>document.documentElement.classList.add('hero-anim');</script>
 
 {% if firebase %}
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -30,11 +34,11 @@
 
 <!-- Header -->
 <header id="header" class="fixed top-0 left-0 right-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 md:px-10">
-    <div class="flex items-center justify-between h-16 md:h-20">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 pt-1.5 md:pt-2">
+    <div class="flex items-center justify-between h-14 md:h-16">
       <a href="/index.html" class="flex items-center gap-3 shrink-0">
-        <img src="/images/logo.png" alt="大森不動産" class="h-8 w-auto">
-        <span class="font-bold text-base md:text-lg tracking-tight text-ink">大森<span style="color:#E8621A">不動産</span></span>
+        <img src="/images/logo.png" alt="大森不動産" class="h-9 md:h-10 w-auto">
+        <span class="header-brand font-bold text-lg md:text-xl text-ink">大森<span style="color:#E8621A">不動産</span></span>
       </a>
 
       <!-- Desktop nav -->
@@ -44,7 +48,7 @@
         <a href="/works.html" class="header-nav-link {{ 'font-medium' if activePage == 'works' else '' }}">施工事例</a>
         <a href="/company.html" class="header-nav-link {{ 'font-medium' if activePage == 'company' else '' }}">会社概要</a>
         <a href="/news.html" class="header-nav-link {{ 'font-medium' if activePage == 'news' else '' }}">お知らせ</a>
-        <a href="/contact.html" class="header-cta-btn">お問い合わせ</a>
+        <a href="/contact.html" class="site-btn site-btn--sm site-btn--outline-ink"><span class="site-btn__inner">お問い合わせ</span></a>
       </nav>
 
       <!-- Mobile button -->
@@ -62,13 +66,13 @@
   <div id="mobile-menu" class="mobile-menu-panel lg:hidden mobile-menu-panel--collapsed overflow-hidden" role="navigation" aria-label="モバイルメニュー">
     <div class="bg-cream border-t border-[#DDD9D2] px-6 py-4">
       <nav class="flex flex-col gap-0 divide-y divide-[#DDD9D2]">
-        <a href="/concept.html" class="py-3.5 text-sm text-ink hover:text-[#E8621A] transition-colors">サービス</a>
-        <a href="/properties.html" class="py-3.5 text-sm text-ink hover:text-[#E8621A] transition-colors">物件一覧</a>
-        <a href="/works.html" class="py-3.5 text-sm text-ink hover:text-[#E8621A] transition-colors">施工事例</a>
-        <a href="/company.html" class="py-3.5 text-sm text-ink hover:text-[#E8621A] transition-colors">会社概要</a>
-        <a href="/news.html" class="py-3.5 text-sm text-ink hover:text-[#E8621A] transition-colors">お知らせ</a>
+        <a href="/concept.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">サービス</a>
+        <a href="/properties.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">物件一覧</a>
+        <a href="/works.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">施工事例</a>
+        <a href="/company.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">会社概要</a>
+        <a href="/news.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">お知らせ</a>
         <a href="/contact.html" class="pt-4 pb-2">
-          <span class="inline-block px-5 py-2.5 border border-ink text-sm font-medium text-ink hover:bg-ink hover:text-cream transition-colors">お問い合わせ</span>
+          <span class="site-btn site-btn--menu site-btn--outline-ink inline-flex"><span class="site-btn__inner">お問い合わせ</span></span>
         </a>
       </nav>
     </div>
@@ -85,7 +89,7 @@
       <div class="md:col-span-1">
         <div class="flex items-center gap-2 mb-5">
           <img src="/images/logo.png" alt="大森不動産" class="h-8 w-auto">
-          <span class="font-bold text-lg text-ink">大森<span style="color:#E8621A">不動産</span></span>
+          <span class="header-brand font-bold text-lg text-ink">大森<span style="color:#E8621A">不動産</span></span>
         </div>
         <p class="text-muted text-xs leading-relaxed">物件探しからリノベーション、売買まで。<br>ワンストップで叶える、理想の住まいづくり。</p>
       </div>
@@ -108,7 +112,7 @@
       </div>
       <div>
         <p class="font-mono-label text-[0.65rem] tracking-widest text-muted uppercase mb-5">Contact</p>
-        <a href="/contact.html" class="inline-block mb-5 text-sm px-5 py-2.5 border border-[#DDD9D2] text-ink hover:border-[#E8621A] hover:text-[#E8621A] transition-colors">お問い合わせフォーム →</a>
+        <a href="/contact.html" class="site-btn site-btn--footer site-btn--outline-muted mb-5 inline-flex"><span class="site-btn__inner">お問い合わせフォーム →</span></a>
         <p class="text-ink font-bold text-lg mb-1">0120-000-0000</p>
         <p class="text-muted text-xs">9:00-18:00 / 定休日：水曜日</p>
       </div>
@@ -141,6 +145,88 @@
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   els.forEach(function(el){ io.observe(el); });
+})();
+(function(){
+  var hero = document.querySelector('.hero-intro');
+  if (!hero) return;
+  function activate(){
+    hero.classList.add('hero-intro--active');
+  }
+  function setHeroCountFinals() {
+    document.querySelectorAll('[data-hero-count]').forEach(function(el) {
+      var v = el.getAttribute('data-hero-count');
+      if (v != null) el.textContent = v;
+    });
+  }
+  function runHeroCountUp() {
+    document.querySelectorAll('[data-hero-count]').forEach(function(el) {
+      var target = parseInt(el.getAttribute('data-hero-count'), 10);
+      if (isNaN(target)) return;
+      var start = performance.now();
+      var dur = 1100;
+      function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+      function frame(now) {
+        var t = Math.min(1, (now - start) / dur);
+        el.textContent = String(Math.round(target * easeOutCubic(t)));
+        if (t < 1) requestAnimationFrame(frame);
+        else el.textContent = String(target);
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var heading = document.getElementById('hero-heading');
+  if (reduced) {
+    setHeroCountFinals();
+  }
+  if (!reduced && heading) {
+    var counter = 0;
+    function wrapTextNode(textNode) {
+      var text = textNode.textContent;
+      var parent = textNode.parentNode;
+      if (!parent || !text) return;
+      if (!/[^\s]/.test(text)) {
+        textNode.textContent = '';
+        return;
+      }
+      var frag = document.createDocumentFragment();
+      Array.prototype.forEach.call(Array.from(text), function(ch) {
+        if (ch === '\n' || ch === '\r') return;
+        var span = document.createElement('span');
+        span.className = 'hero-char';
+        span.style.setProperty('--ci', String(counter));
+        span.textContent = ch;
+        frag.appendChild(span);
+        counter += 1;
+      });
+      if (!frag.childNodes.length) {
+        parent.removeChild(textNode);
+        return;
+      }
+      parent.replaceChild(frag, textNode);
+    }
+    function walk(el) {
+      var list = Array.prototype.slice.call(el.childNodes);
+      list.forEach(function(child) {
+        if (child.nodeType === 3) wrapTextNode(child);
+        else if (child.nodeType === 1 && child.tagName !== 'BR') walk(child);
+      });
+    }
+    walk(heading);
+    if (counter > 0) hero.classList.add('hero-intro--chars-prepared');
+  }
+  if (reduced) {
+    activate();
+    return;
+  }
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      activate();
+      window.setTimeout(runHeroCountUp, 720);
+    });
+  });
 })();
 </script>
 </body>

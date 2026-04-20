@@ -6,40 +6,48 @@ firebase: true
 pageScript: js/index-firebase.js
 ---
 
-<!-- Hero Section -->
-<section class="relative min-h-screen flex bg-cream overflow-hidden">
+<!-- Hero Section：写真はセクション上端から。左テキストだけヘッダー分＋余白を padding-top で確保 -->
+<section class="hero-intro relative min-h-screen flex bg-cream">
   <!-- 左: テキストエリア（ドットグリッド背景） -->
-  <div class="relative w-full lg:w-1/2 flex flex-col justify-end pb-16 md:pb-24 pt-32 px-6 md:px-10 xl:px-16 bg-dots">
-    <div data-reveal>
-      <p class="section-label mb-8">Real Estate &amp; Renovation</p>
-      <h1 class="font-serif text-4xl md:text-5xl xl:text-6xl text-ink leading-[1.25] mb-8">
-        「じぶんに合った<br>暮らしと住まい」を<br>
-        <em class="not-italic" style="color:#E8621A">あなたと一緒に<br>考える。</em>
+  <div class="relative w-full lg:w-1/2 flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--site-header-height)+1.5rem)] md:pt-[calc(var(--site-header-height)+2rem)] px-6 md:px-10 xl:px-16 bg-dots">
+    <div class="hero-intro__stack w-full min-w-0 flex flex-col gap-7 md:gap-8">
+      <div>
+      <p class="section-label mb-8" data-hero-piece data-hero-delay="0">Real Estate &amp; Renovation</p>
+      <h1 id="hero-heading" class="hero-intro__title font-serif text-ink mb-6">
+        <span class="hero-intro__title-row">「<span class="hero-intro__lede-line">じぶんに合った</span></span>
+        <span class="hero-intro__title-row"><span class="hero-intro__lede-line">暮らしと住まい</span>」を</span>
+        <em class="hero-intro__title-accent not-italic" style="color:#E8621A">あなたと一緒に考える。</em>
       </h1>
-      <p class="text-sm md:text-base text-muted leading-relaxed mb-10 max-w-sm">
-        お客さまの多様なニーズに沿った<br>多彩なサービスで理想の暮らしをサポートします。
+      <p class="hero-intro__lead text-muted" data-hero-piece data-hero-delay="160">
+        お客さまの多様なニーズに沿った多彩なサービスで理想の暮らしをサポートします。
       </p>
-      <a href="/concept.html" class="inline-flex items-center gap-3 text-sm font-medium text-ink border-b border-ink pb-0.5 hover:text-[#E8621A] hover:border-[#E8621A] transition-colors">
-        大森不動産とは
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      <a href="/concept.html" class="site-btn site-btn--md site-btn--outline-ink mt-5" data-hero-piece data-hero-delay="240">
+        <span class="site-btn__inner">大森不動産とは<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
       </a>
-    </div>
-    <!-- 実績数字 -->
-    <div class="flex gap-10 mt-16 pt-8 border-t border-[#DDD9D2]" data-reveal data-delay="200">
-      <div>
-        <p class="font-serif text-4xl font-bold text-ink">300<span style="color:#E8621A">+</span></p>
-        <p class="text-xs text-muted mt-1 tracking-wider">施工実績</p>
       </div>
-      <div>
-        <p class="font-serif text-4xl font-bold text-ink">98<span style="color:#E8621A">%</span></p>
-        <p class="text-xs text-muted mt-1 tracking-wider">お客様満足度</p>
+      <!-- 実績数字（上のブロックとは gap で間隔を統一） -->
+      <div class="hero-intro__stats flex gap-10 md:gap-12 pt-8" data-hero-piece data-hero-delay="320">
+      <div class="hero-intro__stat">
+        <p class="hero-intro__stat-value text-ink">
+          <span class="hero-intro__stat-figures"><span data-hero-count="300">0</span><span class="hero-intro__stat-unit">+</span></span>
+        </p>
+        <p class="hero-intro__stat-label text-muted">施工実績</p>
+      </div>
+      <div class="hero-intro__stat">
+        <p class="hero-intro__stat-value text-ink">
+          <span class="hero-intro__stat-figures"><span data-hero-count="98">0</span><span class="hero-intro__stat-unit">%</span></span>
+        </p>
+        <p class="hero-intro__stat-label text-muted">お客様満足度</p>
+      </div>
       </div>
     </div>
   </div>
-  <!-- 右: 写真 -->
-  <div class="hidden lg:block lg:w-1/2 relative" data-reveal data-delay="100">
-    <img src="/images/hero-bg.jpg" alt="理想の住まい" class="absolute inset-0 w-full h-full object-cover">
-    <div class="absolute inset-0 bg-ink/10"></div>
+  <!-- 右: 写真（クリップワイプ + スケール） -->
+  <div class="hidden lg:block lg:w-1/2 relative hero-intro__visual overflow-hidden">
+    <div class="hero-intro__visual-inner absolute inset-0 overflow-hidden">
+      <img src="/images/hero-bg.jpg" alt="理想の住まい" class="hero-intro__img absolute inset-0 w-full h-full object-cover">
+    </div>
+    <div class="absolute inset-0 bg-ink/10 pointer-events-none"></div>
   </div>
 </section>
 
@@ -80,7 +88,7 @@ pageScript: js/index-firebase.js
 <section class="py-24 md:py-32 bg-white" data-reveal>
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <div class="mb-16">
-      <h2 class="font-serif text-3xl md:text-4xl xl:text-5xl text-ink leading-snug">
+      <h2 class="font-serif text-3xl md:text-4xl xl:text-5xl text-ink">
         住まいや暮らしの<br>「どうしよう」を解決する。
       </h2>
       <p class="text-muted text-sm md:text-base mt-6 max-w-xl leading-relaxed">
@@ -140,19 +148,18 @@ pageScript: js/index-firebase.js
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <div class="max-w-3xl">
       <p class="section-label mb-8">Contact Us</p>
-      <h2 class="font-serif text-4xl md:text-5xl xl:text-6xl text-ink leading-[1.2] mb-8">
+      <h2 class="font-serif text-4xl md:text-5xl xl:text-6xl text-ink mb-8">
         理想の住まいを<br>一緒に探しませんか？
       </h2>
       <p class="text-muted text-sm md:text-base mb-12 leading-relaxed">
         物件探しからリノベーション、資金計画まで、<br>経験豊富なスタッフが丁寧にサポートいたします
       </p>
       <div class="flex flex-wrap gap-4 mb-16">
-        <a href="/contact.html" class="inline-flex items-center gap-3 px-8 py-4 bg-[#E8621A] text-white text-sm font-medium hover:bg-[#c4521a] transition-colors">
-          無料相談する
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        <a href="/contact.html" class="site-btn site-btn--lg site-btn--primary inline-flex">
+          <span class="site-btn__inner">無料相談する<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
         </a>
-        <a href="/properties.html" class="inline-flex items-center gap-3 px-8 py-4 border border-[#DDD9D2] text-ink text-sm font-medium hover:border-ink transition-colors">
-          物件を見る
+        <a href="/properties.html" class="site-btn site-btn--lg site-btn--outline-muted inline-flex">
+          <span class="site-btn__inner">物件を見る</span>
         </a>
       </div>
       <div class="flex gap-12 pt-8 border-t border-[#DDD9D2]">

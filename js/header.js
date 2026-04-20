@@ -19,6 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  // 初回だけごく僅かに下にズレて見えるブラウザ対策（ハッシュ付き URL は除外）
+  const snapDocumentToTop = () => {
+    if (window.location.hash) return;
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (y <= 0) return;
+    window.scrollTo(0, 0);
+  };
+  snapDocumentToTop();
+  requestAnimationFrame(snapDocumentToTop);
+  requestAnimationFrame(() => requestAnimationFrame(snapDocumentToTop));
+  window.addEventListener('load', snapDocumentToTop, { once: true });
+
   // モバイルメニュー
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
