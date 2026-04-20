@@ -22,7 +22,7 @@
 }
 
 html { scroll-behavior: smooth; }
-body { background: #F7F4EF; color: #1A1A1A; }
+body { background: #ffffff; color: #1A1A1A; }
 
 /* Display font */
 .font-serif { font-family: 'Noto Serif JP', serif; }
@@ -178,7 +178,7 @@ body { animation: fadeIn 0.4s ease-out; }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #F7F4EF; }
+::-webkit-scrollbar-track { background: #ffffff; }
 ::-webkit-scrollbar-thumb { background: #DDD9D2; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #E8621A; }
 

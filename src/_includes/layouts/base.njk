@@ -18,7 +18,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/css/main.css{% if mainCssCacheBust %}?v={{ mainCssCacheBust }}{% endif %}">
 </head>
-<body class="bg-cream" data-page="{{ activePage }}">
+<body class="bg-white" data-page="{{ activePage }}">
 
 {% if firebase %}
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -79,48 +79,46 @@
 {{ content | safe }}
 
 <!-- Footer -->
-<footer class="bg-[#141414] text-white pt-16 pb-10">
+<footer class="bg-cream pt-16 pb-10">
   <div class="max-w-7xl mx-auto px-6 md:px-10">
-    <div class="grid md:grid-cols-4 gap-12 pb-12 border-b border-white/10">
+    <div class="grid md:grid-cols-4 gap-12 pb-12 border-b border-[#DDD9D2]">
       <div class="md:col-span-1">
         <div class="flex items-center gap-2 mb-5">
-          <div class="bg-white/10 p-2">
-            <img src="/images/logo.png" alt="大森不動産" class="h-8 w-auto">
-          </div>
-          <span class="font-bold text-lg text-white">大森<span style="color:#E8621A">不動産</span></span>
+          <img src="/images/logo.png" alt="大森不動産" class="h-8 w-auto">
+          <span class="font-bold text-lg text-ink">大森<span style="color:#E8621A">不動産</span></span>
         </div>
-        <p class="text-white/50 text-xs leading-relaxed">物件探しからリノベーション、売買まで。<br>ワンストップで叶える、理想の住まいづくり。</p>
+        <p class="text-muted text-xs leading-relaxed">物件探しからリノベーション、売買まで。<br>ワンストップで叶える、理想の住まいづくり。</p>
       </div>
       <div>
-        <p class="font-mono-label text-[0.65rem] tracking-widest text-white/40 uppercase mb-5">Service</p>
+        <p class="font-mono-label text-[0.65rem] tracking-widest text-muted uppercase mb-5">Service</p>
         <ul class="space-y-3 text-sm">
-          <li><a href="/concept.html#property-renovation" class="text-white/60 hover:text-white transition-colors">物件購入+リノベーション</a></li>
-          <li><a href="/concept.html#resale" class="text-white/60 hover:text-white transition-colors">買取再販</a></li>
-          <li><a href="/concept.html#mediation" class="text-white/60 hover:text-white transition-colors">売買仲介・活用相談</a></li>
+          <li><a href="/concept.html#property-renovation" class="text-muted hover:text-ink transition-colors">物件購入+リノベーション</a></li>
+          <li><a href="/concept.html#resale" class="text-muted hover:text-ink transition-colors">買取再販</a></li>
+          <li><a href="/concept.html#mediation" class="text-muted hover:text-ink transition-colors">売買仲介・活用相談</a></li>
         </ul>
       </div>
       <div>
-        <p class="font-mono-label text-[0.65rem] tracking-widest text-white/40 uppercase mb-5">Info</p>
+        <p class="font-mono-label text-[0.65rem] tracking-widest text-muted uppercase mb-5">Info</p>
         <ul class="space-y-3 text-sm">
-          <li><a href="/properties.html" class="text-white/60 hover:text-white transition-colors">物件一覧</a></li>
-          <li><a href="/works.html" class="text-white/60 hover:text-white transition-colors">施工事例</a></li>
-          <li><a href="/news.html" class="text-white/60 hover:text-white transition-colors">お知らせ</a></li>
-          <li><a href="/company.html" class="text-white/60 hover:text-white transition-colors">会社概要</a></li>
+          <li><a href="/properties.html" class="text-muted hover:text-ink transition-colors">物件一覧</a></li>
+          <li><a href="/works.html" class="text-muted hover:text-ink transition-colors">施工事例</a></li>
+          <li><a href="/news.html" class="text-muted hover:text-ink transition-colors">お知らせ</a></li>
+          <li><a href="/company.html" class="text-muted hover:text-ink transition-colors">会社概要</a></li>
         </ul>
       </div>
       <div>
-        <p class="font-mono-label text-[0.65rem] tracking-widest text-white/40 uppercase mb-5">Contact</p>
-        <a href="/contact.html" class="inline-block mb-5 text-sm px-5 py-2.5 border border-white/20 text-white hover:border-[#E8621A] hover:text-[#E8621A] transition-colors">お問い合わせフォーム →</a>
-        <p class="text-white font-bold text-lg mb-1">0120-000-0000</p>
-        <p class="text-white/40 text-xs">9:00-18:00 / 定休日：水曜日</p>
+        <p class="font-mono-label text-[0.65rem] tracking-widest text-muted uppercase mb-5">Contact</p>
+        <a href="/contact.html" class="inline-block mb-5 text-sm px-5 py-2.5 border border-[#DDD9D2] text-ink hover:border-[#E8621A] hover:text-[#E8621A] transition-colors">お問い合わせフォーム →</a>
+        <p class="text-ink font-bold text-lg mb-1">0120-000-0000</p>
+        <p class="text-muted text-xs">9:00-18:00 / 定休日：水曜日</p>
       </div>
     </div>
     <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-8">
-      <p class="text-xs text-white/30">&copy; 2026 大森不動産. All rights reserved.</p>
-      <div class="flex gap-6 text-xs text-white/30">
-        <a href="/privacy.html" class="hover:text-white/60 transition-colors">プライバシーポリシー</a>
-        <a href="/terms.html" class="hover:text-white/60 transition-colors">利用規約</a>
-        <a href="/sitemap.html" class="hover:text-white/60 transition-colors">サイトマップ</a>
+      <p class="text-xs text-muted">&copy; 2026 大森不動産. All rights reserved.</p>
+      <div class="flex gap-6 text-xs text-muted">
+        <a href="/privacy.html" class="hover:text-ink transition-colors">プライバシーポリシー</a>
+        <a href="/terms.html" class="hover:text-ink transition-colors">利用規約</a>
+        <a href="/sitemap.html" class="hover:text-ink transition-colors">サイトマップ</a>
       </div>
     </div>
   </div>
