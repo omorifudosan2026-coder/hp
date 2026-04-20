@@ -1,41 +1,42 @@
-// ヘッダーのスクロール処理（影なし）
-window.addEventListener('scroll', () => {
-    const header = document.getElementById('header');
-    if (!header) return;
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll > 100) {
-        header.style.transform = 'translateY(0)';
-    } else {
-        header.style.transform = 'translateY(0)';
-    }
-});
-
-// モバイルメニュー（script.js とは二重登録しない）
 document.addEventListener('DOMContentLoaded', () => {
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+  const header = document.getElementById('header');
+  if (!header) return;
 
-    if (!mobileMenuBtn || !mobileMenu) return;
+  // インナーページは常にsolid
+  const isTopPage = document.body.dataset.page === 'index';
+  if (!isTopPage) {
+    header.classList.add('header-solid');
+  }
 
-    const setOpen = (open) => {
-        mobileMenuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        mobileMenuBtn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
-        mobileMenu.classList.toggle('mobile-menu-panel--open', open);
-        mobileMenu.classList.toggle('mobile-menu-panel--collapsed', !open);
-    };
+  // スクロールで scrolled クラス付与
+  const onScroll = () => {
+    if (window.pageYOffset > 80) {
+      header.classList.add('scrolled');
+    } else {
+      if (isTopPage) header.classList.remove('scrolled');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-    setOpen(false);
+  // モバイルメニュー
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (!mobileMenuBtn || !mobileMenu) return;
 
-    mobileMenuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const next = !mobileMenu.classList.contains('mobile-menu-panel--open');
-        setOpen(next);
-    });
+  const setOpen = (open) => {
+    mobileMenuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    mobileMenuBtn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    mobileMenu.classList.toggle('mobile-menu-panel--open', open);
+    mobileMenu.classList.toggle('mobile-menu-panel--collapsed', !open);
+  };
+  setOpen(false);
 
-    document.addEventListener('click', (e) => {
-        if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-            setOpen(false);
-        }
-    });
+  mobileMenuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setOpen(!mobileMenu.classList.contains('mobile-menu-panel--open'));
+  });
+  document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) setOpen(false);
+  });
 });
