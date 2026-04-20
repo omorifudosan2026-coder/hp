@@ -22,12 +22,13 @@
   /* 見出しの字間・行間（全ページ共通・HTML の leading-* は付けない） */
   --heading-tracking: 0.06em;
   --heading-leading: 1.55;
-  /* fixed ヘッダー高さ（上パディング + h-14 / md:h-16 と一致） */
-  --site-header-height: calc(3.5rem + 0.375rem);
+  /* fixed ヘッダー高さ（py-1.5 + h-14 + py-1.5 と一致） */
+  --site-header-height: 4.25rem;
 }
 @media (min-width: 768px) {
   :root {
-    --site-header-height: calc(4rem + 0.5rem);
+    /* py-2 + h-16 + py-2 */
+    --site-header-height: 5rem;
   }
 }
 
@@ -117,8 +118,9 @@ h1, h2, h3, h4, h5, h6 {
   outline: 2px solid #e8621a;
   outline-offset: 3px;
 }
+/* ヘッダー「お問い合わせ」のみ使用。上下は md / lg と同じ 0.65rem で字の上下バランスを合わせる */
 .site-btn--sm {
-  padding: 0.4375rem 1.125rem;
+  padding: 0.65rem 1.125rem;
   font-size: 0.9375rem;
   line-height: 1.25;
 }
@@ -262,6 +264,7 @@ h1, h2, h3, h4, h5, h6 {
   word-break: keep-all;
   overflow-wrap: normal;
   line-break: strict;
+  margin-bottom: 0.35em;
 }
 .hero-intro__lede-line--first {
   --lede-underline-delay: 0.9s;
@@ -273,7 +276,6 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   display: inline-block;
   max-width: 100%;
-  padding-bottom: 0.12em;
 }
 @media (min-width: 1024px) {
   .hero-intro__title-wrap .hero-intro__title-accent {
@@ -284,8 +286,9 @@ h1, h2, h3, h4, h5, h6 {
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0;
-  width: calc(100% + 0.55em);
+  bottom: -0.12em;
+  /* 文言の幅のみ（延ばさない。+0.55em は」手前の空白や括弧への食い込みに見えていた） */
+  width: 100%;
   height: 1px;
   background: #1a1a1a;
   transform: scaleX(0);
@@ -321,10 +324,12 @@ h1, h2, h3, h4, h5, h6 {
     grid-column: 1;
     grid-row: 1;
     min-height: 0;
+    position: relative;
   }
   .hero-intro--layout .hero-intro__title-wrap {
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 6rem;
     padding-left: clamp(0.75rem, 2vw, 2rem);
     padding-right: clamp(0.75rem, 2vw, 2rem);
     width: 100%;
@@ -417,8 +422,13 @@ h1, h2, h3, h4, h5, h6 {
     opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.hero-intro [data-hero-delay="0"] { transition-delay: 0ms; }
 .hero-intro [data-hero-delay="240"] { transition-delay: 0.24s; }
+/* 写真エリアの clip-path（1.28s / 0.08s）に寄せて、英字も同じノリで現れる */
+.hero-intro__photo-tagline.section-label[data-hero-piece] {
+  transition:
+    opacity 1.28s cubic-bezier(0.77, 0, 0.175, 1) 0.08s,
+    transform 1.28s cubic-bezier(0.77, 0, 0.175, 1) 0.08s;
+}
 .hero-intro.hero-intro--active [data-hero-piece] {
   opacity: 1;
   transform: translateY(0);
@@ -455,6 +465,19 @@ h1, h2, h3, h4, h5, h6 {
 .hero-lede__stats {
   padding-top: 0.25rem;
 }
+
+/* Philosophy 実績：カウントアップ中も桁幅一定で、左の縦仕切り・列間がずれないようにする */
+.hero-lede .hero-intro__stat-figures [data-hero-count] {
+  display: inline-block;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.hero-lede .hero-intro__stat:nth-child(1) .hero-intro__stat-figures [data-hero-count] {
+  min-width: 3.5ch;
+}
+.hero-lede .hero-intro__stat:nth-child(2) .hero-intro__stat-figures [data-hero-count] {
+  min-width: 2.75ch;
+}
 .hero-lede__aside {
   border-top: 1px solid rgba(221, 217, 210, 0.75);
   padding-top: 1.25rem;
@@ -471,18 +494,14 @@ h1, h2, h3, h4, h5, h6 {
 .hero-lede__text {
   font-feature-settings: 'palt' 1, 'kern' 1;
 }
-.hero-lede__rule {
-  display: block;
-  writing-mode: horizontal-tb;
-}
 
 /* Section label */
 .section-label {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   font-family: var(--font-body);
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -491,7 +510,7 @@ h1, h2, h3, h4, h5, h6 {
 .section-label::before {
   content: '';
   display: block;
-  width: 24px;
+  width: 28px;
   height: 1px;
   background: currentColor;
   flex-shrink: 0;
@@ -552,23 +571,115 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Header — 透明→スクロールで背景色 */
+/* ヒーロー：スクロールインジケータ（左カラム下部に絶対配置） */
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 46%;
+  transform: translateX(-50%);
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+.hero-scroll-hint:hover {
+  opacity: 0.7;
+}
+.hero-scroll-hint__label {
+  font-size: 0.58rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+.hero-scroll-hint__rail {
+  position: relative;
+  width: 1px;
+  height: 5rem;
+  flex-shrink: 0;
+}
+.hero-scroll-hint__rail-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 26, 0.15) 0%,
+    rgba(26, 26, 26, 0.35) 50%,
+    rgba(26, 26, 26, 0.08) 100%
+  );
+}
+.hero-scroll-hint__rail-dot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: #e8621a;
+  box-shadow: 0 0 8px rgba(232, 98, 26, 0.5);
+  animation: hero-scroll-rail 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-hint__rail-dot {
+    animation: none;
+    top: 50%;
+    margin-top: -2px;
+    opacity: 0.6;
+  }
+}
+@keyframes hero-scroll-rail {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(calc(5rem - 4px)); opacity: 0.2; }
+  71% { transform: translateY(0); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Header — 全面透明寄り。スクロール／下層はうすい白＋ぼかし（影・ラインなし） */
 #header {
-  transition: background-color 0.35s ease, border-color 0.35s ease;
+  transition: background-color 0.35s ease, backdrop-filter 0.35s ease;
   background-color: transparent;
-  border-bottom: 1px solid transparent;
+  border-bottom: none;
+  box-shadow: none;
 }
-#header.scrolled {
-  background-color: #F7F4EF;
-  border-bottom-color: #DDD9D2;
-}
+#header.scrolled,
 #header.header-solid {
-  background-color: #F7F4EF;
-  border-bottom-color: #DDD9D2;
+  background-color: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(12px) saturate(1.15);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+}
+@media (prefers-reduced-motion: reduce) {
+  #header {
+    transition-duration: 0.01ms;
+  }
+  #header.scrolled,
+  #header.header-solid {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
 }
 
 #header img {
   display: block;
+}
+
+/* ヘッダー：ロゴはクロップせず全体表示。max-height で行内に収め、欠けを防ぐ */
+#header .header-logo-link .header-logo-img {
+  width: auto;
+  height: auto;
+  max-height: 3.125rem;
+  object-fit: contain;
+}
+@media (min-width: 768px) {
+  #header .header-logo-link .header-logo-img {
+    max-height: 3.625rem;
+  }
+}
+#header .header-logo-link .header-brand {
+  line-height: 1.15;
+  display: inline-flex;
+  align-items: center;
 }
 
 /* ロゴ横・フッターの社名 */

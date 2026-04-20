@@ -8,16 +8,24 @@ pageScript: js/index-firebase.js
 
 <!-- Hero：左に見出し＋CTA、右に写真＋写真下に英字（右からライン） -->
 <section class="hero-intro hero-intro--layout relative min-h-screen max-lg:flex max-lg:flex-col bg-cream pt-[calc(var(--site-header-height)+1.25rem)] md:pt-[calc(var(--site-header-height)+1.5rem)] pb-10 lg:pt-0 lg:pb-0">
-  <div class="hero-intro__left-col max-lg:contents lg:flex lg:flex-col lg:min-h-0 lg:items-center lg:justify-center lg:bg-dots">
+  <div class="hero-intro__left-col max-lg:contents lg:flex lg:flex-col lg:min-h-0 lg:items-center lg:justify-center lg:bg-dots lg:relative">
     <div class="hero-intro__title-wrap flex flex-col items-center text-center gap-7 px-6 md:px-10 xl:px-12 max-lg:max-w-xl max-lg:mb-6 lg:mb-0 lg:w-full lg:max-w-xl lg:gap-8 lg:py-4 lg:px-0">
       <h1 id="hero-heading" class="hero-intro__title font-serif text-ink">
-        <span class="hero-intro__title-row hero-intro__title-row--lede">「<span class="hero-intro__lede-line hero-intro__lede-line--first">じぶんに合った</span><br><span class="hero-intro__lede-line hero-intro__lede-line--second">暮らしと住まい</span>」を</span>
-        <em class="hero-intro__title-accent not-italic" style="color:#E8621A">あなたと一緒に考える。</em>
+        <span class="hero-intro__title-row hero-intro__title-row--lede">「<span class="hero-intro__lede-line hero-intro__lede-line--first">じぶんに合った</span></span>
+        <span class="hero-intro__title-row hero-intro__title-row--lede"><span class="hero-intro__lede-line hero-intro__lede-line--second">暮らしと住まい</span>」を</span>
+        <em class="hero-intro__title-row hero-intro__title-accent not-italic" style="color:#E8621A">あなたと一緒に考える。</em>
       </h1>
       <a href="/concept.html" class="site-btn site-btn--md site-btn--outline-ink shrink-0 self-center" data-hero-piece data-hero-delay="240">
         <span class="site-btn__inner">大森不動産とは<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
       </a>
     </div>
+    <a href="#concerns" class="hero-scroll-hint hidden lg:flex text-ink/40 hover:text-[#E8621A]/80 transition-colors duration-300" data-hero-piece data-hero-delay="520" aria-label="次のセクションへスクロール">
+      <span class="hero-scroll-hint__label font-mono-label">Scroll</span>
+      <span class="hero-scroll-hint__rail" aria-hidden="true">
+        <span class="hero-scroll-hint__rail-line"></span>
+        <span class="hero-scroll-hint__rail-dot"></span>
+      </span>
+    </a>
   </div>
   <div class="hero-intro__media-col w-full lg:min-h-0 flex flex-col max-lg:mt-8 lg:pr-0">
     <div class="hero-intro__visual-frame hidden lg:flex flex-1 min-h-0 flex-col pt-0 pb-2 xl:pb-3 mt-2 xl:mt-3">
@@ -28,20 +36,20 @@ pageScript: js/index-firebase.js
         <div class="absolute inset-0 bg-ink/10 pointer-events-none"></div>
       </div>
     </div>
-    <p class="section-label hero-intro__photo-tagline shrink-0 px-6 pt-2 pb-8 md:px-10 md:pb-9 lg:px-0 lg:pt-1.5 lg:pb-10" data-hero-piece data-hero-delay="0">
+    <p class="section-label hero-intro__photo-tagline shrink-0 px-6 pt-2 pb-8 md:px-10 md:pb-9 lg:px-0 lg:pt-1.5 lg:pb-10" data-hero-piece>
       <span class="hero-intro__photo-tagline__text">Real Estate &amp; Renovation</span>
     </p>
   </div>
 </section>
 
 <!-- ヒーロー直下：リード＋実績カウント -->
-<section class="hero-lede border-t border-[#E8E4DC] bg-[#FAF8F5]" aria-label="サービス概要">
-  <div class="hero-lede__shell max-w-6xl mx-auto px-6 md:px-10 xl:px-14 py-14 md:py-20 lg:py-24" data-reveal data-hero-count-root>
+<section class="hero-lede bg-white" aria-label="サービス概要">
+  <div class="hero-lede__shell max-w-7xl mx-auto px-6 md:px-10 py-14 md:py-20 lg:py-24" data-reveal data-hero-count-root>
     <div class="flex flex-col gap-10 lg:gap-12">
       <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-16">
         <div class="max-w-3xl lg:pt-1">
-          <span class="hero-lede__rule font-mono-label text-[0.62rem] tracking-[0.28em] text-[#E8621A] uppercase">Philosophy</span>
-          <p class="hero-lede__text mt-4 text-ink/85 text-base md:text-lg leading-[1.85] tracking-wide font-light">
+          <p class="section-label mb-4">Philosophy</p>
+          <p class="hero-lede__text text-ink text-base md:text-lg leading-[1.85] tracking-wide font-light">
             お客さまの多様なニーズに沿った多彩なサービスで理想の暮らしをサポートします。
           </p>
         </div>
@@ -67,34 +75,58 @@ pageScript: js/index-firebase.js
 </section>
 
 <!-- Worries Section -->
-<section id="concerns" class="py-24 md:py-32">
+<section id="concerns" class="py-24 md:py-32 bg-cream">
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <div class="mb-16" data-reveal>
       <p class="section-label mb-6">Your Concerns</p>
-      <h2 class="font-serif text-3xl md:text-4xl xl:text-5xl text-ink">こんなお悩み、<br>ありませんか？</h2>
+      <h2 class="font-serif text-3xl md:text-4xl xl:text-5xl text-ink">こんなお悩み、ありませんか？</h2>
     </div>
-    <div class="space-y-0" data-reveal data-delay="100">
-      <div class="flex gap-8 md:gap-16 py-10 border-t border-[#DDD9D2]">
-        <span class="font-mono-label text-4xl font-bold text-[#DDD9D2] shrink-0 w-12 leading-none mt-1">01</span>
-        <div>
-          <h3 class="font-serif text-xl md:text-2xl text-ink mb-3">リノベーションはコストがかさみそう…</h3>
-          <p class="text-sm md:text-base text-muted leading-relaxed">素敵な住まいには憧れるけど、リノベーションはコストがかかる。結果高くついてしまいそう。時間もかかるし、そこまでこだわらないし、センスにも自信がない。</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-8 items-stretch">
+      <article class="flex h-full min-h-0 flex-col" data-reveal data-delay="100">
+        <div class="concerns-card flex flex-1 flex-col rounded-sm border border-[#DDD9D2]/70 bg-white p-6 sm:p-7 text-center shadow-[0_2px_20px_rgba(26,26,26,0.04)]">
+          <p class="font-mono-label text-xs tracking-[0.2em] text-[#DDD9D2]">01</p>
+          <div class="mt-4 flex h-44 shrink-0 items-center justify-center py-2">
+            <figure class="m-0 flex w-full max-w-[9.5rem] justify-center">
+              <img src="/images/8224_color.svg" alt="リノベーションのコストや予算を考える様子" class="max-h-40 w-full object-contain" width="243" height="358" loading="lazy" decoding="async">
+            </figure>
+          </div>
+          <h3 class="mt-5 min-h-[2.75rem] shrink-0 font-serif text-lg leading-snug text-ink md:min-h-[3rem] md:text-xl">リノベのコストが心配…</h3>
+          <span class="mx-auto mt-2 block h-0.5 w-10 shrink-0 bg-[#E8621A]" aria-hidden="true"></span>
+          <div class="mt-6 min-h-0 flex-1">
+            <p class="text-sm leading-relaxed text-muted">素敵な住まいには憧れるけど、リノベーションはコストがかかる。結果高くついてしまいそう。時間もかかるし、そこまでこだわらないし、センスにも自信がない。</p>
+          </div>
         </div>
-      </div>
-      <div class="flex gap-8 md:gap-16 py-10 border-t border-[#DDD9D2]">
-        <span class="font-mono-label text-4xl font-bold text-[#DDD9D2] shrink-0 w-12 leading-none mt-1">02</span>
-        <div>
-          <h3 class="font-serif text-xl md:text-2xl text-ink mb-3">いい物件の見分け方がわからない</h3>
-          <p class="text-sm md:text-base text-muted leading-relaxed">大きな買い物だけに、住性や耐震性が気になる。物件価格や管理費・修繕積立金もちょうどよく、「中古マンションは管理を買え」というけれど、いったい何をどうやって判断したら…</p>
+      </article>
+      <article class="flex h-full min-h-0 flex-col" data-reveal data-delay="200">
+        <div class="concerns-card flex flex-1 flex-col rounded-sm border border-[#DDD9D2]/70 bg-white p-6 sm:p-7 text-center shadow-[0_2px_20px_rgba(26,26,26,0.04)]">
+          <p class="font-mono-label text-xs tracking-[0.2em] text-[#DDD9D2]">02</p>
+          <div class="mt-4 flex h-44 shrink-0 items-center justify-center py-2">
+            <figure class="m-0 flex w-full max-w-[10rem] justify-center">
+              <img src="/images/17038_color.svg" alt="物件の資料を前に考え込む様子" class="max-h-40 w-full object-contain" width="329" height="311" loading="lazy" decoding="async">
+            </figure>
+          </div>
+          <h3 class="mt-5 min-h-[2.75rem] shrink-0 font-serif text-lg leading-snug text-ink md:min-h-[3rem] md:text-xl">物件の見極めがわからない</h3>
+          <span class="mx-auto mt-2 block h-0.5 w-10 shrink-0 bg-[#E8621A]" aria-hidden="true"></span>
+          <div class="mt-6 min-h-0 flex-1">
+            <p class="text-sm leading-relaxed text-muted">大きな買い物だけに、住性や耐震性が気になる。物件価格や管理費・修繕積立金もちょうどよく、「中古マンションは管理を買え」というけれど、いったい何をどうやって判断したら…</p>
+          </div>
         </div>
-      </div>
-      <div class="flex gap-8 md:gap-16 py-10 border-t border-b border-[#DDD9D2]">
-        <span class="font-mono-label text-4xl font-bold text-[#DDD9D2] shrink-0 w-12 leading-none mt-1">03</span>
-        <div>
-          <h3 class="font-serif text-xl md:text-2xl text-ink mb-3">バラバラに依頼するのは大変</h3>
-          <p class="text-sm md:text-base text-muted leading-relaxed">物件探しは不動産会社、リノベーションは工務店、ローンは銀行…それぞれ別々に相談するのは手間がかかる。もっと簡単に、ワンストップでお願いできないかな。</p>
+      </article>
+      <article class="flex h-full min-h-0 flex-col" data-reveal data-delay="300">
+        <div class="concerns-card flex flex-1 flex-col rounded-sm border border-[#DDD9D2]/70 bg-white p-6 sm:p-7 text-center shadow-[0_2px_20px_rgba(26,26,26,0.04)]">
+          <p class="font-mono-label text-xs tracking-[0.2em] text-[#DDD9D2]">03</p>
+          <div class="mt-4 flex h-44 shrink-0 items-center justify-center py-2">
+            <figure class="m-0 flex w-full max-w-[10rem] justify-center">
+              <img src="/images/27550_color.svg" alt="複数の相手先とつながりながら相談する様子" class="max-h-40 w-full object-contain" width="385" height="359" loading="lazy" decoding="async">
+            </figure>
+          </div>
+          <h3 class="mt-5 min-h-[2.75rem] shrink-0 font-serif text-lg leading-snug text-ink md:min-h-[3rem] md:text-xl">バラバラに依頼するのは大変</h3>
+          <span class="mx-auto mt-2 block h-0.5 w-10 shrink-0 bg-[#E8621A]" aria-hidden="true"></span>
+          <div class="mt-6 min-h-0 flex-1">
+            <p class="text-sm leading-relaxed text-muted">物件探しは不動産会社、リノベーションは工務店、ローンは銀行…それぞれ別々に相談するのは手間がかかる。もっと簡単に、ワンストップでお願いできないかな。</p>
+          </div>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </section>
