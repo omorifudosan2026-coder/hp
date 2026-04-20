@@ -39,7 +39,7 @@ function createWorkCard(work) {
     const desc = escapeHtml(excerptText(work.description, 120));
     const safeImg = trustHttpsUrl(work.image);
     const imageHtml = safeImg
-        ? `<img src="${escapeHtml(safeImg)}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]">`
+        ? `<img src="${escapeHtml(safeImg)}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]">`
         : `<div class="absolute inset-0 bg-cream"></div>`;
     const costLabel = Number.isFinite(Number(work.cost))
         ? `${formatPriceManYen(work.cost)}万円`
@@ -50,10 +50,10 @@ function createWorkCard(work) {
         <a href="${detailHref}" class="list-card-link list-card-elev block overflow-hidden group h-full flex flex-col">
             <div class="relative aspect-[4/3] min-h-[13rem] shrink-0 bg-cream overflow-hidden">
                 ${imageHtml}
-                <div class="pointer-events-none absolute inset-0 bg-ink/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/[0.07] via-transparent to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"></div>
             </div>
             <div class="p-5 md:p-6 flex flex-col grow border-t border-[#DDD9D2]">
-                <h3 class="font-serif text-lg md:text-xl text-ink font-medium mb-3 transition-colors duration-200 group-hover:text-[#E8621A]">${title}</h3>
+                <h3 class="font-serif text-lg md:text-xl text-ink font-medium mb-3 transition-colors duration-500 group-hover:text-[#2a2a2a]">${title}</h3>
                 <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted mb-3">
                     <span>${area}</span>
                     <span class="text-[#DDD9D2]" aria-hidden="true">|</span>
@@ -65,9 +65,8 @@ function createWorkCard(work) {
                         <p class="text-[0.65rem] tracking-wider text-muted font-medium mb-1">施工費用</p>
                         <p class="text-lg font-semibold text-[#E8621A] tabular-nums">${costLabel}</p>
                     </div>
-                    <span class="inline-flex items-center gap-1.5 shrink-0 text-xs font-medium text-ink border-b border-[#DDD9D2] pb-0.5 transition-colors duration-200 group-hover:border-[#E8621A] group-hover:text-[#E8621A]">
-                        詳しく見る
-                        <svg class="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <span class="list-card-arrow list-card-arrow--footer" aria-hidden="true">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
                     </span>

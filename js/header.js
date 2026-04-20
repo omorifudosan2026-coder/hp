@@ -2,18 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.getElementById('header');
   if (!header) return;
 
-  // インナーページは常にsolid
-  const isTopPage = document.body.dataset.page === 'index';
-  if (!isTopPage) {
-    header.classList.add('header-solid');
-  }
-
-  // スクロールで scrolled クラス付与
+  // 全ページ共通：先頭は透明、一定量スクロールですりガラス風（#header.scrolled と同じ見た目）
   const onScroll = () => {
     if (window.pageYOffset > 80) {
       header.classList.add('scrolled');
     } else {
-      if (isTopPage) header.classList.remove('scrolled');
+      header.classList.remove('scrolled');
     }
   };
   window.addEventListener('scroll', onScroll, { passive: true });
