@@ -1262,6 +1262,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Form */
 input[type="text"],
 input[type="email"],
+input[type="password"],
 input[type="tel"],
 input[type="number"],
 textarea,
