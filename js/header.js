@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.getElementById('header');
   if (!header) return;
 
-  // 全ページ共通：先頭は透明、一定量スクロールですりガラス風（#header.scrolled と同じ見た目）
+  // 全ページ共通：先頭は透明、スクロールで背景＋ぼかし（#header.scrolled）
+  const scrollSolidThreshold =
+    document.body.getAttribute('data-page') === 'index' ? 48 : 80;
   const onScroll = () => {
-    if (window.pageYOffset > 80) {
+    if (window.pageYOffset > scrollSolidThreshold) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');

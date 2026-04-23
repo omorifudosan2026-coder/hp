@@ -70,3 +70,7 @@ _site/
 
 # dataconnect generated files
 .dataconnect
+
+# Local editor / AI tooling
+.cursor/
+.claude/

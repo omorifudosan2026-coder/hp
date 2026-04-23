@@ -354,22 +354,37 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
 }
 @media (min-width: 1024px) {
-  /* 2 列 1 行：左にラベル＋見出し、右に写真（右端まで）。見出しブロックは列内でやや中央寄せ */
+  /* 2 列 1 行：写真はビューポート全面（ヘッダー背後まで）、左列はその上にコピー */
   .hero-intro--layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.88fr);
     grid-template-rows: minmax(0, 1fr);
     column-gap: clamp(0.5rem, 1.2vw, 1.25rem);
     align-items: stretch;
-    min-height: 100vh;
-    padding-top: calc(var(--site-header-height) + 1.5rem);
+    min-height: 100svh;
+    padding-top: 0;
     padding-bottom: 0;
   }
   .hero-intro__left-col {
     grid-column: 1;
     grid-row: 1;
-    min-height: 0;
+    align-self: stretch;
+    min-height: 100svh;
+    padding-top: calc(var(--site-header-height) + 1.25rem);
+    box-sizing: border-box;
     position: relative;
+    z-index: 1;
+    /* 写真全幅＋左フェードの上に載せるため、ドット地を外す */
+    background-image: none;
+  }
+  .hero-intro__media-col {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    min-height: 100svh;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    z-index: 0;
   }
   .hero-intro--layout .hero-intro__title-wrap {
     margin-left: auto;
@@ -380,13 +395,6 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     max-width: min(36rem, 100%);
     text-align: center;
-  }
-  .hero-intro__media-col {
-    grid-column: 2;
-    grid-row: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
   }
 }
 /* ヒーロー実績：数字カウントアップ用 + タイポ */
@@ -439,16 +447,79 @@ h1, h2, h3, h4, h5, h6 {
 .hero-intro__stats {
   position: relative;
 }
+/* ヒーロー写真：左はリニアで下地＋、見出し〜CTA帯を楕円でしっかり白くして背景の線を抑える */
+.hero-intro__visual-fade {
+  background-image:
+    radial-gradient(
+      ellipse min(72vw, 42rem) min(92vh, 50rem) at clamp(10%, 20vw, 26%) clamp(34%, 38vh, 48%),
+      rgba(255, 255, 255, 0.99) 0%,
+      rgba(255, 255, 255, 0.94) 12%,
+      rgba(255, 255, 255, 0.82) 28%,
+      rgba(255, 255, 255, 0.48) 48%,
+      rgba(255, 255, 255, 0.12) 68%,
+      rgba(255, 255, 255, 0) 84%
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(255, 255, 255, 0.78) 18%,
+      rgba(255, 255, 255, 0.48) 36%,
+      rgba(255, 255, 255, 0.18) 52%,
+      rgba(255, 255, 255, 0.04) 64%,
+      rgba(255, 255, 255, 0) 78%
+    );
+}
+@media (min-width: 1024px) {
+  .hero-intro--layout .hero-intro__visual-frame {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+  .hero-intro--layout .hero-intro__visual {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .hero-intro__media-col .hero-intro__photo-tagline.section-label {
+    position: absolute;
+    right: clamp(1.25rem, 4vw, 3rem);
+    bottom: clamp(1.25rem, 3vh, 2.5rem);
+    z-index: 6;
+    width: auto;
+    max-width: min(100% - 2rem, 24rem);
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 12px rgba(26, 26, 26, 0.25);
+  }
+  .hero-intro__media-col .hero-intro__photo-tagline.section-label::after {
+    display: none;
+  }
+}
 .hero-intro__visual-inner {
   clip-path: inset(0);
   transition: clip-path 1.28s cubic-bezier(0.77, 0, 0.175, 1);
   transition-delay: 0.08s;
 }
-.hero-intro .hero-intro__img {
-  transform: scale(1);
-  transform-origin: center center;
-  transition: transform 1.45s cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: 0.08s;
+/*
+ * メインビジュアル画像：object-position の横は「横方向にトリミングがある」ときだけ効く。
+ * コンテナと写真の比率が合うと横トリミングがなくなり % を変えても見た目が変わらないため、
+ * 画像ボックスを少し横に広げて常に横クロップが出るようにする。
+ */
+@media (min-width: 1024px) {
+  .hero-intro.hero-intro--layout .hero-intro__visual-inner > .hero-intro__img {
+    top: 0;
+    right: auto;
+    bottom: 0;
+    left: -6%;
+    width: 112%;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+    object-position: 44% 18%;
+    filter: brightness(1.07) contrast(1.03) saturate(1.02);
+  }
 }
 @media (prefers-reduced-motion: no-preference) {
   html.hero-anim .hero-intro:not(.hero-intro--active) [data-hero-piece] {
@@ -457,9 +528,6 @@ h1, h2, h3, h4, h5, h6 {
   }
   html.hero-anim .hero-intro:not(.hero-intro--active) .hero-intro__visual-inner {
     clip-path: inset(0 0 0 100%);
-  }
-  html.hero-anim .hero-intro:not(.hero-intro--active) .hero-intro__img {
-    transform: scale(1.18);
   }
 }
 .hero-intro [data-hero-piece] {
@@ -480,9 +548,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .hero-intro.hero-intro--active .hero-intro__visual-inner {
   clip-path: inset(0 0 0 0);
-}
-.hero-intro.hero-intro--active .hero-intro__img {
-  transform: scale(1);
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-intro [data-hero-piece],
@@ -517,24 +582,36 @@ h1, h2, h3, h4, h5, h6 {
   background: #ffffff;
   overflow: hidden;
 }
-.hero-lede--interlude::before {
+/* Philosophy＋実績：写真は白ヴェールで薄く、右端にもうすいフェード */
+.hero-lede--stats-photo::after {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
-  /* うすいグリッド（セクション幅いっぱいに敷く） */
-  --grid-line: rgba(26, 26, 26, 0.07);
-  --grid-gap: 44px;
+  z-index: 0;
   background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: var(--grid-gap) var(--grid-gap);
-  background-position: 0 0;
-  opacity: 0.85;
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0.45) 18%,
+      rgba(255, 255, 255, 0.12) 38%,
+      transparent 58%
+    ),
+    linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 255, 255, 0.95) 26%,
+      rgba(255, 255, 255, 0.88) 48%,
+      rgba(255, 255, 255, 0.72) 70%,
+      rgba(255, 255, 255, 0.48) 100%
+    ),
+    url('/images/philosophy-stats-bg.jpg');
+  background-size: cover, cover, cover;
+  background-position: right center, left center, center;
 }
 .hero-lede--interlude > * {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 .hero-lede--interlude .hero-lede__shell {
   /* “いきなり帯”感を消して、橋渡しの短いリズムに */
@@ -554,11 +631,35 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 .hero-lede--interlude .hero-intro__stat-value {
-  /* 数字は“少し目立つ”くらいに。派手さは出さない */
   font-size: clamp(2.25rem, 2.1vw + 1.6rem, 3.05rem);
+  font-weight: 300;
+  line-height: 1.22;
+  padding-top: 0.06em;
+  width: 100%;
+  text-align: center;
 }
 .hero-lede--interlude .hero-intro__stat-label {
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
+  color: var(--color-ink);
+  font-weight: 300;
+  margin-top: 0.5rem;
+  width: 100%;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .hero-lede--interlude .hero-intro__stat-label {
+    margin-top: 0.55rem;
+  }
+}
+.hero-lede--interlude .hero-intro__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-lede--interlude .hero-intro__stat-figures {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
 }
 
 /* モバイルで section padding が !important 固定でも効くよう、margin でリズムを作る */
@@ -578,14 +679,43 @@ h1, h2, h3, h4, h5, h6 {
     margin: 1.75rem 0;
   }
 }
-.index-pickup {
-  margin-top: 1.25rem;
+/* CTA：角丸パネル内に全面背景写真＋白ヴェール（実績 hero-lede--stats-photo の写真層のみ） */
+.cta-ideal-home--photo-bg {
+  position: relative;
+  overflow: hidden;
 }
-@media (min-width: 768px) {
-  .index-pickup {
-    margin-top: 1.75rem;
-  }
+.cta-ideal-home--photo-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0.93) 0%,
+      rgba(255, 255, 255, 0.8) 40%,
+      rgba(255, 255, 255, 0.42) 68%,
+      rgba(255, 255, 255, 0.14) 100%
+    ),
+    url('/images/ideal-home-cta-bg.jpg');
+  background-size: cover, cover;
+  background-position: left center, center;
 }
+.cta-ideal-home--photo-bg > * {
+  position: relative;
+  z-index: 2;
+}
+.cta-ideal-home .section-label {
+  width: 100%;
+  justify-content: flex-start;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+}
+.cta-ideal-home .section-label::before {
+  width: 22px;
+}
+
 .hero-lede__stats {
   padding-top: 0.25rem;
 }
@@ -602,6 +732,16 @@ h1, h2, h3, h4, h5, h6 {
 .hero-lede .hero-intro__stat:nth-child(2) .hero-intro__stat-figures [data-hero-count] {
   min-width: 2.75ch;
 }
+/* interlude：下の .hero-lede より後に置き、数字とラベルを中央で揃える */
+.hero-lede.hero-lede--interlude .hero-intro__stat-figures [data-hero-count] {
+  text-align: center;
+}
+.hero-lede.hero-lede--interlude .hero-intro__stat:nth-child(1) .hero-intro__stat-figures [data-hero-count] {
+  min-width: 3.5ch;
+}
+.hero-lede.hero-lede--interlude .hero-intro__stat:nth-child(2) .hero-intro__stat-figures [data-hero-count] {
+  min-width: 2.75ch;
+}
 .hero-lede__aside {
   border-top: 1px solid rgba(221, 217, 210, 0.75);
   padding-top: 1.25rem;
@@ -610,9 +750,8 @@ h1, h2, h3, h4, h5, h6 {
   .hero-lede__aside {
     border-top: none;
     padding-top: 0;
-    border-left: 1px solid rgba(221, 217, 210, 0.85);
-    padding-left: clamp(1.25rem, 2.5vw, 2rem);
-    margin-left: 0.25rem;
+    padding-left: clamp(1rem, 2vw, 1.75rem);
+    margin-left: 0;
   }
 }
 .hero-lede__text {
@@ -695,21 +834,31 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* ヒーロー：スクロールインジケータ（左カラム下部に絶対配置） */
-.hero-scroll-hint {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 46%;
-  transform: translateX(-50%);
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
+/* ヒーロー：スクロールインジケータ（左カラム左下・線は文字色 currentColor） */
+.hero-intro .hero-scroll-hint {
   text-decoration: none;
   opacity: 1;
-  transition: opacity 0.4s ease;
+  color: rgba(26, 26, 26, 0.68);
+  transition:
+    opacity 0.4s ease,
+    color 0.3s ease;
 }
-.hero-scroll-hint:hover {
-  opacity: 0.7;
+.hero-intro .hero-scroll-hint:hover {
+  color: #c4521a;
+  opacity: 0.88;
+}
+@media (min-width: 1024px) {
+  .hero-intro .hero-scroll-hint {
+    position: absolute;
+    bottom: 0;
+    left: clamp(0.75rem, 2vw, 2rem);
+    right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    width: auto;
+  }
 }
 .hero-scroll-hint__label {
   font-size: 0.58rem;
@@ -725,12 +874,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero-scroll-hint__rail-line {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(26, 26, 26, 0.15) 0%,
-    rgba(26, 26, 26, 0.35) 50%,
-    rgba(26, 26, 26, 0.08) 100%
-  );
+  background: currentColor;
 }
 .hero-scroll-hint__rail-dot {
   position: absolute;
@@ -742,7 +886,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   background: #e8621a;
   box-shadow: 0 0 8px rgba(232, 98, 26, 0.5);
-  animation: hero-scroll-rail 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation: hero-scroll-rail-dot 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-scroll-hint__rail-dot {
@@ -752,35 +896,39 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.6;
   }
 }
-@keyframes hero-scroll-rail {
-  0% { transform: translateY(0); opacity: 1; }
-  70% { transform: translateY(calc(5rem - 4px)); opacity: 0.2; }
-  71% { transform: translateY(0); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+@keyframes hero-scroll-rail-dot {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  70% {
+    top: calc(100% - 4px);
+    opacity: 0.2;
+  }
+  71% {
+    top: 0;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
 }
 
-/* Header — 全面透明寄り。スクロール／下層はうすい白＋ぼかし（影・ラインなし） */
+/* Header — 背景はいったんすべて透明（必要なら後から地色を戻す） */
 #header {
-  transition: background-color 0.35s ease, backdrop-filter 0.35s ease;
+  transition: background-color 0.35s ease;
   background-color: transparent;
   border-bottom: none;
   box-shadow: none;
 }
 #header.scrolled,
 #header.header-solid {
-  background-color: rgba(255, 255, 255, 0.62);
-  backdrop-filter: blur(12px) saturate(1.15);
-  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+  background-color: transparent;
 }
 @media (prefers-reduced-motion: reduce) {
   #header {
     transition-duration: 0.01ms;
-  }
-  #header.scrolled,
-  #header.header-solid {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background-color: rgba(255, 255, 255, 0.9);
   }
 }
 
@@ -1006,12 +1154,48 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Solution Section（3カラム）— 列全体をリンクに */
 .solution-card-link {
-  display: block;
+  display: flex;
   position: relative;
   overflow: hidden;
   isolation: isolate;
   color: inherit;
   text-decoration: none;
+}
+.solution-card-link__icon {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 50%;
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
+.solution-card-link__icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+@media (min-width: 768px) {
+  .solution-card-link__icon {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+  .solution-card-link__icon svg {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+}
+.solution-card-link__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 0%;
+  flex-direction: column;
 }
 .solution-card-link::before {
   content: '';
