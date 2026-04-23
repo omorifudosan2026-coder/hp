@@ -1260,7 +1260,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Form */
-input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   border-radius: 0 !important;
   border: 1px solid #DDD9D2 !important;
@@ -1278,6 +1283,64 @@ input:focus, textarea:focus, select:focus {
   transform: translateY(10px) scale(0.98); opacity: 0;
 }
 .admin-modal--open [data-admin-modal-panel] { transform: translateY(0) scale(1); opacity: 1; }
+
+/* Admin modal scrollbar（目立たないグレーに） */
+[data-admin-modal-panel] {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(26, 26, 26, 0.22) transparent;
+}
+[data-admin-modal-panel]::-webkit-scrollbar { width: 8px; }
+[data-admin-modal-panel]::-webkit-scrollbar-track { background: transparent; }
+[data-admin-modal-panel]::-webkit-scrollbar-thumb {
+  background: rgba(26, 26, 26, 0.22);
+  border-radius: 0;
+}
+[data-admin-modal-panel]::-webkit-scrollbar-thumb:hover {
+  background: rgba(26, 26, 26, 0.32);
+}
+
+/* Admin simple buttons（管理画面の編集/削除用。site-btn は使わない） */
+.admin-btn {
+  appearance: none;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: #1a1a1a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.admin-btn:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
+}
+.admin-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.admin-btn--edit {
+  color: var(--color-navy);
+  border-color: currentColor;
+}
+.admin-btn--edit:hover { background: rgba(35, 54, 84, 0.08); }
+.admin-btn--delete {
+  /* えんじ */
+  --admin-btn-maroon: #7a1f2b;
+  color: var(--admin-btn-maroon);
+  border-color: currentColor;
+}
+.admin-btn--delete:hover { background: rgba(122, 31, 43, 0.08); }
+.admin-btn--preview {
+  color: var(--color-orange);
+  border-color: currentColor;
+}
+.admin-btn--preview:hover { background: rgba(232, 98, 26, 0.08); }
 
 /* Loading spinner */
 .loading {

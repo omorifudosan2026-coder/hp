@@ -5,7 +5,7 @@ function createPropertyCard(property, docId) {
     const area = escapeHtml(property.area || '');
     const layout = escapeHtml(property.layout || '');
     const labelHtml = property.label
-        ? `<div class="absolute top-3 left-3 z-10 bg-white/95 px-2.5 py-1 text-[0.6875rem] font-medium text-ink border border-[#DDD9D2]">${escapeHtml(property.label)}</div>`
+        ? `<div class="absolute top-3 left-3 z-10 bg-[#E8621A] text-white px-2.5 py-1 text-[0.6875rem] font-semibold tracking-wide shadow-sm">${escapeHtml(property.label)}</div>`
         : '';
     const safeImg = trustHttpsUrl(property.image);
     const imageHtml = safeImg

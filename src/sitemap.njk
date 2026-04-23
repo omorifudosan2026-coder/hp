@@ -6,48 +6,27 @@ noindex: true
 ---
 
 <section class="pt-32 pb-16 bg-cream">
-    <div class="container mx-auto px-6 md:px-12">
-        <div class="max-w-3xl mx-auto">
-            <div class="inline-block mb-6">
-                <span class="px-4 py-2 bg-white text-primary font-semibold rounded-full text-sm border-2 border-orange-100">Sitemap</span>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">サイトマップ</h1>
-            <p class="text-gray-600 leading-relaxed">主要ページへのリンク一覧です。</p>
-        </div>
-    </div>
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <p class="section-label mb-6">Sitemap</p>
+    <h1 class="font-serif text-5xl md:text-6xl text-ink">サイトマップ</h1>
+    <p class="text-muted text-base mt-4">主要ページへのリンク一覧です</p>
+  </div>
 </section>
 
-<section class="pb-24 bg-white">
-    <div class="container mx-auto px-6 md:px-12">
-        <div class="max-w-3xl mx-auto">
-            <div class="grid sm:grid-cols-2 gap-6">
-                <div class="rounded-2xl border border-gray-200 p-6">
-                    <h2 class="text-lg font-bold text-gray-900 mb-4">公開ページ</h2>
-                    <ul class="space-y-3 text-gray-700">
-                        <li><a class="text-primary font-semibold hover:underline" href="/index.html">トップ</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/concept.html">サービス</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/properties.html">物件一覧</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/works.html">施工事例</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/company.html">会社情報</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/news.html">お知らせ</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/property-detail.html">物件詳細（URLに id= を付与）</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/news-detail.html">お知らせ詳細（URLに id= を付与）</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/work-detail.html">施工事例詳細（URLに id= を付与）</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/contact.html">お問い合わせ</a></li>
-                    </ul>
-                </div>
-                <div class="rounded-2xl border border-gray-200 p-6">
-                    <h2 class="text-lg font-bold text-gray-900 mb-4">その他</h2>
-                    <ul class="space-y-3 text-gray-700">
-                        <li><a class="text-primary font-semibold hover:underline" href="/privacy.html">プライバシーポリシー（暫定）</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/terms.html">利用規約（暫定）</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/404.html">404ページ</a></li>
-                        <li><a class="text-primary font-semibold hover:underline" href="/login.html">管理ログイン</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+<section class="py-16 md:py-22 bg-white">
+  <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-7 text-sm md:text-base">
+        <li><a class="inline-flex items-center gap-4 text-ink hover:text-primary transition-colors" href="/index.html"><span class="text-primary">—</span>トップ</a></li>
+        <li><a class="inline-flex items-center gap-4 text-ink hover:text-primary transition-colors" href="/concept.html"><span class="text-primary">—</span>サービス</a></li>
+        <li><a class="inline-flex items-center gap-4 text-ink hover:text-primary transition-colors" href="/properties.html"><span class="text-primary">—</span>物件一覧</a></li>
+        <li><a class="inline-flex items-center gap-4 text-ink hover:text-primary transition-colors" href="/works.html"><span class="text-primary">—</span>施工事例</a></li>
+        <li><a class="inline-flex items-center gap-4 text-ink hover:text-primary transition-colors" href="/company.html"><span class="text-primary">—</span>会社情報</a></li>
+        <li><a class="inline-flex items-center gap-4 text-ink hover:text-primary transition-colors" href="/news.html"><span class="text-primary">—</span>お知らせ</a></li>
+        <li><a class="inline-flex items-center gap-4 text-ink hover:text-primary transition-colors" href="/contact.html"><span class="text-primary">—</span>お問い合わせ</a></li>
+        <li><a class="inline-flex items-center gap-4 text-ink hover:text-primary transition-colors" href="/privacy.html"><span class="text-primary">—</span>プライバシーポリシー</a></li>
+        <li><a class="inline-flex items-center gap-4 text-ink hover:text-primary transition-colors" href="/terms.html"><span class="text-primary">—</span>利用規約</a></li>
+      </ul>
+  </div>
 </section>
 
 {% include "partials/cta-section.njk" %}

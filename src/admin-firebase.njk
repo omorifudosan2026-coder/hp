@@ -3,62 +3,86 @@ layout: admin.njk
 permalink: /admin-firebase.html
 title: 管理画面 | 大森不動産
 pageScript: js/admin-firebase.js
+bodyClass: bg-cream min-h-screen
 ---
 
+    <!-- Busy overlay（保存中など操作ロック） -->
+    <div id="admin-busy-overlay" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/25 backdrop-blur-[1px]">
+        <div class="bg-white border border-[var(--color-border)] px-6 py-4 shadow-[0_12px_40px_rgba(26,26,26,0.10)]">
+            <div class="flex items-center gap-3">
+                <span class="loading" aria-hidden="true"></span>
+                <p id="admin-busy-text" class="text-sm text-ink">保存中...</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
-        <div class="container mx-auto px-4 py-4">
+    <header class="bg-cream">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 py-4">
             <div class="flex items-center justify-between">
-                <h1 class="text-2xl font-bold text-gray-800">
-                    <span class="text-primary">大森不動産</span> 管理画面
-                </h1>
-                <div class="flex items-center space-x-4">
-                    <span class="text-sm text-gray-600" id="user-email"></span>
-                    <a href="/index.html" class="text-gray-600 hover:text-primary transition">公開サイトへ →</a>
-                    <button id="logout-btn" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">ログアウト</button>
+                <div>
+                    <p class="section-label mb-2">Admin</p>
+                    <h1 class="font-serif text-2xl text-ink">
+                        <span class="text-primary">大森不動産</span> 管理画面
+                    </h1>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-sm text-muted" id="user-email"></span>
+                    <a href="/index.html" class="site-btn site-btn--compact site-btn--outline-ink">
+                        <span class="site-btn__inner">公開サイトへ</span>
+                    </a>
+                    <button id="logout-btn" class="site-btn site-btn--compact site-btn--outline-muted">
+                        <span class="site-btn__inner">ログアウト</span>
+                    </button>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Navigation Tabs -->
-    <div class="bg-white border-b">
-        <div class="container mx-auto px-4">
-            <nav class="flex space-x-8">
-                <button onclick="switchTab('properties')" id="tab-properties" class="tab-btn py-4 border-b-2 border-primary text-primary font-semibold">物件管理</button>
-                <button onclick="switchTab('news')" id="tab-news" class="tab-btn py-4 border-b-2 border-transparent text-gray-600 hover:text-primary">お知らせ管理</button>
-                <button onclick="switchTab('works')" id="tab-works" class="tab-btn py-4 border-b-2 border-transparent text-gray-600 hover:text-primary">施工事例管理</button>
+    <div class="bg-cream">
+        <div class="max-w-7xl mx-auto px-6 md:px-10">
+            <nav class="flex gap-8">
+                <button onclick="switchTab('properties')" id="tab-properties" class="tab-btn py-4 border-b-2 border-primary text-primary font-medium">物件管理</button>
+                <button onclick="switchTab('news')" id="tab-news" class="tab-btn py-4 border-b-2 border-transparent text-muted hover:text-primary transition-colors">お知らせ管理</button>
+                <button onclick="switchTab('works')" id="tab-works" class="tab-btn py-4 border-b-2 border-transparent text-muted hover:text-primary transition-colors">施工事例管理</button>
             </nav>
         </div>
     </div>
 
-    <div class="container mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 py-8">
         <!-- Properties Tab -->
         <div id="content-properties" class="tab-content">
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="bg-white p-6 mb-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900">物件一覧</h2>
-                    <button onclick="openPropertyModal()" class="px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-orange-600 transition">＋ 新規追加</button>
+                    <h2 class="font-serif text-2xl text-ink">物件一覧</h2>
+                    <button onclick="openPropertyModal()" class="site-btn site-btn--md site-btn--primary">
+                        <span class="site-btn__inner">＋ 新規追加</span>
+                    </button>
                 </div>
                 <div id="properties-list" class="space-y-4"><div class="text-center py-8 text-gray-500">読み込み中...</div></div>
             </div>
         </div>
         <!-- News Tab -->
         <div id="content-news" class="tab-content hidden">
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="bg-white p-6 mb-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900">お知らせ一覧</h2>
-                    <button onclick="openNewsModal()" class="px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-orange-600 transition">＋ 新規追加</button>
+                    <h2 class="font-serif text-2xl text-ink">お知らせ一覧</h2>
+                    <button onclick="openNewsModal()" class="site-btn site-btn--md site-btn--primary">
+                        <span class="site-btn__inner">＋ 新規追加</span>
+                    </button>
                 </div>
                 <div id="news-list" class="space-y-4"><div class="text-center py-8 text-gray-500">読み込み中...</div></div>
             </div>
         </div>
         <!-- Works Tab -->
         <div id="content-works" class="tab-content hidden">
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="bg-white p-6 mb-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900">施工事例一覧</h2>
-                    <button onclick="openWorkModal()" class="px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-orange-600 transition">＋ 新規追加</button>
+                    <h2 class="font-serif text-2xl text-ink">施工事例一覧</h2>
+                    <button onclick="openWorkModal()" class="site-btn site-btn--md site-btn--primary">
+                        <span class="site-btn__inner">＋ 新規追加</span>
+                    </button>
                 </div>
                 <div id="works-list" class="space-y-4"><div class="text-center py-8 text-gray-500">読み込み中...</div></div>
             </div>
@@ -67,19 +91,19 @@ pageScript: js/admin-firebase.js
 
     <!-- Property Modal -->
     <div id="property-modal" class="fixed inset-0 bg-gray-900/55 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-        <div data-admin-modal-panel class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto">
+        <div data-admin-modal-panel class="bg-white shadow-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold text-gray-900" id="property-modal-title">物件を追加</h3>
-                    <button onclick="closePropertyModal()" class="text-gray-400 hover:text-gray-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                    <h3 class="font-serif text-2xl text-ink" id="property-modal-title">物件を追加</h3>
+                    <button onclick="closePropertyModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                 </div>
                 <form id="property-form" class="space-y-4">
                     <input type="hidden" id="property-id">
                     <div class="grid md:grid-cols-2 gap-4">
-                        <div><label class="block text-sm font-semibold text-gray-700 mb-2">物件名 *</label><input type="text" id="property-title" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">物件名 *</label><input type="text" id="property-title" required class="w-full px-4 py-2"></div>
                         <div class="md:col-span-2 space-y-2">
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">エリア *</label>
-                            <select id="property-area-pref" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <label class="block text-sm font-medium text-ink mb-2">エリア *</label>
+                            <select id="property-area-pref" required class="w-full px-4 py-2">
                                 <option value="東京都">東京都</option>
                                 <option value="神奈川県">神奈川県</option>
                                 <option value="埼玉県">埼玉県</option>
@@ -88,29 +112,33 @@ pageScript: js/admin-firebase.js
                             </select>
                             <div id="property-area-suffix-wrap" class="space-y-1">
                                 <label class="block text-xs text-gray-500">市区町村など（任意）</label>
-                                <input type="text" id="property-area-suffix" placeholder="例: 世田谷区" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <input type="text" id="property-area-suffix" placeholder="例: 世田谷区" class="w-full px-4 py-2">
                             </div>
                             <div id="property-area-custom-wrap" class="space-y-1 hidden">
                                 <label class="block text-xs text-gray-500">所在地（自由入力）*</label>
-                                <input type="text" id="property-area-custom" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <input type="text" id="property-area-custom" class="w-full px-4 py-2">
                             </div>
                         </div>
-                        <div><label class="block text-sm font-semibold text-gray-700 mb-2">価格（万円） *</label><input type="number" id="property-price" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></div>
-                        <div><label class="block text-sm font-semibold text-gray-700 mb-2">間取り *</label><input type="text" id="property-layout" required placeholder="例: 2LDK" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></div>
-                        <div><label class="block text-sm font-semibold text-gray-700 mb-2">専有面積（㎡） *</label><input type="number" step="0.1" id="property-area-size" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></div>
-                        <div><label class="block text-sm font-semibold text-gray-700 mb-2">築年数 *</label><input type="number" id="property-age" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></div>
-                        <div><label class="block text-sm font-semibold text-gray-700 mb-2">ラベル</label><select id="property-label" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"><option value="">なし</option><option value="NEW">NEW</option><option value="人気">人気</option><option value="おすすめ">おすすめ</option></select></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">価格（万円） *</label><input type="number" id="property-price" required class="w-full px-4 py-2"></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">間取り *</label><input type="text" id="property-layout" required placeholder="例: 2LDK" class="w-full px-4 py-2"></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">専有面積（㎡） *</label><input type="number" step="0.1" id="property-area-size" required class="w-full px-4 py-2"></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">築年数 *</label><input type="number" id="property-age" required class="w-full px-4 py-2"></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">ラベル</label><select id="property-label" class="w-full px-4 py-2"><option value="">なし</option><option value="NEW">NEW</option><option value="人気">人気</option><option value="おすすめ">おすすめ</option></select></div>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">画像</label>
-                        <input type="file" id="property-image-file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-orange-600">
-                        <div id="property-image-preview" class="mt-2 hidden"><img id="property-image-preview-img" class="max-w-full h-48 object-cover rounded-lg"><p class="text-xs text-gray-500 mt-1">プレビュー</p></div>
+                        <label class="block text-sm font-medium text-ink mb-2">画像</label>
+                        <input type="file" id="property-image-file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-orange-600">
+                        <div id="property-image-preview" class="mt-2 hidden"><img id="property-image-preview-img" class="max-w-full h-48 object-cover"><p class="text-xs text-gray-500 mt-1">プレビュー</p></div>
                         <input type="hidden" id="property-image">
                     </div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-2">説明</label><textarea id="property-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea></div>
+                    <div><label class="block text-sm font-medium text-ink mb-2">説明</label><textarea id="property-description" rows="3" class="w-full px-4 py-2"></textarea></div>
                     <div class="flex justify-end space-x-3 pt-4">
-                        <button type="button" onclick="closePropertyModal()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">キャンセル</button>
-                        <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-orange-600 transition">保存</button>
+                        <button type="button" onclick="closePropertyModal()" class="site-btn site-btn--md site-btn--outline-muted">
+                            <span class="site-btn__inner">キャンセル</span>
+                        </button>
+                        <button type="submit" class="site-btn site-btn--md site-btn--primary">
+                            <span class="site-btn__inner">保存</span>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -119,29 +147,33 @@ pageScript: js/admin-firebase.js
 
     <!-- News Modal -->
     <div id="news-modal" class="fixed inset-0 bg-gray-900/55 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-        <div data-admin-modal-panel class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto">
+        <div data-admin-modal-panel class="bg-white shadow-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold text-gray-900" id="news-modal-title">お知らせを追加</h3>
-                    <button onclick="closeNewsModal()" class="text-gray-400 hover:text-gray-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                    <h3 class="font-serif text-2xl text-ink" id="news-modal-title">お知らせを追加</h3>
+                    <button onclick="closeNewsModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                 </div>
                 <form id="news-form" class="space-y-4">
                     <input type="hidden" id="news-id">
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-2">タイトル *</label><input type="text" id="news-title" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></div>
+                    <div><label class="block text-sm font-medium text-ink mb-2">タイトル *</label><input type="text" id="news-title" required class="w-full px-4 py-2"></div>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <div><label class="block text-sm font-semibold text-gray-700 mb-2">日付 *</label><input type="date" id="news-date" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></div>
-                        <div><label class="block text-sm font-semibold text-gray-700 mb-2">カテゴリー *</label><select id="news-category" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"><option value="お知らせ">お知らせ</option><option value="イベント">イベント</option><option value="メディア掲載">メディア掲載</option><option value="その他">その他</option></select></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">日付 *</label><input type="date" id="news-date" required class="w-full px-4 py-2"></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">カテゴリー *</label><select id="news-category" required class="w-full px-4 py-2"><option value="お知らせ">お知らせ</option><option value="イベント">イベント</option><option value="メディア掲載">メディア掲載</option><option value="その他">その他</option></select></div>
                     </div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-2">本文 *</label><textarea id="news-content" rows="6" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea></div>
+                    <div><label class="block text-sm font-medium text-ink mb-2">本文 *</label><textarea id="news-content" rows="6" required class="w-full px-4 py-2"></textarea></div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">画像</label>
-                        <input type="file" id="news-image-file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-orange-600">
-                        <div id="news-image-preview" class="mt-2 hidden"><img id="news-image-preview-img" class="max-w-full h-48 object-cover rounded-lg"><p class="text-xs text-gray-500 mt-1">プレビュー</p></div>
+                        <label class="block text-sm font-medium text-ink mb-2">画像</label>
+                        <input type="file" id="news-image-file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-orange-600">
+                        <div id="news-image-preview" class="mt-2 hidden"><img id="news-image-preview-img" class="max-w-full h-48 object-cover"><p class="text-xs text-gray-500 mt-1">プレビュー</p></div>
                         <input type="hidden" id="news-image">
                     </div>
                     <div class="flex justify-end space-x-3 pt-4">
-                        <button type="button" onclick="closeNewsModal()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">キャンセル</button>
-                        <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-orange-600 transition">保存</button>
+                        <button type="button" onclick="closeNewsModal()" class="site-btn site-btn--md site-btn--outline-muted">
+                            <span class="site-btn__inner">キャンセル</span>
+                        </button>
+                        <button type="submit" class="site-btn site-btn--md site-btn--primary">
+                            <span class="site-btn__inner">保存</span>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -150,19 +182,19 @@ pageScript: js/admin-firebase.js
 
     <!-- Work Modal -->
     <div id="work-modal" class="fixed inset-0 bg-gray-900/55 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-        <div data-admin-modal-panel class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto">
+        <div data-admin-modal-panel class="bg-white shadow-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold text-gray-900" id="work-modal-title">施工事例を追加</h3>
-                    <button onclick="closeWorkModal()" class="text-gray-400 hover:text-gray-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                    <h3 class="font-serif text-2xl text-ink" id="work-modal-title">施工事例を追加</h3>
+                    <button onclick="closeWorkModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                 </div>
                 <form id="work-form" class="space-y-4">
                     <input type="hidden" id="work-id">
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-2">タイトル *</label><input type="text" id="work-title" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></div>
+                    <div><label class="block text-sm font-medium text-ink mb-2">タイトル *</label><input type="text" id="work-title" required class="w-full px-4 py-2"></div>
                     <div class="grid md:grid-cols-3 gap-4">
                         <div class="md:col-span-3 space-y-2">
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">エリア *</label>
-                            <select id="work-area-pref" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <label class="block text-sm font-medium text-ink mb-2">エリア *</label>
+                            <select id="work-area-pref" required class="w-full px-4 py-2">
                                 <option value="東京都">東京都</option>
                                 <option value="神奈川県">神奈川県</option>
                                 <option value="埼玉県">埼玉県</option>
@@ -171,32 +203,36 @@ pageScript: js/admin-firebase.js
                             </select>
                             <div id="work-area-suffix-wrap" class="space-y-1">
                                 <label class="block text-xs text-gray-500">市区町村など（任意）</label>
-                                <input type="text" id="work-area-suffix" placeholder="例: 横浜市" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <input type="text" id="work-area-suffix" placeholder="例: 横浜市" class="w-full px-4 py-2">
                             </div>
                             <div id="work-area-custom-wrap" class="space-y-1 hidden">
                                 <label class="block text-xs text-gray-500">所在地（自由入力）*</label>
-                                <input type="text" id="work-area-custom" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <input type="text" id="work-area-custom" class="w-full px-4 py-2">
                             </div>
                         </div>
-                        <div><label class="block text-sm font-semibold text-gray-700 mb-2">間取り *</label><input type="text" id="work-layout" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></div>
-                        <div><label class="block text-sm font-semibold text-gray-700 mb-2">施工費用（万円） *</label><input type="number" id="work-cost" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">間取り *</label><input type="text" id="work-layout" required class="w-full px-4 py-2"></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">施工費用（万円） *</label><input type="number" id="work-cost" required class="w-full px-4 py-2"></div>
                     </div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-2">説明 *</label><textarea id="work-description" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea></div>
+                    <div><label class="block text-sm font-medium text-ink mb-2">説明 *</label><textarea id="work-description" rows="4" required class="w-full px-4 py-2"></textarea></div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">メイン画像 *</label>
-                        <input type="file" id="work-image-file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-orange-600">
-                        <div id="work-image-preview" class="mt-2 hidden"><img id="work-image-preview-img" class="max-w-full h-48 object-cover rounded-lg"><p class="text-xs text-gray-500 mt-1">プレビュー</p></div>
+                        <label class="block text-sm font-medium text-ink mb-2">メイン画像 *</label>
+                        <input type="file" id="work-image-file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-orange-600">
+                        <div id="work-image-preview" class="mt-2 hidden"><img id="work-image-preview-img" class="max-w-full h-48 object-cover"><p class="text-xs text-gray-500 mt-1">プレビュー</p></div>
                         <input type="hidden" id="work-image">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">追加画像（複数可）</label>
-                        <input type="file" id="work-images-file" accept="image/*" multiple class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-orange-600">
+                        <input type="file" id="work-images-file" accept="image/*" multiple class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-orange-600">
                         <div id="work-images-preview" class="mt-2 hidden grid grid-cols-3 gap-2"></div>
                         <input type="hidden" id="work-images">
                     </div>
                     <div class="flex justify-end space-x-3 pt-4">
-                        <button type="button" onclick="closeWorkModal()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">キャンセル</button>
-                        <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-orange-600 transition">保存</button>
+                        <button type="button" onclick="closeWorkModal()" class="site-btn site-btn--md site-btn--outline-muted">
+                            <span class="site-btn__inner">キャンセル</span>
+                        </button>
+                        <button type="submit" class="site-btn site-btn--md site-btn--primary">
+                            <span class="site-btn__inner">保存</span>
+                        </button>
                     </div>
                 </form>
             </div>

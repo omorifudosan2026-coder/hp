@@ -2,6 +2,29 @@
 
 const AREA_PREFS = ['東京都', '神奈川県', '埼玉県', '千葉県'];
 
+function setAdminBusy(isBusy, text = '保存中...') {
+    const overlay = document.getElementById('admin-busy-overlay');
+    const label = document.getElementById('admin-busy-text');
+    if (!overlay) return;
+
+    if (label) label.textContent = text;
+
+    if (isBusy) {
+        overlay.classList.remove('hidden');
+        overlay.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    } else {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+        document.body.style.overflow = '';
+    }
+}
+
+function isAdminBusy() {
+    const overlay = document.getElementById('admin-busy-overlay');
+    return !!(overlay && !overlay.classList.contains('hidden'));
+}
+
 function openAdminModal(modalEl) {
     modalEl.classList.remove('hidden');
     modalEl.classList.add('flex');
@@ -14,6 +37,7 @@ function openAdminModal(modalEl) {
 }
 
 function closeAdminModal(modalEl, afterClose) {
+    if (isAdminBusy()) return;
     modalEl.classList.remove('admin-modal--open');
     setTimeout(() => {
         modalEl.classList.add('hidden');
@@ -131,6 +155,7 @@ auth.onAuthStateChanged((user) => {
 
 // ログアウト
 document.getElementById('logout-btn').addEventListener('click', async () => {
+    if (isAdminBusy()) return;
     if (confirm('ログアウトしますか？')) {
         await auth.signOut();
         window.location.href = '/login.html';
@@ -139,20 +164,21 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
 
 // タブ切り替え
 function switchTab(tabName) {
+    if (isAdminBusy()) return;
     document.querySelectorAll('.tab-content').forEach(content => {
         content.classList.add('hidden');
     });
     
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('border-primary', 'text-primary', 'font-semibold');
-        btn.classList.add('border-transparent', 'text-gray-600');
+        btn.classList.remove('border-primary', 'text-primary', 'font-medium');
+        btn.classList.add('border-transparent', 'text-muted');
     });
     
     document.getElementById('content-' + tabName).classList.remove('hidden');
     
     const activeBtn = document.getElementById('tab-' + tabName);
-    activeBtn.classList.remove('border-transparent', 'text-gray-600');
-    activeBtn.classList.add('border-primary', 'text-primary', 'font-semibold');
+    activeBtn.classList.remove('border-transparent', 'text-muted');
+    activeBtn.classList.add('border-primary', 'text-primary', 'font-medium');
 }
 
 // ========== 物件管理 ==========
@@ -183,14 +209,14 @@ async function loadProperties() {
 
 function createPropertyCard(property) {
     const labelHtml = property.label ? 
-        `<span class="px-2 py-1 bg-primary text-white text-xs rounded-full">${property.label}</span>` : '';
+        `<span class="px-2 py-1 bg-primary text-white text-xs">${property.label}</span>` : '';
     
     return `
-        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+        <div class="border border-[var(--color-border)] bg-white p-4 shadow-[0_1px_0_rgba(26,26,26,0.03)] hover:shadow-[0_12px_40px_rgba(26,26,26,0.06)] transition">
             <div class="flex justify-between items-start">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-2">
-                        <h3 class="text-lg font-bold text-gray-900">${property.title}</h3>
+                        <h3 class="text-lg font-medium text-gray-900">${property.title}</h3>
                         ${labelHtml}
                     </div>
                     <p class="text-gray-600 text-sm mb-2">${property.area}</p>
@@ -202,12 +228,9 @@ function createPropertyCard(property) {
                     </div>
                 </div>
                 <div class="flex space-x-2">
-                    <button onclick="editProperty('${property.id}')" class="px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 rounded transition">
-                        編集
-                    </button>
-                    <button onclick="deleteProperty('${property.id}')" class="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded transition">
-                        削除
-                    </button>
+                    <a href="/property-detail.html?id=${encodeURIComponent(property.id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--preview">プレビュー</a>
+                    <button onclick="editProperty('${property.id}')" class="admin-btn admin-btn--edit">編集</button>
+                    <button onclick="deleteProperty('${property.id}')" class="admin-btn admin-btn--delete">削除</button>
                 </div>
             </div>
         </div>
@@ -295,8 +318,11 @@ document.getElementById('property-form').addEventListener('submit', async (e) =>
     e.preventDefault();
     
     const submitBtn = e.target.querySelector('button[type="submit"]');
+    const submitLabelEl = submitBtn ? (submitBtn.querySelector('.site-btn__inner') || submitBtn) : null;
     submitBtn.disabled = true;
-    submitBtn.textContent = '保存中...';
+    if (submitLabelEl) submitLabelEl.textContent = '保存中...';
+    setAdminBusy(true, '保存中...');
+    let didSave = false;
     
     try {
         const id = document.getElementById('property-id').value;
@@ -332,15 +358,17 @@ document.getElementById('property-form').addEventListener('submit', async (e) =>
         }
         
         showNotification('物件を保存しました');
-        closePropertyModal();
-        loadProperties();
+        await loadProperties();
+        didSave = true;
         
     } catch (error) {
         console.error('保存エラー:', error);
         alert('保存に失敗しました: ' + error.message);
     } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = '保存';
+        if (submitLabelEl) submitLabelEl.textContent = '保存';
+        setAdminBusy(false);
+        if (didSave) closePropertyModal();
     }
 });
 
@@ -389,23 +417,20 @@ async function loadNews() {
 
 function createNewsCard(item) {
     return `
-        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+        <div class="border border-[var(--color-border)] bg-white p-4 shadow-[0_1px_0_rgba(26,26,26,0.03)] hover:shadow-[0_12px_40px_rgba(26,26,26,0.06)] transition">
             <div class="flex justify-between items-start">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-2">
-                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">${item.category}</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs border border-gray-200">${item.category}</span>
                         <span class="text-sm text-gray-500">${item.date}</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">${item.title}</h3>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">${item.title}</h3>
                     <p class="text-gray-600 text-sm line-clamp-2">${item.content}</p>
                 </div>
                 <div class="flex space-x-2 ml-4">
-                    <button onclick="editNews('${item.id}')" class="px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 rounded transition">
-                        編集
-                    </button>
-                    <button onclick="deleteNews('${item.id}')" class="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded transition">
-                        削除
-                    </button>
+                    <a href="/news-detail.html?id=${encodeURIComponent(item.id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--preview">プレビュー</a>
+                    <button onclick="editNews('${item.id}')" class="admin-btn admin-btn--edit">編集</button>
+                    <button onclick="deleteNews('${item.id}')" class="admin-btn admin-btn--delete">削除</button>
                 </div>
             </div>
         </div>
@@ -481,8 +506,11 @@ document.getElementById('news-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const submitBtn = e.target.querySelector('button[type="submit"]');
+    const submitLabelEl = submitBtn ? (submitBtn.querySelector('.site-btn__inner') || submitBtn) : null;
     submitBtn.disabled = true;
-    submitBtn.textContent = '保存中...';
+    if (submitLabelEl) submitLabelEl.textContent = '保存中...';
+    setAdminBusy(true, '保存中...');
+    let didSave = false;
     
     try {
         const id = document.getElementById('news-id').value;
@@ -511,15 +539,17 @@ document.getElementById('news-form').addEventListener('submit', async (e) => {
         }
         
         showNotification('お知らせを保存しました');
-        closeNewsModal();
-        loadNews();
+        await loadNews();
+        didSave = true;
         
     } catch (error) {
         console.error('保存エラー:', error);
         alert('保存に失敗しました: ' + error.message);
     } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = '保存';
+        if (submitLabelEl) submitLabelEl.textContent = '保存';
+        setAdminBusy(false);
+        if (didSave) closeNewsModal();
     }
 });
 
@@ -568,10 +598,10 @@ async function loadWorks() {
 
 function createWorkCard(work) {
     return `
-        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+        <div class="border border-[var(--color-border)] bg-white p-4 shadow-[0_1px_0_rgba(26,26,26,0.03)] hover:shadow-[0_12px_40px_rgba(26,26,26,0.06)] transition">
             <div class="flex justify-between items-start">
                 <div class="flex-1">
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">${work.title}</h3>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">${work.title}</h3>
                     <div class="flex items-center space-x-4 text-sm text-gray-700 mb-2">
                         <span>${work.area}</span>
                         <span>${work.layout}</span>
@@ -580,12 +610,9 @@ function createWorkCard(work) {
                     <p class="text-gray-600 text-sm line-clamp-2">${work.description}</p>
                 </div>
                 <div class="flex space-x-2 ml-4">
-                    <button onclick="editWork('${work.id}')" class="px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 rounded transition">
-                        編集
-                    </button>
-                    <button onclick="deleteWork('${work.id}')" class="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded transition">
-                        削除
-                    </button>
+                    <a href="/work-detail.html?id=${encodeURIComponent(work.id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--preview">プレビュー</a>
+                    <button onclick="editWork('${work.id}')" class="admin-btn admin-btn--edit">編集</button>
+                    <button onclick="deleteWork('${work.id}')" class="admin-btn admin-btn--delete">削除</button>
                 </div>
             </div>
         </div>
@@ -679,8 +706,11 @@ document.getElementById('work-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const submitBtn = e.target.querySelector('button[type="submit"]');
+    const submitLabelEl = submitBtn ? (submitBtn.querySelector('.site-btn__inner') || submitBtn) : null;
     submitBtn.disabled = true;
-    submitBtn.textContent = '保存中...';
+    if (submitLabelEl) submitLabelEl.textContent = '保存中...';
+    setAdminBusy(true, '保存中...');
+    let didSave = false;
     
     try {
         const id = document.getElementById('work-id').value;
@@ -737,15 +767,17 @@ document.getElementById('work-form').addEventListener('submit', async (e) => {
         }
         
         showNotification('施工事例を保存しました');
-        closeWorkModal();
-        loadWorks();
+        await loadWorks();
+        didSave = true;
         
     } catch (error) {
         console.error('保存エラー:', error);
         alert('保存に失敗しました: ' + error.message);
     } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = '保存';
+        if (submitLabelEl) submitLabelEl.textContent = '保存';
+        setAdminBusy(false);
+        if (didSave) closeWorkModal();
     }
 });
 
@@ -798,7 +830,7 @@ async function uploadImage(file, folder) {
 
 function showNotification(message) {
     const notification = document.createElement('div');
-    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 shadow-lg z-50 animate-fade-in';
     notification.textContent = message;
     
     document.body.appendChild(notification);
@@ -815,6 +847,7 @@ document.getElementById('property-area-pref').addEventListener('change', updateP
 document.getElementById('work-area-pref').addEventListener('change', updateWorkAreaFieldVisibility);
 
 document.addEventListener('keydown', (e) => {
+    if (isAdminBusy()) return;
     if (e.key !== 'Escape') return;
     const pairs = [
         ['property-modal', closePropertyModal],
