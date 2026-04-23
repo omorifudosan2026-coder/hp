@@ -39,35 +39,34 @@ function createWorkCard(work) {
     const desc = escapeHtml(excerptText(work.description, 120));
     const safeImg = trustHttpsUrl(work.image);
     const imageHtml = safeImg
-        ? `<img src="${escapeHtml(safeImg)}" alt="${title}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">`
-        : `<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-orange/10"></div>`;
+        ? `<img src="${escapeHtml(safeImg)}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]">`
+        : `<div class="absolute inset-0 bg-cream"></div>`;
     const costLabel = Number.isFinite(Number(work.cost))
         ? `${formatPriceManYen(work.cost)}万円`
         : '—';
     const detailHref = `/work-detail.html?id=${encodeURIComponent(work.id)}`;
 
     return `
-        <a href="${detailHref}" class="list-card-link list-card-elev block bg-white rounded-2xl overflow-hidden group">
-            <div class="relative h-64 bg-gray-200 overflow-hidden">
+        <a href="${detailHref}" class="list-card-link list-card-elev block overflow-hidden group h-full flex flex-col">
+            <div class="relative aspect-[4/3] min-h-[13rem] shrink-0 bg-cream overflow-hidden">
                 ${imageHtml}
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/[0.07] via-transparent to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"></div>
             </div>
-            <div class="p-6">
-                <h3 class="text-xl font-bold text-gray-900 mb-3 transition-colors duration-300 group-hover:text-primary">${title}</h3>
-                <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
+            <div class="p-5 md:p-6 flex flex-col grow border-t border-[#DDD9D2]">
+                <h3 class="font-serif text-lg md:text-xl text-ink font-medium mb-3 transition-colors duration-500 group-hover:text-[#2a2a2a]">${title}</h3>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted mb-3">
                     <span>${area}</span>
-                    <span aria-hidden="true">•</span>
+                    <span class="text-[#DDD9D2]" aria-hidden="true">|</span>
                     <span>${layout}</span>
                 </div>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">${desc}</p>
-                <div class="flex items-center justify-between gap-3">
+                <p class="text-muted text-sm mb-5 line-clamp-2 leading-relaxed">${desc}</p>
+                <div class="mt-auto flex items-end justify-between gap-4 pt-4 border-t border-[#DDD9D2]">
                     <div>
-                        <p class="text-xs text-gray-500">施工費用</p>
-                        <p class="text-lg font-bold text-primary">${costLabel}</p>
+                        <p class="text-[0.65rem] tracking-wider text-muted font-medium mb-1">施工費用</p>
+                        <p class="text-lg font-semibold text-[#E8621A] tabular-nums">${costLabel}</p>
                     </div>
-                    <span class="inline-flex items-center gap-1.5 shrink-0 text-primary font-semibold">
-                        詳しく見る
-                        <svg class="w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <span class="list-card-arrow list-card-arrow--footer" aria-hidden="true">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
                     </span>

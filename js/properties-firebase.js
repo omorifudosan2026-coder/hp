@@ -116,61 +116,54 @@ function createPropertyCard(property) {
     const area = escapeHtml(property.area || '');
     const layout = escapeHtml(property.layout || '');
     const labelHtml = property.label
-        ? `<div class="absolute top-4 left-4 bg-orange text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg">
+        ? `<div class="absolute top-3 left-3 z-10 bg-white/95 px-2.5 py-1 text-[0.6875rem] font-medium text-ink border border-[#DDD9D2]">
             ${escapeHtml(property.label)}
         </div>`
         : '';
 
     const safeImg = trustHttpsUrl(property.image);
     const imageHtml = safeImg
-        ? `<img src="${escapeHtml(safeImg)}" alt="${title}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform">`
-        : `<div class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-50"></div>`;
+        ? `<img src="${escapeHtml(safeImg)}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]">`
+        : `<div class="absolute inset-0 bg-cream"></div>`;
 
     const priceStr = formatPriceManYen(property.price);
     const detailHref = `/property-detail.html?id=${encodeURIComponent(property.id)}`;
 
     return `
-        <div class="relative group">
-            <div class="absolute inset-0 bg-gradient-to-br from-orange/10 to-transparent rounded-3xl transform rotate-2 group-hover:rotate-3 transition-transform duration-500 pointer-events-none"></div>
-            <a href="${detailHref}" class="list-card-link list-card-elev relative block bg-white rounded-2xl overflow-hidden border-2 border-gray-100 hover:border-orange/30 will-change-transform">
-                <div class="relative h-56 bg-gray-100 overflow-hidden">
+            <a href="${detailHref}" class="list-card-link list-card-elev list-card-static relative block overflow-hidden h-full flex flex-col group">
+                <div class="relative aspect-[4/3] min-h-[13rem] shrink-0 bg-cream overflow-hidden">
                     ${imageHtml}
-                    <div class="absolute inset-0 bg-gradient-to-t from-navy/40 via-navy/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out pointer-events-none"></div>
+                    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/[0.08] via-transparent to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"></div>
                     ${labelHtml}
-                    <div class="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 pointer-events-none">
-                        <div class="bg-white/90 backdrop-blur-sm rounded-xl p-3">
-                            <p class="text-xs font-semibold text-navy">今すぐ見学可能</p>
+                    <div class="absolute bottom-3 left-3 pointer-events-none">
+                        <div class="inline-flex items-center gap-1.5 rounded-full bg-white/95 border border-[#DDD9D2] px-3 py-1.5 shadow-sm">
+                            <svg class="w-3.5 h-3.5 text-[#E8621A]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 9h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="text-xs font-medium text-ink tracking-wide">今すぐ見学可能</span>
                         </div>
                     </div>
                 </div>
-                <div class="p-6 relative">
-                    <div class="absolute top-0 right-6 w-3 h-3 bg-orange rounded-full -mt-1.5 pointer-events-none"></div>
-                    <h3 class="text-lg font-bold text-navy mb-2 line-clamp-2">${title}</h3>
-                    <div class="flex items-center text-gray-500 text-xs mb-4 font-light">
-                        <svg class="w-3.5 h-3.5 mr-1 text-orange shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <div class="p-5 md:p-6 flex flex-col grow border-t border-[#DDD9D2]">
+                    <h3 class="font-serif text-lg md:text-xl text-ink font-medium mb-2 line-clamp-2">${title}</h3>
+                    <div class="flex items-center gap-1.5 text-muted text-xs mb-5">
+                        <svg class="w-3.5 h-3.5 shrink-0 text-[#E8621A]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        ${area}
+                        <span>${area}</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 mb-5">
-                        <div class="bg-gradient-to-br from-orange/5 to-orange/10 p-4 rounded-xl border border-orange/20">
-                            <p class="text-xs text-gray-600 font-medium mb-1">価格</p>
-                            <p class="text-xl font-bold text-navy">${priceStr}<span class="text-xs font-medium text-gray-600">万円</span></p>
+                    <div class="grid grid-cols-2 border border-[#DDD9D2] divide-x divide-[#DDD9D2] mb-6 text-left">
+                        <div class="p-3 md:p-4 bg-cream">
+                            <p class="text-[0.65rem] tracking-wider text-muted font-medium mb-1">価格</p>
+                            <p class="text-lg font-semibold text-ink tabular-nums">${priceStr}<span class="text-xs font-normal text-muted"> 万円</span></p>
                         </div>
-                        <div class="bg-gradient-to-br from-navy/5 to-navy/10 p-4 rounded-xl border border-navy/20">
-                            <p class="text-xs text-gray-600 font-medium mb-1">間取り</p>
-                            <p class="text-xl font-bold text-navy">${layout}</p>
+                        <div class="p-3 md:p-4 bg-white">
+                            <p class="text-[0.65rem] tracking-wider text-muted font-medium mb-1">間取り</p>
+                            <p class="text-lg font-semibold text-ink">${layout}</p>
                         </div>
                     </div>
-                    <span class="list-card-navy-cta">
-                        詳細を見る
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                        </svg>
-                    </span>
                 </div>
             </a>
-        </div>
     `;
 }

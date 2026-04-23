@@ -8,55 +8,49 @@ pageScript: js/properties-firebase.js
 ---
 
     <!-- Page Header -->
-    <section class="pt-32 pb-16 bg-white relative overflow-hidden">
-        <div class="absolute right-0 top-0 w-96 h-96 bg-gradient-to-br from-orange-100/10 to-transparent rounded-full -mr-48 blur-3xl"></div>
-        <div class="container mx-auto px-6 md:px-12 relative z-10">
-            <div class="max-w-4xl">
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 text-primary font-medium rounded-full text-sm mb-6 border border-orange-100/50">
-                    <span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
-                    Properties
-                </div>
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">物件一覧</h1>
-                <p class="text-lg md:text-xl text-gray-600 leading-relaxed font-light">リノベーション可能な魅力的な物件をご紹介します</p>
-            </div>
-        </div>
+    <section class="pt-32 pb-16 bg-cream">
+      <div class="max-w-7xl mx-auto px-6 md:px-10">
+        <p class="section-label mb-6">Properties</p>
+        <h1 class="font-serif text-5xl md:text-6xl text-ink">物件一覧</h1>
+        <p class="text-muted text-base mt-4">リノベーション可能な魅力的な物件をご紹介します</p>
+      </div>
     </section>
 
     <!-- Search & Filter Section -->
-    <section class="py-12 bg-gray-50 border-b border-gray-100">
+    <section class="py-12 bg-white">
         <div class="container mx-auto px-6 md:px-12">
             <div class="max-w-6xl mx-auto">
-                <div class="bg-white p-6 md:p-8 rounded-2xl border border-gray-200 shadow-sm">
-                    <div class="grid md:grid-cols-4 gap-4">
+                <div class="grid md:grid-cols-[1fr_1fr_1fr_auto] gap-4 md:gap-6 items-end">
                         <div>
                             <label class="block text-xs font-semibold text-gray-700 mb-2">エリア</label>
-                            <select id="filter-area" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition bg-white">
+                            <select id="filter-area" class="w-full h-11 px-0 py-0 border-0 border-b border-[#DDD9D2] text-sm focus:ring-0 focus:border-ink transition bg-transparent">
                                 <option>すべて</option><option>東京都</option><option>神奈川県</option><option>埼玉県</option><option>千葉県</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-gray-700 mb-2">価格帯</label>
-                            <select id="filter-price" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition bg-white">
+                            <select id="filter-price" class="w-full h-11 px-0 py-0 border-0 border-b border-[#DDD9D2] text-sm focus:ring-0 focus:border-ink transition bg-transparent">
                                 <option>すべて</option><option>〜2,000万円</option><option>2,000〜3,000万円</option><option>3,000〜4,000万円</option><option>4,000万円〜</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-gray-700 mb-2">間取り</label>
-                            <select id="filter-layout" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition bg-white">
+                            <select id="filter-layout" class="w-full h-11 px-0 py-0 border-0 border-b border-[#DDD9D2] text-sm focus:ring-0 focus:border-ink transition bg-transparent">
                                 <option>すべて</option><option>1R・1K</option><option>1DK・1LDK</option><option>2DK・2LDK</option><option>3LDK以上</option>
                             </select>
                         </div>
-                        <div class="flex items-end">
-                            <button type="button" id="filter-search-btn" class="w-full px-6 py-3 bg-gray-900 text-white rounded-xl text-sm font-medium hover:bg-gray-800 transition">絞り込み</button>
+                        <div class="flex">
+                            <button type="button" id="filter-search-btn" class="site-btn site-btn--field site-btn--outline-ink inline-flex w-full justify-center md:w-auto">
+                              <span class="site-btn__inner">絞り込み<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L14 13.414V19a1 1 0 01-1.447.894l-2-1A1 1 0 0110 18v-4.586L3.293 6.707A1 1 0 013 6V4z"/></svg></span>
+                            </button>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Properties Grid -->
-    <section class="py-20 bg-gray-50">
+    <section class="py-20 bg-white">
         <div class="container mx-auto px-6 md:px-12">
             <div class="max-w-6xl mx-auto">
                 <div class="mb-8">
@@ -78,14 +72,4 @@ pageScript: js/properties-firebase.js
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-r from-primary to-orange text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">お気に入りの物件は見つかりましたか？</h2>
-            <p class="text-lg mb-8 opacity-90">ご希望の条件に合う物件を一緒にお探しいたします</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="/contact.html" class="px-8 py-4 bg-white text-primary rounded-full font-bold hover:bg-gray-100 transition">お問い合わせ</a>
-                <a href="/concept.html" class="px-8 py-4 border-2 border-white text-white rounded-full font-bold hover:bg-white hover:text-primary transition">サービスを見る</a>
-            </div>
-        </div>
-    </section>
+    {% include "partials/cta-section.njk" %}

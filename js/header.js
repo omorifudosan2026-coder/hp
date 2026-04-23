@@ -1,41 +1,48 @@
-// ヘッダーのスクロール処理（影なし）
-window.addEventListener('scroll', () => {
-    const header = document.getElementById('header');
-    if (!header) return;
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll > 100) {
-        header.style.transform = 'translateY(0)';
-    } else {
-        header.style.transform = 'translateY(0)';
-    }
-});
-
-// モバイルメニュー（script.js とは二重登録しない）
 document.addEventListener('DOMContentLoaded', () => {
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+  const header = document.getElementById('header');
+  if (!header) return;
 
-    if (!mobileMenuBtn || !mobileMenu) return;
+  // 全ページ共通：先頭は透明、一定量スクロールですりガラス風（#header.scrolled と同じ見た目）
+  const onScroll = () => {
+    if (window.pageYOffset > 80) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-    const setOpen = (open) => {
-        mobileMenuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        mobileMenuBtn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
-        mobileMenu.classList.toggle('mobile-menu-panel--open', open);
-        mobileMenu.classList.toggle('mobile-menu-panel--collapsed', !open);
-    };
+  // 初回だけごく僅かに下にズレて見えるブラウザ対策（ハッシュ付き URL は除外）
+  const snapDocumentToTop = () => {
+    if (window.location.hash) return;
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (y <= 0) return;
+    window.scrollTo(0, 0);
+  };
+  snapDocumentToTop();
+  requestAnimationFrame(snapDocumentToTop);
+  requestAnimationFrame(() => requestAnimationFrame(snapDocumentToTop));
+  window.addEventListener('load', snapDocumentToTop, { once: true });
 
-    setOpen(false);
+  // モバイルメニュー
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (!mobileMenuBtn || !mobileMenu) return;
 
-    mobileMenuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const next = !mobileMenu.classList.contains('mobile-menu-panel--open');
-        setOpen(next);
-    });
+  const setOpen = (open) => {
+    mobileMenuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    mobileMenuBtn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    mobileMenu.classList.toggle('mobile-menu-panel--open', open);
+    mobileMenu.classList.toggle('mobile-menu-panel--collapsed', !open);
+  };
+  setOpen(false);
 
-    document.addEventListener('click', (e) => {
-        if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-            setOpen(false);
-        }
-    });
+  mobileMenuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setOpen(!mobileMenu.classList.contains('mobile-menu-panel--open'));
+  });
+  document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) setOpen(false);
+  });
 });

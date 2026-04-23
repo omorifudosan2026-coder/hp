@@ -8,51 +8,58 @@ description: 掲載物件の詳細情報です。
 pageScript: js/property-detail.js
 ---
 
-    <section class="pt-32 pb-24 bg-gray-50 min-h-screen">
-        <div class="container mx-auto px-6 md:px-12">
-            <div id="detail-loading" class="text-center py-20">
-                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-                <p class="text-gray-500 mt-4">読み込み中...</p>
+<section class="pt-32 pb-24 bg-white min-h-screen">
+  <div class="max-w-4xl mx-auto px-6 md:px-10">
+    <div id="detail-loading" class="text-center py-20">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-[#DDD9D2] border-t-[#1A1A1A]"></div>
+      <p class="text-muted text-sm mt-3">読み込み中...</p>
+    </div>
+    <div id="detail-error" class="hidden text-center py-20 max-w-xl mx-auto">
+      <p class="text-ink text-base mb-6" id="detail-error-text"></p>
+      <a href="/properties.html" class="inline-flex items-center gap-2 text-sm text-ink border-b border-ink pb-0.5 hover:text-[#E8621A] hover:border-[#E8621A] transition-colors">物件一覧へ戻る</a>
+    </div>
+    <article id="detail-content" class="hidden">
+      <a href="/properties.html" class="text-xs text-muted hover:text-ink transition-colors mb-8 inline-flex items-center gap-2">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+        物件一覧
+      </a>
+      <div class="bg-white border border-[#DDD9D2] mt-6">
+        <div id="detail-hero" class="relative h-72 md:h-96 bg-[#E2DDD2]"></div>
+        <div class="p-8 md:p-12">
+          <div id="detail-label-wrap" class="mb-4"></div>
+          <h1 id="detail-title" class="font-serif text-3xl md:text-4xl text-ink mb-4"></h1>
+          <p id="detail-area" class="text-muted text-sm mb-8"></p>
+          <div class="grid md:grid-cols-2 gap-4 mb-10">
+            <div class="bg-white p-6 border border-[#DDD9D2]">
+              <p class="font-mono-label text-xs text-muted mb-2 tracking-widest">PRICE</p>
+              <p id="detail-price" class="font-serif text-2xl text-ink"></p>
             </div>
-            <div id="detail-error" class="hidden text-center py-20 max-w-xl mx-auto">
-                <p class="text-gray-700 text-lg mb-6" id="detail-error-text"></p>
-                <a href="/properties.html" class="inline-flex items-center gap-2 px-6 py-3 bg-navy text-white rounded-full font-semibold hover:bg-navy/90">物件一覧へ戻る</a>
+            <div class="bg-white p-6 border border-[#DDD9D2]">
+              <p class="font-mono-label text-xs text-muted mb-2 tracking-widest">LAYOUT</p>
+              <p id="detail-layout" class="font-serif text-2xl text-ink"></p>
             </div>
-            <article id="detail-content" class="hidden max-w-4xl mx-auto">
-                <a href="/properties.html" class="text-sm text-primary font-semibold hover:underline mb-8 inline-block">← 物件一覧</a>
-                <div class="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden">
-                    <div id="detail-hero" class="relative h-72 md:h-96 bg-gray-100"></div>
-                    <div class="p-8 md:p-12">
-                        <div id="detail-label-wrap" class="mb-4"></div>
-                        <h1 id="detail-title" class="text-3xl md:text-4xl font-bold text-navy mb-4"></h1>
-                        <p id="detail-area" class="text-gray-600 mb-8 flex items-center gap-2"></p>
-                        <div class="grid md:grid-cols-2 gap-6 mb-10">
-                            <div class="bg-orange/5 rounded-2xl p-6 border border-orange/20">
-                                <p class="text-sm text-gray-600 mb-1">価格</p>
-                                <p id="detail-price" class="text-2xl font-bold text-navy"></p>
-                            </div>
-                            <div class="bg-navy/5 rounded-2xl p-6 border border-navy/20">
-                                <p class="text-sm text-gray-600 mb-1">間取り</p>
-                                <p id="detail-layout" class="text-2xl font-bold text-navy"></p>
-                            </div>
-                            <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                                <p class="text-sm text-gray-600 mb-1">専有面積</p>
-                                <p id="detail-area-size" class="text-xl font-bold text-navy"></p>
-                            </div>
-                            <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                                <p class="text-sm text-gray-600 mb-1">築年数</p>
-                                <p id="detail-age" class="text-xl font-bold text-navy"></p>
-                            </div>
-                        </div>
-                        <div class="border-t border-gray-100 pt-8">
-                            <h2 class="text-lg font-bold text-navy mb-4">物件説明</h2>
-                            <p id="detail-description" class="text-gray-700 leading-relaxed whitespace-pre-line"></p>
-                        </div>
-                        <div class="mt-10">
-                            <a href="/contact.html" class="inline-flex items-center gap-2 px-8 py-4 bg-orange text-white rounded-full font-bold hover:bg-orange-600 transition">この物件について問い合わせる</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
+            <div class="bg-white p-6 border border-[#DDD9D2]">
+              <p class="font-mono-label text-xs text-muted mb-2 tracking-widest">AREA</p>
+              <p id="detail-area-size" class="text-xl font-medium text-ink"></p>
+            </div>
+            <div class="bg-white p-6 border border-[#DDD9D2]">
+              <p class="font-mono-label text-xs text-muted mb-2 tracking-widest">AGE</p>
+              <p id="detail-age" class="text-xl font-medium text-ink"></p>
+            </div>
+          </div>
+          <div class="border-t border-[#DDD9D2] pt-8">
+            <h2 class="font-serif text-lg text-ink mb-4">物件説明</h2>
+            <p id="detail-description" class="text-sm text-muted leading-relaxed whitespace-pre-line"></p>
+          </div>
+          <div class="mt-10">
+            <a href="/contact.html" class="site-btn site-btn--lg site-btn--primary inline-flex">
+              <span class="site-btn__inner">この物件について問い合わせる<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
+            </a>
+          </div>
         </div>
-    </section>
+      </div>
+    </article>
+  </div>
+</section>
+
+{% include "partials/cta-section.njk" %}
