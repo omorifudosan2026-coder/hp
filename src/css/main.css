@@ -522,18 +522,15 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  /* うっすいグリッド（端はフェードして主張を抑える） */
+  /* うすいグリッド（セクション幅いっぱいに敷く） */
   --grid-line: rgba(26, 26, 26, 0.07);
   --grid-gap: 44px;
   background-image:
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: var(--grid-gap) var(--grid-gap);
-  background-position: center;
+  background-position: 0 0;
   opacity: 0.85;
-  /* 端で自然に消える（対応ブラウザは多い。非対応でもグリッドは表示される） */
-  -webkit-mask-image: radial-gradient(circle at 50% 55%, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.68) 46%, rgba(0,0,0,0.18) 74%, rgba(0,0,0,0) 100%);
-  mask-image: radial-gradient(circle at 50% 55%, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.68) 46%, rgba(0,0,0,0.18) 74%, rgba(0,0,0,0) 100%);
 }
 .hero-lede--interlude > * {
   position: relative;
