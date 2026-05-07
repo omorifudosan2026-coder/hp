@@ -94,11 +94,6 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     // 管理者のみ書き込み可能、全員読み取り可能
-    match /properties/{document} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
-    
     match /news/{document} {
       allow read: if true;
       allow write: if request.auth != null;
@@ -165,14 +160,14 @@ npm run dev
 3. ログイン成功すると管理画面に移動します
 
 ### 6-3. テストデータを追加
-1. 「物件管理」タブで「新規追加」をクリック
-2. 物件情報を入力（画像も選択）
+1. 「お知らせ管理」または「施工事例管理」タブで「新規追加」をクリック
+2. 内容を入力（画像がある項目は画像も選択）
 3. 「保存」をクリック
 4. 保存成功の通知が表示されれば OK！
 
 ### 6-4. 公開ページを確認
-1. ブラウザで `http://localhost:8080/properties.html` にアクセス
-2. 追加した物件が表示されれば成功！
+1. ブラウザで `http://localhost:8080/news.html` または `http://localhost:8080/works.html` にアクセス
+2. 追加した内容が表示されれば成功！
 
 ---
 
@@ -183,8 +178,8 @@ npm run dev
 - **管理画面**: `admin-firebase.html`
 
 ### 公開ページ
-- **物件一覧**: `properties.html`
 - **お知らせ**: `news.html`
+- **施工事例**: `works.html`
 
 ---
 

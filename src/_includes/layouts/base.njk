@@ -20,6 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css{% if mainCssCacheBust %}?v={{ mainCssCacheBust }}{% endif %}">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-white" data-page="{{ activePage }}">
 <script>document.documentElement.classList.add('hero-anim');</script>
@@ -43,12 +44,31 @@
 
       <!-- Desktop nav -->
       <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
-        <a href="/concept.html" class="header-nav-link {{ 'font-medium' if activePage == 'concept' else '' }}">サービス</a>
-        <a href="/properties.html" class="header-nav-link {{ 'font-medium' if activePage == 'properties' else '' }}">物件一覧</a>
+        <a href="/concept.html" class="header-nav-link {{ 'font-medium' if activePage == 'concept' else '' }}">選ばれる理由</a>
+        <!-- サービス ドロップダウン -->
+        <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
+          <button type="button" class="header-nav-link flex items-center gap-1 {{ 'font-medium' if activePage in ['service-kaitore', 'service-renovation', 'service-income'] else '' }}" :aria-expanded="open">
+            サービス
+            <svg :class="open ? 'rotate-180' : ''" class="w-3 h-3 mt-0.5 transition-transform duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-1" class="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50" style="display: none;">
+            <div class="bg-white border border-[#DDD9D2] rounded-sm shadow-lg py-1.5 min-w-[11rem]">
+              <a href="/service-kaitore.html" class="flex items-center gap-2 px-5 py-2.5 text-sm text-ink hover:text-[#E8621A] hover:bg-cream transition-colors {{ 'font-medium text-[#E8621A]' if activePage == 'service-kaitore' else '' }}">
+                <span class="text-[#E8621A] text-xs font-mono-label">01</span>買取再販
+              </a>
+              <a href="/service-renovation.html" class="flex items-center gap-2 px-5 py-2.5 text-sm text-ink hover:text-[#E8621A] hover:bg-cream transition-colors {{ 'font-medium text-[#E8621A]' if activePage == 'service-renovation' else '' }}">
+                <span class="text-[#E8621A] text-xs font-mono-label">02</span>仲介＋リノベ
+              </a>
+              <a href="/service-income.html" class="flex items-center gap-2 px-5 py-2.5 text-sm text-ink hover:text-[#E8621A] hover:bg-cream transition-colors {{ 'font-medium text-[#E8621A]' if activePage == 'service-income' else '' }}">
+                <span class="text-[#E8621A] text-xs font-mono-label">03</span>収益不動産
+              </a>
+            </div>
+          </div>
+        </div>
         <a href="/works.html" class="header-nav-link {{ 'font-medium' if activePage == 'works' else '' }}">施工事例</a>
-        <a href="/company.html" class="header-nav-link {{ 'font-medium' if activePage == 'company' else '' }}">会社概要</a>
-        <a href="/news.html" class="header-nav-link {{ 'font-medium' if activePage == 'news' else '' }}">お知らせ</a>
-        <a href="/contact.html" class="site-btn site-btn--sm site-btn--outline-ink"><span class="site-btn__inner">お問い合わせ</span></a>
+        <a href="/story.html" class="header-nav-link {{ 'font-medium' if activePage == 'story' else '' }}">ストーリー</a>
+        <a href="/news.html" class="header-nav-link {{ 'font-medium' if activePage == 'news' else '' }}">ブログ</a>
+        <a href="/contact.html" class="site-btn site-btn--sm site-btn--outline-ink"><span class="site-btn__inner">無料相談を予約する</span></a>
       </nav>
 
       <!-- Mobile button -->
@@ -66,13 +86,24 @@
   <div id="mobile-menu" class="mobile-menu-panel lg:hidden mobile-menu-panel--collapsed overflow-hidden" role="navigation" aria-label="モバイルメニュー">
     <div class="bg-cream border-t border-[#DDD9D2] px-6 py-4">
       <nav class="flex flex-col gap-0 divide-y divide-[#DDD9D2]">
-        <a href="/concept.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">サービス</a>
-        <a href="/properties.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">物件一覧</a>
+        <a href="/concept.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">選ばれる理由</a>
+        <!-- サービス アコーディオン -->
+        <div x-data="{ open: false }">
+          <button type="button" @click="open = !open" class="w-full flex items-center justify-between py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors" :aria-expanded="open">
+            サービス
+            <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-150 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pb-2 pl-3 flex flex-col gap-0 border-l-2 border-[#E8621A]/30 ml-1" style="display: none;">
+            <a href="/service-kaitore.html" class="py-2.5 text-base text-ink hover:text-[#E8621A] transition-colors">買取再販</a>
+            <a href="/service-renovation.html" class="py-2.5 text-base text-ink hover:text-[#E8621A] transition-colors">仲介＋リノベ</a>
+            <a href="/service-income.html" class="py-2.5 text-base text-ink hover:text-[#E8621A] transition-colors">収益不動産</a>
+          </div>
+        </div>
         <a href="/works.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">施工事例</a>
-        <a href="/company.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">会社概要</a>
-        <a href="/news.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">お知らせ</a>
+        <a href="/story.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">ストーリー</a>
+        <a href="/news.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">ブログ</a>
         <a href="/contact.html" class="pt-4 pb-2">
-          <span class="site-btn site-btn--menu site-btn--outline-ink inline-flex"><span class="site-btn__inner">お問い合わせ</span></span>
+          <span class="site-btn site-btn--menu site-btn--outline-ink inline-flex"><span class="site-btn__inner">無料相談を予約する</span></span>
         </a>
       </nav>
     </div>
@@ -93,28 +124,29 @@
           </span>
           <span class="header-brand font-bold text-lg text-white">大森<span style="color:#E8621A">不動産</span></span>
         </div>
-        <p class="text-white/80 text-xs leading-relaxed">物件探しからリノベーション、売買まで。<br>ワンストップで叶える、理想の住まいづくり。</p>
+        <p class="text-white/80 text-xs leading-relaxed">工務店がいる不動産会社。<br>物件探しからリフォームまで、価値まで見て提案します。</p>
       </div>
       <div>
         <p class="font-mono-label text-[0.65rem] tracking-widest text-white/60 uppercase mb-5">Service</p>
         <ul class="space-y-3 text-sm">
-          <li><a href="/concept.html#property-renovation" class="text-white/85 hover:text-white transition-colors">物件購入+リノベーション</a></li>
-          <li><a href="/concept.html#resale" class="text-white/85 hover:text-white transition-colors">買取再販</a></li>
-          <li><a href="/concept.html#mediation" class="text-white/85 hover:text-white transition-colors">売買仲介・活用相談</a></li>
+          <li><a href="/service-kaitore.html" class="text-white/85 hover:text-white transition-colors">買取再販</a></li>
+          <li><a href="/service-renovation.html" class="text-white/85 hover:text-white transition-colors">仲介＋リノベ</a></li>
+          <li><a href="/service-income.html" class="text-white/85 hover:text-white transition-colors">収益不動産</a></li>
         </ul>
       </div>
       <div>
         <p class="font-mono-label text-[0.65rem] tracking-widest text-white/60 uppercase mb-5">Info</p>
         <ul class="space-y-3 text-sm">
-          <li><a href="/properties.html" class="text-white/85 hover:text-white transition-colors">物件一覧</a></li>
+          <li><a href="/concept.html" class="text-white/85 hover:text-white transition-colors">選ばれる理由</a></li>
           <li><a href="/works.html" class="text-white/85 hover:text-white transition-colors">施工事例</a></li>
-          <li><a href="/news.html" class="text-white/85 hover:text-white transition-colors">お知らせ</a></li>
+          <li><a href="/story.html" class="text-white/85 hover:text-white transition-colors">ストーリー</a></li>
+          <li><a href="/news.html" class="text-white/85 hover:text-white transition-colors">ブログ</a></li>
           <li><a href="/company.html" class="text-white/85 hover:text-white transition-colors">会社概要</a></li>
         </ul>
       </div>
       <div>
         <p class="font-mono-label text-[0.65rem] tracking-widest text-white/60 uppercase mb-5">Contact</p>
-        <a href="/contact.html" class="site-btn site-btn--footer site-btn--outline-light mb-5 inline-flex"><span class="site-btn__inner">お問い合わせフォーム →</span></a>
+        <a href="/contact.html" class="site-btn site-btn--footer site-btn--outline-light mb-5 inline-flex"><span class="site-btn__inner">無料相談を予約する →</span></a>
         <p class="text-white font-bold text-lg mb-1">0120-000-0000</p>
         <p class="text-white/75 text-xs">9:00-18:00 / 定休日：水曜日</p>
       </div>

@@ -74,3 +74,5 @@ _site/
 # Local editor / AI tooling
 .cursor/
 .claude/
+.worktrees/
+worktrees/

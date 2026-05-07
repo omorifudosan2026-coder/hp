@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 permalink: /contact.html
-title: お問い合わせ
+title: 無料相談・お問い合わせ
 activePage: contact
 ---
 
@@ -9,16 +9,57 @@ activePage: contact
 <section class="pt-32 pb-16 bg-cream">
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <p class="section-label mb-6">Contact</p>
-    <h1 class="font-serif text-5xl md:text-6xl text-ink">お問い合わせ</h1>
-    <p class="text-muted text-base mt-4">お気軽にご相談ください。経験豊富なスタッフが丁寧に対応いたします。</p>
+    <h1 class="font-serif text-5xl md:text-6xl text-ink">無料相談・<br class="sm:hidden">お問い合わせ</h1>
+    <p class="text-muted text-base mt-4 max-w-lg">売りたい・買いたい・活用したい——どんな段階でもお気軽にご相談ください。まずは話を聞くだけでも大丈夫です。</p>
   </div>
 </section>
 
-<!-- Contact Form -->
+<!-- Consultation Type + Form -->
 <section class="py-20 md:py-28 bg-white">
-  <div class="max-w-3xl mx-auto px-6 md:px-10">
+  <div class="max-w-3xl mx-auto px-6 md:px-10" x-data="{ consultType: '' }">
+
+    <!-- 相談種別 -->
+    <div class="mb-10">
+      <p class="text-xs font-medium text-muted mb-4 tracking-widest font-mono-label">STEP 01 — 相談の種類を選んでください</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <button type="button"
+          @click="consultType = 'free'"
+          :class="consultType === 'free' ? 'border-[#E8621A] bg-[#E8621A]/5 text-ink' : 'border-[#DDD9D2] text-muted hover:border-ink'"
+          class="relative flex flex-col items-start gap-2 p-5 border-2 transition-colors text-left rounded-sm">
+          <span class="font-serif text-base text-ink font-medium">無料相談</span>
+          <span class="text-xs leading-relaxed">何から始めればいいかわからない。まず話を聞きたい方向け。</span>
+          <span x-show="consultType === 'free'" class="absolute top-3 right-3 w-4 h-4 rounded-full bg-[#E8621A] flex items-center justify-center" style="display:none;">
+            <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </span>
+        </button>
+        <button type="button"
+          @click="consultType = 'renovation'"
+          :class="consultType === 'renovation' ? 'border-[#E8621A] bg-[#E8621A]/5 text-ink' : 'border-[#DDD9D2] text-muted hover:border-ink'"
+          class="relative flex flex-col items-start gap-2 p-5 border-2 transition-colors text-left rounded-sm">
+          <span class="font-serif text-base text-ink font-medium">リフォーム込み相談</span>
+          <span class="text-xs leading-relaxed">中古＋リノベで検討中。物件と工事費を合わせて相談したい。</span>
+          <span x-show="consultType === 'renovation'" class="absolute top-3 right-3 w-4 h-4 rounded-full bg-[#E8621A] flex items-center justify-center" style="display:none;">
+            <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </span>
+        </button>
+        <button type="button"
+          @click="consultType = 'investment'"
+          :class="consultType === 'investment' ? 'border-[#E8621A] bg-[#E8621A]/5 text-ink' : 'border-[#DDD9D2] text-muted hover:border-ink'"
+          class="relative flex flex-col items-start gap-2 p-5 border-2 transition-colors text-left rounded-sm">
+          <span class="font-serif text-base text-ink font-medium">投資・活用相談</span>
+          <span class="text-xs leading-relaxed">収益物件・買取・相続・資産活用について相談したい。</span>
+          <span x-show="consultType === 'investment'" class="absolute top-3 right-3 w-4 h-4 rounded-full bg-[#E8621A] flex items-center justify-center" style="display:none;">
+            <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- フォーム -->
+    <p class="text-xs font-medium text-muted mb-6 tracking-widest font-mono-label">STEP 02 — お名前・連絡先を入力してください</p>
     <p class="text-xs text-muted mb-8">フォームからの送信機能は準備中です。送信ボタンを押すと案内が表示されます。お急ぎの場合はお電話でお問い合わせください。</p>
     <form id="contact-form" class="space-y-6" novalidate>
+      <input type="hidden" id="consult-type-hidden" name="consult-type" :value="consultType">
       <div class="grid md:grid-cols-2 gap-5">
         <div>
           <label class="block text-xs font-medium text-muted mb-2" for="name">お名前 *</label>
@@ -40,19 +81,20 @@ activePage: contact
         </div>
       </div>
       <div>
-        <label class="block text-xs font-medium text-muted mb-2" for="inquiry-type">お問い合わせ種別 *</label>
+        <label class="block text-xs font-medium text-muted mb-2" for="inquiry-type">相談内容の詳細 *</label>
         <select id="inquiry-type" name="inquiry-type" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
           <option value="">選択してください</option>
-          <option value="物件購入+リノベーション">物件購入+リノベーション</option>
-          <option value="リノベーション済み物件">リノベーション済み物件</option>
-          <option value="売買仲介">売買仲介</option>
-          <option value="資産活用相談">資産活用相談</option>
+          <option value="無料相談（まず話を聞きたい）">無料相談（まず話を聞きたい）</option>
+          <option value="仲介＋リノベ相談">仲介＋リノベ相談</option>
+          <option value="買取再販（売りたい）">買取再販（売りたい）</option>
+          <option value="収益不動産相談">収益不動産相談</option>
+          <option value="相続・空き家相談">相続・空き家相談</option>
           <option value="その他">その他</option>
         </select>
       </div>
       <div>
-        <label class="block text-xs font-medium text-muted mb-2" for="message">お問い合わせ内容 *</label>
-        <textarea id="message" name="message" required rows="6" class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors" placeholder="ご質問やご相談内容をご記入ください"></textarea>
+        <label class="block text-xs font-medium text-muted mb-2" for="message">ご相談内容 *</label>
+        <textarea id="message" name="message" required rows="6" class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors" placeholder="現在の状況やご相談したいことを自由にご記入ください（まだ漠然としていても大丈夫です）"></textarea>
       </div>
       <div class="flex items-start gap-3">
         <input type="checkbox" id="privacy-agree" name="privacy-agree" required class="mt-1 w-4 h-4 border-[#DDD9D2] accent-[#1A1A1A]">

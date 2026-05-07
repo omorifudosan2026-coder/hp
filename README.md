@@ -10,7 +10,6 @@
 
 ### 主な機能
 
-- **物件情報管理**: 物件の追加・編集・削除
 - **お知らせ管理**: 最新情報の投稿
 - **施工事例管理**: リノベーション事例の紹介
 - **画像アップロード**: Firebase Storage への自動アップロード
@@ -48,7 +47,6 @@ omori/
 │   ├── script.js
 │   ├── header.js
 │   ├── admin-firebase.js
-│   ├── properties-firebase.js
 │   ├── news-firebase.js
 │   └── works-firebase.js
 ├── images/
@@ -131,31 +129,13 @@ firebase deploy --only hosting
 2. Firebase Authentication のメールアドレスとパスワードでログイン
 3. ログイン成功後 `/admin-firebase.html`（`/admin` からリダイレクト）へ移動
 
-### 物件・お知らせ・施工事例の管理
+### お知らせ・施工事例の管理
 
 管理画面のタブから各データを追加・編集・削除できます。
 
 ---
 
 ## 📊 データ構造（Firestore）
-
-### properties（物件）
-
-```javascript
-{
-  title: "世田谷区 築浅マンション",
-  area: "東京都世田谷区",
-  price: 3980,
-  layout: "2LDK",
-  areaSize: 65.5,
-  age: 8,
-  label: "NEW",
-  image: "https://...",
-  description: "...",
-  createdAt: timestamp,
-  updatedAt: timestamp
-}
-```
 
 ### news（お知らせ）
 

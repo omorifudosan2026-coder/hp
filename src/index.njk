@@ -2,21 +2,33 @@
 layout: base.njk
 permalink: /index.html
 activePage: index
-firebase: true
-pageScript: js/index-firebase.js
 ---
 
-<!-- Hero：左に見出し＋CTA、右に写真＋写真下に英字（右からライン） -->
+<!-- Hero -->
 <section class="hero-intro hero-intro--layout relative min-h-screen max-lg:flex max-lg:flex-col bg-cream pt-[calc(var(--site-header-height)+1.25rem)] md:pt-[calc(var(--site-header-height)+1.5rem)] pb-10 lg:pt-0 lg:pb-0">
   <div class="hero-intro__left-col max-lg:contents lg:flex lg:flex-col lg:min-h-0 lg:items-center lg:justify-center lg:bg-dots lg:relative">
     <div class="hero-intro__title-wrap flex flex-col items-center text-center gap-7 px-6 md:px-10 xl:px-12 max-lg:max-w-xl max-lg:mb-6 lg:mb-0 lg:w-full lg:max-w-xl lg:gap-8 lg:py-4 lg:px-0">
       <h1 id="hero-heading" class="hero-intro__title font-serif text-ink">
-        <span class="hero-intro__title-row hero-intro__title-row--lede">「<span class="hero-intro__lede-line hero-intro__lede-line--first">じぶんに合った</span></span>
-        <span class="hero-intro__title-row hero-intro__title-row--lede"><span class="hero-intro__lede-line hero-intro__lede-line--second">暮らしと住まい</span>」を</span>
-        <em class="hero-intro__title-row hero-intro__title-accent not-italic" style="color:#E8621A">あなたと一緒に考える。</em>
+        <span class="hero-intro__title-row hero-intro__title-row--lede"><span class="hero-intro__lede-line hero-intro__lede-line--first">工務店がいる、</span></span>
+        <em class="hero-intro__title-row hero-intro__title-accent not-italic" style="color:#E8621A">不動産会社。</em>
       </h1>
-      <a href="/concept.html" class="site-btn site-btn--md site-btn--outline-ink shrink-0 self-center" data-hero-piece data-hero-delay="240">
-        <span class="site-btn__inner">大森不動産とは<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
+      <p class="text-muted text-sm md:text-base leading-relaxed max-w-xs" data-hero-piece data-hero-delay="180">物件を買う前から、建物の未来まで見て提案する。<br>それが大森不動産です。</p>
+      <!-- Stats badges -->
+      <div class="flex items-center gap-5 md:gap-6" data-hero-piece data-hero-delay="220">
+        <div class="flex flex-col items-center">
+          <p class="font-serif text-2xl md:text-3xl text-ink font-bold tabular-nums">
+            <span data-hero-count-root><span data-hero-count="200">0</span><span class="text-base">+</span></span>
+          </p>
+          <p class="text-xs text-muted mt-0.5 tracking-wide">年間施工実績</p>
+        </div>
+        <span class="w-px h-8 bg-[#DDD9D2]" aria-hidden="true"></span>
+        <div class="flex flex-col items-center">
+          <p class="font-serif text-2xl md:text-3xl text-ink font-bold">★<span class="tabular-nums">4.7</span></p>
+          <p class="text-xs text-muted mt-0.5 tracking-wide">Google口コミ</p>
+        </div>
+      </div>
+      <a href="/concept.html" class="site-btn site-btn--md site-btn--outline-ink shrink-0 self-center" data-hero-piece data-hero-delay="280">
+        <span class="site-btn__inner">選ばれる理由<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
       </a>
     </div>
     <a href="#concerns" class="hero-scroll-hint hidden lg:flex" data-hero-piece data-hero-delay="520" aria-label="次のセクションへスクロール">
@@ -31,7 +43,7 @@ pageScript: js/index-firebase.js
     <div class="hero-intro__visual-frame hidden lg:flex flex-1 min-h-0 flex-col pt-0 pb-0">
       <div class="hero-intro__visual relative flex-1 min-h-0 w-full overflow-hidden">
         <div class="hero-intro__visual-inner absolute inset-0 overflow-hidden">
-          <img src="/images/hero-bg.jpg" alt="理想の住まい" width="1536" height="1024" fetchpriority="high" decoding="sync" sizes="100vw" class="hero-intro__img absolute inset-0 w-full h-full object-cover">
+          <img src="/images/hero-bg.jpg" alt="大森不動産の施工事例" width="1536" height="1024" fetchpriority="high" decoding="sync" sizes="100vw" class="hero-intro__img absolute inset-0 w-full h-full object-cover">
           <div class="hero-intro__visual-fade pointer-events-none absolute inset-0 z-[1]" aria-hidden="true"></div>
           <div class="absolute inset-0 z-[2] bg-ink/5 pointer-events-none" aria-hidden="true"></div>
         </div>
@@ -56,13 +68,13 @@ pageScript: js/index-firebase.js
           <p class="font-mono-label text-xs tracking-[0.2em] text-[#DDD9D2]">01</p>
           <div class="mt-4 flex h-44 shrink-0 items-center justify-center py-2">
             <figure class="m-0 flex w-full max-w-[9.5rem] justify-center">
-              <img src="/images/8224_color.svg" alt="リノベーションのコストや予算を考える様子" class="max-h-40 w-full object-contain" width="243" height="358" loading="lazy" decoding="async">
+              <img src="/images/8224_color.svg" alt="中古物件に不安を感じている様子" class="max-h-40 w-full object-contain" width="243" height="358" loading="lazy" decoding="async">
             </figure>
           </div>
-          <h3 class="mt-5 min-h-[2.75rem] shrink-0 font-serif text-lg leading-snug text-ink md:min-h-[3rem] md:text-xl">リノベのコストが心配…</h3>
+          <h3 class="mt-5 min-h-[2.75rem] shrink-0 font-serif text-lg leading-snug text-ink md:min-h-[3rem] md:text-xl">中古物件に不安がある</h3>
           <span class="mx-auto mt-2 block h-0.5 w-10 shrink-0 bg-[#E8621A]" aria-hidden="true"></span>
           <div class="mt-6 min-h-0 flex-1">
-            <p class="text-sm leading-relaxed text-muted">素敵な住まいには憧れるけど、リノベーションはコストがかかる。結果高くついてしまいそう。時間もかかるし、そこまでこだわらないし、センスにも自信がない。</p>
+            <p class="text-sm leading-relaxed text-muted">見た目はきれいでも、構造や水回りの状態が不安。買ってから問題が出てきたら…と考えると、なかなか踏み出せない。</p>
           </div>
         </div>
       </article>
@@ -71,13 +83,13 @@ pageScript: js/index-firebase.js
           <p class="font-mono-label text-xs tracking-[0.2em] text-[#DDD9D2]">02</p>
           <div class="mt-4 flex h-44 shrink-0 items-center justify-center py-2">
             <figure class="m-0 flex w-full max-w-[10rem] justify-center">
-              <img src="/images/17038_color.svg" alt="物件の資料を前に考え込む様子" class="max-h-40 w-full object-contain" width="329" height="311" loading="lazy" decoding="async">
+              <img src="/images/17038_color.svg" alt="費用の総額がわからず悩む様子" class="max-h-40 w-full object-contain" width="329" height="311" loading="lazy" decoding="async">
             </figure>
           </div>
-          <h3 class="mt-5 min-h-[2.75rem] shrink-0 font-serif text-lg leading-snug text-ink md:min-h-[3rem] md:text-xl">物件の見極めがわからない</h3>
+          <h3 class="mt-5 min-h-[2.75rem] shrink-0 font-serif text-lg leading-snug text-ink md:min-h-[3rem] md:text-xl">リフォーム込みの総額が読めない</h3>
           <span class="mx-auto mt-2 block h-0.5 w-10 shrink-0 bg-[#E8621A]" aria-hidden="true"></span>
           <div class="mt-6 min-h-0 flex-1">
-            <p class="text-sm leading-relaxed text-muted">大きな買い物だけに、住性や耐震性が気になる。物件価格や管理費・修繕積立金もちょうどよく、「中古マンションは管理を買え」というけれど、いったい何をどうやって判断したら…</p>
+            <p class="text-sm leading-relaxed text-muted">物件価格はわかっても、リフォームにいくらかかるか不明。不動産会社・工務店・銀行をバラバラに当たるのも大変。</p>
           </div>
         </div>
       </article>
@@ -86,13 +98,13 @@ pageScript: js/index-firebase.js
           <p class="font-mono-label text-xs tracking-[0.2em] text-[#DDD9D2]">03</p>
           <div class="mt-4 flex h-44 shrink-0 items-center justify-center py-2">
             <figure class="m-0 flex w-full max-w-[10rem] justify-center">
-              <img src="/images/27550_color.svg" alt="複数の相手先とつながりながら相談する様子" class="max-h-40 w-full object-contain" width="385" height="359" loading="lazy" decoding="async">
+              <img src="/images/27550_color.svg" alt="古い家を手放したい様子" class="max-h-40 w-full object-contain" width="385" height="359" loading="lazy" decoding="async">
             </figure>
           </div>
-          <h3 class="mt-5 min-h-[2.75rem] shrink-0 font-serif text-lg leading-snug text-ink md:min-h-[3rem] md:text-xl">バラバラに依頼するのは大変</h3>
+          <h3 class="mt-5 min-h-[2.75rem] shrink-0 font-serif text-lg leading-snug text-ink md:min-h-[3rem] md:text-xl">古家・空き家を手放したい</h3>
           <span class="mx-auto mt-2 block h-0.5 w-10 shrink-0 bg-[#E8621A]" aria-hidden="true"></span>
           <div class="mt-6 min-h-0 flex-1">
-            <p class="text-sm leading-relaxed text-muted">物件探しは不動産会社、リノベーションは工務店、ローンは銀行…それぞれ別々に相談するのは手間がかかる。もっと簡単に、ワンストップでお願いできないかな。</p>
+            <p class="text-sm leading-relaxed text-muted">築年数が古い、傷みがある、相続した物件がある。普通の不動産会社では値段がつかないと言われた経験も。</p>
           </div>
         </div>
       </article>
@@ -100,78 +112,36 @@ pageScript: js/index-firebase.js
   </div>
 </section>
 
-<!-- Solution Section -->
-<section class="py-24 md:py-32 bg-white index-solution" data-reveal>
-  <div class="max-w-7xl mx-auto px-6 md:px-10">
-    <div class="mb-16">
-      <div class="text-center">
-        <p class="section-label mb-6">Solutions</p>
-        <h2 class="font-serif text-3xl md:text-4xl xl:text-5xl text-ink">住まいや暮らしの「どうしよう」を解決する。</h2>
-      </div>
-      <p class="text-muted text-sm md:text-base mt-6 mx-auto max-w-3xl w-full leading-relaxed text-center">
-        お客さまの多様なニーズに沿った多彩なサービスで、理想の暮らしを手に入れるサポートを行っています。
-      </p>
-    </div>
-    <div class="grid md:grid-cols-3 gap-px bg-[#DDD9D2]">
-      <a href="/concept.html" class="solution-card-link bg-white p-8 sm:p-10 flex h-full flex-row items-start gap-5 md:gap-6" data-reveal data-delay="100" aria-label="物件探しの詳しく見る">
-        <span class="solution-card-link__icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-8H9v8H4a1 1 0 0 1-1-1z"/></svg>
-        </span>
-        <span class="solution-card-link__body">
-          <h3 class="font-serif text-xl text-ink mb-4">物件探し</h3>
-          <p class="solution-card-desc text-sm text-muted leading-relaxed flex-1">リノベーションに適した物件を、豊富な実績をもとにご提案。</p>
-          <span class="solution-card-link__cta mt-auto pt-6 text-xs text-muted transition-colors inline-flex items-center gap-2 border-b border-[#DDD9D2] pb-0.5 self-start">詳しく見る <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
-        </span>
-      </a>
-      <a href="/works.html" class="solution-card-link bg-white p-8 sm:p-10 flex h-full flex-row items-start gap-5 md:gap-6" data-reveal data-delay="200" aria-label="リノベーションの施工事例を見る">
-        <span class="solution-card-link__icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-        </span>
-        <span class="solution-card-link__body">
-          <h3 class="font-serif text-xl text-ink mb-4">リノベーション</h3>
-          <p class="solution-card-desc text-sm text-muted leading-relaxed flex-1">経験豊富なデザイナーと職人が、理想を形に。</p>
-          <span class="solution-card-link__cta mt-auto pt-6 text-xs text-muted transition-colors inline-flex items-center gap-2 border-b border-[#DDD9D2] pb-0.5 self-start">施工事例を見る <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
-        </span>
-      </a>
-      <a href="/concept.html" class="solution-card-link bg-white p-8 sm:p-10 flex h-full flex-row items-start gap-5 md:gap-6" data-reveal data-delay="300" aria-label="売買・活用相談の詳しく見る">
-        <span class="solution-card-link__icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>
-        </span>
-        <span class="solution-card-link__body">
-          <h3 class="font-serif text-xl text-ink mb-4">売買・活用相談</h3>
-          <p class="solution-card-desc text-sm text-muted leading-relaxed flex-1">専門知識を持つスタッフが丁寧にサポート。</p>
-          <span class="solution-card-link__cta mt-auto pt-6 text-xs text-muted transition-colors inline-flex items-center gap-2 border-b border-[#DDD9D2] pb-0.5 self-start">詳しく見る <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
-        </span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Philosophy：おすすめ物件の直前に配置（背景のリズム調整） -->
-<section class="hero-lede hero-lede--interlude hero-lede--stats-photo" aria-label="サービス概要">
+<!-- Why Omori / Philosophy -->
+<section class="hero-lede hero-lede--interlude hero-lede--stats-photo" aria-label="大森不動産の強み">
   <div class="hero-lede__shell max-w-7xl mx-auto px-6 md:px-10 py-14 md:py-20 lg:py-24" data-reveal data-hero-count-root>
     <div class="flex flex-col gap-10 lg:gap-12">
       <div class="flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-8 lg:gap-16">
         <div class="max-w-3xl lg:flex lg:flex-col lg:justify-center lg:min-h-0">
-          <p class="section-label mb-4">Philosophy</p>
+          <p class="section-label mb-4">Why Omori</p>
           <p class="hero-lede__text text-ink text-lg md:text-xl leading-relaxed">
-            <span class="block">お客さまの想いを一つひとつ大切に、</span>
-            <span class="block">理想の暮らしを叶えるお手伝いをします。</span>
+            <span class="block">不動産の失敗は、買った後に起きる。</span>
+            <span class="block">だから工務店と一体で、</span>
+            <span class="block">物件の未来まで見て提案します。</span>
           </p>
+          <a href="/concept.html" class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ink border-b border-ink pb-0.5 hover:text-[#E8621A] hover:border-[#E8621A] transition-colors self-start">
+            選ばれる理由を詳しく見る
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
         <div class="hero-lede__aside flex flex-wrap items-start justify-end gap-10 lg:gap-12 lg:flex-nowrap lg:shrink-0 lg:items-center lg:min-h-0">
           <div class="hero-intro__stats hero-lede__stats flex gap-10 md:gap-12">
             <div class="hero-intro__stat">
               <p class="hero-intro__stat-value text-ink">
-                <span class="hero-intro__stat-figures"><span data-hero-count="300">0</span><span class="hero-intro__stat-unit">+</span></span>
+                <span class="hero-intro__stat-figures"><span data-hero-count="200">0</span><span class="hero-intro__stat-unit">+</span></span>
               </p>
-              <p class="hero-intro__stat-label text-ink">施工実績</p>
+              <p class="hero-intro__stat-label text-ink">年間施工実績</p>
             </div>
             <div class="hero-intro__stat">
               <p class="hero-intro__stat-value text-ink">
-                <span class="hero-intro__stat-figures"><span data-hero-count="98">0</span><span class="hero-intro__stat-unit">%</span></span>
+                <span class="hero-intro__stat-figures">★<span data-hero-count="4" class="tabular-nums">0</span><span class="hero-intro__stat-unit">.7</span></span>
               </p>
-              <p class="hero-intro__stat-label text-ink">お客さま満足度</p>
+              <p class="hero-intro__stat-label text-ink">Google口コミ</p>
             </div>
           </div>
         </div>
@@ -180,27 +150,119 @@ pageScript: js/index-firebase.js
   </div>
 </section>
 
-<!-- Latest Properties Section -->
-<section class="py-20 md:py-28 index-pickup">
+<!-- Solutions: 3サービス -->
+<section class="py-24 md:py-32 bg-white index-solution" data-reveal>
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="mb-16">
+      <div class="text-center">
+        <p class="section-label mb-6">Services</p>
+        <h2 class="font-serif text-3xl md:text-4xl xl:text-5xl text-ink">あなたの状況に合わせた、<br class="hidden md:inline">3つのサービス</h2>
+      </div>
+      <p class="text-muted text-sm md:text-base mt-6 mx-auto max-w-2xl w-full leading-relaxed text-center">
+        どのサービスにも共通しているのは、工務店があるから「未来まで見て提案できる」こと。
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-px bg-[#DDD9D2]">
+      <a href="/service-kaitore.html" class="solution-card-link bg-white p-8 sm:p-10 flex h-full flex-col gap-5" data-reveal data-delay="100" aria-label="買取再販サービスを詳しく見る">
+        <span class="solution-card-link__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-8H9v8H4a1 1 0 0 1-1-1z"/></svg>
+        </span>
+        <span class="solution-card-link__body flex flex-col flex-1">
+          <p class="font-mono-label text-xs text-[#E8621A] mb-2 tracking-widest">Service 01</p>
+          <h3 class="font-serif text-xl text-ink mb-3">買取再販</h3>
+          <p class="solution-card-desc text-sm text-muted leading-relaxed flex-1">古くて売れない、手間をかけたくない。そんな物件も状態を問わず買い取ります。</p>
+          <span class="solution-card-link__cta mt-6 text-xs text-muted transition-colors inline-flex items-center gap-2 border-b border-[#DDD9D2] pb-0.5 self-start">古い家も、直せるから買える。 <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+        </span>
+      </a>
+      <a href="/service-renovation.html" class="solution-card-link bg-white p-8 sm:p-10 flex h-full flex-col gap-5" data-reveal data-delay="200" aria-label="仲介＋リノベサービスを詳しく見る">
+        <span class="solution-card-link__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </span>
+        <span class="solution-card-link__body flex flex-col flex-1">
+          <p class="font-mono-label text-xs text-[#E8621A] mb-2 tracking-widest">Service 02</p>
+          <h3 class="font-serif text-xl text-ink mb-3">仲介＋リノベ</h3>
+          <p class="solution-card-desc text-sm text-muted leading-relaxed flex-1">中古物件を買いたい方向け。工務店目線で物件を判断し、買う前に総額と完成形を提示します。</p>
+          <span class="solution-card-link__cta mt-6 text-xs text-muted transition-colors inline-flex items-center gap-2 border-b border-[#DDD9D2] pb-0.5 self-start">買う前から、未来が見える。 <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+        </span>
+      </a>
+      <a href="/service-income.html" class="solution-card-link bg-white p-8 sm:p-10 flex h-full flex-col gap-5" data-reveal data-delay="300" aria-label="収益不動産サービスを詳しく見る">
+        <span class="solution-card-link__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>
+        </span>
+        <span class="solution-card-link__body flex flex-col flex-1">
+          <p class="font-mono-label text-xs text-[#E8621A] mb-2 tracking-widest">Service 03</p>
+          <h3 class="font-serif text-xl text-ink mb-3">収益不動産</h3>
+          <p class="solution-card-desc text-sm text-muted leading-relaxed flex-1">オーナー・管理会社向け。修繕リスクを把握し、家賃アップの改修提案から出口まで設計します。</p>
+          <span class="solution-card-link__cta mt-6 text-xs text-muted transition-colors inline-flex items-center gap-2 border-b border-[#DDD9D2] pb-0.5 self-start">利回りではなく、伸びしろで買う。 <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Works preview -->
+<section class="py-20 md:py-28 bg-cream">
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <div class="flex items-end justify-between mb-12" data-reveal>
       <div>
-        <p class="section-label mb-4">Pick Up</p>
-        <h2 class="font-serif text-3xl md:text-4xl text-ink">おすすめ物件</h2>
+        <p class="section-label mb-4">Works</p>
+        <h2 class="font-serif text-3xl md:text-4xl text-ink">施工事例</h2>
+        <p class="text-muted text-sm mt-3 max-w-md leading-relaxed">ビフォーアフター・費用感・期間まで公開。工務店の実力を実績でお伝えします。</p>
       </div>
     </div>
-    <div id="latest-properties" class="grid md:grid-cols-3 gap-5 mb-10" data-reveal data-delay="150">
-      <div class="text-center py-16 col-span-3">
-        <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-[#DDD9D2] border-t-ink"></div>
-        <p class="text-muted text-sm mt-3">読み込み中...</p>
+    <div class="bg-white border border-[#DDD9D2] rounded-sm p-10 md:p-14 flex flex-col md:flex-row items-center gap-8 md:gap-12" data-reveal data-delay="100">
+      <div class="flex-1 min-w-0">
+        <p class="font-mono-label text-xs text-[#E8621A] mb-3 tracking-widest">年間施工実績 200件以上</p>
+        <p class="font-serif text-2xl md:text-3xl text-ink mb-4">ビフォーアフターで、<br>変化をそのままお見せします。</p>
+        <p class="text-muted text-sm leading-relaxed">リノベーション前後の写真、費用感、工期——実際の事例をできる限り詳しく公開しています。「工務店の腕」を言葉ではなく実績で判断してください。</p>
       </div>
-    </div>
-    <div class="mt-12 flex justify-center" data-reveal>
-      <a href="/properties.html" class="site-btn site-btn--lg site-btn--outline-ink">
+      <a href="/works.html" class="site-btn site-btn--lg site-btn--outline-ink shrink-0">
         <span class="site-btn__inner">
-          物件一覧を見る
+          施工事例をすべて見る
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Blog preview -->
+<section class="py-20 md:py-28 bg-white" data-reveal>
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="flex items-end justify-between mb-12">
+      <div>
+        <p class="section-label mb-4">Blog</p>
+        <h2 class="font-serif text-3xl md:text-4xl text-ink">不安を解消する、<br class="sm:hidden">お役立ち情報</h2>
+        <p class="text-muted text-sm mt-3 max-w-md leading-relaxed">「中古はやめた方がいい？」「リフォーム費のリアル」など、不動産購入の不安に答えるコンテンツを発信中。</p>
+      </div>
+      <a href="/news.html" class="hidden md:inline-flex items-center gap-2 text-sm font-medium text-ink border-b border-ink pb-0.5 hover:text-[#E8621A] hover:border-[#E8621A] transition-colors shrink-0 ml-8">
+        すべての記事を見る <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+    <!-- テーマ例カード（静的プレースホルダー） -->
+    <div class="grid md:grid-cols-3 gap-5 mb-10">
+      <div class="bg-cream border border-[#DDD9D2]/70 p-7 rounded-sm flex flex-col gap-3">
+        <p class="font-mono-label text-xs text-[#E8621A] tracking-widest">中古住宅</p>
+        <h3 class="font-serif text-lg text-ink leading-snug">中古住宅はやめた方がいい？買う前に知っておくべきこと</h3>
+        <p class="text-xs text-muted leading-relaxed flex-1">新築と中古の本当の違いとは。工務店目線で「買っていい物件・やめるべき物件」の見極め方を解説します。</p>
+        <a href="/news.html" class="text-xs text-ink inline-flex items-center gap-1 border-b border-[#DDD9D2] pb-0.5 self-start hover:text-[#E8621A] transition-colors">続きを読む <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="bg-cream border border-[#DDD9D2]/70 p-7 rounded-sm flex flex-col gap-3">
+        <p class="font-mono-label text-xs text-[#E8621A] tracking-widest">リフォーム費用</p>
+        <h3 class="font-serif text-lg text-ink leading-snug">築30年の家、リフォーム費はいくら？リアルな相場を公開</h3>
+        <p class="text-xs text-muted leading-relaxed flex-1">「安く見える物件が結局高い買い物になる」——リフォーム費込みの総額で考えることの大切さを実例で解説。</p>
+        <a href="/news.html" class="text-xs text-ink inline-flex items-center gap-1 border-b border-[#DDD9D2] pb-0.5 self-start hover:text-[#E8621A] transition-colors">続きを読む <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="bg-cream border border-[#DDD9D2]/70 p-7 rounded-sm flex flex-col gap-3">
+        <p class="font-mono-label text-xs text-[#E8621A] tracking-widest">物件の見極め</p>
+        <h3 class="font-serif text-lg text-ink leading-snug">工務店が教える「買っていい物件」の5つのチェックポイント</h3>
+        <p class="text-xs text-muted leading-relaxed flex-1">間取り変更の可否、水回り移動、構造壁の有無……工務店目線だからわかる物件診断のポイントを公開。</p>
+        <a href="/news.html" class="text-xs text-ink inline-flex items-center gap-1 border-b border-[#DDD9D2] pb-0.5 self-start hover:text-[#E8621A] transition-colors">続きを読む <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+    <div class="mt-2 flex justify-center md:hidden">
+      <a href="/news.html" class="site-btn site-btn--lg site-btn--outline-ink">
+        <span class="site-btn__inner">すべての記事を見る <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
       </a>
     </div>
   </div>

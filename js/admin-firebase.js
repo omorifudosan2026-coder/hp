@@ -66,22 +66,6 @@ function composeAreaFromFields(prefSelectId, suffixInputId, customInputId) {
     return suffix ? `${pref}${suffix}` : pref;
 }
 
-function updatePropertyAreaFieldVisibility() {
-    const pref = document.getElementById('property-area-pref').value;
-    const suffixWrap = document.getElementById('property-area-suffix-wrap');
-    const customWrap = document.getElementById('property-area-custom-wrap');
-    const customInput = document.getElementById('property-area-custom');
-    if (pref === 'その他') {
-        suffixWrap.classList.add('hidden');
-        customWrap.classList.remove('hidden');
-        customInput.required = true;
-    } else {
-        suffixWrap.classList.remove('hidden');
-        customWrap.classList.add('hidden');
-        customInput.required = false;
-    }
-}
-
 function updateWorkAreaFieldVisibility() {
     const pref = document.getElementById('work-area-pref').value;
     const suffixWrap = document.getElementById('work-area-suffix-wrap');
@@ -147,7 +131,6 @@ auth.onAuthStateChanged((user) => {
     } else {
         document.getElementById('user-email').textContent = user.email;
         // データの初期読み込み
-        loadProperties();
         loadNews();
         loadWorks();
     }
@@ -179,214 +162,6 @@ function switchTab(tabName) {
     const activeBtn = document.getElementById('tab-' + tabName);
     activeBtn.classList.remove('border-transparent', 'text-muted');
     activeBtn.classList.add('border-primary', 'text-primary', 'font-medium');
-}
-
-// ========== 物件管理 ==========
-
-async function loadProperties() {
-    const listElement = document.getElementById('properties-list');
-    listElement.innerHTML = '<div class="text-center py-8 text-gray-500">読み込み中...</div>';
-    
-    try {
-        const snapshot = await db.collection(COLLECTIONS.properties).orderBy('createdAt', 'desc').get();
-        
-        if (snapshot.empty) {
-            listElement.innerHTML = '<p class="text-gray-500 text-center py-8">物件がありません。新規追加してください。</p>';
-            return;
-        }
-        
-        listElement.innerHTML = '';
-        snapshot.forEach(doc => {
-            const property = doc.data();
-            property.id = doc.id;
-            listElement.innerHTML += createPropertyCard(property);
-        });
-    } catch (error) {
-        console.error('物件の読み込みエラー:', error);
-        listElement.innerHTML = '<p class="text-red-500 text-center py-8">データの読み込みに失敗しました</p>';
-    }
-}
-
-function createPropertyCard(property) {
-    const labelHtml = property.label ? 
-        `<span class="px-2 py-1 bg-primary text-white text-xs">${property.label}</span>` : '';
-    
-    return `
-        <div class="border border-[var(--color-border)] bg-white p-4 shadow-[0_1px_0_rgba(26,26,26,0.03)] hover:shadow-[0_12px_40px_rgba(26,26,26,0.06)] transition">
-            <div class="flex justify-between items-start">
-                <div class="flex-1">
-                    <div class="flex items-center space-x-2 mb-2">
-                        <h3 class="text-lg font-medium text-gray-900">${property.title}</h3>
-                        ${labelHtml}
-                    </div>
-                    <p class="text-gray-600 text-sm mb-2">${property.area}</p>
-                    <div class="flex items-center space-x-4 text-sm text-gray-700">
-                        <span class="font-semibold text-primary">${property.price}万円</span>
-                        <span>${property.layout}</span>
-                        <span>${property.areaSize}㎡</span>
-                        <span>築${property.age}年</span>
-                    </div>
-                </div>
-                <div class="flex space-x-2">
-                    <a href="/property-detail.html?id=${encodeURIComponent(property.id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--preview">プレビュー</a>
-                    <button onclick="editProperty('${property.id}')" class="admin-btn admin-btn--edit">編集</button>
-                    <button onclick="deleteProperty('${property.id}')" class="admin-btn admin-btn--delete">削除</button>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function openPropertyModal(id = null) {
-    const modal = document.getElementById('property-modal');
-    const form = document.getElementById('property-form');
-    const title = document.getElementById('property-modal-title');
-    
-    form.reset();
-    document.getElementById('property-image-preview').classList.add('hidden');
-    document.getElementById('property-area-pref').value = '東京都';
-    document.getElementById('property-area-suffix').value = '';
-    document.getElementById('property-area-custom').value = '';
-    updatePropertyAreaFieldVisibility();
-    
-    if (id) {
-        title.textContent = '物件を編集';
-        loadPropertyData(id);
-    } else {
-        title.textContent = '物件を追加';
-        document.getElementById('property-id').value = '';
-    }
-    
-    openAdminModal(modal);
-}
-
-async function loadPropertyData(id) {
-    try {
-        const doc = await db.collection(COLLECTIONS.properties).doc(id).get();
-        const property = doc.data();
-        
-        document.getElementById('property-id').value = id;
-        document.getElementById('property-title').value = property.title;
-        const parsedArea = parseStoredArea(property.area);
-        document.getElementById('property-area-pref').value = parsedArea.pref;
-        document.getElementById('property-area-suffix').value = parsedArea.useCustom ? '' : parsedArea.suffix;
-        document.getElementById('property-area-custom').value = parsedArea.useCustom ? parsedArea.suffix : '';
-        updatePropertyAreaFieldVisibility();
-        document.getElementById('property-price').value = property.price;
-        document.getElementById('property-layout').value = property.layout;
-        document.getElementById('property-area-size').value = property.areaSize;
-        document.getElementById('property-age').value = property.age;
-        document.getElementById('property-label').value = property.label || '';
-        document.getElementById('property-image').value = property.image || '';
-        document.getElementById('property-description').value = property.description || '';
-        
-        if (property.image) {
-            const preview = document.getElementById('property-image-preview');
-            const img = document.getElementById('property-image-preview-img');
-            img.src = property.image;
-            preview.classList.remove('hidden');
-        }
-    } catch (error) {
-        console.error('物件データの読み込みエラー:', error);
-        alert('データの読み込みに失敗しました');
-    }
-}
-
-function closePropertyModal() {
-    const modal = document.getElementById('property-modal');
-    closeAdminModal(modal, () => {
-        document.getElementById('property-form').reset();
-    });
-}
-
-// 画像プレビュー
-document.getElementById('property-image-file').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const preview = document.getElementById('property-image-preview');
-            const img = document.getElementById('property-image-preview-img');
-            img.src = e.target.result;
-            preview.classList.remove('hidden');
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-document.getElementById('property-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const submitLabelEl = submitBtn ? (submitBtn.querySelector('.site-btn__inner') || submitBtn) : null;
-    submitBtn.disabled = true;
-    if (submitLabelEl) submitLabelEl.textContent = '保存中...';
-    setAdminBusy(true, '保存中...');
-    let didSave = false;
-    
-    try {
-        const id = document.getElementById('property-id').value;
-        
-        // 画像のアップロード
-        let imageUrl = document.getElementById('property-image').value;
-        const imageFile = document.getElementById('property-image-file').files[0];
-        
-        if (imageFile) {
-            imageUrl = await uploadImage(imageFile, 'properties');
-        }
-        
-        const data = {
-            title: document.getElementById('property-title').value,
-            area: composeAreaFromFields('property-area-pref', 'property-area-suffix', 'property-area-custom'),
-            price: parseInt(document.getElementById('property-price').value),
-            layout: document.getElementById('property-layout').value,
-            areaSize: parseFloat(document.getElementById('property-area-size').value),
-            age: parseInt(document.getElementById('property-age').value),
-            label: document.getElementById('property-label').value,
-            image: imageUrl,
-            description: document.getElementById('property-description').value,
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-        };
-        
-        if (id) {
-            // 更新
-            await db.collection(COLLECTIONS.properties).doc(id).update(data);
-        } else {
-            // 新規追加
-            data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-            await db.collection(COLLECTIONS.properties).add(data);
-        }
-        
-        showNotification('物件を保存しました');
-        await loadProperties();
-        didSave = true;
-        
-    } catch (error) {
-        console.error('保存エラー:', error);
-        alert('保存に失敗しました: ' + error.message);
-    } finally {
-        submitBtn.disabled = false;
-        if (submitLabelEl) submitLabelEl.textContent = '保存';
-        setAdminBusy(false);
-        if (didSave) closePropertyModal();
-    }
-});
-
-async function editProperty(id) {
-    openPropertyModal(id);
-}
-
-async function deleteProperty(id) {
-    if (!confirm('この物件を削除してもよろしいですか？')) return;
-    
-    try {
-        await db.collection(COLLECTIONS.properties).doc(id).delete();
-        showNotification('物件を削除しました');
-        loadProperties();
-    } catch (error) {
-        console.error('削除エラー:', error);
-        alert('削除に失敗しました');
-    }
 }
 
 // ========== お知らせ管理 ==========
@@ -843,14 +618,12 @@ function showNotification(message) {
     }, 3000);
 }
 
-document.getElementById('property-area-pref').addEventListener('change', updatePropertyAreaFieldVisibility);
 document.getElementById('work-area-pref').addEventListener('change', updateWorkAreaFieldVisibility);
 
 document.addEventListener('keydown', (e) => {
     if (isAdminBusy()) return;
     if (e.key !== 'Escape') return;
     const pairs = [
-        ['property-modal', closePropertyModal],
         ['news-modal', closeNewsModal],
         ['work-modal', closeWorkModal],
     ];
