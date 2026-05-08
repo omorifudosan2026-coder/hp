@@ -2,6 +2,9 @@
 layout: base.njk
 permalink: /index.html
 activePage: index
+firebase: true
+pageScript: js/news-top.js
+pageScript2: js/works-top.js
 ---
 
 <!-- Hero -->
@@ -12,7 +15,7 @@ activePage: index
         <span class="hero-intro__title-row hero-intro__title-row--lede"><span class="hero-intro__lede-line hero-intro__lede-line--first">工務店がいる、</span></span>
         <em class="hero-intro__title-row hero-intro__title-accent not-italic" style="color:#E8621A">不動産会社。</em>
       </h1>
-      <p class="text-muted text-sm md:text-base leading-relaxed max-w-xs" data-hero-piece data-hero-delay="180">物件を買う前から、建物の未来まで見て提案する。<br>それが大森不動産です。</p>
+      <p class="text-muted text-sm md:text-base leading-relaxed max-w-md" data-hero-piece data-hero-delay="180">物件を買う前から、建物の未来まで見て提案する。<br>それが大森不動産です。</p>
       <!-- Stats badges -->
       <div class="flex items-center gap-5 md:gap-6" data-hero-piece data-hero-delay="220">
         <div class="flex flex-col items-center">
@@ -112,46 +115,76 @@ activePage: index
   </div>
 </section>
 
-<!-- Why Omori / Philosophy -->
-<section class="hero-lede hero-lede--interlude hero-lede--stats-photo" aria-label="大森不動産の強み">
-  <div class="hero-lede__shell max-w-7xl mx-auto px-6 md:px-10 py-14 md:py-20 lg:py-24" data-reveal data-hero-count-root>
-    <div class="flex flex-col gap-10 lg:gap-12">
-      <div class="flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-8 lg:gap-16">
-        <div class="max-w-3xl lg:flex lg:flex-col lg:justify-center lg:min-h-0">
-          <p class="section-label mb-4">Why Omori</p>
-          <p class="hero-lede__text text-ink text-lg md:text-xl leading-relaxed">
-            <span class="block">不動産の失敗は、買った後に起きる。</span>
-            <span class="block">だから工務店と一体で、</span>
-            <span class="block">物件の未来まで見て提案します。</span>
+<!-- Why Omori：白ベースの2カラム（左コピー / 右01–03は方向性ドキュメント準拠） -->
+<section class="hero-lede hero-lede--interlude hero-lede--index-philosophy bg-white pt-20 md:pt-28 pb-16 md:pb-24" aria-label="大森不動産の強み">
+  <div class="hero-lede__shell max-w-7xl mx-auto px-6 md:px-10">
+    <div data-reveal>
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,5fr)] lg:gap-0 lg:items-start">
+        <div class="why-omori-panel__intro lg:pr-6 xl:pr-8">
+          <p class="section-label mb-3 md:mb-4">OUR ADVANTAGE</p>
+          <h2 class="why-omori-panel__headline font-serif text-2xl leading-snug text-ink sm:text-3xl lg:text-4xl lg:leading-tight">
+            <span class="block">不動産の失敗は、</span>
+            <span class="block">買った<span class="text-[#E8621A]">後</span>に起きる。</span>
+          </h2>
+          <span class="why-omori-panel__rule mt-4 block h-px w-12 bg-[#E8621A]" aria-hidden="true"></span>
+          <p class="mt-4 text-base leading-relaxed text-ink md:text-lg">
+            だから工務店と一体で、<br class="hidden sm:block">
+            物件の<span class="font-medium text-[#E8621A]">未来</span>まで見て提案します。
           </p>
-          <a href="/concept.html" class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ink border-b border-ink pb-0.5 hover:text-[#E8621A] hover:border-[#E8621A] transition-colors self-start">
-            選ばれる理由を詳しく見る
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          <a href="/concept.html" class="why-omori-panel__cta site-btn site-btn--md site-btn--outline-ink mt-5 shrink-0 self-start">
+            <span class="site-btn__inner">選ばれる理由を詳しく見る<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
           </a>
         </div>
-        <div class="hero-lede__aside flex flex-wrap items-start justify-end gap-10 lg:gap-12 lg:flex-nowrap lg:shrink-0 lg:items-center lg:min-h-0">
-          <div class="hero-intro__stats hero-lede__stats flex gap-10 md:gap-12">
-            <div class="hero-intro__stat">
-              <p class="hero-intro__stat-value text-ink">
-                <span class="hero-intro__stat-figures"><span data-hero-count="200">0</span><span class="hero-intro__stat-unit">+</span></span>
-              </p>
-              <p class="hero-intro__stat-label text-ink">年間施工実績</p>
-            </div>
-            <div class="hero-intro__stat">
-              <p class="hero-intro__stat-value text-ink">
-                <span class="hero-intro__stat-figures">★<span data-hero-count="4" class="tabular-nums">0</span><span class="hero-intro__stat-unit">.7</span></span>
-              </p>
-              <p class="hero-intro__stat-label text-ink">Google口コミ</p>
-            </div>
-          </div>
+        <div class="why-omori-panel__points relative lg:border-l lg:border-[#DDD9D2]/80 lg:pl-8 xl:pl-10">
+          <span class="why-omori-panel__divider-dot" aria-hidden="true"></span>
+          <ol class="why-omori-points m-0 list-none space-y-5 p-0 md:space-y-6 lg:space-y-5">
+            <li class="why-omori-point flex gap-4 sm:gap-5">
+              <div class="flex shrink-0 flex-row items-start gap-2 sm:gap-3">
+                <span class="why-omori-point__label font-mono-label text-[0.625rem] tracking-[0.35em] text-[#E8621A]">POINT</span>
+                <span class="why-omori-point__num font-serif text-3xl font-light tabular-nums leading-none text-[#E8621A] md:text-4xl">01</span>
+              </div>
+              <div class="min-w-0 pt-0.5">
+                <h3 class="font-serif text-lg leading-snug text-ink md:text-xl">住んだ後まで見据える</h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted">不動産は買う瞬間より、買った後のほうが重要です。物件探しの段階から、暮らし始めてからのメンテナンスや将来の売却まで視野に入れ、買ってからの完成形まで見える提案をします。</p>
+              </div>
+            </li>
+            <li class="why-omori-point flex gap-4 sm:gap-5">
+              <div class="flex shrink-0 flex-row items-start gap-2 sm:gap-3">
+                <span class="why-omori-point__label font-mono-label text-[0.625rem] tracking-[0.35em] text-[#E8621A]">POINT</span>
+                <span class="why-omori-point__num font-serif text-3xl font-light tabular-nums leading-none text-[#E8621A] md:text-4xl">02</span>
+              </div>
+              <div class="min-w-0 pt-0.5">
+                <h3 class="font-serif text-lg leading-snug text-ink md:text-xl">工務店と一体で考える</h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted">親会社の大森工務店と連携し、間取りの変更可否や水回りの移動、構造・配管・電気容量まで。できる・できない・いくらかを、早い段階で判断できます。</p>
+              </div>
+            </li>
+            <li class="why-omori-point flex gap-4 sm:gap-5">
+              <div class="flex shrink-0 flex-row items-start gap-2 sm:gap-3">
+                <span class="why-omori-point__label font-mono-label text-[0.625rem] tracking-[0.35em] text-[#E8621A]">POINT</span>
+                <span class="why-omori-point__num font-serif text-3xl font-light tabular-nums leading-none text-[#E8621A] md:text-4xl">03</span>
+              </div>
+              <div class="min-w-0 pt-0.5">
+                <h3 class="font-serif text-lg leading-snug text-ink md:text-xl">総額と資産価値まで提案する</h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted">物件価格に加え、諸費用・リフォーム・将来の修繕費まで含めて見通しを立てます。単にきれいにするのではなく、売れる・貸せる・評価される改修まで、未来の価値が続く住まいを提案します。</p>
+              </div>
+            </li>
+          </ol>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Divider marquee（OUR ADVANTAGE → Services の間） -->
+<div class="section-marquee bg-white" aria-hidden="true">
+  <div class="section-marquee__rail">
+    <span class="section-marquee__text">OUR SERVICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUR SERVICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUR SERVICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUR SERVICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUR SERVICE</span>
+    <span class="section-marquee__text" aria-hidden="true">OUR SERVICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUR SERVICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUR SERVICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUR SERVICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUR SERVICE</span>
+  </div>
+</div>
+
 <!-- Solutions: 3サービス -->
-<section class="py-24 md:py-32 bg-white index-solution" data-reveal>
+<section class="pt-20 md:pt-28 pb-24 md:pb-32 bg-white index-solution" data-reveal>
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <div class="mb-16">
       <div class="text-center">
@@ -210,59 +243,35 @@ activePage: index
         <p class="text-muted text-sm mt-3 max-w-md leading-relaxed">ビフォーアフター・費用感・期間まで公開。工務店の実力を実績でお伝えします。</p>
       </div>
     </div>
-    <div class="bg-white border border-[#DDD9D2] rounded-sm p-10 md:p-14 flex flex-col md:flex-row items-center gap-8 md:gap-12" data-reveal data-delay="100">
-      <div class="flex-1 min-w-0">
-        <p class="font-mono-label text-xs text-[#E8621A] mb-3 tracking-widest">年間施工実績 200件以上</p>
-        <p class="font-serif text-2xl md:text-3xl text-ink mb-4">ビフォーアフターで、<br>変化をそのままお見せします。</p>
-        <p class="text-muted text-sm leading-relaxed">リノベーション前後の写真、費用感、工期——実際の事例をできる限り詳しく公開しています。「工務店の腕」を言葉ではなく実績で判断してください。</p>
-      </div>
-      <a href="/works.html" class="site-btn site-btn--lg site-btn--outline-ink shrink-0">
-        <span class="site-btn__inner">
-          施工事例をすべて見る
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-        </span>
+    <div id="works-top-loading" class="text-center py-10" data-reveal data-delay="100">
+      <div class="inline-block animate-spin rounded-full h-7 w-7 border-2 border-[#DDD9D2] border-t-[#1A1A1A]"></div>
+    </div>
+    <div id="works-top-grid" class="hidden grid md:grid-cols-3 gap-5" data-reveal data-delay="100"></div>
+    <div class="mt-10 text-center" data-reveal data-delay="200">
+      <a href="/works.html" class="site-btn site-btn--sm site-btn--outline-ink inline-flex">
+        <span class="site-btn__inner">施工事例をすべて見る<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- Blog preview -->
+<!-- Blog / News preview -->
 <section class="py-20 md:py-28 bg-white" data-reveal>
   <div class="max-w-7xl mx-auto px-6 md:px-10">
-    <div class="flex items-end justify-between mb-12">
-      <div>
-        <p class="section-label mb-4">Blog</p>
-        <h2 class="font-serif text-3xl md:text-4xl text-ink">不安を解消する、<br class="sm:hidden">お役立ち情報</h2>
-        <p class="text-muted text-sm mt-3 max-w-md leading-relaxed">「中古はやめた方がいい？」「リフォーム費のリアル」など、不動産購入の不安に答えるコンテンツを発信中。</p>
-      </div>
-      <a href="/news.html" class="hidden md:inline-flex items-center gap-2 text-sm font-medium text-ink border-b border-ink pb-0.5 hover:text-[#E8621A] hover:border-[#E8621A] transition-colors shrink-0 ml-8">
-        すべての記事を見る <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-      </a>
+    <div class="mb-12">
+      <p class="section-label mb-4">Blog</p>
+      <h2 class="font-serif text-3xl md:text-4xl text-ink">不安を解消する、<br class="sm:hidden">お役立ち情報</h2>
+      <p class="text-muted text-base mt-3 leading-relaxed">「中古はやめた方がいい？」「リフォーム費のリアル」など、不動産購入の不安に答えるコンテンツを発信中。</p>
     </div>
-    <!-- テーマ例カード（静的プレースホルダー） -->
-    <div class="grid md:grid-cols-3 gap-5 mb-10">
-      <div class="bg-cream border border-[#DDD9D2]/70 p-7 rounded-sm flex flex-col gap-3">
-        <p class="font-mono-label text-xs text-[#E8621A] tracking-widest">中古住宅</p>
-        <h3 class="font-serif text-lg text-ink leading-snug">中古住宅はやめた方がいい？買う前に知っておくべきこと</h3>
-        <p class="text-xs text-muted leading-relaxed flex-1">新築と中古の本当の違いとは。工務店目線で「買っていい物件・やめるべき物件」の見極め方を解説します。</p>
-        <a href="/news.html" class="text-xs text-ink inline-flex items-center gap-1 border-b border-[#DDD9D2] pb-0.5 self-start hover:text-[#E8621A] transition-colors">続きを読む <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
+    <div>
+      <div id="news-top-loading" class="py-6 text-center">
+        <div class="inline-block animate-spin rounded-full h-5 w-5 border-2 border-[#DDD9D2] border-t-[#1A1A1A]"></div>
       </div>
-      <div class="bg-cream border border-[#DDD9D2]/70 p-7 rounded-sm flex flex-col gap-3">
-        <p class="font-mono-label text-xs text-[#E8621A] tracking-widest">リフォーム費用</p>
-        <h3 class="font-serif text-lg text-ink leading-snug">築30年の家、リフォーム費はいくら？リアルな相場を公開</h3>
-        <p class="text-xs text-muted leading-relaxed flex-1">「安く見える物件が結局高い買い物になる」——リフォーム費込みの総額で考えることの大切さを実例で解説。</p>
-        <a href="/news.html" class="text-xs text-ink inline-flex items-center gap-1 border-b border-[#DDD9D2] pb-0.5 self-start hover:text-[#E8621A] transition-colors">続きを読む <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
-      </div>
-      <div class="bg-cream border border-[#DDD9D2]/70 p-7 rounded-sm flex flex-col gap-3">
-        <p class="font-mono-label text-xs text-[#E8621A] tracking-widest">物件の見極め</p>
-        <h3 class="font-serif text-lg text-ink leading-snug">工務店が教える「買っていい物件」の5つのチェックポイント</h3>
-        <p class="text-xs text-muted leading-relaxed flex-1">間取り変更の可否、水回り移動、構造壁の有無……工務店目線だからわかる物件診断のポイントを公開。</p>
-        <a href="/news.html" class="text-xs text-ink inline-flex items-center gap-1 border-b border-[#DDD9D2] pb-0.5 self-start hover:text-[#E8621A] transition-colors">続きを読む <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
-      </div>
+      <div id="news-top-list" class="hidden divide-y divide-[#DDD9D2] border-t border-[#DDD9D2]"></div>
     </div>
-    <div class="mt-2 flex justify-center md:hidden">
+    <div class="mt-10 flex justify-center">
       <a href="/news.html" class="site-btn site-btn--lg site-btn--outline-ink">
-        <span class="site-btn__inner">すべての記事を見る <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
+        <span class="site-btn__inner">すべての記事を見る <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
       </a>
     </div>
   </div>

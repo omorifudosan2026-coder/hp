@@ -130,6 +130,7 @@ auth.onAuthStateChanged((user) => {
         window.location.href = '/login.html';
     } else {
         document.getElementById('user-email').textContent = user.email;
+        initAdminListControls();
         // データの初期読み込み
         loadNews();
         loadWorks();
@@ -166,6 +167,13 @@ function switchTab(tabName) {
 
 // ========== お知らせ管理 ==========
 
+const ADMIN_PAGE_SIZE = 10;
+
+let adminNewsAll = [];
+let adminNewsQuery = '';
+let adminNewsPage = 1;
+let adminNewsCategory = '__all';
+
 async function loadNews() {
     const listElement = document.getElementById('news-list');
     listElement.innerHTML = '<div class="text-center py-8 text-gray-500">読み込み中...</div>';
@@ -175,34 +183,55 @@ async function loadNews() {
         
         if (snapshot.empty) {
             listElement.innerHTML = '<p class="text-gray-500 text-center py-8">お知らせがありません。新規追加してください。</p>';
+            adminNewsAll = [];
+            syncAdminNewsPager(0, 1, 1);
             return;
         }
         
-        listElement.innerHTML = '';
-        snapshot.forEach(doc => {
+        adminNewsAll = [];
+        snapshot.forEach((doc) => {
             const item = doc.data();
             item.id = doc.id;
-            listElement.innerHTML += createNewsCard(item);
+            adminNewsAll.push(item);
         });
+        adminNewsPage = 1;
+        renderAdminNewsList();
     } catch (error) {
         console.error('お知らせの読み込みエラー:', error);
         listElement.innerHTML = '<p class="text-red-500 text-center py-8">データの読み込みに失敗しました</p>';
+        adminNewsAll = [];
+        syncAdminNewsPager(0, 1, 1);
     }
 }
 
 function createNewsCard(item) {
+    const safeImg = adminTrustHttpsUrl(item.image);
+    const thumb = safeImg
+        ? `<img src="${adminEscapeHtml(safeImg)}" alt="" loading="lazy" decoding="async" width="72" height="54" class="w-[72px] h-[54px] object-cover bg-gray-50">`
+        : `<div class="w-[72px] h-[54px] bg-gray-50 grid place-items-center">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75A2.25 2.25 0 0 1 6 4.5h12A2.25 2.25 0 0 1 20.25 6.75v10.5A2.25 2.25 0 0 1 18 19.5H6a2.25 2.25 0 0 1-2.25-2.25V6.75z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.5 15.75 10 13.25l2 2 3.5-3.5 3 4"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 9.75a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z"/>
+              </svg>
+          </div>`;
+
     return `
-        <div class="border border-[var(--color-border)] bg-white p-4 shadow-[0_1px_0_rgba(26,26,26,0.03)] hover:shadow-[0_12px_40px_rgba(26,26,26,0.06)] transition">
-            <div class="flex justify-between items-start">
-                <div class="flex-1">
-                    <div class="flex items-center space-x-2 mb-2">
-                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs border border-gray-200">${item.category}</span>
-                        <span class="text-sm text-gray-500">${item.date}</span>
+        <div class="bg-white py-5 md:py-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-4">
+                        <span class="shrink-0">${thumb}</span>
+                        <div class="min-w-0">
+                            <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs border border-gray-200">${adminEscapeHtml(item.category || 'その他')}</span>
+                                <span class="text-sm text-gray-500">${adminEscapeHtml(item.date || '')}</span>
+                            </div>
+                            <h3 class="mt-1 text-base md:text-lg font-medium text-gray-900 line-clamp-1">${adminEscapeHtml(item.title || '')}</h3>
+                        </div>
                     </div>
-                    <h3 class="text-lg font-medium text-gray-900 mb-2">${item.title}</h3>
-                    <p class="text-gray-600 text-sm line-clamp-2">${item.content}</p>
                 </div>
-                <div class="flex space-x-2 ml-4">
+                <div class="flex flex-wrap gap-2">
                     <a href="/news-detail.html?id=${encodeURIComponent(item.id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--preview">プレビュー</a>
                     <button onclick="editNews('${item.id}')" class="admin-btn admin-btn--edit">編集</button>
                     <button onclick="deleteNews('${item.id}')" class="admin-btn admin-btn--delete">削除</button>
@@ -210,6 +239,71 @@ function createNewsCard(item) {
             </div>
         </div>
     `;
+}
+
+function normalizeQuery(q) {
+    return String(q || '').trim().toLowerCase();
+}
+
+function adminEscapeHtml(value) {
+    if (value == null) return '';
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function adminTrustHttpsUrl(url) {
+    if (!url || typeof url !== 'string') return '';
+    const s = url.trim();
+    return /^https:\/\//i.test(s) ? s : '';
+}
+
+function renderAdminNewsList() {
+    const listElement = document.getElementById('news-list');
+    const q = normalizeQuery(adminNewsQuery);
+    const filteredBase = adminNewsCategory === '__all'
+        ? adminNewsAll
+        : adminNewsAll.filter((it) => (it.category || 'その他') === adminNewsCategory);
+    const filtered = !q
+        ? filteredBase
+        : filteredBase.filter((it) => {
+            const title = String(it.title || '').toLowerCase();
+            const content = String(it.content || '').toLowerCase();
+            return title.includes(q) || content.includes(q);
+        });
+
+    const totalPages = Math.max(1, Math.ceil(filtered.length / ADMIN_PAGE_SIZE));
+    adminNewsPage = Math.min(adminNewsPage, totalPages);
+    adminNewsPage = Math.max(1, adminNewsPage);
+
+    const start = (adminNewsPage - 1) * ADMIN_PAGE_SIZE;
+    const slice = filtered.slice(start, start + ADMIN_PAGE_SIZE);
+
+    if (!slice.length) {
+        listElement.innerHTML = '<p class="text-gray-500 text-center py-8">該当するお知らせがありません</p>';
+    } else {
+        listElement.innerHTML = slice.map(createNewsCard).join('');
+    }
+
+    syncAdminNewsPager(filtered.length, adminNewsPage, totalPages);
+}
+
+function syncAdminNewsPager(totalCount, page, totalPages) {
+    const pager = document.getElementById('admin-news-pager');
+    const prev = document.getElementById('admin-news-prev');
+    const next = document.getElementById('admin-news-next');
+    const label = document.getElementById('admin-news-page-label');
+    if (!pager || !prev || !next || !label) return;
+
+    const hasItems = (totalCount || 0) > 0;
+    pager.classList.toggle('hidden', !hasItems);
+
+    label.textContent = `${page || 1} / ${totalPages || 1}`;
+    prev.disabled = (page || 1) <= 1;
+    next.disabled = (page || 1) >= (totalPages || 1);
 }
 
 function openNewsModal(id = null) {
@@ -347,6 +441,10 @@ async function deleteNews(id) {
 
 // ========== 施工事例管理 ==========
 
+let adminWorksAll = [];
+let adminWorksQuery = '';
+let adminWorksPage = 1;
+
 async function loadWorks() {
     const listElement = document.getElementById('works-list');
     listElement.innerHTML = '<div class="text-center py-8 text-gray-500">読み込み中...</div>';
@@ -356,35 +454,57 @@ async function loadWorks() {
         
         if (snapshot.empty) {
             listElement.innerHTML = '<p class="text-gray-500 text-center py-8">施工事例がありません。新規追加してください。</p>';
+            adminWorksAll = [];
+            syncAdminWorksPager(0, 1, 1);
             return;
         }
         
-        listElement.innerHTML = '';
-        snapshot.forEach(doc => {
+        adminWorksAll = [];
+        snapshot.forEach((doc) => {
             const work = doc.data();
             work.id = doc.id;
-            listElement.innerHTML += createWorkCard(work);
+            adminWorksAll.push(work);
         });
+
+        adminWorksPage = 1;
+        renderAdminWorksList();
     } catch (error) {
         console.error('施工事例の読み込みエラー:', error);
         listElement.innerHTML = '<p class="text-red-500 text-center py-8">データの読み込みに失敗しました</p>';
+        adminWorksAll = [];
+        syncAdminWorksPager(0, 1, 1);
     }
 }
 
 function createWorkCard(work) {
+    const safeImg = adminTrustHttpsUrl(work.image);
+    const thumb = safeImg
+        ? `<img src="${adminEscapeHtml(safeImg)}" alt="" loading="lazy" decoding="async" width="72" height="54" class="w-[72px] h-[54px] object-cover bg-gray-50">`
+        : `<div class="w-[72px] h-[54px] bg-gray-50 grid place-items-center">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75A2.25 2.25 0 0 1 6 4.5h12A2.25 2.25 0 0 1 20.25 6.75v10.5A2.25 2.25 0 0 1 18 19.5H6a2.25 2.25 0 0 1-2.25-2.25V6.75z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.5 15.75 10 13.25l2 2 3.5-3.5 3 4"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 9.75a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z"/>
+              </svg>
+          </div>`;
+
     return `
-        <div class="border border-[var(--color-border)] bg-white p-4 shadow-[0_1px_0_rgba(26,26,26,0.03)] hover:shadow-[0_12px_40px_rgba(26,26,26,0.06)] transition">
-            <div class="flex justify-between items-start">
-                <div class="flex-1">
-                    <h3 class="text-lg font-medium text-gray-900 mb-2">${work.title}</h3>
-                    <div class="flex items-center space-x-4 text-sm text-gray-700 mb-2">
-                        <span>${work.area}</span>
-                        <span>${work.layout}</span>
-                        <span class="font-semibold text-primary">${work.cost}万円</span>
+        <div class="bg-white py-5 md:py-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-4">
+                        <span class="shrink-0">${thumb}</span>
+                        <div class="min-w-0">
+                            <h3 class="text-base md:text-lg font-medium text-gray-900 line-clamp-1">${adminEscapeHtml(work.title || '')}</h3>
+                            <div class="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-700">
+                                <span>${adminEscapeHtml(work.area || '')}</span>
+                                <span>${adminEscapeHtml(work.layout || '')}</span>
+                                <span class="font-semibold text-primary">${adminEscapeHtml(work.cost != null ? String(work.cost) : '—')}万円</span>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-gray-600 text-sm line-clamp-2">${work.description}</p>
                 </div>
-                <div class="flex space-x-2 ml-4">
+                <div class="flex flex-wrap gap-2">
                     <a href="/work-detail.html?id=${encodeURIComponent(work.id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--preview">プレビュー</a>
                     <button onclick="editWork('${work.id}')" class="admin-btn admin-btn--edit">編集</button>
                     <button onclick="deleteWork('${work.id}')" class="admin-btn admin-btn--delete">削除</button>
@@ -392,6 +512,127 @@ function createWorkCard(work) {
             </div>
         </div>
     `;
+}
+
+function renderAdminWorksList() {
+    const listElement = document.getElementById('works-list');
+    const q = normalizeQuery(adminWorksQuery);
+    const filtered = !q
+        ? adminWorksAll
+        : adminWorksAll.filter((it) => {
+            const title = String(it.title || '').toLowerCase();
+            const area = String(it.area || '').toLowerCase();
+            const layout = String(it.layout || '').toLowerCase();
+            return title.includes(q) || area.includes(q) || layout.includes(q);
+        });
+
+    const totalPages = Math.max(1, Math.ceil(filtered.length / ADMIN_PAGE_SIZE));
+    adminWorksPage = Math.min(adminWorksPage, totalPages);
+    adminWorksPage = Math.max(1, adminWorksPage);
+
+    const start = (adminWorksPage - 1) * ADMIN_PAGE_SIZE;
+    const slice = filtered.slice(start, start + ADMIN_PAGE_SIZE);
+
+    if (!slice.length) {
+        listElement.innerHTML = '<p class="text-gray-500 text-center py-8">該当する施工事例がありません</p>';
+    } else {
+        listElement.innerHTML = slice.map(createWorkCard).join('');
+    }
+
+    syncAdminWorksPager(filtered.length, adminWorksPage, totalPages);
+}
+
+function syncAdminWorksPager(totalCount, page, totalPages) {
+    const pager = document.getElementById('admin-works-pager');
+    const prev = document.getElementById('admin-works-prev');
+    const next = document.getElementById('admin-works-next');
+    const label = document.getElementById('admin-works-page-label');
+    if (!pager || !prev || !next || !label) return;
+
+    const hasItems = (totalCount || 0) > 0;
+    pager.classList.toggle('hidden', !hasItems);
+
+    label.textContent = `${page || 1} / ${totalPages || 1}`;
+    prev.disabled = (page || 1) <= 1;
+    next.disabled = (page || 1) >= (totalPages || 1);
+}
+
+function initAdminListControls() {
+    const newsSearch = document.getElementById('admin-news-search');
+    const newsClear = document.getElementById('admin-news-clear');
+    const newsCategory = document.getElementById('admin-news-category');
+    const newsPrev = document.getElementById('admin-news-prev');
+    const newsNext = document.getElementById('admin-news-next');
+
+    if (newsSearch) {
+        newsSearch.addEventListener('input', () => {
+            adminNewsQuery = newsSearch.value || '';
+            adminNewsPage = 1;
+            renderAdminNewsList();
+        });
+    }
+    if (newsClear && newsSearch) {
+        newsClear.addEventListener('click', () => {
+            newsSearch.value = '';
+            adminNewsQuery = '';
+            if (newsCategory) newsCategory.value = '__all';
+            adminNewsCategory = '__all';
+            adminNewsPage = 1;
+            renderAdminNewsList();
+        });
+    }
+    if (newsCategory) {
+        newsCategory.addEventListener('change', () => {
+            adminNewsCategory = newsCategory.value || '__all';
+            adminNewsPage = 1;
+            renderAdminNewsList();
+        });
+    }
+    if (newsPrev) {
+        newsPrev.addEventListener('click', () => {
+            adminNewsPage = Math.max(1, adminNewsPage - 1);
+            renderAdminNewsList();
+        });
+    }
+    if (newsNext) {
+        newsNext.addEventListener('click', () => {
+            adminNewsPage += 1;
+            renderAdminNewsList();
+        });
+    }
+
+    const worksSearch = document.getElementById('admin-works-search');
+    const worksClear = document.getElementById('admin-works-clear');
+    const worksPrev = document.getElementById('admin-works-prev');
+    const worksNext = document.getElementById('admin-works-next');
+
+    if (worksSearch) {
+        worksSearch.addEventListener('input', () => {
+            adminWorksQuery = worksSearch.value || '';
+            adminWorksPage = 1;
+            renderAdminWorksList();
+        });
+    }
+    if (worksClear && worksSearch) {
+        worksClear.addEventListener('click', () => {
+            worksSearch.value = '';
+            adminWorksQuery = '';
+            adminWorksPage = 1;
+            renderAdminWorksList();
+        });
+    }
+    if (worksPrev) {
+        worksPrev.addEventListener('click', () => {
+            adminWorksPage = Math.max(1, adminWorksPage - 1);
+            renderAdminWorksList();
+        });
+    }
+    if (worksNext) {
+        worksNext.addEventListener('click', () => {
+            adminWorksPage += 1;
+            renderAdminWorksList();
+        });
+    }
 }
 
 function openWorkModal(id = null) {

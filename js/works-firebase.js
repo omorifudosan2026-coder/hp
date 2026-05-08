@@ -8,6 +8,8 @@ async function loadWorks() {
     const loadingEl = document.getElementById('loading');
     const gridEl = document.getElementById('works-grid');
     const noWorksEl = document.getElementById('no-works');
+    const moreWrapEl = document.getElementById('works-more-wrap');
+    const moreBtnEl = document.getElementById('works-load-more');
 
     try {
         const snapshot = await db.collection(COLLECTIONS.works).orderBy('createdAt', 'desc').get();
@@ -16,19 +18,40 @@ async function loadWorks() {
 
         if (snapshot.empty) {
             noWorksEl.classList.remove('hidden');
+            if (moreWrapEl) moreWrapEl.classList.add('hidden');
             return;
         }
 
+        const allWorks = [];
         snapshot.forEach((doc) => {
             const work = doc.data();
             work.id = doc.id;
-            const card = createWorkCard(work);
-            gridEl.innerHTML += card;
+            allWorks.push(work);
         });
+
+        let visibleCount = 9;
+
+        function render() {
+            const slice = allWorks.slice(0, visibleCount);
+            gridEl.innerHTML = slice.map(createWorkCard).join('');
+
+            const hasMore = allWorks.length > visibleCount;
+            if (moreWrapEl) moreWrapEl.classList.toggle('hidden', !hasMore);
+        }
+
+        if (moreBtnEl) {
+            moreBtnEl.addEventListener('click', () => {
+                visibleCount += 9;
+                render();
+            });
+        }
+
+        render();
     } catch (error) {
         console.error('施工事例データの読み込みに失敗しました:', error);
         loadingEl.classList.add('hidden');
         noWorksEl.classList.remove('hidden');
+        if (moreWrapEl) moreWrapEl.classList.add('hidden');
     }
 }
 
@@ -36,7 +59,6 @@ function createWorkCard(work) {
     const title = escapeHtml(work.title || '');
     const area = escapeHtml(work.area || '');
     const layout = escapeHtml(work.layout || '');
-    const desc = escapeHtml(excerptText(work.description, 120));
     const safeImg = trustHttpsUrl(work.image);
     const imageHtml = safeImg
         ? `<img src="${escapeHtml(safeImg)}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]">`
@@ -48,22 +70,21 @@ function createWorkCard(work) {
 
     return `
         <a href="${detailHref}" class="list-card-link list-card-elev block overflow-hidden group h-full flex flex-col">
-            <div class="relative aspect-[4/3] min-h-[13rem] shrink-0 bg-cream overflow-hidden">
+            <div class="relative aspect-[4/3] min-h-[10.5rem] shrink-0 bg-cream overflow-hidden">
                 ${imageHtml}
                 <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/[0.07] via-transparent to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"></div>
             </div>
-            <div class="p-5 md:p-6 flex flex-col grow border-t border-[#DDD9D2]">
-                <h3 class="font-serif text-lg md:text-xl text-ink font-medium mb-3 transition-colors duration-500 group-hover:text-[#2a2a2a]">${title}</h3>
-                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted mb-3">
+            <div class="p-4 flex flex-col grow border-t border-[#DDD9D2]">
+                <h3 class="font-serif text-base text-ink font-medium mb-2 transition-colors duration-500 group-hover:text-[#2a2a2a] line-clamp-1">${title}</h3>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted mb-4">
                     <span>${area}</span>
                     <span class="text-[#DDD9D2]" aria-hidden="true">|</span>
                     <span>${layout}</span>
                 </div>
-                <p class="text-muted text-sm mb-5 line-clamp-2 leading-relaxed">${desc}</p>
-                <div class="mt-auto flex items-end justify-between gap-4 pt-4 border-t border-[#DDD9D2]">
+                <div class="mt-auto flex items-end justify-between gap-4 pt-3 border-t border-[#DDD9D2]">
                     <div>
                         <p class="text-[0.65rem] tracking-wider text-muted font-medium mb-1">施工費用</p>
-                        <p class="text-lg font-semibold text-[#E8621A] tabular-nums">${costLabel}</p>
+                        <p class="text-base font-semibold text-[#E8621A] tabular-nums">${costLabel}</p>
                     </div>
                     <span class="list-card-arrow list-card-arrow--footer" aria-hidden="true">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

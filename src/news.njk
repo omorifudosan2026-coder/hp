@@ -12,18 +12,31 @@ pageScript: js/news-firebase.js
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <p class="section-label mb-6">Blog</p>
     <h1 class="font-serif text-5xl md:text-6xl text-ink">ブログ</h1>
-    <p class="text-muted text-base mt-4 max-w-lg">「中古はやめた方がいい？」「リフォーム費のリアル」など、不動産購入の不安を解消するコンテンツを発信しています。</p>
+    <p class="text-muted text-base mt-4">「中古はやめた方がいい？」「リフォーム費のリアル」など、不動産購入の不安を解消するコンテンツを発信しています。</p>
   </div>
 </section>
 
 <!-- Blog List -->
 <section class="py-20 md:py-28 bg-white">
-  <div class="max-w-4xl mx-auto px-6 md:px-10">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <!-- Category tabs -->
+    <div id="news-tabs" class="mb-10 flex flex-wrap items-center gap-2">
+      <button type="button" class="news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-ink text-white hover:bg-ink hover:text-white transition-colors" data-news-tab="__all">すべて</button>
+      <button type="button" class="news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-white text-ink hover:bg-cream hover:text-ink transition-colors" data-news-tab="お知らせ">お知らせ</button>
+      <button type="button" class="news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-white text-ink hover:bg-cream hover:text-ink transition-colors" data-news-tab="イベント">イベント</button>
+      <button type="button" class="news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-white text-ink hover:bg-cream hover:text-ink transition-colors" data-news-tab="メディア掲載">メディア掲載</button>
+      <button type="button" class="news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-white text-ink hover:bg-cream hover:text-ink transition-colors" data-news-tab="その他">その他</button>
+    </div>
     <div id="loading" class="text-center py-16">
       <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-[#DDD9D2] border-t-[#1A1A1A]"></div>
       <p class="text-muted text-sm mt-3">読み込み中...</p>
     </div>
-    <div id="news-list"></div>
+    <div id="news-list" class="border-t border-[#DDD9D2] divide-y divide-[#DDD9D2]"></div>
+    <div id="news-more-wrap" class="hidden pt-10 flex justify-center">
+      <button type="button" id="news-load-more" class="site-btn site-btn--lg site-btn--outline-ink">
+        <span class="site-btn__inner">もっと見る <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></span>
+      </button>
+    </div>
     <div id="no-news" class="hidden text-center py-16">
       <p class="text-muted text-sm">現在、記事はありません</p>
     </div>

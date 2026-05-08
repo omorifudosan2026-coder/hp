@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const d = item.date;
         document.getElementById('detail-date').textContent = d ? formatNewsDate(d) : '';
+        const pageTitle = item.title ? `${item.title} | 大森不動産` : 'ブログ | 大森不動産';
+        document.title = pageTitle;
         document.getElementById('detail-title').textContent = item.title || '';
         document.getElementById('detail-body').textContent = item.content || '';
 

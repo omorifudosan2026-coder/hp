@@ -43,8 +43,8 @@ bodyClass: bg-cream min-h-screen
     <div class="bg-cream">
         <div class="max-w-7xl mx-auto px-6 md:px-10">
             <nav class="flex gap-8">
-                <button onclick="switchTab('news')" id="tab-news" class="tab-btn py-4 border-b-2 border-primary text-primary font-medium">お知らせ管理</button>
-                <button onclick="switchTab('works')" id="tab-works" class="tab-btn py-4 border-b-2 border-transparent text-muted hover:text-primary transition-colors">施工事例管理</button>
+                <button onclick="switchTab('news')" id="tab-news" class="tab-btn cursor-pointer py-4 border-b-2 border-primary text-primary font-medium">お知らせ管理</button>
+                <button onclick="switchTab('works')" id="tab-works" class="tab-btn cursor-pointer py-4 border-b-2 border-transparent text-muted hover:text-primary transition-colors">施工事例管理</button>
             </nav>
         </div>
     </div>
@@ -59,7 +59,27 @@ bodyClass: bg-cream min-h-screen
                         <span class="site-btn__inner">＋ 新規追加</span>
                     </button>
                 </div>
-                <div id="news-list" class="space-y-4"><div class="text-center py-8 text-gray-500">読み込み中...</div></div>
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-5">
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full lg:max-w-3xl">
+                        <input id="admin-news-search" type="search" placeholder="検索（タイトル/本文）" class="w-full px-4 py-2 border border-[var(--color-border)] bg-white">
+                        <select id="admin-news-category" class="w-full md:w-44 px-4 py-2 border border-[var(--color-border)] bg-white">
+                            <option value="__all">すべて</option>
+                            <option value="お知らせ">お知らせ</option>
+                            <option value="イベント">イベント</option>
+                            <option value="メディア掲載">メディア掲載</option>
+                            <option value="その他">その他</option>
+                        </select>
+                        <button id="admin-news-clear" type="button" class="site-btn site-btn--md site-btn--outline-muted min-w-28">
+                            <span class="site-btn__inner">クリア</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="news-list" class="divide-y divide-[var(--color-border)]"><div class="text-center py-8 text-gray-500">読み込み中...</div></div>
+                <div id="admin-news-pager" class="hidden mt-5 flex items-center justify-end gap-3 text-sm text-muted">
+                    <button id="admin-news-prev" type="button" class="site-btn site-btn--compact site-btn--outline-muted"><span class="site-btn__inner">前へ</span></button>
+                    <span id="admin-news-page-label" class="tabular-nums">1 / 1</span>
+                    <button id="admin-news-next" type="button" class="site-btn site-btn--compact site-btn--outline-muted"><span class="site-btn__inner">次へ</span></button>
+                </div>
             </div>
         </div>
         <!-- Works Tab -->
@@ -71,7 +91,20 @@ bodyClass: bg-cream min-h-screen
                         <span class="site-btn__inner">＋ 新規追加</span>
                     </button>
                 </div>
-                <div id="works-list" class="space-y-4"><div class="text-center py-8 text-gray-500">読み込み中...</div></div>
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-5">
+                    <div class="flex items-center gap-2 w-full md:max-w-md">
+                        <input id="admin-works-search" type="search" placeholder="検索（タイトル/エリア/間取り）" class="w-full px-4 py-2 border border-[var(--color-border)] bg-white">
+                        <button id="admin-works-clear" type="button" class="site-btn site-btn--md site-btn--outline-muted min-w-28">
+                            <span class="site-btn__inner">クリア</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="works-list" class="divide-y divide-[var(--color-border)]"><div class="text-center py-8 text-gray-500">読み込み中...</div></div>
+                <div id="admin-works-pager" class="hidden mt-5 flex items-center justify-end gap-3 text-sm text-muted">
+                    <button id="admin-works-prev" type="button" class="site-btn site-btn--compact site-btn--outline-muted"><span class="site-btn__inner">前へ</span></button>
+                    <span id="admin-works-page-label" class="tabular-nums">1 / 1</span>
+                    <button id="admin-works-next" type="button" class="site-btn site-btn--compact site-btn--outline-muted"><span class="site-btn__inner">次へ</span></button>
+                </div>
             </div>
         </div>
     </div>

@@ -24,6 +24,10 @@ module.exports = function (eleventyConfig) {
   // main.css の内容が変わると URL のクエリも変わり、ブラウザキャッシュ事故を避ける
   eleventyConfig.addGlobalData("mainCssCacheBust", () => getMainCssCacheBust());
   eleventyConfig.addWatchTarget("src/css/main.css");
+  // Passthrough の更新も開発サーバーで追従させる
+  eleventyConfig.addWatchTarget("js");
+  eleventyConfig.addWatchTarget("images");
+  eleventyConfig.addWatchTarget("firebase-config.js");
 
   return {
     dir: {

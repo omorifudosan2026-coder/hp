@@ -609,6 +609,88 @@ h1, h2, h3, h4, h5, h6 {
   background-size: cover, cover, cover;
   background-position: right center, left center, center;
 }
+
+/* TOP 専用：Why Omori 帯のマージン（お悩み直下の区切り線はなし） */
+.hero-lede.hero-lede--index-philosophy.hero-lede--interlude {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+@media (min-width: 768px) {
+  .hero-lede.hero-lede--index-philosophy.hero-lede--interlude {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+/* Divider marquee（区切りに OUR ADVANTAGE を薄く流す） */
+.section-marquee {
+  position: relative;
+  overflow: hidden;
+}
+.section-marquee__rail {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0.12rem 0;
+  line-height: 1;
+}
+.section-marquee__text {
+  flex: 0 0 auto;
+  display: inline-block;
+  font-family: "Arial Black", "Helvetica Neue", Arial, var(--font-body);
+  font-weight: 900;
+  font-size: clamp(2.2rem, 3.2vw, 3.3rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(26, 26, 26, 0.12);
+  padding-right: 3rem;
+  transform: translate3d(0, 0, 0);
+  animation: omori-marquee-divider 70s linear infinite;
+}
+@keyframes omori-marquee-divider {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-marquee__text {
+    animation: none;
+  }
+}
+
+.hero-lede--index-philosophy .why-omori-panel__headline {
+  font-feature-settings: 'palt' 1, 'kern' 1;
+}
+.hero-lede--index-philosophy .why-omori-point__label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  line-height: 1;
+  padding-top: 2px;
+}
+.hero-lede--index-philosophy .why-omori-panel__points {
+  position: relative;
+}
+.hero-lede--index-philosophy .why-omori-panel__divider-dot {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .hero-lede--index-philosophy .why-omori-panel__divider-dot {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 1;
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    background: #e8621a;
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+
 .hero-lede--interlude > * {
   position: relative;
   z-index: 2;
@@ -630,6 +712,13 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 4.75rem;
   }
 }
+
+/* Why Omori：section 側で上下余白を持つ（shell の縦 padding は付けない） */
+.hero-lede--index-philosophy.hero-lede--interlude .hero-lede__shell {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .hero-lede--interlude .hero-intro__stat-value {
   font-size: clamp(2.25rem, 2.1vw + 1.6rem, 3.05rem);
   font-weight: 300;

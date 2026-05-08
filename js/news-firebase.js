@@ -15,6 +15,9 @@ async function loadNews() {
     const loadingEl = document.getElementById('loading');
     const listEl = document.getElementById('news-list');
     const noNewsEl = document.getElementById('no-news');
+    const tabsEl = document.getElementById('news-tabs');
+    const moreWrapEl = document.getElementById('news-more-wrap');
+    const moreBtnEl = document.getElementById('news-load-more');
 
     try {
         const snapshot = await db.collection(COLLECTIONS.news).orderBy('date', 'desc').get();
@@ -26,58 +29,100 @@ async function loadNews() {
             return;
         }
 
+        const allItems = [];
         snapshot.forEach((doc) => {
             const item = doc.data();
             item.id = doc.id;
-            const article = createNewsArticle(item);
-            listEl.innerHTML += article;
+            allItems.push(item);
         });
+
+        let activeCat = '__all';
+        let visibleCount = 10;
+
+        function render() {
+            const filtered = activeCat === '__all'
+                ? allItems
+                : allItems.filter((it) => (it.category || 'その他') === activeCat);
+
+            if (!filtered.length) {
+                listEl.innerHTML = '';
+                noNewsEl.classList.remove('hidden');
+                if (moreWrapEl) moreWrapEl.classList.add('hidden');
+                return;
+            }
+
+            noNewsEl.classList.add('hidden');
+            const slice = filtered.slice(0, visibleCount);
+            listEl.innerHTML = slice.map(createNewsRow).join('');
+
+            const hasMore = filtered.length > visibleCount;
+            if (moreWrapEl) moreWrapEl.classList.toggle('hidden', !hasMore);
+        }
+
+        function setActiveTab(nextCat) {
+            activeCat = nextCat;
+            visibleCount = 10;
+            if (tabsEl) {
+                tabsEl.querySelectorAll('[data-news-tab]').forEach((btn) => {
+                    const isActive = btn.getAttribute('data-news-tab') === activeCat;
+                    btn.classList.toggle('bg-ink', isActive);
+                    btn.classList.toggle('text-white', isActive);
+                    btn.classList.toggle('bg-white', !isActive);
+                    btn.classList.toggle('text-ink', !isActive);
+                    btn.classList.toggle('hover:bg-ink', isActive);
+                    btn.classList.toggle('hover:text-white', isActive);
+                    btn.classList.toggle('hover:bg-cream', !isActive);
+                    btn.classList.toggle('hover:text-ink', !isActive);
+                });
+            }
+            render();
+        }
+
+        if (tabsEl) {
+            tabsEl.addEventListener('click', (e) => {
+                const btn = e.target && e.target.closest ? e.target.closest('[data-news-tab]') : null;
+                if (!btn) return;
+                const cat = btn.getAttribute('data-news-tab') || '__all';
+                setActiveTab(cat);
+            });
+        }
+
+        if (moreBtnEl) {
+            moreBtnEl.addEventListener('click', () => {
+                visibleCount += 10;
+                render();
+            });
+        }
+
+        setActiveTab('__all');
     } catch (error) {
         console.error('お知らせデータの読み込みに失敗しました:', error);
         loadingEl.classList.add('hidden');
         noNewsEl.classList.remove('hidden');
+        if (moreWrapEl) moreWrapEl.classList.add('hidden');
     }
 }
 
-function createNewsArticle(item) {
-    const categoryColors = {
-        お知らせ: 'bg-primary/10 text-primary',
-        イベント: 'bg-blue-100 text-blue-700',
-        メディア掲載: 'bg-green-100 text-green-700',
-        その他: 'bg-gray-200 text-gray-700',
-    };
-
+function createNewsRow(item) {
     const cat = item.category || 'その他';
-    const categoryClass = categoryColors[cat] || 'bg-gray-200 text-gray-700';
     const title = escapeHtml(item.title || '');
     const detailHref = `/news-detail.html?id=${encodeURIComponent(item.id)}`;
-    const excerpt = escapeHtml(excerptText(item.content, 160));
-    const safeImg = trustHttpsUrl(item.image);
-    const thumbHtml = safeImg
-        ? `<div class="shrink-0 w-full sm:w-32 md:w-40 mx-auto sm:mx-0">
-            <img src="${escapeHtml(safeImg)}" alt="${title}" width="160" height="120" class="w-full h-36 sm:h-28 md:h-32 object-cover rounded-xl border border-gray-100 shadow-sm transition-opacity duration-300 group-hover:opacity-90">
-        </div>`
-        : '';
+    // 一覧はタイトル中心で表示（本文は出さない）
 
     return `
-        <article class="mb-6">
-            <a href="${detailHref}" class="list-card-link list-card-elev block bg-white border border-gray-200 rounded-2xl p-6 md:p-8 group">
-                <div class="flex flex-col sm:flex-row sm:items-start gap-5 md:gap-8">
-                    ${thumbHtml}
+        <article>
+            <a href="${detailHref}" class="block py-6 md:py-7 group hover:bg-cream/60 transition-colors">
+                <div class="flex items-start gap-4 md:gap-6">
+                    <time class="shrink-0 w-28 md:w-32 font-mono-label text-xs md:text-sm tracking-wide text-[#E8621A] pt-0.5">${escapeHtml(formatDate(item.date))}</time>
                     <div class="flex-1 min-w-0">
-                        <div class="flex flex-wrap items-center gap-2 mb-2">
-                            <span class="inline-block px-3 py-1 ${categoryClass} rounded-full text-xs font-semibold">${escapeHtml(cat)}</span>
-                            <time class="text-sm text-gray-500">${escapeHtml(formatDate(item.date))}</time>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <span class="inline-flex items-center justify-center px-3 py-1 text-xs font-medium tracking-wide text-ink border border-[#DDD9D2] bg-white">${escapeHtml(cat)}</span>
+                            <h2 class="text-base md:text-lg text-ink leading-snug group-hover:text-[#E8621A] transition-colors line-clamp-1">${title}</h2>
                         </div>
-                        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 transition-colors duration-300 group-hover:text-primary">${title}</h2>
-                        <p class="text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-line mb-4">${excerpt}</p>
-                        <span class="inline-flex items-center gap-1.5 text-primary font-semibold text-sm">
-                            続きを読む
-                            <svg class="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </span>
                     </div>
+                    <svg class="shrink-0 w-5 h-5 text-muted group-hover:text-[#E8621A] transition-colors mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path>
+                    </svg>
                 </div>
             </a>
         </article>

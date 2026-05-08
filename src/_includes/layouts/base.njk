@@ -68,7 +68,8 @@
         <a href="/works.html" class="header-nav-link {{ 'font-medium' if activePage == 'works' else '' }}">施工事例</a>
         <a href="/story.html" class="header-nav-link {{ 'font-medium' if activePage == 'story' else '' }}">ストーリー</a>
         <a href="/news.html" class="header-nav-link {{ 'font-medium' if activePage == 'news' else '' }}">ブログ</a>
-        <a href="/contact.html" class="site-btn site-btn--sm site-btn--outline-ink"><span class="site-btn__inner">無料相談を予約する</span></a>
+        <a href="/company.html" class="header-nav-link {{ 'font-medium' if activePage == 'company' else '' }}">会社概要</a>
+        <a href="/contact.html" class="site-btn site-btn--sm site-btn--outline-ink"><span class="site-btn__inner">無料相談予約</span></a>
       </nav>
 
       <!-- Mobile button -->
@@ -102,8 +103,9 @@
         <a href="/works.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">施工事例</a>
         <a href="/story.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">ストーリー</a>
         <a href="/news.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">ブログ</a>
+        <a href="/company.html" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">会社概要</a>
         <a href="/contact.html" class="pt-4 pb-2">
-          <span class="site-btn site-btn--menu site-btn--outline-ink inline-flex"><span class="site-btn__inner">無料相談を予約する</span></span>
+          <span class="site-btn site-btn--menu site-btn--outline-ink inline-flex"><span class="site-btn__inner">無料相談予約</span></span>
         </a>
       </nav>
     </div>
@@ -147,8 +149,8 @@
       <div>
         <p class="font-mono-label text-[0.65rem] tracking-widest text-white/60 uppercase mb-5">Contact</p>
         <a href="/contact.html" class="site-btn site-btn--footer site-btn--outline-light mb-5 inline-flex"><span class="site-btn__inner">無料相談を予約する →</span></a>
-        <p class="text-white font-bold text-lg mb-1">0120-000-0000</p>
-        <p class="text-white/75 text-xs">9:00-18:00 / 定休日：水曜日</p>
+        <p class="text-white font-bold text-lg mb-1">06-6309-2271</p>
+        <p class="text-white/75 text-xs">9:00〜18:00 / 定休日：日曜日・祝日</p>
       </div>
     </div>
     <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-8">
@@ -167,6 +169,7 @@
 <script src="/js/script.js"></script>
 <script src="/js/header.js"></script>
 {% if pageScript %}<script src="/{{ pageScript }}"></script>{% endif %}
+{% if pageScript2 %}<script src="/{{ pageScript2 }}"></script>{% endif %}
 
 <!-- Intersection Observer -->
 <script>
