@@ -751,15 +751,6 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
 }
 
-/* モバイルで section padding が !important 固定でも効くよう、margin でリズムを作る */
-.index-solution {
-  margin-bottom: 1.25rem;
-}
-@media (min-width: 768px) {
-  .index-solution {
-    margin-bottom: 1.75rem;
-  }
-}
 .hero-lede--interlude {
   margin: 1.25rem 0;
 }

@@ -13,7 +13,7 @@ async function loadWorksTop() {
     try {
         var snapshot = await db.collection(COLLECTIONS.works)
             .orderBy('createdAt', 'desc')
-            .limit(3)
+            .limit(4)
             .get();
 
         if (loadingEl) loadingEl.classList.add('hidden');
@@ -38,36 +38,23 @@ function createWorksTopCard(work) {
     var title = escapeHtml(work.title || '');
     var area = escapeHtml(work.area || '');
     var layout = escapeHtml(work.layout || '');
-    var desc = escapeHtml(excerptWorksText(work.description, 80));
     var safeImg = trustHttpsUrl(work.image);
     var imageHtml = safeImg
         ? '<img src="' + escapeHtml(safeImg) + '" alt="' + title + '" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]">'
         : '<div class="absolute inset-0 bg-[#E2DDD2]"></div>';
-    var costLabel = Number.isFinite(Number(work.cost))
-        ? formatPriceManYen(work.cost) + '万円'
-        : '—';
     var href = '/work-detail.html?id=' + encodeURIComponent(work.id);
 
-    return '<a href="' + href + '" class="list-card-link list-card-elev block overflow-hidden group h-full flex flex-col">'
+    var tags = '';
+    if (area) tags += '<span class="inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">' + area + '</span>';
+    if (layout) tags += '<span class="inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">' + layout + '</span>';
+
+    return '<a href="' + href + '" class="list-card-link block overflow-hidden group h-full flex flex-col bg-white">'
         + '<div class="relative aspect-[4/3] shrink-0 bg-cream overflow-hidden">'
         + imageHtml
         + '</div>'
         + '<div class="p-5 flex flex-col grow border-t border-[#DDD9D2]">'
-        + '<h3 class="font-serif text-lg text-ink font-medium mb-2 transition-colors duration-500 group-hover:text-[#2a2a2a]">' + title + '</h3>'
-        + '<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted mb-2">'
-        + '<span>' + area + '</span>'
-        + (layout ? '<span class="text-[#DDD9D2]" aria-hidden="true">|</span><span>' + layout + '</span>' : '')
-        + '</div>'
-        + '<p class="text-muted text-sm mb-4 line-clamp-2 leading-relaxed">' + desc + '</p>'
-        + '<div class="mt-auto flex items-end justify-between gap-4 pt-4 border-t border-[#DDD9D2]">'
-        + '<div>'
-        + '<p class="text-[0.65rem] tracking-wider text-muted font-medium mb-0.5">施工費用</p>'
-        + '<p class="text-base font-semibold text-[#E8621A] tabular-nums">' + costLabel + '</p>'
-        + '</div>'
-        + '<span class="list-card-arrow list-card-arrow--footer" aria-hidden="true">'
-        + '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>'
-        + '</span>'
-        + '</div>'
+        + '<h3 class="font-serif text-lg text-ink font-medium mb-3 transition-colors duration-500 group-hover:text-[#2a2a2a]">' + title + '</h3>'
+        + (tags ? '<div class="flex flex-wrap gap-2 mt-auto">' + tags + '</div>' : '')
         + '</div>'
         + '</a>';
 }
