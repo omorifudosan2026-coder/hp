@@ -23,7 +23,7 @@
       { "source": "/story.html", "destination": "/story", "type": 301 },
       { "source": "/works.html", "destination": "/works", "type": 301 },
       { "source": "/work-detail.html", "destination": "/work-detail", "type": 301 },
-      { "source": "/service-kaitore.html", "destination": "/service-kaitore", "type": 301 },
+      { "source": "/service-buyback.html", "destination": "/service-buyback", "type": 301 },
       { "source": "/service-renovation.html", "destination": "/service-renovation", "type": 301 },
       { "source": "/service-income.html", "destination": "/service-income", "type": 301 },
       { "source": "/login.html", "destination": "/login", "type": 301 },
