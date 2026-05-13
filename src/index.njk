@@ -171,46 +171,58 @@ pageScript2: js/works-top.js
       <h2 class="font-serif text-3xl md:text-4xl text-ink leading-tight">選ばれる理由</h2>
       <span class="mt-5 mx-auto block h-px w-10 bg-[#E8621A]" aria-hidden="true"></span>
       <p class="mt-5 text-base leading-relaxed text-muted">
-        物件探しからリフォームまで、分けて考えない。<br>だから工務店と一体で、物件の<span class="text-ink font-medium">未来</span>まで見て提案します。
+        物件探しからリフォームまで、分けて考えない。<br>工務店と一体で、物件の<span class="text-ink font-medium">未来</span>まで見て提案します。
       </p>
     </div>
 
-    <!-- 段差3カラム -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:items-start">
+    <!-- ジグザグ4行 -->
+    <div class="flex flex-col gap-16 md:gap-20">
 
-      <!-- POINT 01：一番高い -->
-      <div class="md:mt-0 bg-white border border-[#DDD9D2] p-8 xl:p-10 flex flex-col gap-5" data-reveal>
-        <div class="flex items-center justify-center h-72">
-          <img src="/images/advantage-point-01.webp" alt="" width="300" height="300" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
+      <!-- POINT 01：画像左・テキスト右 -->
+      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16" data-reveal>
+        <div class="w-full md:w-[30%] shrink-0 flex items-center justify-center">
+          <img src="/images/advantage-point-01.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full max-w-[260px] md:max-w-[280px] object-contain">
         </div>
-        <div>
-          <p class="font-mono-label text-[0.625rem] tracking-[0.35em] text-[#E8621A] mb-1">POINT 01</p>
-          <h3 class="font-serif text-xl text-ink leading-snug mb-3">住んだ後まで見据える</h3>
-          <p class="text-sm leading-relaxed text-muted">不動産は買う瞬間より、買った後のほうが重要です。物件探しの段階から暮らし始めてからのメンテナンス・将来の売却まで視野に入れ、買ってからの完成形まで見える提案をします。</p>
+        <div class="flex-1 min-w-0">
+          <span class="inline-block bg-[#E8621A] text-white text-xs font-mono-label font-medium tracking-widest px-3 py-1.5 mb-4">POINT 01</span>
+          <h3 class="font-serif text-2xl md:text-3xl text-ink leading-snug mb-5">失敗物件を避けられる</h3>
+          <p class="text-sm md:text-base leading-relaxed text-muted">安く見える物件でも、リフォーム費用や修繕費が高くつけば結局高い買い物になります。<br class="hidden md:block">リフォーム費用を妥協して、理想の住まいから遠ざかってしまうことも。<br>大森不動産は購入前に建物の状態を工務店目線で診断し、「買っていい物件かどうか」まで判断します。</p>
         </div>
       </div>
 
-      <!-- POINT 02：中間 -->
-      <div class="md:mt-10 bg-white border border-[#DDD9D2] p-8 xl:p-10 flex flex-col gap-5" data-reveal data-delay="80">
-        <div class="flex items-center justify-center h-72">
-          <img src="/images/advantage-point-02.webp" alt="" width="300" height="214" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
+      <!-- POINT 02：テキスト左・画像右 -->
+      <div class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-16" data-reveal>
+        <div class="w-full md:w-[30%] shrink-0 flex items-center justify-center">
+          <img src="/images/advantage-point-02.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full max-w-[320px] md:max-w-[360px] object-contain">
         </div>
-        <div>
-          <p class="font-mono-label text-[0.625rem] tracking-[0.35em] text-[#E8621A] mb-1">POINT 02</p>
-          <h3 class="font-serif text-xl text-ink leading-snug mb-3">工務店と一体で考える</h3>
-          <p class="text-sm leading-relaxed text-muted">親会社の大森工務店と連携し、間取りの変更可否や水回りの移動、構造・配管・電気容量まで。できる・できない・いくらかかるを、早い段階で判断できます。</p>
+        <div class="flex-1 min-w-0">
+          <span class="inline-block bg-[#E8621A] text-white text-xs font-mono-label font-medium tracking-widest px-3 py-1.5 mb-4">POINT 02</span>
+          <h3 class="font-serif text-2xl md:text-3xl text-ink leading-snug mb-5">総額で判断できる</h3>
+          <p class="text-sm md:text-base leading-relaxed text-muted">普通は、不動産・リフォーム・銀行がバラバラで、最後まで総額が見えません。<br>大森不動産なら、物件価格＋諸費用＋リフォーム費用＋将来の修繕費まで含めて判断できる為、<br class="hidden md:block">購入前に総額の見通しが立ちます。</p>
         </div>
       </div>
 
-      <!-- POINT 03：一番低い -->
-      <div class="md:mt-20 bg-white border border-[#DDD9D2] p-8 xl:p-10 flex flex-col gap-5" data-reveal data-delay="160">
-        <div class="flex items-center justify-center h-72">
-          <img src="/images/advantage-point-03.webp" alt="" width="300" height="196" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
+      <!-- POINT 03：画像左・テキスト右 -->
+      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16" data-reveal>
+        <div class="w-full md:w-[30%] shrink-0 flex items-center justify-center">
+          <img src="/images/advantage-point-03.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full max-w-[260px] md:max-w-[280px] object-contain">
         </div>
-        <div>
-          <p class="font-mono-label text-[0.625rem] tracking-[0.35em] text-[#E8621A] mb-1">POINT 03</p>
-          <h3 class="font-serif text-xl text-ink leading-snug mb-3">総額と資産価値まで提案する</h3>
-          <p class="text-sm leading-relaxed text-muted">物件価格に加え、諸費用・リフォーム・将来の修繕費まで含めて見通しを立てます。単にきれいにするのではなく、売れる・貸せる・評価される改修まで、未来の価値が続く住まいを提案します。</p>
+        <div class="flex-1 min-w-0">
+          <span class="inline-block bg-[#E8621A] text-white text-xs font-mono-label font-medium tracking-widest px-3 py-1.5 mb-4">POINT 03</span>
+          <h3 class="font-serif text-2xl md:text-3xl text-ink leading-snug mb-5">工事の現実性が分かる</h3>
+          <p class="text-sm md:text-base leading-relaxed text-muted">「この壁を抜きたい」「水回りを移動したい」「賃貸用に間取りを変えたい」<br class="hidden md:block">　——普通の不動産会社では、その場で判断しにくいです。<br>大森不動産なら、できる・できない・いくらかかるを早い段階ではっきりお伝えできます。</p>
+        </div>
+      </div>
+
+      <!-- POINT 04：テキスト左・画像右 -->
+      <div class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-16" data-reveal>
+        <div class="w-full md:w-[30%] shrink-0 flex items-center justify-center">
+          <img src="/images/advantage-point-04.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full max-w-[310px] md:max-w-[340px] object-contain">
+        </div>
+        <div class="flex-1 min-w-0">
+          <span class="inline-block bg-[#E8621A] text-white text-xs font-mono-label font-medium tracking-widest px-3 py-1.5 mb-4">POINT 04</span>
+          <h3 class="font-serif text-2xl md:text-3xl text-ink leading-snug mb-5">資産価値を上げる提案ができる</h3>
+          <p class="text-sm md:text-base leading-relaxed text-muted">単にきれいにするリフォームではなく、売れる・貸せる・高く評価されるリフォームを考えます。<br class="hidden md:block">水回りの刷新・間取りの変更・断熱改善など、不動産価値を上げる改修を提案します。</p>
         </div>
       </div>
 

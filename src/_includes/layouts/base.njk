@@ -44,6 +44,7 @@
 
       <!-- Desktop nav -->
       <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
+        <a href="/story" class="header-nav-link {{ 'font-medium' if activePage == 'story' else '' }}">私たちの想い</a>
         <a href="/concept" class="header-nav-link {{ 'font-medium' if activePage == 'concept' else '' }}">選ばれる理由</a>
         <!-- サービス ドロップダウン -->
         <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
@@ -66,7 +67,6 @@
           </div>
         </div>
         <a href="/works" class="header-nav-link {{ 'font-medium' if activePage == 'works' else '' }}">施工事例</a>
-        <a href="/story" class="header-nav-link {{ 'font-medium' if activePage == 'story' else '' }}">私たちの想い</a>
         <a href="/news" class="header-nav-link {{ 'font-medium' if activePage == 'news' else '' }}">ブログ</a>
         <a href="/company" class="header-nav-link {{ 'font-medium' if activePage == 'company' else '' }}">会社概要</a>
         <a href="/contact" class="site-btn site-btn--sm site-btn--outline-ink"><span class="site-btn__inner">無料相談予約</span></a>
@@ -87,6 +87,7 @@
   <div id="mobile-menu" class="mobile-menu-panel lg:hidden mobile-menu-panel--collapsed overflow-hidden" role="navigation" aria-label="モバイルメニュー">
     <div class="bg-cream border-t border-[#DDD9D2] px-6 py-4">
       <nav class="flex flex-col gap-0 divide-y divide-[#DDD9D2]">
+        <a href="/story" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">私たちの想い</a>
         <a href="/concept" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">選ばれる理由</a>
         <!-- サービス アコーディオン -->
         <div x-data="{ open: false }">
@@ -101,7 +102,6 @@
           </div>
         </div>
         <a href="/works" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">施工事例</a>
-        <a href="/story" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">私たちの想い</a>
         <a href="/news" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">ブログ</a>
         <a href="/company" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">会社概要</a>
         <a href="/contact" class="pt-4 pb-2">
