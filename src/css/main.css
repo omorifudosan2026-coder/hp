@@ -279,6 +279,8 @@ h1, h2, h3, h4, h5, h6 {
 [data-reveal][data-delay="200"] { transition-delay: 0.2s; }
 [data-reveal][data-delay="300"] { transition-delay: 0.3s; }
 [data-reveal][data-delay="400"] { transition-delay: 0.4s; }
+[data-reveal][data-delay="500"] { transition-delay: 0.5s; }
+
 
 /* トップヒーロー：見出しは1文字ずつ（JS が .hero-char を挿入）+ 画像クリップ + 罫線伸長 */
 .hero-intro__title {

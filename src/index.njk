@@ -84,33 +84,55 @@ pageScript2: js/works-top.js
     </div>
   </div>
 
-  <!-- Desktop: full-bleed 3-col [left photo | center text | right 2 photos] -->
-  <div class="hidden lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,5fr)_minmax(0,4fr)] lg:mt-10 xl:mt-12 lg:mb-20 xl:mb-28 lg:px-6 xl:px-10 lg:h-[520px] xl:h-[560px]">
-    <!-- Left: photo bottom-left, more square -->
-    <div class="relative" data-reveal>
-      <div class="absolute bottom-0 inset-x-0 h-[48%] overflow-hidden">
-        <img src="/images/story-exterior.webp" alt="戸建て外観" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async">
+  <!-- Desktop: 2-col [left text+photo | right photo collage] -->
+  <div class="hidden lg:block lg:py-16 xl:py-20 lg:px-10 xl:px-14">
+    <div class="flex lg:h-[620px] xl:h-[680px] gap-6 xl:gap-8">
+      <!-- Left col: text top, photo bottom -->
+      <div class="flex flex-col lg:w-[42%] xl:w-[40%] shrink-0 pb-10 xl:pb-12">
+        <div class="pr-10 xl:pr-14 pb-8 flex-1 flex flex-col" data-reveal>
+          <p class="section-label mb-5">Our Story</p>
+          <h2 class="font-serif text-3xl xl:text-4xl text-ink leading-tight">買って終わりじゃない、<br>不動産。</h2>
+          <span class="mt-4 block h-px w-10 bg-[#E8621A]" aria-hidden="true"></span>
+          <p class="mt-5 text-base leading-relaxed text-muted">不動産の失敗は、買った後に起きます。<br>だから大森不動産は、工務店と一体になり、物件探しの段階からリフォーム・将来の売却まで責任を持って関わります。<br><br>買ってから後悔する人を、一人でも減らすために。</p>
+          <div class="mt-7">
+            <a href="/story.html" class="site-btn site-btn--md site-btn--outline-ink">
+              <span class="site-btn__inner">私たちの想い<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
+            </a>
+          </div>
+        </div>
+        <!-- Bottom photo -->
+        <div class="h-[220px] xl:h-[250px] shrink-0 overflow-hidden" data-reveal data-delay="100">
+          <img src="/images/story-exterior.webp" alt="戸建て外観" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async">
+        </div>
       </div>
-    </div>
-    <!-- Center: message -->
-    <div class="flex flex-col justify-start pt-16 xl:pt-20 px-12 xl:px-20" data-reveal data-delay="100">
-      <p class="section-label mb-6">Our Story</p>
-      <h2 class="font-serif text-3xl xl:text-4xl text-ink leading-tight">買って終わりじゃない、<br>不動産。</h2>
-      <span class="mt-4 block h-px w-10 bg-[#E8621A]" aria-hidden="true"></span>
-      <p class="mt-5 text-base leading-relaxed text-muted">不動産の失敗は、買った後に起きます。<br>だから大森不動産は、工務店と一体になり、物件探しの段階からリフォーム・将来の売却まで責任を持って関わります。<br><br>買ってから後悔する人を、一人でも減らすために。</p>
-      <div class="mt-7">
-        <a href="/story.html" class="site-btn site-btn--md site-btn--outline-ink">
-          <span class="site-btn__inner">私たちの想い<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
-        </a>
-      </div>
-    </div>
-    <!-- Right: 2 staggered photos -->
-    <div class="relative" data-reveal data-delay="200">
-      <div class="absolute bottom-0 left-0 w-[52%] h-[84%] overflow-hidden">
-        <img src="/images/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover" width="600" height="800" loading="lazy" decoding="async">
-      </div>
-      <div class="absolute top-[16%] right-0 w-[40%] h-[28%] overflow-hidden">
-        <img src="/images/story-consultation.webp" alt="家族との相談風景" class="w-full h-full object-cover" width="500" height="500" loading="lazy" decoding="async">
+      <!-- Right col: photo collage + service labels -->
+      <div class="flex-1 flex flex-col min-w-0">
+        <!-- Photos -->
+        <div class="flex flex-1 min-h-0 gap-3 xl:gap-4">
+          <!-- Main large photo -->
+          <div class="flex-[3] overflow-hidden" data-reveal data-delay="200">
+            <img src="/images/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover" width="600" height="900" loading="lazy" decoding="async">
+          </div>
+          <!-- 2 stacked photos -->
+          <div class="flex-[2] flex flex-col gap-3 xl:gap-4">
+            <div class="flex-1 overflow-hidden" data-reveal data-delay="300">
+              <img src="/images/story-consultation.webp" alt="" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async" aria-hidden="true">
+            </div>
+            <div class="flex-1 overflow-hidden" data-reveal data-delay="400">
+              <img src="/images/story-exterior.webp" alt="" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async" aria-hidden="true">
+            </div>
+          </div>
+        </div>
+        <!-- Service labels -->
+        <div class="flex items-center text-xs text-muted py-3.5 xl:py-4 mt-2" data-reveal data-delay="500">
+          <span class="px-4 xl:px-5">物件探し・仲介</span>
+          <span class="text-[#C8C3BB] select-none" aria-hidden="true">|</span>
+          <span class="px-4 xl:px-5">リノベーション</span>
+          <span class="text-[#C8C3BB] select-none" aria-hidden="true">|</span>
+          <span class="px-4 xl:px-5">買取再販</span>
+          <span class="text-[#C8C3BB] select-none" aria-hidden="true">|</span>
+          <span class="px-4 xl:px-5">収益不動産・資産活用</span>
+        </div>
       </div>
     </div>
   </div>
