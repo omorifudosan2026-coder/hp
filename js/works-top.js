@@ -42,7 +42,7 @@ function createWorksTopCard(work) {
     var imageHtml = safeImg
         ? '<img src="' + escapeHtml(safeImg) + '" alt="' + title + '" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]">'
         : '<div class="absolute inset-0 bg-[#E2DDD2]"></div>';
-    var href = '/work-detail.html?id=' + encodeURIComponent(work.id);
+    var href = '/work-detail?id=' + encodeURIComponent(work.id);
 
     var tags = '';
     if (area) tags += '<span class="inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">' + area + '</span>';

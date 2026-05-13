@@ -47,7 +47,7 @@ bodyClass: bg-cream min-h-screen flex items-center justify-center px-6 py-10
         </div>
 
         <div class="text-center mt-6">
-            <a href="/index.html" class="section-viewall-link inline-flex items-center gap-2 text-sm text-muted border-b border-[#DDD9D2] pb-0.5 hover:text-ink">
+            <a href="/" class="section-viewall-link inline-flex items-center gap-2 text-sm text-muted border-b border-[#DDD9D2] pb-0.5 hover:text-ink">
                 ← 公開サイトに戻る
             </a>
         </div>
@@ -64,7 +64,7 @@ bodyClass: bg-cream min-h-screen flex items-center justify-center px-6 py-10
 
         auth.onAuthStateChanged((user) => {
             if (user) {
-                window.location.href = '/admin-firebase.html';
+                window.location.href = '/admin';
             }
         });
 
@@ -80,7 +80,7 @@ bodyClass: bg-cream min-h-screen flex items-center justify-center px-6 py-10
 
             try {
                 await auth.signInWithEmailAndPassword(email, password);
-                window.location.href = '/admin-firebase.html';
+                window.location.href = '/admin';
             } catch (error) {
                 console.error('Login error:', error);
                 let errorMsg = 'ログインに失敗しました。';

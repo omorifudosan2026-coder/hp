@@ -6,7 +6,7 @@
   "scripts": {
     "build:css": "postcss src/css/main.css -o _site/css/main.css",
     "build:html": "eleventy",
-    "build": "npm run build:css && npm run build:html",
+    "build": "rm -rf _site && npm run build:css && npm run build:html",
     "dev:css": "postcss src/css/main.css -o _site/css/main.css --watch",
     "dev:html": "eleventy --serve",
     "dev:prepare": "postcss src/css/main.css -o _site/css/main.css",

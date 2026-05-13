@@ -127,7 +127,7 @@ function renderWorkAdditionalThumbnails(urls) {
 // 認証チェック
 auth.onAuthStateChanged((user) => {
     if (!user) {
-        window.location.href = '/login.html';
+        window.location.href = '/login';
     } else {
         document.getElementById('user-email').textContent = user.email;
         initAdminListControls();
@@ -142,7 +142,7 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
     if (isAdminBusy()) return;
     if (confirm('ログアウトしますか？')) {
         await auth.signOut();
-        window.location.href = '/login.html';
+        window.location.href = '/login';
     }
 });
 
@@ -232,7 +232,7 @@ function createNewsCard(item) {
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-2">
-                    <a href="/news-detail.html?id=${encodeURIComponent(item.id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--preview">プレビュー</a>
+                    <a href="/news-detail?id=${encodeURIComponent(item.id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--preview">プレビュー</a>
                     <button onclick="editNews('${item.id}')" class="admin-btn admin-btn--edit">編集</button>
                     <button onclick="deleteNews('${item.id}')" class="admin-btn admin-btn--delete">削除</button>
                 </div>
@@ -505,7 +505,7 @@ function createWorkCard(work) {
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-2">
-                    <a href="/work-detail.html?id=${encodeURIComponent(work.id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--preview">プレビュー</a>
+                    <a href="/work-detail?id=${encodeURIComponent(work.id)}" target="_blank" rel="noopener noreferrer" class="admin-btn admin-btn--preview">プレビュー</a>
                     <button onclick="editWork('${work.id}')" class="admin-btn admin-btn--edit">編集</button>
                     <button onclick="deleteWork('${work.id}')" class="admin-btn admin-btn--delete">削除</button>
                 </div>

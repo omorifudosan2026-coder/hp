@@ -66,7 +66,7 @@ function createWorkCard(work) {
     const costLabel = Number.isFinite(Number(work.cost))
         ? `${formatPriceManYen(work.cost)}万円`
         : '—';
-    const detailHref = `/work-detail.html?id=${encodeURIComponent(work.id)}`;
+    const detailHref = `/work-detail?id=${encodeURIComponent(work.id)}`;
 
     return `
         <a href="${detailHref}" class="list-card-link list-card-elev block overflow-hidden group h-full flex flex-col">

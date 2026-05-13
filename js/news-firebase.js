@@ -106,7 +106,7 @@ async function loadNews() {
 function createNewsRow(item) {
     const cat = item.category || 'その他';
     const title = escapeHtml(item.title || '');
-    const detailHref = `/news-detail.html?id=${encodeURIComponent(item.id)}`;
+    const detailHref = `/news-detail?id=${encodeURIComponent(item.id)}`;
     // 一覧はタイトル中心で表示（本文は出さない）
 
     return `

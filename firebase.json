@@ -8,10 +8,35 @@
       ".firebaserc",
       "README.md"
     ],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "redirects": [
+      { "source": "/index.html", "destination": "/", "type": 301 },
+      { "source": "/concept.html", "destination": "/concept", "type": 301 },
+      { "source": "/company.html", "destination": "/company", "type": 301 },
+      { "source": "/contact.html", "destination": "/contact", "type": 301 },
+      { "source": "/news.html", "destination": "/news", "type": 301 },
+      { "source": "/news-detail.html", "destination": "/news-detail", "type": 301 },
+      { "source": "/privacy.html", "destination": "/privacy", "type": 301 },
+      { "source": "/terms.html", "destination": "/terms", "type": 301 },
+      { "source": "/sitemap.html", "destination": "/sitemap", "type": 301 },
+      { "source": "/story.html", "destination": "/story", "type": 301 },
+      { "source": "/works.html", "destination": "/works", "type": 301 },
+      { "source": "/work-detail.html", "destination": "/work-detail", "type": 301 },
+      { "source": "/service-kaitore.html", "destination": "/service-kaitore", "type": 301 },
+      { "source": "/service-renovation.html", "destination": "/service-renovation", "type": 301 },
+      { "source": "/service-income.html", "destination": "/service-income", "type": 301 },
+      { "source": "/login.html", "destination": "/login", "type": 301 },
+      { "source": "/admin-firebase.html", "destination": "/admin", "type": 301 }
+    ],
     "rewrites": [
       {
         "source": "/admin",
-        "destination": "/admin-firebase.html"
+        "destination": "/admin.html"
+      },
+      {
+        "source": "/admin/**",
+        "destination": "/admin.html"
       }
     ]
   }

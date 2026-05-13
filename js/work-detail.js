@@ -124,7 +124,7 @@ async function loadOtherWorks(currentId) {
         if (!top5.length) return;
 
         listEl.innerHTML = top5.map((w) => {
-            const href = `/work-detail.html?id=${encodeURIComponent(w.id)}`;
+            const href = `/work-detail?id=${encodeURIComponent(w.id)}`;
             const title = escapeHtml(w.title || '');
             const img = trustHttpsUrl(w.image);
             const thumb = img

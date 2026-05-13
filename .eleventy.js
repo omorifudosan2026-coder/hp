@@ -13,6 +13,18 @@ function getMainCssCacheBust() {
 }
 
 module.exports = function (eleventyConfig) {
+  // 公開URL用: トップは /、それ以外は末尾スラッシュ・末尾 .html を除く（canonical / og:url）
+  eleventyConfig.addFilter("canonicalPath", (url) => {
+    if (url == null || url === "") return "/";
+    let s = String(url).trim();
+    if (s === "/" || s === "/index.html") return "/";
+    s = s.replace(/\/+$/, "");
+    if (s.endsWith(".html")) {
+      s = s.slice(0, -5);
+    }
+    return s && s !== "" ? s : "/";
+  });
+
   // Passthrough: JS/images/firebase-config をそのまま _site/ にコピー
   eleventyConfig.addPassthroughCopy({ "js": "js" });
   eleventyConfig.addPassthroughCopy({ "images": "images" });
