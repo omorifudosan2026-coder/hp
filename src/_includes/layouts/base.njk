@@ -13,7 +13,7 @@
   <meta property="og:title" content="{% if title %}{{ title }} | {{ site.name }}{% else %}{{ site.name }} | リノベーションで叶える、あなたらしい暮らし{% endif %}">
   <meta property="og:description" content="{{ metaDesc | escape }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url | canonicalPath }}">
-  {% set ogImageFull = ogImage if ogImage else (site.url + '/images/hero-bg.jpg') %}
+  {% set ogImageFull = ogImage if ogImage else (site.url + '/images/backgrounds/hero-bg.jpg') %}
   <meta property="og:image" content="{{ ogImageFull }}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,7 +38,7 @@
   <div class="max-w-7xl mx-auto px-6 md:px-10 py-1.5 md:py-2">
     <div class="flex items-center justify-between h-14 md:h-16">
       <a href="/" class="header-logo-link inline-flex items-center gap-3 shrink-0 min-h-0">
-        <img src="/images/logo.png" alt="" class="header-logo-img shrink-0" width="120" height="160" decoding="async">
+        <img src="/images/brand/logo.png" alt="" class="header-logo-img shrink-0" width="120" height="160" decoding="async">
         <span class="header-brand font-bold text-lg md:text-xl text-ink">大森<span style="color:#E8621A">不動産</span></span>
       </a>
 
@@ -122,7 +122,7 @@
       <div class="md:col-span-1">
         <div class="flex items-center gap-3 mb-5">
           <span class="inline-flex items-center justify-center p-1.5 rounded-xl bg-white ring-1 ring-black/10 shadow-sm shadow-black/20">
-            <img src="/images/logo.png" alt="大森不動産" class="h-8 w-auto">
+            <img src="/images/brand/logo.png" alt="大森不動産" class="h-8 w-auto">
           </span>
           <span class="header-brand font-bold text-lg text-white">大森<span style="color:#E8621A">不動産</span></span>
         </div>
