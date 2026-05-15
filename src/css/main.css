@@ -259,7 +259,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Background patterns */
 .bg-dots {
   background-image: radial-gradient(circle, rgba(26,26,26,0.10) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-size: 36px 36px;
 }
 .bg-grid-dark {
   background-image:
@@ -652,7 +652,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 24px;
   background-color: #ffffff;
   background-image: radial-gradient(circle, var(--color-cream) 7px, transparent 7px);
-  background-size: 28px 28px;
+  background-size: 36px 36px;
   background-position: center center;
   background-repeat: repeat-x;
 }
@@ -716,6 +716,87 @@ h1, h2, h3, h4, h5, h6 {
     transition: none;
   }
 }
+
+/* Concept: Our Promise — 白背景＋線画
+   ※ イラスト位置 = --promise-art-anchor（触ると上下に動く）
+   ※ 次セクションとの間だけ詰めるときは margin-bottom を使う */
+.concept-promise-section {
+  --promise-art-w: min(96vw, 48rem);
+  --promise-art-h: calc(var(--promise-art-w) * 748 / 2103);
+  --promise-art-anchor: 3rem;
+  --promise-tail: 1rem;
+  --promise-lift: 2rem;
+  --promise-art-slot: calc(var(--promise-art-h) * 0.48);
+  --promise-art-x: 66%;
+  position: relative;
+  overflow: visible;
+  background-color: #ffffff;
+  padding-top: clamp(4.25rem, 8vw, 6rem);
+  padding-bottom: calc(var(--promise-art-slot) + var(--promise-tail));
+  margin-bottom: -1.25rem;
+}
+.concept-promise-section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--promise-art-anchor);
+  z-index: 0;
+  height: var(--promise-art-h);
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 1) 28%,
+      rgba(255, 255, 255, 0) 56%
+    ),
+    url('/images/backgrounds/promise-section-bg.webp');
+  background-repeat: no-repeat;
+  background-size: 100% 100%, var(--promise-art-w) auto;
+  background-position: 0 0, var(--promise-art-x) bottom;
+  pointer-events: none;
+}
+.concept-promise-section__inner {
+  position: relative;
+  z-index: 1;
+}
+.concept-promise-section__copy {
+  max-width: min(100%, 44rem);
+}
+.concept-promise-section #concept-promise-heading {
+  white-space: nowrap;
+}
+@media (min-width: 768px) {
+  .concept-promise-section {
+    --promise-art-w: min(84vw, 56rem);
+    --promise-art-anchor: 4.25rem;
+    --promise-tail: 1.5rem;
+    --promise-lift: 2.75rem;
+    --promise-art-slot: calc(var(--promise-art-h) * 0.46);
+    --promise-art-x: 68%;
+    padding-top: clamp(4.75rem, 6.5vw, 7rem);
+    margin-bottom: -1.5rem;
+  }
+  .concept-promise-section__copy {
+    margin-left: clamp(0rem, 2vw, 1rem);
+  }
+}
+@media (min-width: 1024px) {
+  .concept-promise-section {
+    --promise-art-w: min(74vw, 58rem);
+    --promise-art-anchor: 5.25rem;
+    --promise-tail: 1.75rem;
+    --promise-lift: 3.5rem;
+    --promise-art-slot: calc(var(--promise-art-h) * 0.44);
+    --promise-art-x: 70%;
+    padding-top: clamp(5rem, 5.5vw, 7.5rem);
+    margin-bottom: -1.75rem;
+  }
+  .concept-promise-section__copy {
+    margin-left: 0;
+  }
+}
+
 @keyframes omori-marquee-divider {
   0% { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(-100%, 0, 0); }
@@ -918,7 +999,7 @@ h1, h2, h3, h4, h5, h6 {
 .section-label::before {
   content: '';
   display: block;
-  width: 28px;
+  width: 36px;
   height: 1px;
   background: currentColor;
   flex-shrink: 0;
@@ -1513,3 +1594,13 @@ input:focus, textarea:focus, select:focus {
   section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
 }
 @media print { header, footer, .no-print { display: none; } }
+
+/* 流れカード（シェブロン形状） — lg以上でカード自体が「>」型に */
+@media (min-width: 1024px) {
+  .flow-step-card {
+    clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 50%, calc(100% - 36px) 100%, 0 100%, 36px 50%);
+  }
+  .flow-step-card--start {
+    clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 50%, calc(100% - 36px) 100%, 0 100%);
+  }
+}

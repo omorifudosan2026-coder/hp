@@ -1,0 +1,23 @@
+<!-- 流れ -->
+<section class="py-20 md:py-28 bg-cream">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="mb-14 text-center" data-reveal>
+      <p class="section-label mb-6">{{ flowLabel | default("Flow") }}</p>
+      <h2 class="font-serif text-3xl md:text-4xl text-ink">{{ flowTitle | default("ご利用の流れ") }}</h2>
+      {% if flowDescription %}
+      <p class="text-muted text-sm md:text-base mt-4">{{ flowDescription }}</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="max-w-7xl xl:max-w-[88rem] mx-auto px-2 md:px-4 lg:px-2">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0" data-reveal data-delay="80">
+      {% for step in flowSteps %}
+      <div class="flex flex-col p-8 lg:py-10 {% if loop.first %}lg:pl-8 lg:pr-12{% else %}lg:pl-12 lg:pr-12 lg:-ml-5{% endif %} bg-white border border-[#DDD9D2]/70 lg:border-0 flow-step-card{% if loop.first %} flow-step-card--start{% endif %}">
+        <p class="font-mono-label text-sm md:text-base tracking-widest text-[#E8621A] mb-4">Step {{ step.number }}</p>
+        <h3 class="font-serif text-lg text-ink mb-3">{{ step.title }}</h3>
+        <p class="text-sm text-muted leading-relaxed">{{ step.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
