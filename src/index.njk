@@ -4,7 +4,6 @@ permalink: /index.html
 activePage: index
 firebase: true
 pageScript: js/news-top.js
-pageScript2: js/works-top.js
 ---
 
 <!-- Hero -->
@@ -139,27 +138,8 @@ pageScript2: js/works-top.js
 
 </section>
 
-<!-- Works preview -->
-<section id="works" class="py-20 md:py-28 bg-cream">
-  <div class="max-w-[1440px] mx-auto px-10">
-    <div class="flex items-end justify-between mb-12" data-reveal>
-      <div>
-        <p class="section-label mb-4">Works</p>
-        <h2 class="font-serif text-3xl md:text-4xl text-ink">施工事例</h2>
-        <p class="text-muted text-sm mt-3 leading-relaxed">ビフォーアフター・費用感・期間まで公開。工務店の実力を実績でお伝えします。</p>
-      </div>
-    </div>
-    <div id="works-top-loading" class="text-center py-10" data-reveal data-delay="100">
-      <div class="inline-block animate-spin rounded-full h-7 w-7 border-2 border-[#DDD9D2] border-t-[#1A1A1A]"></div>
-    </div>
-    <div id="works-top-grid" class="hidden grid sm:grid-cols-2 lg:grid-cols-4 gap-7" data-reveal data-delay="100"></div>
-    <div class="mt-10 text-center" data-reveal data-delay="200">
-      <a href="/works" class="site-btn site-btn--sm site-btn--outline-ink inline-flex">
-        <span class="site-btn__inner">施工事例をすべて見る<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
-      </a>
-    </div>
-  </div>
-</section>
+{% set worksId = "works" %}
+{% include "partials/works-pickup.njk" %}
 
 <!-- Why Omori：3カラム段差カード -->
 <section class="bg-white pt-20 md:pt-28 pb-8 md:pb-16" aria-label="大森不動産の強み">

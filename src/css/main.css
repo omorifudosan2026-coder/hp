@@ -662,6 +662,15 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   overflow: hidden;
 }
+/* サービス詳細ページのみ：マーキー上下の余白を広げる */
+.section-marquee--service {
+  padding-block: 2rem;
+}
+@media (min-width: 768px) {
+  .section-marquee--service {
+    padding-block: 2.75rem;
+  }
+}
 .section-marquee__rail {
   display: flex;
   align-items: center;
