@@ -161,6 +161,13 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.625rem 1.25rem;
   font-size: 0.875rem;
 }
+@media (max-width: 767px) {
+  footer .site-btn--footer {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+}
 .site-btn--outline-ink {
   color: #1a1a1a;
   border-color: #1a1a1a;
@@ -500,6 +507,8 @@ h1, h2, h3, h4, h5, h6 {
     background-size: auto 120%;
     background-position: 65% 20%;
     background-color: #F7F4EF;
+    padding-top: calc(var(--site-header-height) + 1rem) !important;
+    padding-bottom: 0 !important;
   }
   .hero-intro--layout::after {
     content: '';
@@ -529,21 +538,33 @@ h1, h2, h3, h4, h5, h6 {
   .hero-intro--layout .hero-intro__title-wrap {
     position: relative;
     z-index: 1;
-    flex: 1 1 auto;
-    justify-content: center;
-    margin-bottom: 0;
-    padding-bottom: 18%;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    margin-bottom: 0 !important;
+    padding-top: 1.75rem;
+    padding-bottom: 0;
+    gap: 1.25rem;
   }
+  /* コピーは自然高さ・タグラインはヒーロー下端に固定（pb-8 等の余白はモバイルでは無効化） */
   .hero-intro--layout .hero-intro__media-col {
-    position: relative;
+    position: static;
     z-index: 1;
-    margin-top: 0;
+    width: 100%;
+    flex: 0 0 auto;
+    margin-top: 0 !important;
+    height: 0;
+    overflow: visible;
   }
-  /* タグラインを白・下部へ */
   .hero-intro--layout .hero-intro__photo-tagline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
     color: rgba(255, 255, 255, 0.82) !important;
-    padding-bottom: 2rem;
-    padding-top: 0.5rem;
+    margin: 0;
+    padding-top: 0 !important;
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px)) !important;
   }
   .hero-intro--layout .hero-intro__photo-tagline.section-label::after {
     background: rgba(255, 255, 255, 0.5);
@@ -1666,9 +1687,226 @@ input:focus, textarea:focus, select:focus {
   background: #c4521a;
 }
 
-/* Mobile section padding */
-@media (max-width: 768px) {
-  section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+/* ----- スマホ：セクション全体を一段コンパクト（768px未満・公開ページのみ） ----- */
+@media (max-width: 767px) {
+  :root {
+    --heading-leading: 1.45;
+  }
+
+  .hero-intro.hero-intro--layout {
+    padding-top: calc(var(--site-header-height) + 1rem) !important;
+    padding-bottom: 0 !important;
+  }
+
+  body[data-page] section:not(.hero-intro):not(.cta-ideal-home) {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  body[data-page] section.pt-32:not(.hero-intro) {
+    padding-top: calc(var(--site-header-height) + 1.75rem) !important;
+    padding-bottom: 2.5rem !important;
+  }
+  body[data-page] .py-20 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  body[data-page] .py-16 {
+    padding-top: 2.75rem !important;
+    padding-bottom: 2.75rem !important;
+  }
+  body[data-page] .py-24 {
+    padding-top: 3.25rem !important;
+    padding-bottom: 3.25rem !important;
+  }
+  body[data-page] .cta-ideal-home {
+    padding-top: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+  body[data-page] .cta-ideal-home__panel > .relative {
+    padding: 1.75rem 1.15rem !important;
+  }
+
+  /* 横余白（セクション内コンテナ） */
+  body[data-page] section:not(.hero-intro) .max-w-7xl,
+  body[data-page] section:not(.hero-intro) .max-w-\[1440px\],
+  body[data-page] section:not(.hero-intro) > div.px-6 {
+    padding-left: 1.15rem !important;
+    padding-right: 1.15rem !important;
+  }
+
+  /* セクションラベル（ヒーロー英字タグライン除く） */
+  body[data-page] .section-label:not(.hero-intro__photo-tagline) {
+    font-size: 0.6875rem;
+    gap: 0.45rem;
+    letter-spacing: 0.16em;
+  }
+  body[data-page] .section-label:not(.hero-intro__photo-tagline)::before {
+    width: 1.5rem;
+  }
+
+  /* 見出し（トップヒーローは別スタイルのため除外） */
+  body[data-page] section:not(.hero-intro) h1.font-serif {
+    font-size: 1.875rem !important;
+    line-height: 1.35 !important;
+  }
+  body[data-page] section:not(.hero-intro) h2.font-serif {
+    font-size: 1.4375rem !important;
+    line-height: 1.4 !important;
+  }
+  body[data-page] section:not(.hero-intro) h3.font-serif {
+    font-size: 1.1875rem !important;
+    line-height: 1.45 !important;
+  }
+  body[data-page] section:not(.hero-intro) p.font-serif.text-2xl,
+  body[data-page] section:not(.hero-intro) p.font-serif.text-3xl {
+    font-size: 1.125rem !important;
+    line-height: 1.45 !important;
+  }
+  body[data-page] section:not(.hero-intro) p.font-serif.text-xl {
+    font-size: 1rem !important;
+    line-height: 1.45 !important;
+  }
+
+  /* 説明文（セクション本文・リード） */
+  body[data-page] section:not(.hero-intro) p.text-base,
+  body[data-page] section:not(.hero-intro) p.text-muted.leading-relaxed,
+  body[data-page] section:not(.hero-intro) .story-mobile-block p.leading-relaxed {
+    font-size: 0.8125rem !important;
+    line-height: 1.62 !important;
+  }
+  body[data-page] section:not(.hero-intro) p.text-sm,
+  body[data-page] section:not(.hero-intro) .text-sm.leading-relaxed,
+  body[data-page] section:not(.hero-intro) p.text-sm.text-muted,
+  body[data-page] section:not(.hero-intro) div.text-sm.text-muted {
+    font-size: 0.75rem !important;
+    line-height: 1.58 !important;
+  }
+  body[data-page] .cta-ideal-home__lede {
+    font-size: 0.75rem !important;
+    line-height: 1.58 !important;
+  }
+
+  /* イラスト・写真（object-contain の装飾画像） */
+  body[data-page] section img.object-contain:not(.w-full) {
+    max-width: min(82%, 13.5rem) !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  body[data-page] section .relative.h-64 {
+    height: 11rem;
+  }
+  body[data-page] section .relative.h-\[220px\] {
+    height: 10rem;
+  }
+
+  /* ブロック間余白 */
+  body[data-page] section .mb-16 { margin-bottom: 2.25rem !important; }
+  body[data-page] section .mb-14 { margin-bottom: 2rem !important; }
+  body[data-page] section .mb-12 { margin-bottom: 1.75rem !important; }
+  body[data-page] section .mb-10 { margin-bottom: 1.5rem !important; }
+  body[data-page] section .mb-8 { margin-bottom: 1.25rem !important; }
+  body[data-page] section .mb-6 { margin-bottom: 0.875rem !important; }
+  body[data-page] section .mb-5 { margin-bottom: 0.75rem !important; }
+  body[data-page] section .mb-4 { margin-bottom: 0.625rem !important; }
+  body[data-page] section .mt-12 { margin-top: 1.75rem !important; }
+  body[data-page] section .mt-10 { margin-top: 1.5rem !important; }
+  body[data-page] section .mt-7 { margin-top: 1.125rem !important; }
+  body[data-page] section .mt-5 { margin-top: 0.75rem !important; }
+  body[data-page] section .gap-16 { gap: 2.25rem !important; }
+  body[data-page] section .gap-12 { gap: 1.75rem !important; }
+  body[data-page] section .gap-10 { gap: 1.5rem !important; }
+
+  /* トップ：Our Story モバイルブロック（py-20 をスマホでは外す） */
+  body[data-page] .story-mobile-block {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  body[data-page] .story-mobile-block h2.font-serif {
+    font-size: 1.3125rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* トップ：選ばれる理由 POINT ラベル＋タイトル横並び */
+  body[data-page] .advantage-point__head {
+    align-items: center;
+  }
+  body[data-page] .advantage-point__head h3.advantage-point__title {
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+    word-break: keep-all;
+    line-break: strict;
+  }
+  body[data-page] section[aria-label='大森不動産の強み'] img.object-contain {
+    max-width: min(82%, 12.75rem) !important;
+  }
+
+  /* 施工事例：写真・カードタイトル・セクション見出し */
+  body[data-page] section:has(#works-top-grid) .mb-12 {
+    margin-bottom: 1.25rem !important;
+  }
+  body[data-page] section:has(#works-top-grid) h2.font-serif {
+    font-size: 1.3125rem !important;
+  }
+  body[data-page] #works-top-grid {
+    gap: 1rem !important;
+  }
+  body[data-page] #works-top-grid .list-card-link > div:first-child {
+    aspect-ratio: 3 / 2;
+    max-height: 9.25rem;
+  }
+  body[data-page] #works-top-grid .list-card-link > div:last-child {
+    padding: 0.75rem !important;
+  }
+  body[data-page] #works-top-grid h3.font-serif {
+    font-size: 0.875rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  body[data-page] #works-top-grid .text-xs {
+    font-size: 0.6875rem !important;
+    padding: 0.2rem 0.5rem !important;
+  }
+  body[data-page] #works-grid {
+    gap: 1.25rem !important;
+  }
+  body[data-page] #works-grid .list-card-link > div:first-child {
+    aspect-ratio: 3 / 2;
+    max-height: 10rem;
+  }
+  body[data-page] #works-grid .list-card-link > div:last-child {
+    padding: 0.75rem !important;
+  }
+  body[data-page] #works-grid h3.font-serif {
+    font-size: 0.875rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
+
+/* トップページ・タブレット以下：CTA ボタンを一段小さく（1024px 以上は変更なし） */
+@media (max-width: 1023px) {
+  [data-page="index"] .site-btn--md {
+    padding: 0.5rem 1.05rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.05em;
+  }
+  [data-page="index"] .site-btn--lg {
+    padding: 0.65rem 1.35rem;
+    font-size: 0.8125rem;
+  }
+  [data-page="index"] .site-btn--sm {
+    padding: 0.5rem 0.95rem;
+    font-size: 0.8125rem;
+  }
+  [data-page="index"] .site-btn--md .site-btn__inner,
+  [data-page="index"] .site-btn--lg .site-btn__inner,
+  [data-page="index"] .site-btn--sm .site-btn__inner {
+    gap: 0.35rem;
+  }
+  [data-page="index"] .site-btn--md .site-btn__inner svg,
+  [data-page="index"] .site-btn--lg .site-btn__inner svg,
+  [data-page="index"] .site-btn--sm .site-btn__inner svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
 }
 @media print { header, footer, .no-print { display: none; } }
 
