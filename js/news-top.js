@@ -36,7 +36,7 @@ async function loadNewsTop() {
 
 function createNewsRow(item) {
     var title = escapeHtml(item.title || '');
-    var href = '/news-detail?id=' + encodeURIComponent(item.id);
+    var href = '/blog-detail?id=' + encodeURIComponent(item.id);
     var date = formatDateJa(item.date);
     var cat = escapeHtml(item.category || 'その他');
 

@@ -13,47 +13,57 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     if (!id) {
-        showError('お知らせが指定されていません。');
+        showError('記事が指定されていません。');
         return;
     }
-
-    const categoryClass = {
-        お知らせ: 'bg-primary/10 text-primary',
-        イベント: 'bg-blue-100 text-blue-700',
-        メディア掲載: 'bg-green-100 text-green-700',
-        その他: 'bg-gray-200 text-gray-700',
-    };
 
     try {
         const docRef = await db.collection(COLLECTIONS.news).doc(id).get();
         if (!docRef.exists) {
-            showError('お探しのお知らせは見つかりませんでした。');
+            showError('お探しの記事は見つかりませんでした。');
             return;
         }
         const item = docRef.data();
         loading.classList.add('hidden');
         content.classList.remove('hidden');
 
-        const cat = item.category || 'お知らせ';
-        const catEl = document.getElementById('detail-category');
-        catEl.textContent = cat;
-        catEl.className =
-            'inline-block px-4 py-1 rounded-full text-sm font-semibold mb-4 ' +
-            (categoryClass[cat] || categoryClass['その他']);
-
-        const d = item.date;
-        document.getElementById('detail-date').textContent = d ? formatNewsDate(d) : '';
         const pageTitle = item.title ? `${item.title} | 大森不動産` : 'ブログ | 大森不動産';
         document.title = pageTitle;
         document.getElementById('detail-title').textContent = item.title || '';
-        document.getElementById('detail-body').textContent = item.content || '';
 
-        const wrap = document.getElementById('detail-image-wrap');
-        const safeImg = trustHttpsUrl(item.image);
-        if (safeImg) {
-            wrap.classList.remove('hidden');
-            wrap.innerHTML = `<img src="${escapeHtml(safeImg)}" alt="" class="w-full rounded-2xl">`;
+        const updatedEl = document.getElementById('detail-updated');
+        if (updatedEl) {
+            const formatted = formatNewsDate(item.date);
+            updatedEl.textContent = formatted ? `公開日：${formatted}` : '';
         }
+
+        const thumbRoot = document.getElementById('detail-thumb');
+        const mainImg = trustHttpsUrl(item.image);
+        if (thumbRoot) {
+            if (mainImg) {
+                thumbRoot.classList.remove('hidden');
+                thumbRoot.innerHTML = `<img src="${escapeHtml(mainImg)}" alt="" class="w-full h-full object-cover">`;
+            } else {
+                thumbRoot.classList.add('hidden');
+                thumbRoot.innerHTML = '';
+            }
+        }
+
+        const cat = item.category || '';
+        const catEl = document.getElementById('detail-category');
+        if (catEl) {
+            if (cat) {
+                catEl.classList.remove('hidden');
+                catEl.textContent = `カテゴリー：${cat}`;
+            } else {
+                catEl.classList.add('hidden');
+                catEl.textContent = '';
+            }
+        }
+
+        document.getElementById('detail-description').textContent = item.content || '';
+
+        await loadOtherBlogs(id);
     } catch (e) {
         console.error(e);
         showError('データの読み込みに失敗しました。');
@@ -62,9 +72,62 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function formatNewsDate(dateString) {
     const date = new Date(dateString);
-    if (Number.isNaN(date.getTime())) return String(dateString);
+    if (Number.isNaN(date.getTime())) return String(dateString || '');
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, '0');
     const d = String(date.getDate()).padStart(2, '0');
     return `${y}.${m}.${d}`;
+}
+
+async function loadOtherBlogs(currentId) {
+    const loadingEl = document.getElementById('other-blogs-loading');
+    const listEl = document.getElementById('other-blogs-list');
+    if (!listEl) return;
+
+    try {
+        const snapshot = await db.collection(COLLECTIONS.news)
+            .orderBy('date', 'desc')
+            .limit(8)
+            .get();
+
+        const items = [];
+        snapshot.forEach((doc) => {
+            const item = doc.data();
+            item.id = doc.id;
+            if (item.id === currentId) return;
+            items.push(item);
+        });
+
+        const top5 = items.slice(0, 5);
+
+        if (loadingEl) loadingEl.classList.add('hidden');
+        if (!top5.length) return;
+
+        listEl.innerHTML = top5.map((item) => {
+            const href = `/blog-detail?id=${encodeURIComponent(item.id)}`;
+            const title = escapeHtml(item.title || '');
+            const img = trustHttpsUrl(item.image);
+            const thumb = img
+                ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" width="72" height="54" class="w-[72px] h-[54px] object-cover bg-[#E2DDD2]">`
+                : `<div class="w-[72px] h-[54px] bg-[#E2DDD2]"></div>`;
+            const sub = escapeHtml(formatNewsDate(item.date));
+
+            return `
+              <a href="${href}" class="block py-3 hover:bg-cream/60 transition-colors">
+                <div class="flex items-center gap-4">
+                  <span class="shrink-0">${thumb}</span>
+                  <span class="min-w-0">
+                    <span class="block text-sm text-ink line-clamp-2">${title}</span>
+                    <span class="block mt-1 text-xs text-muted">${sub}</span>
+                  </span>
+                </div>
+              </a>
+            `;
+        }).join('');
+
+        listEl.classList.remove('hidden');
+    } catch (e) {
+        console.error(e);
+        if (loadingEl) loadingEl.classList.add('hidden');
+    }
 }

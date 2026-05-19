@@ -21,5 +21,6 @@ const storage = firebase.storage();
 // コレクション名
 const COLLECTIONS = {
     news: 'news',
-    works: 'works'
+    works: 'works',
+    masters: 'masters'
 };

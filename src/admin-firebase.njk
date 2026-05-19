@@ -28,7 +28,7 @@ bodyClass: bg-cream min-h-screen
                 </div>
                 <div class="flex items-center gap-3">
                     <span class="text-sm text-muted" id="user-email"></span>
-                    <a href="/" class="site-btn site-btn--compact site-btn--outline-ink">
+<a href="/" class="site-btn site-btn--compact site-btn--outline-ink">
                         <span class="site-btn__inner">公開サイトへ</span>
                     </a>
                     <button id="logout-btn" class="site-btn site-btn--compact site-btn--outline-muted">
@@ -43,8 +43,9 @@ bodyClass: bg-cream min-h-screen
     <div class="bg-cream">
         <div class="max-w-7xl mx-auto px-6 md:px-10">
             <nav class="flex gap-8">
-                <button onclick="switchTab('news')" id="tab-news" class="tab-btn cursor-pointer py-4 border-b-2 border-primary text-primary font-medium">お知らせ管理</button>
+                <button onclick="switchTab('news')" id="tab-news" class="tab-btn cursor-pointer py-4 border-b-2 border-primary text-primary font-medium">ブログ管理</button>
                 <button onclick="switchTab('works')" id="tab-works" class="tab-btn cursor-pointer py-4 border-b-2 border-transparent text-muted hover:text-primary transition-colors">施工事例管理</button>
+                <button onclick="switchTab('masters')" id="tab-masters" class="tab-btn cursor-pointer py-4 border-b-2 border-transparent text-muted hover:text-primary transition-colors">マスタ管理</button>
             </nav>
         </div>
     </div>
@@ -54,7 +55,7 @@ bodyClass: bg-cream min-h-screen
         <div id="content-news" class="tab-content">
             <div class="bg-white p-6 mb-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="font-serif text-2xl text-ink">お知らせ一覧</h2>
+                    <h2 class="font-serif text-2xl text-ink">ブログ一覧</h2>
                     <button onclick="openNewsModal()" class="site-btn site-btn--md site-btn--primary">
                         <span class="site-btn__inner">＋ 新規追加</span>
                     </button>
@@ -64,10 +65,6 @@ bodyClass: bg-cream min-h-screen
                         <input id="admin-news-search" type="search" placeholder="検索（タイトル/本文）" class="w-full px-4 py-2 border border-[var(--color-border)] bg-white">
                         <select id="admin-news-category" class="w-full md:w-44 px-4 py-2 border border-[var(--color-border)] bg-white">
                             <option value="__all">すべて</option>
-                            <option value="お知らせ">お知らせ</option>
-                            <option value="イベント">イベント</option>
-                            <option value="メディア掲載">メディア掲載</option>
-                            <option value="その他">その他</option>
                         </select>
                         <button id="admin-news-clear" type="button" class="site-btn site-btn--md site-btn--outline-muted min-w-28">
                             <span class="site-btn__inner">クリア</span>
@@ -92,8 +89,10 @@ bodyClass: bg-cream min-h-screen
                     </button>
                 </div>
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-5">
-                    <div class="flex items-center gap-2 w-full md:max-w-md">
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full lg:max-w-3xl">
                         <input id="admin-works-search" type="search" placeholder="検索（タイトル/エリア/間取り）" class="w-full px-4 py-2 border border-[var(--color-border)] bg-white">
+                        <select id="admin-works-area" class="w-full md:w-40 px-4 py-2 border border-[var(--color-border)] bg-white"><option value="__all">エリア：すべて</option></select>
+                        <select id="admin-works-layout" class="w-full md:w-40 px-4 py-2 border border-[var(--color-border)] bg-white"><option value="__all">間取り：すべて</option></select>
                         <button id="admin-works-clear" type="button" class="site-btn site-btn--md site-btn--outline-muted min-w-28">
                             <span class="site-btn__inner">クリア</span>
                         </button>
@@ -107,6 +106,50 @@ bodyClass: bg-cream min-h-screen
                 </div>
             </div>
         </div>
+        <!-- Masters Tab -->
+        <div id="content-masters" class="tab-content hidden">
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6">
+                    <h2 class="font-serif text-xl text-ink mb-5">エリア</h2>
+                    <div id="masters-areas-list" class="flex flex-wrap gap-2 mb-4 min-h-[2rem]"></div>
+                    <div class="flex gap-2 mb-2">
+                        <input id="masters-area-input" type="text" placeholder="例：大阪市" class="flex-1 px-4 py-2 border border-[var(--color-border)] bg-white">
+                        <button type="button" onclick="addMasterValue('areas')" class="site-btn site-btn--md site-btn--primary"><span class="site-btn__inner">追加</span></button>
+                    </div>
+                    <div id="masters-areas-bulk-wrap" class="hidden mt-2">
+                        <textarea id="masters-areas-bulk" rows="5" placeholder="1行1件で貼り付け" class="w-full px-3 py-2 text-sm border border-[var(--color-border)] bg-white mb-2"></textarea>
+                        <button type="button" onclick="bulkAddMasterValues('areas')" class="site-btn site-btn--md site-btn--outline-ink w-full"><span class="site-btn__inner">一括追加</span></button>
+                    </div>
+                    <button type="button" onclick="toggleBulk('areas')" class="text-xs text-muted underline mt-1">まとめて追加</button>
+                </div>
+                <div class="bg-white p-6">
+                    <h2 class="font-serif text-xl text-ink mb-5">間取り</h2>
+                    <div id="masters-layouts-list" class="flex flex-wrap gap-2 mb-4 min-h-[2rem]"></div>
+                    <div class="flex gap-2 mb-2">
+                        <input id="masters-layout-input" type="text" placeholder="例：2LDK" class="flex-1 px-4 py-2 border border-[var(--color-border)] bg-white">
+                        <button type="button" onclick="addMasterValue('layouts')" class="site-btn site-btn--md site-btn--primary"><span class="site-btn__inner">追加</span></button>
+                    </div>
+                    <div id="masters-layouts-bulk-wrap" class="hidden mt-2">
+                        <textarea id="masters-layouts-bulk" rows="5" placeholder="1行1件で貼り付け" class="w-full px-3 py-2 text-sm border border-[var(--color-border)] bg-white mb-2"></textarea>
+                        <button type="button" onclick="bulkAddMasterValues('layouts')" class="site-btn site-btn--md site-btn--outline-ink w-full"><span class="site-btn__inner">一括追加</span></button>
+                    </div>
+                    <button type="button" onclick="toggleBulk('layouts')" class="text-xs text-muted underline mt-1">まとめて追加</button>
+                </div>
+                <div class="bg-white p-6">
+                    <h2 class="font-serif text-xl text-ink mb-5">ブログカテゴリ</h2>
+                    <div id="masters-categories-list" class="flex flex-wrap gap-2 mb-4 min-h-[2rem]"></div>
+                    <div class="flex gap-2 mb-2">
+                        <input id="masters-category-input" type="text" placeholder="例：お知らせ" class="flex-1 px-4 py-2 border border-[var(--color-border)] bg-white">
+                        <button type="button" onclick="addMasterValue('categories')" class="site-btn site-btn--md site-btn--primary"><span class="site-btn__inner">追加</span></button>
+                    </div>
+                    <div id="masters-categories-bulk-wrap" class="hidden mt-2">
+                        <textarea id="masters-categories-bulk" rows="5" placeholder="1行1件で貼り付け" class="w-full px-3 py-2 text-sm border border-[var(--color-border)] bg-white mb-2"></textarea>
+                        <button type="button" onclick="bulkAddMasterValues('categories')" class="site-btn site-btn--md site-btn--outline-ink w-full"><span class="site-btn__inner">一括追加</span></button>
+                    </div>
+                    <button type="button" onclick="toggleBulk('categories')" class="text-xs text-muted underline mt-1">まとめて追加</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- News Modal -->
@@ -114,7 +157,7 @@ bodyClass: bg-cream min-h-screen
         <div data-admin-modal-panel class="bg-white shadow-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="font-serif text-2xl text-ink" id="news-modal-title">お知らせを追加</h3>
+                    <h3 class="font-serif text-2xl text-ink" id="news-modal-title">ブログを追加</h3>
                     <button onclick="closeNewsModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                 </div>
                 <form id="news-form" class="space-y-4">
@@ -122,7 +165,7 @@ bodyClass: bg-cream min-h-screen
                     <div><label class="block text-sm font-medium text-ink mb-2">タイトル *</label><input type="text" id="news-title" required class="w-full px-4 py-2"></div>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><label class="block text-sm font-medium text-ink mb-2">日付 *</label><input type="date" id="news-date" required class="w-full px-4 py-2"></div>
-                        <div><label class="block text-sm font-medium text-ink mb-2">カテゴリー *</label><select id="news-category" required class="w-full px-4 py-2"><option value="お知らせ">お知らせ</option><option value="イベント">イベント</option><option value="メディア掲載">メディア掲載</option><option value="その他">その他</option></select></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">カテゴリー *</label><select id="news-category" required class="w-full px-4 py-2"><option value="">選択してください</option></select></div>
                     </div>
                     <div><label class="block text-sm font-medium text-ink mb-2">本文 *</label><textarea id="news-content" rows="6" required class="w-full px-4 py-2"></textarea></div>
                     <div>
@@ -155,27 +198,9 @@ bodyClass: bg-cream min-h-screen
                 <form id="work-form" class="space-y-4">
                     <input type="hidden" id="work-id">
                     <div><label class="block text-sm font-medium text-ink mb-2">タイトル *</label><input type="text" id="work-title" required class="w-full px-4 py-2"></div>
-                    <div class="grid md:grid-cols-3 gap-4">
-                        <div class="md:col-span-3 space-y-2">
-                            <label class="block text-sm font-medium text-ink mb-2">エリア *</label>
-                            <select id="work-area-pref" required class="w-full px-4 py-2">
-                                <option value="東京都">東京都</option>
-                                <option value="神奈川県">神奈川県</option>
-                                <option value="埼玉県">埼玉県</option>
-                                <option value="千葉県">千葉県</option>
-                                <option value="その他">その他</option>
-                            </select>
-                            <div id="work-area-suffix-wrap" class="space-y-1">
-                                <label class="block text-xs text-gray-500">市区町村など（任意）</label>
-                                <input type="text" id="work-area-suffix" placeholder="例: 横浜市" class="w-full px-4 py-2">
-                            </div>
-                            <div id="work-area-custom-wrap" class="space-y-1 hidden">
-                                <label class="block text-xs text-gray-500">所在地（自由入力）*</label>
-                                <input type="text" id="work-area-custom" class="w-full px-4 py-2">
-                            </div>
-                        </div>
-                        <div><label class="block text-sm font-medium text-ink mb-2">間取り *</label><input type="text" id="work-layout" required class="w-full px-4 py-2"></div>
-                        <div><label class="block text-sm font-medium text-ink mb-2">施工費用（万円） *</label><input type="number" id="work-cost" required class="w-full px-4 py-2"></div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div><label class="block text-sm font-medium text-ink mb-2">エリア *</label><select id="work-area" required class="w-full px-4 py-2"><option value="">選択してください</option></select></div>
+                        <div><label class="block text-sm font-medium text-ink mb-2">間取り *</label><select id="work-layout" required class="w-full px-4 py-2"><option value="">選択してください</option></select></div>
                     </div>
                     <div><label class="block text-sm font-medium text-ink mb-2">説明 *</label><textarea id="work-description" rows="4" required class="w-full px-4 py-2"></textarea></div>
                     <div>

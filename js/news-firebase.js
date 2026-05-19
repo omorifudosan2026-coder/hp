@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     loadNews();
 });
 
+const NEWS_PAGE_SIZE = 10;
+
 function excerptText(text, maxLen) {
     if (!text) return '';
     const t = String(text).replace(/\s+/g, ' ').trim();
@@ -16,11 +18,16 @@ async function loadNews() {
     const listEl = document.getElementById('news-list');
     const noNewsEl = document.getElementById('no-news');
     const tabsEl = document.getElementById('news-tabs');
-    const moreWrapEl = document.getElementById('news-more-wrap');
-    const moreBtnEl = document.getElementById('news-load-more');
+    const paginationEl = document.getElementById('news-pagination');
 
     try {
-        const snapshot = await db.collection(COLLECTIONS.news).orderBy('date', 'desc').get();
+        const [snapshot, categoriesDoc] = await Promise.all([
+            db.collection(COLLECTIONS.news).orderBy('date', 'desc').get(),
+            db.collection(COLLECTIONS.masters).doc('categories').get(),
+        ]);
+
+        const categories = (categoriesDoc.exists && Array.isArray(categoriesDoc.data().values))
+            ? categoriesDoc.data().values : [];
 
         loadingEl.classList.add('hidden');
 
@@ -37,7 +44,7 @@ async function loadNews() {
         });
 
         let activeCat = '__all';
-        let visibleCount = 10;
+        let currentPage = 1;
 
         function render() {
             const filtered = activeCat === '__all'
@@ -47,21 +54,30 @@ async function loadNews() {
             if (!filtered.length) {
                 listEl.innerHTML = '';
                 noNewsEl.classList.remove('hidden');
-                if (moreWrapEl) moreWrapEl.classList.add('hidden');
+                if (paginationEl) paginationEl.innerHTML = '';
                 return;
             }
 
             noNewsEl.classList.add('hidden');
-            const slice = filtered.slice(0, visibleCount);
-            listEl.innerHTML = slice.map(createNewsRow).join('');
+            const totalPages = Math.ceil(filtered.length / NEWS_PAGE_SIZE);
+            const start = (currentPage - 1) * NEWS_PAGE_SIZE;
+            listEl.innerHTML = filtered.slice(start, start + NEWS_PAGE_SIZE).map(createNewsRow).join('');
 
-            const hasMore = filtered.length > visibleCount;
-            if (moreWrapEl) moreWrapEl.classList.toggle('hidden', !hasMore);
+            if (paginationEl) {
+                paginationEl.innerHTML = buildPaginationHtml(totalPages, currentPage);
+                paginationEl.querySelectorAll('[data-page]').forEach((btn) => {
+                    btn.addEventListener('click', () => {
+                        currentPage = Number(btn.getAttribute('data-page'));
+                        render();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                });
+            }
         }
 
         function setActiveTab(nextCat) {
             activeCat = nextCat;
-            visibleCount = 10;
+            currentPage = 1;
             if (tabsEl) {
                 tabsEl.querySelectorAll('[data-news-tab]').forEach((btn) => {
                     const isActive = btn.getAttribute('data-news-tab') === activeCat;
@@ -82,15 +98,25 @@ async function loadNews() {
             tabsEl.addEventListener('click', (e) => {
                 const btn = e.target && e.target.closest ? e.target.closest('[data-news-tab]') : null;
                 if (!btn) return;
-                const cat = btn.getAttribute('data-news-tab') || '__all';
-                setActiveTab(cat);
+                setActiveTab(btn.getAttribute('data-news-tab') || '__all');
             });
         }
 
-        if (moreBtnEl) {
-            moreBtnEl.addEventListener('click', () => {
-                visibleCount += 10;
-                render();
+        // タブをマスタから動的生成
+        if (tabsEl) {
+            const allBtn = document.createElement('button');
+            allBtn.type = 'button';
+            allBtn.className = 'news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-ink text-white';
+            allBtn.setAttribute('data-news-tab', '__all');
+            allBtn.textContent = 'すべて';
+            tabsEl.appendChild(allBtn);
+            categories.forEach((cat) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-white text-ink hover:bg-cream hover:text-ink transition-colors';
+                btn.setAttribute('data-news-tab', cat);
+                btn.textContent = cat;
+                tabsEl.appendChild(btn);
             });
         }
 
@@ -99,15 +125,13 @@ async function loadNews() {
         console.error('お知らせデータの読み込みに失敗しました:', error);
         loadingEl.classList.add('hidden');
         noNewsEl.classList.remove('hidden');
-        if (moreWrapEl) moreWrapEl.classList.add('hidden');
     }
 }
 
 function createNewsRow(item) {
     const cat = item.category || 'その他';
     const title = escapeHtml(item.title || '');
-    const detailHref = `/news-detail?id=${encodeURIComponent(item.id)}`;
-    // 一覧はタイトル中心で表示（本文は出さない）
+    const detailHref = `/blog-detail?id=${encodeURIComponent(item.id)}`;
 
     return `
         <article>
@@ -127,6 +151,55 @@ function createNewsRow(item) {
             </a>
         </article>
     `;
+}
+
+function buildPaginationHtml(totalPages, currentPage) {
+    if (totalPages <= 1) return '';
+
+    const range = [];
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+            range.push(i);
+        }
+    }
+
+    const items = [];
+    let prev = null;
+    for (const p of range) {
+        if (prev && p - prev > 1) items.push('...');
+        items.push(p);
+        prev = p;
+    }
+
+    const base = 'w-10 h-10 flex items-center justify-center text-sm border transition-colors';
+    const active = `${base} bg-ink text-white border-ink`;
+    const inactive = `${base} bg-white text-ink border-[#DDD9D2] hover:bg-cream cursor-pointer`;
+    const arrow = `${base} bg-white text-ink border-[#DDD9D2] hover:bg-cream cursor-pointer`;
+    const disabled = `${base} bg-white text-[#DDD9D2] border-[#DDD9D2] cursor-default`;
+
+    let html = '<div class="flex items-center gap-1">';
+
+    const prevArrow = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>';
+    const nextArrow = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>';
+
+    html += currentPage > 1
+        ? `<button type="button" class="${arrow}" data-page="${currentPage - 1}" aria-label="前のページ">${prevArrow}</button>`
+        : `<span class="${disabled}" aria-hidden="true">${prevArrow}</span>`;
+
+    for (const item of items) {
+        if (item === '...') {
+            html += `<span class="w-10 h-10 flex items-center justify-center text-sm text-muted">…</span>`;
+        } else {
+            html += `<button type="button" class="${item === currentPage ? active : inactive}" data-page="${item}" aria-current="${item === currentPage ? 'page' : 'false'}">${item}</button>`;
+        }
+    }
+
+    html += currentPage < totalPages
+        ? `<button type="button" class="${arrow}" data-page="${currentPage + 1}" aria-label="次のページ">${nextArrow}</button>`
+        : `<span class="${disabled}" aria-hidden="true">${nextArrow}</span>`;
+
+    html += '</div>';
+    return html;
 }
 
 function formatDate(dateString) {

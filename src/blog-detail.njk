@@ -1,11 +1,11 @@
 ---
 layout: base.njk
-permalink: /work-detail.html
-title: 施工事例詳細
-activePage: works
+permalink: /blog-detail.html
+title: ブログ
+activePage: blog
 firebase: true
-description: リノベーション施工事例の詳細です。
-pageScript: js/work-detail.js
+description: 大森不動産のブログ記事詳細です。
+pageScript: js/news-detail.js
 ---
 
 <section class="pt-32 pb-24 bg-white min-h-screen">
@@ -16,13 +16,13 @@ pageScript: js/work-detail.js
     </div>
     <div id="detail-error" class="hidden text-center py-20">
       <p class="text-ink text-base mb-6" id="detail-error-text"></p>
-      <a href="/works" class="text-xs text-muted hover:text-ink transition-colors border-b border-[#DDD9D2] pb-0.5">施工事例一覧へ</a>
+      <a href="/blog" class="text-xs text-muted hover:text-ink transition-colors border-b border-[#DDD9D2] pb-0.5">ブログ一覧へ</a>
     </div>
     <article id="detail-content" class="hidden">
       <div class="mb-8">
-        <a href="/works" class="text-xs text-muted hover:text-ink transition-colors inline-flex items-center gap-2">
+        <a href="/blog" class="text-xs text-muted hover:text-ink transition-colors inline-flex items-center gap-2">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
-          施工事例一覧
+          ブログ一覧
         </a>
       </div>
 
@@ -31,12 +31,10 @@ pageScript: js/work-detail.js
         <div>
           <h1 id="detail-title" class="font-serif text-3xl md:text-4xl text-ink mb-4"></h1>
           <time id="detail-updated" class="block text-xs text-muted mb-4 font-mono-label tracking-wider"></time>
-          <div id="detail-thumb" class="relative aspect-[16/9] bg-[#E2DDD2] mt-6 mb-5"></div>
-          <p id="detail-cost" class="text-base font-medium mb-2" style="color:#E8621A"></p>
-          <p id="detail-meta" class="text-muted text-sm mb-10"></p>
+          <div id="detail-thumb" class="relative aspect-[16/9] bg-[#E2DDD2] mt-6 mb-5 hidden"></div>
 
-          <div id="detail-description" class="text-sm text-muted leading-relaxed whitespace-pre-line mb-10"></div>
-          <div id="detail-gallery" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
+          <p id="detail-category" class="text-base font-medium mb-2 hidden" style="color:#E8621A"></p>
+          <div id="detail-description" class="text-sm text-muted leading-relaxed whitespace-pre-line"></div>
         </div>
 
         <!-- Aside -->
@@ -44,12 +42,12 @@ pageScript: js/work-detail.js
           <div class="bg-white">
             <div class="px-0 py-2 flex items-center gap-4">
               <span class="h-px w-10 bg-[#E8621A]" aria-hidden="true"></span>
-              <h2 class="font-serif text-xl text-ink">その他の施工事例</h2>
+              <h2 class="font-serif text-xl text-ink">その他のブログ</h2>
             </div>
-            <div id="other-works-loading" class="py-6 text-sm text-muted">読み込み中...</div>
-            <div id="other-works-list" class="hidden"></div>
+            <div id="other-blogs-loading" class="py-6 text-sm text-muted">読み込み中...</div>
+            <div id="other-blogs-list" class="hidden"></div>
             <div class="pt-6 flex justify-center">
-              <a href="/works" class="site-btn site-btn--md site-btn--outline-ink inline-flex">
+              <a href="/blog" class="site-btn site-btn--md site-btn--outline-ink inline-flex">
                 <span class="site-btn__inner">もっと見る<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
               </a>
             </div>
