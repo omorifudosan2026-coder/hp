@@ -307,7 +307,7 @@ h1, h2, h3, h4, h5, h6 {
 /* トップヒーロー：見出しは1文字ずつ（JS が .hero-char を挿入）+ 画像クリップ + 罫線伸長 */
 .hero-intro__title {
   --hero-title-lh: 1.34;
-  font-size: 1.6875rem;
+  font-size: 1.25rem;
   line-height: var(--hero-title-lh);
   letter-spacing: var(--heading-tracking);
 }
@@ -492,6 +492,62 @@ h1, h2, h3, h4, h5, h6 {
       rgba(255, 255, 255, 0.04) 64%,
       rgba(255, 255, 255, 0) 78%
     );
+}
+/* モバイル：セクション自体を全面背景画像に＋クリームグラデで黒文字を読みやすく */
+@media (max-width: 1023px) {
+  .hero-intro--layout {
+    background-image: url('/images/backgrounds/hero-bg.jpg');
+    background-size: auto 120%;
+    background-position: 65% 20%;
+    background-color: #F7F4EF;
+  }
+  .hero-intro--layout::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(247, 244, 239, 1.00) 0%,
+      rgba(247, 244, 239, 1.00) 20%,
+      rgba(247, 244, 239, 0.92) 45%,
+      rgba(247, 244, 239, 0.55) 65%,
+      rgba(247, 244, 239, 0.10) 82%,
+      rgba(247, 244, 239, 0) 100%
+    );
+    pointer-events: none;
+  }
+  /* 見出し行を1行に（PCは block のまま） */
+  .hero-intro--layout .hero-intro__title-row {
+    display: inline;
+  }
+  .hero-intro--layout .hero-intro__title-accent {
+    display: inline;
+    margin-top: 0;
+  }
+  /* left-col は display:contents のため直接の子 title-wrap に z-index を付与 */
+  .hero-intro--layout .hero-intro__title-wrap {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
+    justify-content: center;
+    margin-bottom: 0;
+    padding-bottom: 18%;
+  }
+  .hero-intro--layout .hero-intro__media-col {
+    position: relative;
+    z-index: 1;
+    margin-top: 0;
+  }
+  /* タグラインを白・下部へ */
+  .hero-intro--layout .hero-intro__photo-tagline {
+    color: rgba(255, 255, 255, 0.82) !important;
+    padding-bottom: 2rem;
+    padding-top: 0.5rem;
+  }
+  .hero-intro--layout .hero-intro__photo-tagline.section-label::after {
+    background: rgba(255, 255, 255, 0.5);
+  }
 }
 @media (min-width: 1024px) {
   .hero-intro--layout .hero-intro__visual-frame {
@@ -772,8 +828,10 @@ h1, h2, h3, h4, h5, h6 {
 .concept-promise-section__copy {
   max-width: min(100%, 44rem);
 }
-.concept-promise-section #concept-promise-heading {
-  white-space: nowrap;
+@media (min-width: 768px) {
+  .concept-promise-section #concept-promise-heading {
+    white-space: nowrap;
+  }
 }
 @media (min-width: 768px) {
   .concept-promise-section {
