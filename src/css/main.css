@@ -783,7 +783,7 @@ h1, h2, h3, h4, h5, h6 {
   will-change: transform;
   box-shadow: 0 1px 0 rgba(26, 26, 26, 0.03);
 }
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .concept-card--offset {
     --concept-card-base-y: 2rem;
   }
@@ -1932,11 +1932,11 @@ input:focus, textarea:focus, select:focus {
   }
 
   .hero-intro.hero-intro--layout {
-    padding-top: calc(var(--site-header-height) + 1rem) !important;
+    padding-top: calc(var(--site-header-height) + 0.75rem) !important;
     padding-bottom: 0 !important;
   }
 
-  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.works-pickup-section) {
+  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.works-pickup-section):not(.concept-promise-section) {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
   }
@@ -2005,19 +2005,23 @@ input:focus, textarea:focus, select:focus {
     line-height: 1.45 !important;
   }
 
-  /* 説明文（セクション本文・リード） */
+  /* 説明文（セクション本文・リード）— 12px→13px / 13px→14px（+1px） */
   body[data-page] section:not(.hero-intro) p.text-base,
+  body[data-page] section:not(.hero-intro) p.text-muted,
   body[data-page] section:not(.hero-intro) p.text-muted.leading-relaxed,
   body[data-page] section:not(.hero-intro) .story-mobile-block p.leading-relaxed {
-    font-size: 0.8125rem !important;
-    line-height: 1.62 !important;
+    font-size: 0.875rem !important;
+    line-height: 1.65 !important;
   }
   body[data-page] section:not(.hero-intro) p.text-sm,
+  body[data-page] section:not(.hero-intro) p.text-muted.text-sm,
   body[data-page] section:not(.hero-intro) .text-sm.leading-relaxed,
   body[data-page] section:not(.hero-intro) p.text-sm.text-muted,
-  body[data-page] section:not(.hero-intro) div.text-sm.text-muted {
-    font-size: 0.75rem !important;
-    line-height: 1.58 !important;
+  body[data-page] section:not(.hero-intro) div.text-sm.text-muted,
+  body[data-page] section:not(.hero-intro) span.text-sm,
+  body[data-page] section:not(.hero-intro) li.text-sm {
+    font-size: 0.8125rem !important;
+    line-height: 1.65 !important;
   }
   body[data-page] .cta-ideal-home__lede {
     font-size: 0.75rem !important;
@@ -2191,18 +2195,7 @@ input:focus, textarea:focus, select:focus {
     margin-bottom: 0.5rem !important;
   }
 
-  /* story：説明文 +1px（共通スマホ 12px→13px / 13px→14px） */
-  body[data-page="story"] .page-header p.text-muted.leading-relaxed,
-  body[data-page="story"] section:not(.hero-intro) p.text-base,
-  body[data-page="story"] section:not(.hero-intro) p.text-muted.leading-relaxed {
-    font-size: 0.875rem !important;
-    line-height: 1.65 !important;
-  }
-  body[data-page="story"] section:not(.hero-intro) p.text-sm,
-  body[data-page="story"] section:not(.hero-intro) p.text-sm.text-muted {
-    font-size: 0.8125rem !important;
-    line-height: 1.65 !important;
-  }
+  /* story：ページヒーロー下リードのみ一段小さく */
   body[data-page="story"] .page-header p.font-serif.text-xl {
     font-size: 0.8125rem !important;
     line-height: 1.5 !important;
@@ -2226,9 +2219,75 @@ input:focus, textarea:focus, select:focus {
     line-height: 1.55 !important;
   }
 
+  /* concept：4 Reasons — ジグザグオフセットは md 以上のみ（上で定義）・イラストを小さく */
+  body[data-page="concept"] .concept-card {
+    padding: 1.5rem !important;
+  }
+  body[data-page="concept"] .concept-card img.object-contain {
+    max-width: min(68%, 9.5rem) !important;
+  }
+  body[data-page="concept"] .concept-card .flex.justify-center.mb-5 {
+    margin-bottom: 1rem !important;
+  }
+  body[data-page="concept"] .concept-point__head {
+    align-items: center;
+  }
+  body[data-page="concept"] .concept-point__label {
+    align-self: center !important;
+  }
+  body[data-page="concept"] .concept-point__head .concept-point__title {
+    font-size: 1rem !important;
+    line-height: 1.35 !important;
+    word-break: keep-all;
+    line-break: strict;
+  }
+  body[data-page="concept"] .concept-point__list li {
+    white-space: nowrap;
+  }
+  body[data-page="concept"] .concept-promise-section {
+    display: flex;
+    flex-direction: column;
+    padding-top: clamp(4rem, 8vw, 5.5rem) !important;
+    --promise-tail: 2.25rem;
+    --promise-art-w: min(88vw, 19.5rem);
+    --promise-art-h: calc(var(--promise-art-w) * 748 / 2103);
+    padding-bottom: 1rem !important;
+    margin-bottom: 0;
+  }
+  body[data-page="concept"] .concept-promise-section #concept-promise-heading {
+    font-size: 1.125rem !important;
+    line-height: 1.4 !important;
+    white-space: nowrap;
+  }
+  body[data-page="concept"] .concept-promise-section__inner {
+    order: 1;
+  }
+  body[data-page="concept"] .concept-promise-section::after {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    order: 2;
+    flex-shrink: 0;
+    width: 100%;
+    height: var(--promise-art-h);
+    margin-top: 0.25rem;
+    margin-right: -0.5rem;
+    transform: translateY(-1.75rem);
+    background-image: url('/images/backgrounds/promise-section-bg.webp');
+    background-size: var(--promise-art-w) auto;
+    background-position: right 72%;
+    background-repeat: no-repeat;
+  }
+  /* py-20 md:py-28 bg-cream セクション（スマホのみ・md 以上は Tailwind のまま） */
+  section.py-20.bg-cream {
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+  }
+
   /* 下層ページ：ページヘッダー（.py-20 より後に置き上書きを防ぐ） */
   body[data-page]:not([data-page="index"]) .page-header {
-    padding-top: calc(var(--site-header-height) + 2.25rem) !important;
+    padding-top: calc(var(--site-header-height) + 1.75rem) !important;
     padding-bottom: 1.5rem !important;
   }
   body[data-page]:not([data-page="index"]) .page-header + section {
