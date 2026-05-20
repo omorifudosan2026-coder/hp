@@ -1307,6 +1307,19 @@ h1, h2, h3, h4, h5, h6 {
 .mobile-menu-panel--collapsed { max-height: 0; opacity: 0; pointer-events: none; }
 .mobile-menu-panel--open { max-height: min(85vh, 480px); opacity: 1; pointer-events: auto; }
 
+@media (max-width: 1023px) {
+  #header:has(.mobile-menu-panel--open) {
+    background-color: var(--color-cream);
+  }
+  .mobile-menu-panel--open {
+    max-height: calc(100dvh - var(--site-header-height));
+  }
+  .mobile-menu-panel__inner {
+    min-height: calc(100dvh - var(--site-header-height));
+    box-sizing: border-box;
+  }
+}
+
 /* Cards（物件・施工事例など JS 描画）— ホバーは控えめな浮き＋陰影で落ち着いた印象 */
 .list-card-link { color: inherit; text-decoration: none; }
 .list-card-link:focus-visible { outline: 2px solid #E8621A; outline-offset: 3px; }
@@ -1879,6 +1892,17 @@ input:focus, textarea:focus, select:focus {
   body[data-page] .story-mobile-block h2.font-serif {
     font-size: 1.1875rem !important;
     line-height: 1.4 !important;
+  }
+  body[data-page] .story-mobile-hero {
+    width: auto;
+  }
+  body[data-page] .story-mobile-collage {
+    height: 11.5rem;
+    align-items: stretch;
+  }
+  body[data-page] .story-mobile-collage__main,
+  body[data-page] .story-mobile-collage__cell {
+    min-height: 0;
   }
 
   /* トップ：選ばれる理由 POINT ラベル＋タイトル横並び */
