@@ -1936,7 +1936,7 @@ input:focus, textarea:focus, select:focus {
     padding-bottom: 0 !important;
   }
 
-  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.works-pickup-section):not(.concept-promise-section) {
+  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section) {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
   }
@@ -2279,10 +2279,9 @@ input:focus, textarea:focus, select:focus {
     background-position: right 72%;
     background-repeat: no-repeat;
   }
-  /* py-20 md:py-28 bg-cream セクション（スマホのみ・md 以上は Tailwind のまま） */
-  section.py-20.bg-cream {
-    padding-top: 6rem !important;
-    padding-bottom: 6rem !important;
+  /* py-20 md:py-28 bg-cream セクション（スマホのみ・下パディング +24px） */
+  body[data-page] section.py-20.bg-cream:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section) {
+    padding-bottom: 3rem !important; /* 1.5rem + 24px */
   }
 
   /* 下層ページ：ページヘッダー（.py-20 より後に置き上書きを防ぐ） */
@@ -2292,6 +2291,244 @@ input:focus, textarea:focus, select:focus {
   }
   body[data-page]:not([data-page="index"]) .page-header + section {
     padding-top: 2rem !important;
+  }
+
+  /* サービス3ページ：ヒーロー番号・お悩みイラスト・V字ラベル（スマホのみ） */
+  body[data-page^="service-"] .page-header > div > span[aria-hidden="true"] {
+    font-size: 6.75rem !important;
+    top: 7.5rem !important; /* 固定位置（% だと説明文の長さで 03 だけ下にずれる） */
+    right: 1rem !important;
+    transform: translateY(-50%) !important;
+  }
+  body[data-page^="service-"] .page-header > div > :not(span[aria-hidden="true"]) {
+    position: relative;
+    z-index: 1;
+  }
+  body[data-page^="service-"] .page-header + section.bg-cream {
+    padding-bottom: 3.5rem !important;
+  }
+  body[data-page^="service-"] .page-header + section.bg-cream .grid {
+    gap: 1rem !important;
+  }
+  body[data-page^="service-"] .page-header + section.bg-cream .grid > div {
+    max-width: 21.5rem;
+    margin-inline: auto;
+    padding: 1.25rem !important;
+  }
+  body[data-page^="service-"] .page-header + section.bg-cream .h-52 {
+    height: 9rem !important;
+    margin-bottom: 1rem !important;
+  }
+  body[data-page^="service-"] .page-header + section.bg-cream img.object-contain {
+    max-width: 10rem !important;
+  }
+  body[data-page^="service-"] .page-header + section.bg-cream .flex.items-center.gap-3 {
+    margin-bottom: 0.625rem !important;
+  }
+  body[data-page^="service-"] .page-header + section.bg-cream .flex.items-center.gap-3 .font-serif.text-lg {
+    font-size: 1.0625rem !important;
+  }
+  body[data-page^="service-"] .page-header + section.bg-cream .text-sm.text-muted {
+    font-size: 0.8125rem !important;
+    line-height: 1.65 !important;
+  }
+  body[data-page^="service-"] .page-header + section + div.relative.bg-white > div.absolute {
+    top: 20% !important;
+  }
+  body[data-page^="service-"] .page-header + section + div.relative.bg-white > div.absolute p {
+    font-size: 1.1875rem !important; /* text-xl − 1px */
+  }
+  body[data-page^="service-"] .page-header + section + div.relative.bg-white {
+    padding-bottom: 1.5rem !important;
+  }
+  body[data-page^="service-"] section.service-reasons-section.bg-white {
+    padding-top: 0 !important;
+    padding-bottom: 1.5rem !important;
+  }
+  body[data-page^="service-"] section.service-reasons-section .text-center {
+    margin-bottom: 1.25rem !important;
+  }
+  body[data-page^="service-"] section.service-reasons-section .text-center > p.font-serif.text-xl.text-ink {
+    font-size: clamp(0.75rem, 3.15vw, 0.8125rem) !important;
+    line-height: 1.35 !important;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.625rem !important;
+    white-space: nowrap;
+  }
+  body[data-page^="service-"] section.service-reasons-section .text-center > p.font-serif.text-2xl {
+    font-size: 1.25rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  body[data-page^="service-"] section.service-reasons-section .text-center > p.text-muted {
+    font-size: 0.8125rem !important;
+    line-height: 1.65 !important;
+  }
+
+  /* サービス3ページ：理由リスト — スマホは 01＋REASON の下にタイトル横並び */
+  body[data-page^="service-"] .reason-item__row {
+    gap: 1.125rem !important;
+  }
+  body[data-page^="service-"] .reason-item__num-col {
+    width: 3.25rem;
+  }
+  body[data-page^="service-"] .reason-item__digit {
+    font-size: 3.25rem !important;
+    line-height: 1 !important;
+  }
+  body[data-page^="service-"] .reason-item__label-mobile {
+    margin-top: 0.25rem !important;
+    margin-left: 0 !important;
+    text-align: left;
+  }
+  body[data-page^="service-"] .reason-item__head .reason-item__title {
+    font-size: 1.0625rem !important;
+    line-height: 1.4 !important;
+    word-break: keep-all;
+    margin: 0 !important;
+    padding-top: 0;
+    align-self: center;
+  }
+  body[data-page="service-income"] .reason-item:last-child .reason-item__head .reason-item__title {
+    white-space: nowrap;
+    word-break: normal;
+    font-size: 0.9375rem !important;
+  }
+  /* 03ページ：Summary 締め（スマホのみ・1行・約22px） */
+  body[data-page="service-income"] section.bg-white h2.font-serif:has(.reveal-underline) {
+    font-size: clamp(1.0625rem, 5.2vw, 1.375rem) !important; /* 最大 22px */
+    line-height: 1.45 !important;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  body[data-page^="service-"] .reason-item__body {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  body[data-page^="service-"] .reason-item__desc {
+    font-size: 0.8125rem !important;
+    line-height: 1.65 !important;
+    margin-top: 0.75rem !important;
+  }
+  body[data-page^="service-"] .service-reasons-section .reason-item {
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  body[data-page^="service-"] .service-reasons-section .reason-item:first-child {
+    padding-top: 1rem !important;
+  }
+  body[data-page^="service-"] .service-reasons-section .reason-item:not(:last-child) {
+    border-bottom: 1px solid #DDD9D2;
+    padding-bottom: 1.5rem !important;
+  }
+  body[data-page^="service-"] .service-reasons-section .reason-item:not(:first-child) {
+    padding-top: 1.5rem !important;
+  }
+
+  /* サービス3ページ：流れ — スマホは clip-path で下向き矢印連結（参考 polygon 方式） */
+  body[data-page^="service-"] section.bg-cream:has(.flow-steps) {
+    padding-top: 3rem !important;
+    padding-bottom: 4.5rem !important; /* 3rem + 24px */
+  }
+  body[data-page^="service-"] section.bg-cream:has(.flow-steps) > div:first-child .mb-14 {
+    margin-bottom: 2rem !important;
+  }
+  body[data-page^="service-"] .flow-steps {
+    --flow-arrow: 22px; /* 参考サイトと同じ矢印の深さ */
+    --flow-arrow-gap: 6px; /* カード間に見えるクリームの細い隙間 */
+    gap: 0 !important;
+    max-width: 20rem;
+    margin-inline: auto;
+    padding-inline: 0.75rem;
+  }
+  body[data-page^="service-"] .flow-step-card {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    filter: none !important;
+  }
+  body[data-page^="service-"] .flow-step-card:not(:last-child) {
+    margin-bottom: var(--flow-arrow-gap) !important;
+  }
+  body[data-page^="service-"] .flow-step-card:not(.flow-step-card--start) {
+    margin-top: calc(-1 * var(--flow-arrow)) !important;
+  }
+  body[data-page^="service-"] .flow-step-card--start:not(.flow-step-card--last) {
+    z-index: 4;
+  }
+  body[data-page^="service-"] .flow-step-card:not(.flow-step-card--start):not(.flow-step-card--last) {
+    z-index: 3;
+  }
+  body[data-page^="service-"] .flow-step-card--last:not(.flow-step-card--start) {
+    z-index: 2;
+  }
+  body[data-page^="service-"] .flow-step-card__surface {
+    display: grid !important;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.625rem;
+    row-gap: 0.75rem;
+    align-items: center;
+    width: 100%;
+    padding: 1.5rem 1.25rem calc(1.5rem + var(--flow-arrow)) !important;
+    background: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 22px), 50% 100%, 0% calc(100% - 22px));
+    clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 22px), 50% 100%, 0% calc(100% - 22px));
+  }
+  body[data-page^="service-"] .flow-step-card__surface > .font-mono-label {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0 !important;
+    white-space: nowrap;
+  }
+  body[data-page^="service-"] section.bg-cream:has(.flow-steps) .flow-step-card__surface > h3.font-serif.text-lg {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0 !important;
+    font-size: 0.9375rem !important; /* 15px */
+    line-height: 1.4 !important;
+  }
+  body[data-page^="service-"] .flow-step-card__surface > p.text-muted {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 0 !important;
+  }
+  body[data-page^="service-"] .flow-step-card__surface::before,
+  body[data-page^="service-"] .flow-step-card__surface::after {
+    content: none !important;
+  }
+  /* 2枚目以降：上凹み + 下矢印 */
+  body[data-page^="service-"] .flow-step-card:not(.flow-step-card--start) .flow-step-card__surface {
+    padding-top: calc(1.5rem + var(--flow-arrow)) !important;
+    -webkit-clip-path: polygon(
+      0% 0%,
+      50% 22px,
+      100% 0%,
+      100% calc(100% - 22px),
+      50% 100%,
+      0% calc(100% - 22px)
+    );
+    clip-path: polygon(0% 0%, 50% 22px, 100% 0%, 100% calc(100% - 22px), 50% 100%, 0% calc(100% - 22px));
+  }
+  /* 最後の1枚：上凹みのみ・下は直角（:not(--start) より詳細度を上げる） */
+  body[data-page^="service-"] .flow-step-card--last:not(.flow-step-card--start) .flow-step-card__surface {
+    padding-bottom: 1.5rem !important;
+    -webkit-clip-path: polygon(0% 0%, 50% 22px, 100% 0%, 100% 100%, 0% 100%) !important;
+    clip-path: polygon(0% 0%, 50% 22px, 100% 0%, 100% 100%, 0% 100%) !important;
+  }
+  /* 1枚だけのときは矩形 */
+  body[data-page^="service-"] .flow-step-card--start.flow-step-card--last .flow-step-card__surface {
+    padding: 1.5rem 1.25rem !important;
+    -webkit-clip-path: none !important;
+    clip-path: none !important;
+    border: 1px solid rgba(221, 217, 210, 0.7) !important;
+  }
+  body[data-page^="service-"] .flow-step-card--start.flow-step-card--last {
+    margin-bottom: 0 !important;
   }
 }
 
@@ -2325,11 +2562,52 @@ input:focus, textarea:focus, select:focus {
 @media print { header, footer, .no-print { display: none; } }
 
 /* 流れカード（シェブロン形状） — lg以上でカード自体が「>」型に */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body[data-page^="service-"] .flow-step-card {
+    margin-top: 0 !important;
+  }
+  body[data-page^="service-"] .flow-step-card__surface {
+    -webkit-clip-path: none !important;
+    clip-path: none !important;
+    filter: none !important;
+    border: 1px solid rgba(221, 217, 210, 0.7) !important;
+    padding: 2rem !important;
+  }
+}
 @media (min-width: 1024px) {
   .flow-step-card {
+    filter: none;
+    margin-top: 0;
+    padding: 0;
+    background: transparent;
+    min-width: 0;
+  }
+  .flow-step-card__surface {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 50%, calc(100% - 36px) 100%, 0 100%, 36px 50%);
     clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 50%, calc(100% - 36px) 100%, 0 100%, 36px 50%);
   }
-  .flow-step-card--start {
+  .flow-step-card--start .flow-step-card__surface {
+    -webkit-clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 50%, calc(100% - 36px) 100%, 0 100%);
     clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 50%, calc(100% - 36px) 100%, 0 100%);
+  }
+  /* 最後の1枚：右端は直角（左の凹みのみ） */
+  .flow-step-card--last:not(.flow-step-card--start) .flow-step-card__surface {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 36px 50%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 36px 50%);
+  }
+  .flow-step-card--last.flow-step-card--start .flow-step-card__surface {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .flow-step-card__surface > h3.font-serif {
+    font-size: 1.125rem !important;
+    line-height: 1.75rem !important;
   }
 }

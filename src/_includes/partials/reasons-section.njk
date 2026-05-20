@@ -1,10 +1,10 @@
 <!-- 3つの理由 -->
-<section class="{{ reasonsPt | default('pt-20 md:pt-28') }} pb-20 md:pb-28 {{ reasonsBg | default('bg-white') }}">
+<section class="service-reasons-section {{ reasonsPt | default('pt-20 md:pt-28') }} pb-20 md:pb-28 {{ reasonsBg | default('bg-white') }}">
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     {% if reasonsCatch %}
     <div class="text-center mb-10 md:mb-14" data-reveal>
       <p class="font-serif text-xl md:text-2xl lg:text-3xl text-ink mb-4" data-reveal data-delay="80">{{ reasonsCatch }}</p>
-      <p class="font-serif text-2xl md:text-3xl lg:text-4xl text-[#E8621A] leading-tight mb-6" data-reveal data-delay="160">{{ reasonsConclusion }}</p>
+      <p class="font-serif text-2xl md:text-3xl lg:text-4xl text-[#E8621A] leading-tight mb-6" data-reveal data-delay="160">{{ reasonsConclusion | safe }}</p>
       {% if reasonsDescription %}
       <p class="text-muted text-sm md:text-base leading-loose max-w-2xl mx-auto" data-reveal data-delay="400">{{ reasonsDescription | safe }}</p>
       {% endif %}
@@ -18,30 +18,41 @@
       {% endif %}
     </div>
     {% endif %}
-    <div class="md:ml-8 lg:ml-14" data-reveal data-delay="80">
-      <div class="grid md:grid-cols-[auto_40px_1fr] md:grid-rows-[auto_auto_auto]">
+    <div class="reasons-list md:ml-8 lg:ml-14" data-reveal data-delay="80">
+      <div class="reasons-list__grid grid max-md:flex max-md:flex-col md:grid-cols-[auto_40px_1fr] md:grid-rows-[auto_auto_auto]">
         {% for reason in reasons %}
-        <div class="md:col-start-1 md:row-start-{{ loop.index }} self-start pt-8 pb-2 md:py-14 md:pr-5 md:text-right">
-          <span aria-hidden="true" class="font-serif text-6xl md:text-7xl font-bold text-[#E8621A] leading-none block">{{ reason.number }}</span>
-        </div>
-        <div class="md:col-start-2 md:row-start-{{ loop.index }} hidden md:flex flex-col items-center self-stretch z-10 pt-10 md:pt-14 pb-10 md:pb-14">
-          {% if loop.first %}
-          <div class="h-9 flex-shrink-0" aria-hidden="true"></div>
-          {% else %}
-          <div class="flex w-full justify-center flex-shrink-0 -mt-10 md:-mt-14 h-[calc(2.5rem+2.25rem)] md:h-[calc(3.5rem+2.25rem)]" aria-hidden="true">
-            <div class="w-px h-full bg-[#DDD9D2]"></div>
+        <article class="reason-item max-md:pt-8 max-md:first:pt-4 max-md:pb-8 md:contents">
+          <div class="reason-item__head md:hidden">
+            <div class="reason-item__row flex items-center gap-3">
+              <div class="reason-item__num-col shrink-0">
+                <span aria-hidden="true" class="reason-item__digit font-serif text-6xl font-bold text-[#E8621A] leading-none block">{{ reason.number }}</span>
+                <p class="reason-item__label-mobile font-mono-label text-xs text-[#E8621A]/70 tracking-[0.2em] mt-1">REASON</p>
+              </div>
+              <h3 class="reason-item__title font-serif text-lg text-ink leading-snug m-0 min-w-0 flex-1">{{ reason.title | safe }}</h3>
+            </div>
           </div>
-          {% endif %}
-          <div class="relative z-10 w-2.5 h-2.5 rounded-full border-2 border-[#C5C0B8] bg-white flex-shrink-0"></div>
-          {% if not loop.last %}
-          <div class="flex-1 w-px bg-[#DDD9D2] min-h-0 -mb-10 md:-mb-14"></div>
-          {% endif %}
-        </div>
-        <div class="md:col-start-3 md:row-start-{{ loop.index }} self-start pb-10 md:py-14 md:pl-5">
-          <p class="font-mono-label text-xs text-[#E8621A]/70 tracking-[0.2em] mb-1.5">REASON</p>
-          <h3 class="font-serif text-2xl md:text-3xl text-ink mb-4 leading-snug">{{ reason.title }}</h3>
-          <p class="text-sm md:text-base text-muted leading-relaxed">{{ reason.description | safe }}</p>
-        </div>
+          <div class="md:col-start-1 md:row-start-{{ loop.index }} self-start pt-8 pb-2 md:py-14 md:pr-5 md:text-right hidden md:block">
+            <span aria-hidden="true" class="font-serif text-6xl md:text-7xl font-bold text-[#E8621A] leading-none block">{{ reason.number }}</span>
+          </div>
+          <div class="md:col-start-2 md:row-start-{{ loop.index }} hidden md:flex flex-col items-center self-stretch z-10 pt-10 md:pt-14 pb-10 md:pb-14">
+            {% if loop.first %}
+            <div class="h-9 flex-shrink-0" aria-hidden="true"></div>
+            {% else %}
+            <div class="flex w-full justify-center flex-shrink-0 -mt-10 md:-mt-14 h-[calc(2.5rem+2.25rem)] md:h-[calc(3.5rem+2.25rem)]" aria-hidden="true">
+              <div class="w-px h-full bg-[#DDD9D2]"></div>
+            </div>
+            {% endif %}
+            <div class="relative z-10 w-2.5 h-2.5 rounded-full border-2 border-[#C5C0B8] bg-white flex-shrink-0"></div>
+            {% if not loop.last %}
+            <div class="flex-1 w-px bg-[#DDD9D2] min-h-0 -mb-10 md:-mb-14"></div>
+            {% endif %}
+          </div>
+          <div class="reason-item__body md:col-start-3 md:row-start-{{ loop.index }} self-start pb-10 md:py-14 md:pl-5 max-md:pt-0">
+            <p class="font-mono-label text-xs text-[#E8621A]/70 tracking-[0.2em] mb-1.5 hidden md:block">REASON</p>
+            <h3 class="font-serif text-2xl md:text-3xl text-ink mb-4 leading-snug hidden md:block">{{ reason.title | safe }}</h3>
+            <p class="reason-item__desc text-sm md:text-base text-muted leading-relaxed max-md:mt-3">{{ reason.description | safe }}</p>
+          </div>
+        </article>
         {% endfor %}
       </div>
     </div>

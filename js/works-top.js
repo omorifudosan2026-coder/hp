@@ -48,7 +48,7 @@ function createWorksTopCard(work) {
     if (area) tags += '<span class="works-top-card__tag inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">' + area + '</span>';
     if (layout) tags += '<span class="works-top-card__tag inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">' + layout + '</span>';
 
-    return '<a href="' + href + '" class="list-card-link block overflow-hidden group h-full flex flex-col bg-white">'
+    return '<a href="' + href + '" class="list-card-link block overflow-hidden group h-full flex flex-col bg-white border border-[#DDD9D2]">'
         + '<div class="relative aspect-[4/3] shrink-0 bg-cream overflow-hidden">'
         + imageHtml
         + '</div>'
