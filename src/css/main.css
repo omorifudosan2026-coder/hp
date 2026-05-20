@@ -739,7 +739,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   overflow: hidden;
 }
-/* サービス詳細ページのみ：マーキー上下の余白を広げる */
+/* OUR SERVICE マーキー：スマホ 2rem（--service 付きページ）。PC は従来どおり 2.75rem のみ上書き */
 .section-marquee--service {
   padding-block: 2rem;
 }
@@ -1936,7 +1936,7 @@ input:focus, textarea:focus, select:focus {
     padding-bottom: 0 !important;
   }
 
-  body[data-page] section:not(.hero-intro):not(.cta-ideal-home):not(.index-advantage-section):not(.works-pickup-section) {
+  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.works-pickup-section) {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
   }
@@ -1947,10 +1947,6 @@ input:focus, textarea:focus, select:focus {
   body[data-page] .works-pickup-section.bg-cream {
     padding-top: 1.5rem !important;
     padding-bottom: 2.25rem !important;
-  }
-  body[data-page] section.pt-32:not(.hero-intro) {
-    padding-top: calc(var(--site-header-height) + 1.75rem) !important;
-    padding-bottom: 1.5rem !important;
   }
   body[data-page] .py-20,
   body[data-page] .py-16,
@@ -2193,6 +2189,50 @@ input:focus, textarea:focus, select:focus {
   body[data-page] #works-grid h3.font-serif {
     font-size: 0.875rem !important;
     margin-bottom: 0.5rem !important;
+  }
+
+  /* story：説明文 +1px（共通スマホ 12px→13px / 13px→14px） */
+  body[data-page="story"] .page-header p.text-muted.leading-relaxed,
+  body[data-page="story"] section:not(.hero-intro) p.text-base,
+  body[data-page="story"] section:not(.hero-intro) p.text-muted.leading-relaxed {
+    font-size: 0.875rem !important;
+    line-height: 1.65 !important;
+  }
+  body[data-page="story"] section:not(.hero-intro) p.text-sm,
+  body[data-page="story"] section:not(.hero-intro) p.text-sm.text-muted {
+    font-size: 0.8125rem !important;
+    line-height: 1.65 !important;
+  }
+  body[data-page="story"] .page-header p.font-serif.text-xl {
+    font-size: 0.8125rem !important;
+    line-height: 1.5 !important;
+  }
+  /* story：締めの引用（スマホのみ・PC は元の -top-6 / 1行表示） */
+  body[data-page="story"] .story-closing-quote {
+    isolation: isolate;
+    padding-top: 1.125rem;
+  }
+  body[data-page="story"] .story-closing-quote__mark {
+    top: 0.55rem !important;
+    left: -0.08em !important;
+    z-index: 0;
+    color: #f0ebe3;
+    font-size: clamp(2.85rem, 9vw, 3.75rem) !important;
+  }
+  body[data-page="story"] .story-closing-quote__text {
+    position: relative;
+    z-index: 1;
+    font-size: 1.0625rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* 下層ページ：ページヘッダー（.py-20 より後に置き上書きを防ぐ） */
+  body[data-page]:not([data-page="index"]) .page-header {
+    padding-top: calc(var(--site-header-height) + 2.25rem) !important;
+    padding-bottom: 1.5rem !important;
+  }
+  body[data-page]:not([data-page="index"]) .page-header + section {
+    padding-top: 2rem !important;
   }
 }
 
