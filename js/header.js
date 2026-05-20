@@ -37,6 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileMenuBtn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
     mobileMenu.classList.toggle('mobile-menu-panel--open', open);
     mobileMenu.classList.toggle('mobile-menu-panel--collapsed', !open);
+    header.classList.toggle('header-menu-open', open);
+    document.body.classList.toggle('mobile-menu-open', open);
   };
   setOpen(false);
 

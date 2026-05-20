@@ -84,28 +84,40 @@
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="mobile-menu-panel lg:hidden mobile-menu-panel--collapsed overflow-hidden" role="navigation" aria-label="モバイルメニュー">
-    <div class="mobile-menu-panel__inner bg-cream px-4 sm:px-6 py-4">
-      <nav class="flex flex-col gap-0">
-        <a href="/story" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">私たちの想い</a>
-        <a href="/concept" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">選ばれる理由</a>
-        <!-- サービス アコーディオン -->
-        <div x-data="{ open: false }">
-          <button type="button" @click="open = !open" class="w-full flex items-center justify-between py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors" :aria-expanded="open">
-            サービス
-            <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-150 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div x-show="open" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pb-2 pl-3 flex flex-col gap-0 border-l-2 border-[#E8621A]/30 ml-1" style="display: none;">
-            <a href="/service-buyback" class="py-2.5 text-base text-ink hover:text-[#E8621A] transition-colors">買取再販</a>
-            <a href="/service-renovation" class="py-2.5 text-base text-ink hover:text-[#E8621A] transition-colors">仲介＋リノベ</a>
-            <a href="/service-income" class="py-2.5 text-base text-ink hover:text-[#E8621A] transition-colors">収益不動産</a>
+  <div id="mobile-menu" class="mobile-menu-panel lg:hidden mobile-menu-panel--collapsed" role="navigation" aria-label="モバイルメニュー">
+    <div class="mobile-menu-panel__inner bg-cream">
+      <p class="mobile-menu-nav__eyebrow section-label">Menu</p>
+      <nav class="mobile-menu-nav">
+        <div class="mobile-menu-nav__cols">
+          <div class="mobile-menu-nav__col mobile-menu-nav__col--left">
+        <a href="/story" class="mobile-menu-nav__link"><span class="mobile-menu-nav__text">私たちの想い</span></a>
+        <a href="/concept" class="mobile-menu-nav__link"><span class="mobile-menu-nav__text">選ばれる理由</span></a>
+        <div class="mobile-nav-services">
+          <span class="mobile-nav-services__label"><span class="mobile-menu-nav__text">サービス</span></span>
+          <div class="mobile-nav-services__links">
+            <a href="/service-buyback" class="mobile-menu-nav__link mobile-menu-nav__link--sub">
+              <span class="mobile-menu-nav__num font-mono-label">01</span>
+              <span class="mobile-menu-nav__text">買取再販</span>
+            </a>
+            <a href="/service-renovation" class="mobile-menu-nav__link mobile-menu-nav__link--sub">
+              <span class="mobile-menu-nav__num font-mono-label">02</span>
+              <span class="mobile-menu-nav__text">仲介＋リノベ</span>
+            </a>
+            <a href="/service-income" class="mobile-menu-nav__link mobile-menu-nav__link--sub">
+              <span class="mobile-menu-nav__num font-mono-label">03</span>
+              <span class="mobile-menu-nav__text">収益不動産</span>
+            </a>
           </div>
         </div>
-        <a href="/works" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">施工事例</a>
-        <a href="/blog" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">ブログ</a>
-        <a href="/company" class="py-3.5 text-lg text-ink hover:text-[#E8621A] transition-colors">会社概要</a>
-        <a href="/contact" class="pt-4 pb-2">
-          <span class="site-btn site-btn--menu site-btn--outline-ink inline-flex"><span class="site-btn__inner">無料相談予約</span></span>
+          </div>
+          <div class="mobile-menu-nav__col mobile-menu-nav__col--right">
+            <a href="/works" class="mobile-menu-nav__link"><span class="mobile-menu-nav__text">施工事例</span></a>
+            <a href="/blog" class="mobile-menu-nav__link"><span class="mobile-menu-nav__text">ブログ</span></a>
+            <a href="/company" class="mobile-menu-nav__link"><span class="mobile-menu-nav__text">会社概要</span></a>
+          </div>
+        </div>
+        <a href="/contact" class="mobile-menu-nav__cta">
+          <span class="site-btn site-btn--menu site-btn--outline-ink w-full max-w-none"><span class="site-btn__inner">無料相談予約</span></span>
         </a>
       </nav>
     </div>
