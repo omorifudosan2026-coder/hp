@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     backToTopBtn.type = 'button';
     backToTopBtn.setAttribute('aria-label', 'ページ先頭へ戻る');
-    backToTopBtn.className = 'fixed bottom-8 right-8 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-orange-600 transition opacity-0 pointer-events-none z-50';
+    backToTopBtn.className = 'hidden md:flex md:items-center md:justify-center fixed bottom-8 right-8 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-orange-600 transition opacity-0 pointer-events-none z-50';
     backToTopBtn.id = 'back-to-top';
     document.body.appendChild(backToTopBtn);
     
