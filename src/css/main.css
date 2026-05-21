@@ -2150,17 +2150,21 @@ input:focus, textarea:focus, select:focus {
   body[data-page] section:has(#works-top-grid) h2.font-serif {
     font-size: 1.1875rem !important;
   }
-  body[data-page] #works-top-grid {
+  body[data-page] #works-top-grid,
+  body[data-page] #works-grid {
     gap: 1rem !important;
   }
-  body[data-page] #works-top-grid .list-card-link > div:first-child {
+  body[data-page] #works-top-grid .list-card-link > div:first-child,
+  body[data-page] #works-grid .list-card-link > div:first-child {
     aspect-ratio: 3 / 2;
     max-height: 9.25rem;
   }
-  body[data-page] #works-top-grid .list-card-link > div:last-child {
+  body[data-page] #works-top-grid .list-card-link > div:last-child,
+  body[data-page] #works-grid .list-card-link > div:last-child {
     padding: 0.75rem !important;
   }
-  body[data-page] #works-top-grid h3.works-top-card__title {
+  body[data-page] #works-top-grid h3.works-top-card__title,
+  body[data-page] #works-grid h3.works-top-card__title {
     font-size: 0.75rem !important;
     line-height: 1.45 !important;
     margin-bottom: 0.375rem !important;
@@ -2172,27 +2176,15 @@ input:focus, textarea:focus, select:focus {
     text-overflow: ellipsis;
     word-break: break-all;
   }
-  body[data-page] #works-top-grid .works-top-card__tags {
+  body[data-page] #works-top-grid .works-top-card__tags,
+  body[data-page] #works-grid .works-top-card__tags {
     gap: 0.25rem !important;
   }
-  body[data-page] #works-top-grid .works-top-card__tag {
+  body[data-page] #works-top-grid .works-top-card__tag,
+  body[data-page] #works-grid .works-top-card__tag {
     font-size: 0.625rem !important;
     line-height: 1.35 !important;
     padding: 0.1rem 0.35rem !important;
-  }
-  body[data-page] #works-grid {
-    gap: 1.25rem !important;
-  }
-  body[data-page] #works-grid .list-card-link > div:first-child {
-    aspect-ratio: 3 / 2;
-    max-height: 10rem;
-  }
-  body[data-page] #works-grid .list-card-link > div:last-child {
-    padding: 0.75rem !important;
-  }
-  body[data-page] #works-grid h3.font-serif {
-    font-size: 0.875rem !important;
-    margin-bottom: 0.5rem !important;
   }
 
   /* story：ページヒーロー下リードのみ一段小さく */
@@ -2529,6 +2521,64 @@ input:focus, textarea:focus, select:focus {
   }
   body[data-page^="service-"] .flow-step-card--start.flow-step-card--last {
     margin-bottom: 0 !important;
+  }
+
+  /* ブログ一覧（スマホのみ） */
+  body[data-page="blog"] #news-tabs {
+    margin-bottom: 1.25rem !important;
+    gap: 0.375rem !important;
+  }
+  body[data-page="blog"] #news-tabs .news-tab {
+    padding: 0.35rem 0.55rem !important;
+    font-size: 0.6875rem !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.02em;
+  }
+  body[data-page="blog"] #news-list article a {
+    padding-top: 0.875rem !important;
+    padding-bottom: 0.875rem !important;
+  }
+  body[data-page="blog"] #news-list article a > div {
+    gap: 0.625rem !important;
+  }
+  body[data-page="blog"] #news-list time {
+    width: 5.25rem !important;
+    font-size: 0.6875rem !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.04em;
+  }
+  body[data-page="blog"] #news-list article .flex-1 > .flex-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem !important;
+  }
+  body[data-page="blog"] #news-list article .flex-1 span.inline-flex {
+    padding: 0.1rem 0.35rem !important;
+    font-size: 0.625rem !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.03em;
+  }
+  body[data-page="blog"] #news-list article h2 {
+    width: 100%;
+    font-size: 0.8125rem !important;
+    line-height: 1.45 !important;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  body[data-page="blog"] #news-list article a svg {
+    width: 0.875rem !important;
+    height: 0.875rem !important;
+    margin-top: 0.125rem !important;
+  }
+  body[data-page="blog"] #news-pagination {
+    padding-top: 1.5rem !important;
+  }
+  body[data-page="blog"] #news-pagination button,
+  body[data-page="blog"] #news-pagination span:not(.sr-only) {
+    width: 2.125rem !important;
+    height: 2.125rem !important;
+    min-width: 2.125rem !important;
+    font-size: 0.75rem !important;
   }
 }
 

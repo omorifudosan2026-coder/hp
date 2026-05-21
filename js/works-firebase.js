@@ -115,8 +115,8 @@ function createWorkCard(work) {
     const href = `/work-detail?id=${encodeURIComponent(work.id)}`;
 
     let tags = '';
-    if (area) tags += `<span class="inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">${area}</span>`;
-    if (layout) tags += `<span class="inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">${layout}</span>`;
+    if (area) tags += `<span class="works-top-card__tag inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">${area}</span>`;
+    if (layout) tags += `<span class="works-top-card__tag inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">${layout}</span>`;
 
     return `
         <a href="${href}" class="list-card-link block overflow-hidden group h-full flex flex-col bg-white border border-[#DDD9D2]">
@@ -124,8 +124,8 @@ function createWorkCard(work) {
                 ${imageHtml}
             </div>
             <div class="p-5 flex flex-col grow border-t border-[#DDD9D2]">
-                <h3 class="font-serif text-lg text-ink font-medium mb-3 transition-colors duration-500 group-hover:text-[#2a2a2a]">${title}</h3>
-                ${tags ? `<div class="flex flex-wrap gap-2 mt-auto">${tags}</div>` : ''}
+                <h3 class="works-top-card__title font-serif text-lg text-ink font-medium mb-3 transition-colors duration-500 group-hover:text-[#2a2a2a]">${title}</h3>
+                ${tags ? `<div class="works-top-card__tags flex flex-wrap gap-2 mt-auto">${tags}</div>` : ''}
             </div>
         </a>
     `;
