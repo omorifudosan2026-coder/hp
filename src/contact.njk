@@ -3,6 +3,9 @@ layout: base.njk
 permalink: /contact.html
 title: 無料相談・お問い合わせ
 activePage: contact
+firebase: true
+firebaseFunctions: true
+pageScript: js/contact-firebase.js
 ---
 
 <!-- Page Header -->
@@ -16,103 +19,173 @@ activePage: contact
 
 <!-- Consultation Type + Form -->
 <section class="py-20 md:py-28 bg-white">
-  <div class="max-w-3xl mx-auto px-6 md:px-10" x-data="{ consultType: '' }">
+  <div id="contact-flow" class="max-w-3xl mx-auto px-6 md:px-10 scroll-mt-28" x-data="contactFormState()">
 
-    <!-- 相談種別 -->
-    <div class="mb-10">
-      <p class="text-xs font-medium text-muted mb-4 tracking-widest font-mono-label">STEP 01 — 相談の種類を選んでください</p>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <button type="button"
-          @click="consultType = 'free'"
-          :class="consultType === 'free' ? 'border-[#E8621A] bg-[#E8621A]/5 text-ink' : 'border-[#DDD9D2] text-muted hover:border-ink'"
-          class="relative flex flex-col items-start gap-2 p-5 border-2 transition-colors text-left rounded-sm">
-          <span class="font-serif text-base text-ink font-medium">無料相談</span>
-          <span class="text-xs leading-relaxed">何から始めればいいかわからない。まず話を聞きたい方向け。</span>
-          <span x-show="consultType === 'free'" class="absolute top-3 right-3 w-4 h-4 rounded-full bg-[#E8621A] flex items-center justify-center" style="display:none;">
-            <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-          </span>
+    <!-- STEP 01 + 02: 入力 -->
+    <div x-show="step === 'form'" x-cloak>
+      <div class="mb-10">
+        <p class="text-sm md:text-base font-medium text-ink mb-4 tracking-widest font-mono-label">STEP 01 — 相談の種類を選んでください</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <button type="button"
+            @click="consultType = 'free'"
+            :class="consultType === 'free' ? 'border-[#E8621A] bg-[#E8621A]/5 text-ink' : 'border-[#DDD9D2] text-muted hover:border-ink'"
+            class="relative flex flex-col items-start gap-2 p-5 border-2 transition-colors text-left rounded-sm">
+            <span class="font-serif text-base text-ink font-medium">無料相談</span>
+            <span class="text-xs leading-relaxed">何から始めればいいかわからない。まず話を聞きたい方向け。</span>
+            <span x-show="consultType === 'free'" class="absolute top-3 right-3 w-4 h-4 rounded-full bg-[#E8621A] flex items-center justify-center" style="display:none;">
+              <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </span>
+          </button>
+          <button type="button"
+            @click="consultType = 'renovation'"
+            :class="consultType === 'renovation' ? 'border-[#E8621A] bg-[#E8621A]/5 text-ink' : 'border-[#DDD9D2] text-muted hover:border-ink'"
+            class="relative flex flex-col items-start gap-2 p-5 border-2 transition-colors text-left rounded-sm">
+            <span class="font-serif text-base text-ink font-medium">リフォーム込み相談</span>
+            <span class="text-xs leading-relaxed">中古＋リノベで検討中。物件と工事費を合わせて相談したい。</span>
+            <span x-show="consultType === 'renovation'" class="absolute top-3 right-3 w-4 h-4 rounded-full bg-[#E8621A] flex items-center justify-center" style="display:none;">
+              <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </span>
+          </button>
+          <button type="button"
+            @click="consultType = 'investment'"
+            :class="consultType === 'investment' ? 'border-[#E8621A] bg-[#E8621A]/5 text-ink' : 'border-[#DDD9D2] text-muted hover:border-ink'"
+            class="relative flex flex-col items-start gap-2 p-5 border-2 transition-colors text-left rounded-sm">
+            <span class="font-serif text-base text-ink font-medium">投資・活用相談</span>
+            <span class="text-xs leading-relaxed">収益物件・買取・相続・資産活用について相談したい。</span>
+            <span x-show="consultType === 'investment'" class="absolute top-3 right-3 w-4 h-4 rounded-full bg-[#E8621A] flex items-center justify-center" style="display:none;">
+              <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <p class="text-sm md:text-base font-medium text-ink mb-6 tracking-widest font-mono-label">STEP 02 — お名前・連絡先を入力してください</p>
+      <form id="contact-form" class="space-y-6" novalidate>
+        <input type="hidden" id="consult-type-hidden" name="consult-type" :value="consultType">
+        <div class="grid md:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-xs font-medium text-muted mb-2" for="name">お名前 *</label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-muted mb-2" for="furigana">フリガナ *</label>
+            <input type="text" id="furigana" name="furigana" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-xs font-medium text-muted mb-2" for="email">メールアドレス *</label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-muted mb-2" for="phone">電話番号 *</label>
+            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-muted mb-2" for="inquiry-type">相談内容の詳細 *</label>
+          <select id="inquiry-type" name="inquiry-type" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
+            <option value="">選択してください</option>
+            <option value="無料相談（まず話を聞きたい）">無料相談（まず話を聞きたい）</option>
+            <option value="仲介＋リノベ相談">仲介＋リノベ相談</option>
+            <option value="買取再販（売りたい）">買取再販（売りたい）</option>
+            <option value="収益不動産相談">収益不動産相談</option>
+            <option value="相続・空き家相談">相続・空き家相談</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-muted mb-2" for="message">ご相談内容 *</label>
+          <textarea id="message" name="message" required rows="6" class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors" placeholder="現在の状況やご相談したいことを自由にご記入ください（まだ漠然としていても大丈夫です）"></textarea>
+        </div>
+        <div class="flex items-start gap-3">
+          <input type="checkbox" id="privacy-agree" name="privacy-agree" required class="mt-1 w-4 h-4 border-[#DDD9D2] accent-[#1A1A1A]">
+          <label class="text-xs text-muted" for="privacy-agree"><a href="/privacy" class="text-ink hover:text-[#E8621A] transition-colors underline underline-offset-2" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>に同意する</label>
+        </div>
+        <button type="submit" class="site-btn site-btn--lg site-btn--outline-ink w-full max-w-none">
+          <span class="site-btn__inner">入力内容を確認する</span>
         </button>
-        <button type="button"
-          @click="consultType = 'renovation'"
-          :class="consultType === 'renovation' ? 'border-[#E8621A] bg-[#E8621A]/5 text-ink' : 'border-[#DDD9D2] text-muted hover:border-ink'"
-          class="relative flex flex-col items-start gap-2 p-5 border-2 transition-colors text-left rounded-sm">
-          <span class="font-serif text-base text-ink font-medium">リフォーム込み相談</span>
-          <span class="text-xs leading-relaxed">中古＋リノベで検討中。物件と工事費を合わせて相談したい。</span>
-          <span x-show="consultType === 'renovation'" class="absolute top-3 right-3 w-4 h-4 rounded-full bg-[#E8621A] flex items-center justify-center" style="display:none;">
-            <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-          </span>
+      </form>
+    </div>
+
+    <!-- STEP 03: 確認 -->
+    <div x-show="step === 'confirm'" x-cloak>
+      <p class="text-sm md:text-base font-medium text-ink mb-6 tracking-widest font-mono-label">STEP 03 — 入力内容の確認</p>
+      <p class="text-sm text-muted mb-8">内容をご確認のうえ、問題なければ送信してください。</p>
+      <div class="border border-[#DDD9D2] rounded-sm overflow-hidden mb-8" x-show="confirmData">
+        <dl class="divide-y divide-[#DDD9D2]">
+          <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 px-5 py-4">
+            <dt class="text-xs font-medium text-muted">相談の種類</dt>
+            <dd class="text-sm text-ink" x-text="confirmData?.consultTypeLabel"></dd>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 px-5 py-4">
+            <dt class="text-xs font-medium text-muted">お名前</dt>
+            <dd class="text-sm text-ink" x-text="confirmData?.name"></dd>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 px-5 py-4">
+            <dt class="text-xs font-medium text-muted">フリガナ</dt>
+            <dd class="text-sm text-ink" x-text="confirmData?.furigana"></dd>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 px-5 py-4">
+            <dt class="text-xs font-medium text-muted">メールアドレス</dt>
+            <dd class="text-sm text-ink break-all" x-text="confirmData?.email"></dd>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 px-5 py-4">
+            <dt class="text-xs font-medium text-muted">電話番号</dt>
+            <dd class="text-sm text-ink" x-text="confirmData?.phone"></dd>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 px-5 py-4">
+            <dt class="text-xs font-medium text-muted">相談内容の詳細</dt>
+            <dd class="text-sm text-ink" x-text="confirmData?.inquiryType"></dd>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 px-5 py-4">
+            <dt class="text-xs font-medium text-muted">ご相談内容</dt>
+            <dd class="text-sm text-ink whitespace-pre-wrap" x-text="confirmData?.message"></dd>
+          </div>
+        </dl>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button type="button" @click="goBackToForm()" :disabled="isSubmitting" class="site-btn site-btn--lg site-btn--outline-muted w-full sm:flex-1 max-w-none">
+          <span class="site-btn__inner">入力に戻る</span>
         </button>
-        <button type="button"
-          @click="consultType = 'investment'"
-          :class="consultType === 'investment' ? 'border-[#E8621A] bg-[#E8621A]/5 text-ink' : 'border-[#DDD9D2] text-muted hover:border-ink'"
-          class="relative flex flex-col items-start gap-2 p-5 border-2 transition-colors text-left rounded-sm">
-          <span class="font-serif text-base text-ink font-medium">投資・活用相談</span>
-          <span class="text-xs leading-relaxed">収益物件・買取・相続・資産活用について相談したい。</span>
-          <span x-show="consultType === 'investment'" class="absolute top-3 right-3 w-4 h-4 rounded-full bg-[#E8621A] flex items-center justify-center" style="display:none;">
-            <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-          </span>
+        <button type="button" id="contact-confirm-submit" :disabled="isSubmitting" class="site-btn site-btn--lg site-btn--outline-ink w-full sm:flex-1 max-w-none">
+          <span class="site-btn__inner">この内容で送信する</span>
         </button>
       </div>
     </div>
 
-    <!-- フォーム -->
-    <p class="text-xs font-medium text-muted mb-6 tracking-widest font-mono-label">STEP 02 — お名前・連絡先を入力してください</p>
-    <p class="text-xs text-muted mb-8">フォームからの送信機能は準備中です。送信ボタンを押すと案内が表示されます。お急ぎの場合はお電話でお問い合わせください。</p>
-    <form id="contact-form" class="space-y-6" novalidate>
-      <input type="hidden" id="consult-type-hidden" name="consult-type" :value="consultType">
-      <div class="grid md:grid-cols-2 gap-5">
-        <div>
-          <label class="block text-xs font-medium text-muted mb-2" for="name">お名前 *</label>
-          <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-muted mb-2" for="furigana">フリガナ *</label>
-          <input type="text" id="furigana" name="furigana" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
-        </div>
+    <!-- 送信完了 -->
+    <div x-show="step === 'complete'" x-cloak class="text-center py-4 md:py-8">
+      <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-[#E8621A]/10 flex items-center justify-center">
+        <svg class="w-7 h-7 text-[#E8621A]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
       </div>
-      <div class="grid md:grid-cols-2 gap-5">
-        <div>
-          <label class="block text-xs font-medium text-muted mb-2" for="email">メールアドレス *</label>
-          <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-muted mb-2" for="phone">電話番号 *</label>
-          <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
-        </div>
+      <p class="section-label mb-4">Complete</p>
+      <h2 class="font-serif text-3xl md:text-4xl text-ink mb-4">お問い合わせを<br class="sm:hidden">受け付けました</h2>
+      <p class="text-sm text-muted leading-relaxed mb-2 max-w-md mx-auto">担当者より折り返しご連絡いたします。</p>
+      <p class="text-sm text-muted leading-relaxed mb-10 max-w-md mx-auto">ご入力いただいたメールアドレス宛に、受付完了の自動返信メールをお送りしています。</p>
+      <p class="text-xs text-muted mb-8">お急ぎの場合はお電話でも承ります。<br>TEL: <a href="tel:0648627770" class="text-ink hover:text-[#E8621A] transition-colors">06-4862-7770</a>（9:00〜18:00 / 定休: 水、祝）</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/" class="site-btn site-btn--lg site-btn--outline-ink inline-flex max-w-none sm:min-w-[12rem]">
+          <span class="site-btn__inner">トップページへ</span>
+        </a>
+        <a href="/works" class="site-btn site-btn--lg site-btn--outline-muted inline-flex max-w-none sm:min-w-[12rem]">
+          <span class="site-btn__inner">施工事例を見る</span>
+        </a>
       </div>
-      <div>
-        <label class="block text-xs font-medium text-muted mb-2" for="inquiry-type">相談内容の詳細 *</label>
-        <select id="inquiry-type" name="inquiry-type" required class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors">
-          <option value="">選択してください</option>
-          <option value="無料相談（まず話を聞きたい）">無料相談（まず話を聞きたい）</option>
-          <option value="仲介＋リノベ相談">仲介＋リノベ相談</option>
-          <option value="買取再販（売りたい）">買取再販（売りたい）</option>
-          <option value="収益不動産相談">収益不動産相談</option>
-          <option value="相続・空き家相談">相続・空き家相談</option>
-          <option value="その他">その他</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-xs font-medium text-muted mb-2" for="message">ご相談内容 *</label>
-        <textarea id="message" name="message" required rows="6" class="w-full px-4 py-3 border border-[#DDD9D2] bg-white text-sm text-ink focus:border-ink focus:outline-none transition-colors" placeholder="現在の状況やご相談したいことを自由にご記入ください（まだ漠然としていても大丈夫です）"></textarea>
-      </div>
-      <div class="flex items-start gap-3">
-        <input type="checkbox" id="privacy-agree" name="privacy-agree" required class="mt-1 w-4 h-4 border-[#DDD9D2] accent-[#1A1A1A]">
-        <label class="text-xs text-muted" for="privacy-agree"><a href="/privacy" class="text-ink hover:text-[#E8621A] transition-colors underline underline-offset-2" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>に同意する</label>
-      </div>
-      <button type="submit" class="w-full py-4 bg-[#1A1A1A] text-[#F7F4EF] text-sm font-medium hover:bg-[#E8621A] transition-colors">送信する</button>
-    </form>
+    </div>
 
-    <!-- Contact Info -->
-    <div class="mt-16 pt-12 border-t border-[#DDD9D2] grid md:grid-cols-2 gap-10">
+    <!-- Contact Info（入力時のみ） -->
+    <div x-show="step === 'form'" class="mt-16 pt-12 border-t border-[#DDD9D2] grid md:grid-cols-2 gap-10">
       <div>
         <p class="font-mono-label text-xs mb-4 tracking-widest" style="color:#E8621A">PHONE</p>
-        <a href="tel:0120-000-0000" class="font-serif text-2xl text-ink hover:text-[#E8621A] transition-colors">0120-000-0000</a>
-        <p class="text-xs text-muted mt-2">営業時間: 9:00〜18:00（定休日: 水曜日）</p>
+        <a href="tel:0648627770" class="font-serif text-2xl text-ink hover:text-[#E8621A] transition-colors">06-4862-7770</a>
+        <p class="text-xs text-muted mt-2">営業時間: 9:00〜18:00（定休日: 水、祝）</p>
       </div>
       <div>
         <p class="font-mono-label text-xs mb-4 tracking-widest" style="color:#E8621A">VISIT</p>
-        <p class="text-sm text-muted leading-relaxed mb-2">〒000-0000<br>東京都○○区○○ 1-2-3<br>○○ビル 4F</p>
+        <p class="text-sm text-muted leading-relaxed mb-2">〒532-0026<br>大阪府大阪市淀川区塚本2丁目2-23<br>シャンティー塚本108</p>
         <a href="/company" class="text-xs text-ink hover:text-[#E8621A] transition-colors border-b border-[#DDD9D2] pb-0.5">地図を見る →</a>
       </div>
     </div>

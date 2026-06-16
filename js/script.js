@@ -35,47 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 
-    // Form validation
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value.trim();
-            const furigana = document.getElementById('furigana').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const inquiryType = document.getElementById('inquiry-type').value;
-            const message = document.getElementById('message').value.trim();
-            const privacyAgree = document.getElementById('privacy-agree').checked;
-            
-            if (!name || !furigana || !email || !phone || !inquiryType || !message) {
-                showNotification('error', '必須項目をすべて入力してください。');
-                return;
-            }
-            if (!privacyAgree) {
-                showNotification('error', 'プライバシーポリシーへの同意が必要です。');
-                return;
-            }
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showNotification('error', '有効なメールアドレスを入力してください。');
-                return;
-            }
-            
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<span class="loading mr-2"></span>送信中...';
-            submitBtn.disabled = true;
-            // 送信先 API は未接続（Firestore / Functions 等で実装予定）
-            showNotification('error', '現在、フォームからの送信は準備中です。お急ぎの方はお電話にてお問い合わせください。');
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        });
-    }
+    // お問い合わせフォームは js/contact-firebase.js で処理（contact ページのみ読み込み）
 
     // Image lazy loading
     const images = document.querySelectorAll('img[data-src]');

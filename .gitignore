@@ -67,6 +67,7 @@ _site/
 
 # dotenv environment variables file
 .env
+functions/.env
 
 # dataconnect generated files
 .dataconnect

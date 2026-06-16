@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
+[x-cloak] {
+  display: none !important;
+}
+
 @theme {
-  --font-sans: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', YuGothic, Meiryo, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', YuGothic, Meiryo, ui-sans-serif, system-ui, sans-serif;
   --color-primary: #E8621A;
   --color-secondary: #1e3a5f;
   --color-navy: #233654;
@@ -18,7 +22,7 @@
 
 /* サイト全体を同一ファミリー — Zen Kaku Gothic New（Google Fonts、日本語フルスタック向け） */
 :root {
-  --font-body: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', YuGothic, Meiryo, sans-serif;
+  --font-body: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', YuGothic, Meiryo, sans-serif;
   /* 見出しの字間・行間（全ページ共通・HTML の leading-* は付けない） */
   --heading-tracking: 0.06em;
   --heading-leading: 1.55;
@@ -48,6 +52,7 @@ html {
 body {
   background: #ffffff;
   color: #1A1A1A;
+  letter-spacing: 0.05em;
   font-feature-settings: 'palt' 1;
   /* 画像・フォント読み込み後のレイアウト変化でブラウザがスクロール位置を自動補正しないようにする */
   overflow-anchor: none;

@@ -16,9 +16,12 @@
   {% set ogImageFull = ogImage if ogImage else (site.url + '/images/backgrounds/hero-bg.jpg') %}
   <meta property="og:image" content="{{ ogImageFull }}">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/images/brand/favicon.png" type="image/png" sizes="512x512">
+  <link rel="apple-touch-icon" href="/images/brand/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css{% if mainCssCacheBust %}?v={{ mainCssCacheBust }}{% endif %}">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
@@ -30,6 +33,9 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+  {% if firebaseFunctions %}
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-functions-compat.js"></script>
+  {% endif %}
   <script src="/firebase-config.js"></script>
 {% endif %}
 
@@ -39,7 +45,7 @@
     <div class="flex items-center justify-between h-14 md:h-16">
       <a href="/" class="header-logo-link inline-flex items-center gap-3 shrink-0 min-h-0">
         <img src="/images/brand/logo.png" alt="" class="header-logo-img shrink-0" width="120" height="160" decoding="async">
-        <span class="header-brand font-bold text-lg md:text-xl text-ink">大森<span style="color:#E8621A">不動産</span></span>
+        <span class="header-brand font-bold text-lg md:text-xl text-ink">大森不動産</span>
       </a>
 
       <!-- Desktop nav -->
@@ -136,7 +142,7 @@
           <span class="inline-flex items-center justify-center p-1.5 rounded-xl bg-white ring-1 ring-black/10 shadow-sm shadow-black/20">
             <img src="/images/brand/logo.png" alt="大森不動産" class="h-7 w-auto md:h-8">
           </span>
-          <span class="header-brand font-bold text-base md:text-lg text-white">大森<span style="color:#E8621A">不動産</span></span>
+          <span class="header-brand font-bold text-base md:text-lg text-white">大森不動産</span>
         </div>
         <p class="text-white/80 text-[0.6875rem] md:text-xs leading-relaxed">工務店がいる不動産会社。<br>物件探しからリフォームまで、価値まで見て提案します。</p>
       </div>
@@ -161,8 +167,8 @@
       <div class="col-span-2 md:col-span-1">
         <p class="font-mono-label text-[0.6rem] md:text-[0.65rem] tracking-[0.16em] md:tracking-widest text-white/60 uppercase mb-3 md:mb-5">Contact</p>
         <a href="/contact" class="site-btn site-btn--footer site-btn--outline-light mb-4 md:mb-5 inline-flex"><span class="site-btn__inner">無料相談を予約する →</span></a>
-        <p class="text-white font-bold text-base md:text-lg mb-1">0120-000-0000</p>
-        <p class="text-white/75 text-[0.6875rem] md:text-xs">9:00〜18:00 / 定休日：水曜日</p>
+        <p class="text-white font-bold text-base md:text-lg mb-1"><a href="tel:0648627770" class="text-white hover:text-white/90 transition-colors">06-4862-7770</a></p>
+        <p class="text-white/75 text-[0.6875rem] md:text-xs">9:00〜18:00 / 定休日：水、祝</p>
       </div>
     </div>
     <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 md:pt-8">

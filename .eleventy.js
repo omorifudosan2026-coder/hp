@@ -29,6 +29,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "js": "js" });
   eleventyConfig.addPassthroughCopy({ "images": "images" });
   eleventyConfig.addPassthroughCopy({ "firebase-config.js": "firebase-config.js" });
+  eleventyConfig.addPassthroughCopy({ "favicon.ico": "favicon.ico" });
   // robots は src に置いているが、文字列1引数だと cwd の ./robots.txt を探して失敗するため明示する
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
 
