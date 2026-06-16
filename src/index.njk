@@ -48,7 +48,7 @@ pageScript: js/news-top.js
   <!-- Mobile -->
   <div class="story-mobile-block lg:hidden py-20 md:py-28 px-6 md:px-10">
     <div class="story-mobile-hero -mx-6 md:-mx-10 mb-8 overflow-hidden aspect-[3/1] max-h-[7rem]" data-reveal>
-      <img src="/images/story/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover object-center" width="600" height="900" loading="lazy" decoding="async">
+      <img src="/images/backgrounds/ideal-home-cta-bg.webp" alt="家族が集まるダイニングと庭" class="w-full h-full object-cover object-[left_68%]" width="1672" height="941" loading="lazy" decoding="async">
     </div>
     <div class="mb-10" data-reveal data-delay="80">
       <p class="section-label mb-4">Our Story</p>
@@ -63,11 +63,11 @@ pageScript: js/news-top.js
     </div>
     <div class="story-mobile-collage flex gap-2 min-h-0" data-reveal data-delay="160">
       <div class="story-mobile-collage__main flex-[3] min-w-0 overflow-hidden bg-cream">
-        <img src="/images/story/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover" width="600" height="900" loading="lazy" decoding="async">
+        <img src="/images/backgrounds/ideal-home-cta-bg.webp" alt="家族が集まるダイニングと庭" class="w-full h-full object-cover object-[left_68%]" width="1672" height="941" loading="lazy" decoding="async">
       </div>
       <div class="story-mobile-collage__side flex flex-[2] min-w-0 flex-col gap-2">
         <div class="story-mobile-collage__cell flex-1 min-h-0 overflow-hidden bg-cream">
-          <img src="/images/story/story-consultation.webp" alt="家族との相談風景" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async">
+          <img src="/images/story/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async">
         </div>
         <div class="story-mobile-collage__cell flex-1 min-h-0 overflow-hidden bg-cream">
           <img src="/images/story/story-exterior.webp" alt="戸建て外観" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async">
@@ -82,7 +82,7 @@ pageScript: js/news-top.js
     <div class="story-desktop-layout lg:h-[620px] xl:h-[680px]">
       <!-- Left: tall vertical photo -->
       <div class="story-desktop-layout__photo min-w-0 overflow-hidden" data-reveal>
-        <img src="/images/story/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover" width="600" height="900" loading="lazy" decoding="async">
+        <img src="/images/backgrounds/ideal-home-cta-bg.webp" alt="家族が集まるダイニングと庭" class="w-full h-full object-cover object-[left_68%]" width="1672" height="941" loading="lazy" decoding="async">
       </div>
 
       <!-- Center: text -->
@@ -101,7 +101,7 @@ pageScript: js/news-top.js
       <!-- Right: 2 stacked photos -->
       <div class="story-desktop-layout__stack min-w-0 flex flex-col gap-3 xl:gap-4">
         <div class="flex-1 min-h-0 overflow-hidden" data-reveal data-delay="200">
-          <img src="/images/story/story-consultation.webp" alt="家族との相談風景" class="w-full h-full object-cover" width="400" height="400" loading="lazy" decoding="async">
+          <img src="/images/story/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover" width="400" height="400" loading="lazy" decoding="async">
         </div>
         <div class="flex-1 min-h-0 overflow-hidden" data-reveal data-delay="300">
           <img src="/images/story/story-exterior.webp" alt="戸建て外観" class="w-full h-full object-cover" width="400" height="400" loading="lazy" decoding="async">
@@ -118,7 +118,6 @@ pageScript: js/news-top.js
 <!-- Why Omori：2×2グリッド -->
 <section class="index-advantage-section bg-white pt-6 pb-9 md:pt-28 md:pb-16" aria-label="大森不動産の強み">
   <div class="max-w-7xl mx-auto px-6 md:px-10">
-    <div class="bg-cream px-6 py-10 md:px-10 md:py-14">
 
     <!-- ヘッダー -->
     <div class="text-center mb-14 md:mb-16" data-reveal>
@@ -181,13 +180,12 @@ pageScript: js/news-top.js
         <span class="site-btn__inner">選ばれる理由を詳しく見る<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
       </a>
     </div>
-    </div>
 
   </div>
 </section>
 
 <!-- Solutions: 3サービス -->
-<section class="py-8 md:py-16 bg-white index-solution" data-reveal>
+<section class="py-8 md:py-16 bg-cream index-solution" data-reveal>
   {% include "partials/services-showcase.njk" %}
 </section>
 
@@ -195,7 +193,7 @@ pageScript: js/news-top.js
 {% include "partials/works-pickup.njk" %}
 
 <!-- Blog / News preview -->
-<section class="py-16 md:py-24 bg-white" data-reveal>
+<section class="py-16 md:py-24 bg-cream" data-reveal>
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <div class="mb-12 text-center">
       <p class="section-label mb-4">Blog</p>
@@ -206,7 +204,7 @@ pageScript: js/news-top.js
       <div id="news-top-loading" class="py-6 text-center">
         <div class="inline-block animate-spin rounded-full h-5 w-5 border-2 border-[#DDD9D2] border-t-[#1A1A1A]"></div>
       </div>
-      <div id="news-top-list" class="hidden divide-y divide-[#DDD9D2]"></div>
+      <div id="news-top-list" class="hidden"></div>
     </div>
     <div class="mt-10 flex justify-center">
       <a href="/blog" class="site-btn site-btn--lg site-btn--outline-ink">

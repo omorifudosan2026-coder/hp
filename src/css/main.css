@@ -677,10 +677,14 @@ section:not(.hero-intro) h3.font-serif {
     margin-bottom: 0;
     padding-left: 0;
     padding-right: 0;
+    padding-top: 0;
+    padding-bottom: clamp(2.5rem, 8vh, 5.5rem);
     width: 100%;
     max-width: min(44rem, calc(100% - 2rem));
     text-align: left;
     align-items: flex-start;
+    justify-content: flex-end;
+    min-height: 100%;
   }
   .hero-intro--layout .hero-intro__head-block {
     align-items: flex-start;
@@ -1305,38 +1309,64 @@ section:not(.hero-intro) h3.font-serif {
     margin: 1.75rem 0;
   }
 }
-/* CTA：角丸パネル内に全面背景写真＋白ヴェール（実績 hero-lede--stats-photo の写真層のみ） */
+/* CTA：背景写真＋中央の薄い白グラデ（周囲余白・黒文字） */
 .cta-ideal-home--photo-bg {
+  --cta-bg-inset: clamp(1rem, 2.5vw, 2rem);
   position: relative;
   overflow: hidden;
+  background-color: #ffffff;
+}
+@media (min-width: 768px) {
+  .cta-ideal-home--photo-bg {
+    --cta-bg-inset: clamp(1.25rem, 3vw, 2.5rem);
+  }
+}
+@media (min-width: 1024px) {
+  .cta-ideal-home--photo-bg {
+    --cta-bg-inset: clamp(1.5rem, 3.5vw, 3rem);
+  }
 }
 .cta-ideal-home--photo-bg::after {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: var(--cta-bg-inset);
   pointer-events: none;
   z-index: 0;
   background-image:
-    linear-gradient(
-      100deg,
-      rgba(255, 255, 255, 0.93) 0%,
-      rgba(255, 255, 255, 0.8) 40%,
-      rgba(255, 255, 255, 0.42) 68%,
-      rgba(255, 255, 255, 0.14) 100%
+    radial-gradient(
+      ellipse 75% 85% at 50% 48%,
+      rgba(255, 255, 255, 0.78) 0%,
+      rgba(255, 255, 255, 0.42) 52%,
+      rgba(255, 255, 255, 0) 100%
     ),
-    url('/images/backgrounds/ideal-home-cta-bg.jpg');
+    url('/images/backgrounds/ideal-home-cta-bg.webp');
   background-size: cover, cover;
-  background-position: left center, center;
+  background-position: center, center 68%;
 }
 .cta-ideal-home--photo-bg > * {
   position: relative;
   z-index: 2;
+}
+.cta-ideal-home--photo-bg .cta-ideal-home__heading {
+  color: #1a1a1a;
+  text-shadow: 0 1px 14px rgba(255, 255, 255, 0.95);
+}
+.cta-ideal-home--photo-bg .cta-ideal-home__lede {
+  color: #444;
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.9);
 }
 .cta-ideal-home .section-label {
   width: 100%;
   justify-content: flex-start;
   font-size: 0.75rem;
   letter-spacing: var(--text-tracking);
+}
+.cta-ideal-home--photo-bg .section-label {
+  color: rgba(255, 255, 255, 0.92);
+  justify-content: center;
+}
+.cta-ideal-home--photo-bg .section-label::before {
+  background: rgba(255, 255, 255, 0.6);
 }
 .cta-ideal-home .section-label::before {
   width: 22px;
@@ -1391,7 +1421,7 @@ section:not(.hero-intro) h3.font-serif {
   gap: 11px;
   font-family: var(--font-body);
   font-size: var(--text-size-sm);
-  font-weight: var(--text-weight);
+  font-weight: 600;
   letter-spacing: 0.12em;
   line-height: 1.4;
   text-transform: uppercase;
@@ -1893,24 +1923,7 @@ footer .footer-meta {
   background-color: #ffffff;
 }
 .works-pickup-section__shell {
-  --works-pickup-right-gap: clamp(1.75rem, 7vw, 3rem);
-  width: calc(100% - var(--works-pickup-right-gap));
-  background-color: var(--color-cream);
-}
-.works-pickup-section__shell[data-reveal-clip] {
-  clip-path: inset(0);
-  transition: clip-path 1.28s cubic-bezier(0.77, 0, 0.175, 1);
-  transition-delay: 0.08s;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .works-pickup-section__shell[data-reveal-clip].reveal-clip-ready:not(.is-revealed) {
-    clip-path: inset(0 100% 0 0);
-  }
-}
-@media (min-width: 768px) {
-  .works-pickup-section__shell {
-    --works-pickup-right-gap: clamp(3rem, 12vw, 10rem);
-  }
+  width: 100%;
 }
 
 /* 施工事例ピックアップ — カード枠なし・背景に溶け込む */
@@ -2033,21 +2046,23 @@ footer .footer-meta {
 }
 
 /* トップ：お役立ち情報リスト */
+#news-top-list {
+  display: grid;
+  row-gap: 0.5rem;
+}
 .news-top-row {
   display: grid;
   grid-template-columns: 7.5rem 5rem minmax(0, 1fr) 1.5rem;
   align-items: center;
   column-gap: 1.125rem;
-  padding: 1.25rem 0;
+  padding: 1.5rem 1.5rem;
   color: inherit;
   text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-.news-top-row:hover {
-  background-color: rgba(255, 255, 255, 0.6);
+  background: #fff;
 }
 .news-top-row__date {
   white-space: nowrap;
+  color: var(--color-muted, #3a3a3a);
 }
 .news-top-row__cat {
   display: inline-flex;
@@ -2081,10 +2096,13 @@ footer .footer-meta {
   transition: color 0.2s ease;
 }
 @media (min-width: 768px) {
+  #news-top-list {
+    row-gap: 0.625rem;
+  }
   .news-top-row {
     grid-template-columns: 9rem 5.5rem minmax(0, 1fr) 1.5rem;
     column-gap: 1.75rem;
-    padding: 1.5rem 0;
+    padding: 1.875rem 2rem;
   }
   .news-top-row__cat {
     width: 5.5rem;
@@ -2260,33 +2278,33 @@ footer .footer-meta {
 /* Services showcase（端から生える写真＋余白テキスト・ジグザグ） */
 .index-solution {
   overflow-x: clip;
+  padding-inline: clamp(1.5rem, 5vw, 4.5rem);
 }
 .services-showcase {
   --services-showcase-inset: clamp(1.5rem, 4vw, 2.5rem);
-  --services-showcase-photo-h: clamp(13rem, 28vw, 20rem);
+  --services-showcase-photo-h: clamp(14.5rem, 31vw, 22rem);
+  --services-showcase-overlap: clamp(3.5rem, 7vw, 6rem);
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: 0;
+  row-gap: clamp(3.5rem, 7vw, 5.5rem);
 }
 .services-showcase__body {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 .services-showcase__media {
   overflow: hidden;
   height: var(--services-showcase-photo-h);
-  width: calc(100% - var(--services-showcase-inset));
+  width: 100%;
 }
 @media (max-width: 767px) {
   .services-showcase__row--photo-left .services-showcase__media {
-    margin-right: auto;
-    margin-left: calc(50% - 50vw);
-    width: calc(100vw - var(--services-showcase-inset));
-    max-width: none;
+    margin: 0;
   }
   .services-showcase__row--photo-right .services-showcase__media {
-    margin-left: auto;
-    margin-right: calc(50% - 50vw);
-    width: calc(100vw - var(--services-showcase-inset));
-    max-width: none;
+    margin: 0;
   }
 }
 .services-showcase__img {
@@ -2295,27 +2313,30 @@ footer .footer-meta {
   object-fit: cover;
 }
 .services-showcase__content {
+  background: #ffffff;
+  padding-block: clamp(1.5rem, 3vw, 2.25rem);
   padding-inline: var(--services-showcase-inset);
 }
 .services-subtitle {
   color: #E8621A;
   font-family: var(--font-body);
   font-size: var(--text-size-sm);
-  font-weight: var(--text-weight);
+  font-weight: 600;
   letter-spacing: 0.12em;
   line-height: 1.4;
   text-transform: uppercase;
   font-feature-settings: 'palt' 1;
 }
 .services-showcase__label {
-  margin: 0 0 0.875rem;
+  margin: 0 0 0.5rem;
+  font-weight: 600;
 }
 .services-showcase__title {
-  margin: 0.75rem 0 1.125rem;
+  margin: 0.375rem 0 1.125rem;
 }
 @media (min-width: 768px) {
   .services-showcase__title {
-    margin: 1rem 0 1.375rem;
+    margin: 0.5rem 0 1rem;
   }
 }
 .services-showcase__desc {
@@ -2325,42 +2346,59 @@ footer .footer-meta {
 .services-showcase__btn {
   align-self: flex-start;
   margin-top: 1.75rem;
+  padding-block: 0.65rem;
 }
 @media (min-width: 768px) {
   .services-showcase__btn {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 }
 @media (min-width: 768px) {
   .services-showcase__body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2rem, 4vw, 3rem);
+    gap: clamp(2rem, 4vw, 3.25rem);
     align-items: center;
     min-height: var(--services-showcase-photo-h);
   }
+  .services-showcase__row--photo-left .services-showcase__body {
+    grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.68fr);
+  }
+  .services-showcase__row--photo-right .services-showcase__body {
+    grid-template-columns: minmax(0, 0.68fr) minmax(0, 1.32fr);
+  }
   .services-showcase__row--photo-left .services-showcase__media,
   .services-showcase__row--photo-right .services-showcase__media {
-    width: 100%;
     height: var(--services-showcase-photo-h);
-    margin: 0;
     max-width: none;
+    position: relative;
+    z-index: 0;
   }
   .services-showcase__row--photo-left .services-showcase__media {
     grid-column: 1;
+    width: calc(100% + var(--services-showcase-overlap));
+    margin: 0;
   }
   .services-showcase__row--photo-left .services-showcase__content {
     grid-column: 2;
-    padding: 0 clamp(1.75rem, 4vw, 3rem);
-    padding-right: max(var(--services-showcase-inset), calc((100vw - 80rem) / 2 + var(--services-showcase-inset)));
+    max-width: clamp(24rem, 38vw, 32rem);
+    justify-self: end;
+    padding: clamp(1.25rem, 2.4vw, 1.75rem) clamp(2rem, 3.4vw, 2.75rem);
+    position: relative;
+    z-index: 1;
   }
   .services-showcase__row--photo-right .services-showcase__content {
     grid-column: 1;
-    padding: 0 clamp(1.75rem, 4vw, 3rem);
-    padding-left: max(var(--services-showcase-inset), calc((100vw - 80rem) / 2 + var(--services-showcase-inset)));
+    max-width: clamp(24rem, 38vw, 32rem);
+    justify-self: start;
+    padding: clamp(1.25rem, 2.4vw, 1.75rem) clamp(2rem, 3.4vw, 2.75rem);
+    position: relative;
+    z-index: 1;
   }
   .services-showcase__row--photo-right .services-showcase__media {
     grid-column: 2;
+    width: calc(100% + var(--services-showcase-overlap));
+    margin-left: calc(var(--services-showcase-overlap) * -1);
   }
 }
 
@@ -2589,11 +2627,11 @@ input:focus, textarea:focus, select:focus {
     padding-bottom: 1.5rem !important;
   }
   body[data-page] .cta-ideal-home {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
-  body[data-page] .cta-ideal-home__panel > .relative {
-    padding: 1.75rem 1.15rem !important;
+  body[data-page] .cta-ideal-home__inner {
+    padding: 2.75rem 1.25rem !important;
   }
 
   /* 横余白（セクション内コンテナ） */
@@ -2677,37 +2715,18 @@ input:focus, textarea:focus, select:focus {
     justify-content: center;
   }
 
-  /* CTA：スマホは左をクリームで敷き、写真は右寄せ＋薄く */
+  /* CTA：中央に薄い白グラデで黒文字を読みやすく */
   body[data-page] .cta-ideal-home--photo-bg::after {
     background-image:
-      linear-gradient(
-        90deg,
-        var(--color-cream) 0%,
-        var(--color-cream) 36%,
-        rgba(247, 244, 239, 0.94) 50%,
-        rgba(255, 255, 255, 0.72) 68%,
-        rgba(255, 255, 255, 0.2) 100%
+      radial-gradient(
+        ellipse 80% 90% at 50% 48%,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0.45) 55%,
+        rgba(255, 255, 255, 0) 100%
       ),
-      url('/images/backgrounds/ideal-home-cta-bg.jpg');
-    background-position: left center, 82% center;
-    background-size: cover, 165% auto;
-  }
-  body[data-page] .cta-ideal-home--photo-bg > .relative {
-    isolation: isolate;
-  }
-  body[data-page] .cta-ideal-home--photo-bg > .relative::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: linear-gradient(
-      100deg,
-      rgba(247, 244, 239, 0.98) 0%,
-      rgba(247, 244, 239, 0.9) 58%,
-      rgba(247, 244, 239, 0.35) 78%,
-      transparent 92%
-    );
+      url('/images/backgrounds/ideal-home-cta-bg.webp');
+    background-position: center, center 68%;
+    background-size: cover, cover;
   }
 
   /* イラスト・写真（object-contain の装飾画像） */
@@ -2797,7 +2816,7 @@ input:focus, textarea:focus, select:focus {
   body[data-page] .news-top-row {
     grid-template-columns: 6.75rem 4.5rem minmax(0, 1fr) 1.125rem;
     column-gap: 0.75rem;
-    padding: 1.125rem 0 !important;
+    padding: 1.125rem 0.875rem !important;
   }
   body[data-page] .news-top-row__date {
     font-size: var(--text-size-xs) !important;

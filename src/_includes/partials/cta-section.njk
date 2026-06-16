@@ -1,26 +1,21 @@
-{# 全ページ共通CTA：角丸パネル内に全面背景写真＋白ヴェール #}
-<section class="cta-ideal-home relative bg-white py-6 md:py-8 lg:py-9">
-  <div class="max-w-[min(100%,100rem)] mx-auto px-3 md:px-6 lg:px-8">
-    <div class="cta-ideal-home__panel cta-ideal-home--photo-bg relative overflow-hidden rounded-[1.75rem] shadow-[0_12px_40px_rgba(26,26,26,0.08)]" data-reveal>
-      <div class="relative z-[1] px-5 sm:px-8 md:px-14 lg:px-20 xl:px-24 py-10 md:py-14 lg:py-16 flex flex-col justify-center min-w-0">
-        <p class="section-label mb-2 md:mb-2.5 text-left">Contact Us</p>
-        <h2 class="cta-ideal-home__heading font-serif text-xl sm:text-2xl md:text-[1.625rem] lg:text-[1.75rem] xl:text-[1.875rem] text-ink text-left leading-tight max-w-xl">
-          まずはご相談から
-        </h2>
-        <div class="min-w-0 mt-3 md:mt-4 mb-5 md:mb-6">
-          <p class="cta-ideal-home__lede text-muted text-sm md:text-[0.9375rem] leading-relaxed text-left">
-            売買・リフォーム・活用、どの段階でもお気軽に。
-          </p>
-        </div>
-        <div class="flex flex-wrap gap-4">
-          <a href="/contact" class="site-btn site-btn--lg site-btn--primary inline-flex">
-            <span class="site-btn__inner">無料相談を予約する<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
-          </a>
-          <a href="/works" class="site-btn site-btn--lg site-btn--outline-ink inline-flex">
-            <span class="site-btn__inner">施工事例を見る</span>
-          </a>
-        </div>
-      </div>
+{# 全ページ共通CTA：背景写真（周囲余白あり・中央寄せ・黒文字） #}
+<section class="cta-ideal-home cta-ideal-home--photo-bg relative overflow-hidden" data-reveal>
+  <div class="cta-ideal-home__inner relative z-[1] max-w-[min(100%,100rem)] mx-auto px-5 sm:px-8 md:px-14 lg:px-20 xl:px-24 py-16 md:py-24 lg:py-28 flex flex-col items-center justify-center text-center min-w-0">
+    <h2 class="cta-ideal-home__heading font-serif text-xl sm:text-2xl md:text-[1.625rem] lg:text-[1.75rem] xl:text-[1.875rem] leading-tight max-w-xl mx-auto">
+      まずはご相談から
+    </h2>
+    <div class="min-w-0 mt-3 md:mt-4 mb-5 md:mb-6">
+      <p class="cta-ideal-home__lede text-sm md:text-[0.9375rem] leading-relaxed">
+        売買・リフォーム・活用、どの段階でもお気軽に。
+      </p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="/contact" class="site-btn site-btn--lg site-btn--primary inline-flex">
+        <span class="site-btn__inner">無料相談を予約する<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
+      </a>
+      <a href="/works" class="site-btn site-btn--lg site-btn--outline-ink inline-flex">
+        <span class="site-btn__inner">施工事例を見る</span>
+      </a>
     </div>
   </div>
 </section>
