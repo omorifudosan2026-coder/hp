@@ -90,6 +90,81 @@ section:not(.hero-intro) h3.font-serif {
   font-weight: 500;
 }
 
+/* 子ページ見出し（.page-header h1）— 全ページ共通の太さ・サイズに統一。
+   太さは h2/h3 と同じ Medium（detail の記事/事例タイトルも含む）。
+   サイズは 4xl→5xl（PC）。detail（#detail-title）は記事タイトルのためサイズ対象外。
+   モバイル（〜767px）の 1.75rem は別ルールで維持。 */
+.page-header h1.font-serif {
+  font-weight: 500;
+}
+.page-header h1.font-serif:not([id]) {
+  font-size: 2.25rem;
+  line-height: var(--heading-leading);
+}
+@media (min-width: 768px) {
+  .page-header h1.font-serif:not([id]) {
+    font-size: 3rem;
+  }
+}
+
+/* 子ページヘッダー：左に英字ラベル＋大きな日本語タイトル＋説明、右に写真（右端まで張り出し）。
+   写真は --page-header-photo で差し替え可能。 */
+.page-header--split {
+  --page-header-photo: url('/images/backgrounds/hero-bg.jpg');
+  background-color: #fff;
+}
+.page-header__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.page-header__text {
+  padding: 0 1.5rem;
+}
+.page-header__lede {
+  margin: 1rem 0 0;
+  max-width: 26rem;
+  font-size: var(--text-size-sm);
+  line-height: var(--text-leading);
+  font-weight: var(--text-weight);
+  letter-spacing: var(--text-tracking);
+  color: var(--color-muted);
+}
+.page-header__photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-image: var(--page-header-photo);
+  background-size: cover;
+  background-position: center;
+  /* メインヒーローと同じノリで右から現れる（clip-path リビール） */
+  animation: page-header-photo-reveal 1.1s cubic-bezier(0.77, 0, 0.175, 1) 0.1s both;
+}
+@keyframes page-header-photo-reveal {
+  from { clip-path: inset(0 0 0 100%); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-header__photo {
+    animation: none;
+  }
+}
+@media (min-width: 768px) {
+  .page-header__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 60%);
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
+  /* 左テキストはサイト共通コンテナ（max-w-7xl + px-10）の左端に揃える */
+  .page-header__text {
+    padding: 0 2rem 0 max(2.5rem, calc((100vw - 80rem) / 2 + 2.5rem));
+  }
+  /* 写真は右セル＝セクション右端（＝画面右端）まで張り出す */
+  .page-header__photo {
+    aspect-ratio: auto;
+    height: clamp(13rem, 19vw, 17rem);
+  }
+}
 .text-muted {
   color: var(--color-muted);
   font-weight: var(--text-weight);
@@ -783,8 +858,50 @@ section:not(.hero-intro) h3.font-serif {
     max-width: none;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 30%;
+    object-position: 50% 28%;
     filter: brightness(1.05) contrast(1.02) saturate(1.02);
+    transform: scale(1.08);
+    transform-origin: 50% 35%;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes hero-intro-img-drift {
+    0% {
+      transform: scale(1.06) translate(0, 0);
+    }
+    35% {
+      transform: scale(1.1) translate(-0.9%, -0.45%);
+    }
+    70% {
+      transform: scale(1.12) translate(0.55%, -0.75%);
+    }
+    100% {
+      transform: scale(1.08) translate(0.25%, -0.35%);
+    }
+  }
+  @keyframes hero-intro-bg-drift {
+    0% {
+      background-size: auto 118%;
+      background-position: 65% 22%;
+    }
+    50% {
+      background-size: auto 126%;
+      background-position: 62% 18%;
+    }
+    100% {
+      background-size: auto 122%;
+      background-position: 68% 20%;
+    }
+  }
+  @media (min-width: 1024px) {
+    .hero-intro.hero-intro--layout .hero-intro__visual-inner > .hero-intro__img {
+      animation: hero-intro-img-drift 28s ease-in-out infinite;
+    }
+  }
+  @media (max-width: 1023px) {
+    .hero-intro--layout {
+      animation: hero-intro-bg-drift 28s ease-in-out infinite;
+    }
   }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -825,6 +942,9 @@ section:not(.hero-intro) h3.font-serif {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    animation: none !important;
+  }
+  .hero-intro.hero-intro--layout {
     animation: none !important;
   }
   .hero-intro .hero-intro__lede-line::after {
@@ -902,45 +1022,6 @@ section:not(.hero-intro) h3.font-serif {
   background-repeat: repeat-x;
 }
 
-/* Divider marquee（区切りに OUR ADVANTAGE を薄く流す） */
-.section-marquee {
-  position: relative;
-  overflow: hidden;
-}
-/* OUR SERVICE マーキー：スマホ 2rem（--service 付きページ）。PC は従来どおり 2.75rem のみ上書き */
-.section-marquee--service {
-  padding-block: 2rem;
-}
-@media (min-width: 768px) {
-  .section-marquee--service,
-  .section-marquee.index-marquee {
-    padding-block: 2.75rem;
-  }
-}
-.section-marquee__rail {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 0;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0.12rem 0;
-  line-height: 1;
-}
-.section-marquee__text {
-  flex: 0 0 auto;
-  display: inline-block;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
-  letter-spacing: var(--text-tracking);
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--color-cream);
-  padding-right: 3rem;
-  transform: translate3d(0, 0, 0);
-  animation: omori-marquee-divider 70s linear infinite;
-}
 /* トップ：Our Story — デスクトップ3カラム（左右同幅でテキストをど真ん中に） */
 .story-desktop-layout {
   display: grid;
@@ -1123,16 +1204,6 @@ section:not(.hero-intro) h3.font-serif {
   }
   .concept-promise-section__copy {
     margin-left: 0;
-  }
-}
-
-@keyframes omori-marquee-divider {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-100%, 0, 0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .section-marquee__text {
-    animation: none;
   }
 }
 
@@ -1321,7 +1392,8 @@ section:not(.hero-intro) h3.font-serif {
   font-family: var(--font-body);
   font-size: var(--text-size-sm);
   font-weight: var(--text-weight);
-  letter-spacing: var(--text-tracking);
+  letter-spacing: 0.12em;
+  line-height: 1.4;
   text-transform: uppercase;
   color: #e8621a;
   font-feature-settings: 'palt' 1;
@@ -1816,6 +1888,31 @@ footer .footer-meta {
   }
 }
 
+/* 施工事例ピックアップ — 右に白余白、クリーム内にコンテンツ */
+.works-pickup-section {
+  background-color: #ffffff;
+}
+.works-pickup-section__shell {
+  --works-pickup-right-gap: clamp(1.75rem, 7vw, 3rem);
+  width: calc(100% - var(--works-pickup-right-gap));
+  background-color: var(--color-cream);
+}
+.works-pickup-section__shell[data-reveal-clip] {
+  clip-path: inset(0);
+  transition: clip-path 1.28s cubic-bezier(0.77, 0, 0.175, 1);
+  transition-delay: 0.08s;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .works-pickup-section__shell[data-reveal-clip].reveal-clip-ready:not(.is-revealed) {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+@media (min-width: 768px) {
+  .works-pickup-section__shell {
+    --works-pickup-right-gap: clamp(3rem, 12vw, 10rem);
+  }
+}
+
 /* 施工事例ピックアップ — カード枠なし・背景に溶け込む */
 .works-pickup-grid {
   width: 100%;
@@ -2160,6 +2257,113 @@ footer .footer-meta {
   }
 }
 
+/* Services showcase（端から生える写真＋余白テキスト・ジグザグ） */
+.index-solution {
+  overflow-x: clip;
+}
+.services-showcase {
+  --services-showcase-inset: clamp(1.5rem, 4vw, 2.5rem);
+  --services-showcase-photo-h: clamp(13rem, 28vw, 20rem);
+}
+.services-showcase__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.services-showcase__media {
+  overflow: hidden;
+  height: var(--services-showcase-photo-h);
+  width: calc(100% - var(--services-showcase-inset));
+}
+@media (max-width: 767px) {
+  .services-showcase__row--photo-left .services-showcase__media {
+    margin-right: auto;
+    margin-left: calc(50% - 50vw);
+    width: calc(100vw - var(--services-showcase-inset));
+    max-width: none;
+  }
+  .services-showcase__row--photo-right .services-showcase__media {
+    margin-left: auto;
+    margin-right: calc(50% - 50vw);
+    width: calc(100vw - var(--services-showcase-inset));
+    max-width: none;
+  }
+}
+.services-showcase__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.services-showcase__content {
+  padding-inline: var(--services-showcase-inset);
+}
+.services-subtitle {
+  color: #E8621A;
+  font-family: var(--font-body);
+  font-size: var(--text-size-sm);
+  font-weight: var(--text-weight);
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  font-feature-settings: 'palt' 1;
+}
+.services-showcase__label {
+  margin: 0 0 0.875rem;
+}
+.services-showcase__title {
+  margin: 0.75rem 0 1.125rem;
+}
+@media (min-width: 768px) {
+  .services-showcase__title {
+    margin: 1rem 0 1.375rem;
+  }
+}
+.services-showcase__desc {
+  margin: 0;
+  line-height: 1.9;
+}
+.services-showcase__btn {
+  align-self: flex-start;
+  margin-top: 1.75rem;
+}
+@media (min-width: 768px) {
+  .services-showcase__btn {
+    margin-top: 2rem;
+  }
+}
+@media (min-width: 768px) {
+  .services-showcase__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 3rem);
+    align-items: center;
+    min-height: var(--services-showcase-photo-h);
+  }
+  .services-showcase__row--photo-left .services-showcase__media,
+  .services-showcase__row--photo-right .services-showcase__media {
+    width: 100%;
+    height: var(--services-showcase-photo-h);
+    margin: 0;
+    max-width: none;
+  }
+  .services-showcase__row--photo-left .services-showcase__media {
+    grid-column: 1;
+  }
+  .services-showcase__row--photo-left .services-showcase__content {
+    grid-column: 2;
+    padding: 0 clamp(1.75rem, 4vw, 3rem);
+    padding-right: max(var(--services-showcase-inset), calc((100vw - 80rem) / 2 + var(--services-showcase-inset)));
+  }
+  .services-showcase__row--photo-right .services-showcase__content {
+    grid-column: 1;
+    padding: 0 clamp(1.75rem, 4vw, 3rem);
+    padding-left: max(var(--services-showcase-inset), calc((100vw - 80rem) / 2 + var(--services-showcase-inset)));
+  }
+  .services-showcase__row--photo-right .services-showcase__media {
+    grid-column: 2;
+  }
+}
+
 /* Solution Section（3カラム）— 列全体をリンクに */
 .solution-card-link {
   display: flex;
@@ -2372,7 +2576,7 @@ input:focus, textarea:focus, select:focus {
     padding-top: 1.5rem !important;
     padding-bottom: 2.25rem !important;
   }
-  body[data-page] .works-pickup-section.bg-cream {
+  body[data-page] .works-pickup-section__shell {
     padding-top: 1.5rem !important;
     padding-bottom: 2.25rem !important;
   }
@@ -2646,10 +2850,6 @@ input:focus, textarea:focus, select:focus {
   }
 
   /* story：ページヒーロー下リードのみ一段小さく */
-  body[data-page="story"] .page-header p.font-serif.text-xl {
-    font-size: var(--text-size-13) !important;
-    line-height: 1.5 !important;
-  }
   /* story：締めの引用（スマホのみ・PC は元の -top-6 / 1行表示） */
   body[data-page="story"] .story-closing-quote {
     isolation: isolate;
@@ -2743,17 +2943,7 @@ input:focus, textarea:focus, select:focus {
     padding-top: 2rem !important;
   }
 
-  /* サービス3ページ：ヒーロー番号・お悩みイラスト・V字ラベル（スマホのみ） */
-  body[data-page^="service-"] .page-header > div > span[aria-hidden="true"] {
-    font-size: 6.75rem !important;
-    top: 7.5rem !important; /* 固定位置（% だと説明文の長さで 03 だけ下にずれる） */
-    right: 1rem !important;
-    transform: translateY(-50%) !important;
-  }
-  body[data-page^="service-"] .page-header > div > :not(span[aria-hidden="true"]) {
-    position: relative;
-    z-index: 1;
-  }
+  /* サービス3ページ：お悩みイラスト・V字ラベル（スマホのみ） */
   body[data-page^="service-"] .page-header + section.bg-cream {
     padding-bottom: 3.5rem !important;
   }

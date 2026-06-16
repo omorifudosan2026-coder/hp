@@ -192,13 +192,18 @@
 <!-- Intersection Observer -->
 <script>
 (function(){
-  var els = document.querySelectorAll('[data-reveal]');
+  var els = document.querySelectorAll('[data-reveal], [data-reveal-clip]');
   if (!els.length) return;
+  els.forEach(function(el){
+    if (el.hasAttribute('data-reveal-clip')) {
+      el.classList.add('reveal-clip-ready');
+    }
+  });
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){ e.target.classList.add('is-revealed'); io.unobserve(e.target); }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
   els.forEach(function(el){ io.observe(el); });
 })();
 (function(){
