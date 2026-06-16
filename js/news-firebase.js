@@ -137,11 +137,11 @@ function createNewsRow(item) {
         <article>
             <a href="${detailHref}" class="block py-6 md:py-7 group hover:bg-cream/60 transition-colors">
                 <div class="flex items-start gap-4 md:gap-6">
-                    <time class="shrink-0 w-28 md:w-32 font-mono-label text-xs md:text-sm tracking-wide text-[#E8621A] pt-0.5">${escapeHtml(formatDate(item.date))}</time>
+                    <time class="text-date shrink-0 pt-0.5">${escapeHtml(formatDateJa(item.date))}</time>
                     <div class="flex-1 min-w-0">
                         <div class="flex flex-wrap items-center gap-3">
-                            <span class="inline-flex items-center justify-center px-3 py-1 text-xs font-medium tracking-wide text-ink border border-[#DDD9D2] bg-white">${escapeHtml(cat)}</span>
-                            <h2 class="text-base md:text-lg text-ink leading-snug group-hover:text-[#E8621A] transition-colors line-clamp-1">${title}</h2>
+                            <span class="news-list-cat">${escapeHtml(cat)}</span>
+                            <h2 class="news-list-title group-hover:text-[#E8621A] transition-colors line-clamp-1">${title}</h2>
                         </div>
                     </div>
                     <svg class="shrink-0 w-5 h-5 text-muted group-hover:text-[#E8621A] transition-colors mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -200,13 +200,4 @@ function buildPaginationHtml(totalPages, currentPage) {
 
     html += '</div>';
     return html;
-}
-
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    if (Number.isNaN(date.getTime())) return String(dateString || '');
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}.${month}.${day}`;
 }

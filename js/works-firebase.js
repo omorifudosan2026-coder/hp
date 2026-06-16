@@ -105,30 +105,7 @@ async function loadWorks() {
 }
 
 function createWorkCard(work) {
-    const title = escapeHtml(work.title || '');
-    const area = escapeHtml(work.area || '');
-    const layout = escapeHtml(work.layout || '');
-    const safeImg = trustHttpsUrl(work.image);
-    const imageHtml = safeImg
-        ? `<img src="${escapeHtml(safeImg)}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]">`
-        : `<div class="absolute inset-0 bg-[#E2DDD2]"></div>`;
-    const href = `/work-detail?id=${encodeURIComponent(work.id)}`;
-
-    let tags = '';
-    if (area) tags += `<span class="works-top-card__tag inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">${area}</span>`;
-    if (layout) tags += `<span class="works-top-card__tag inline-block border border-[#C8C3BB] text-[#6B6560] text-xs px-2.5 py-0.5">${layout}</span>`;
-
-    return `
-        <a href="${href}" class="list-card-link block overflow-hidden group h-full flex flex-col bg-white border border-[#DDD9D2]">
-            <div class="relative aspect-[4/3] shrink-0 bg-cream overflow-hidden">
-                ${imageHtml}
-            </div>
-            <div class="p-5 flex flex-col grow border-t border-[#DDD9D2]">
-                <h3 class="works-top-card__title font-serif text-lg text-ink font-medium mb-3 transition-colors duration-500 group-hover:text-[#2a2a2a]">${title}</h3>
-                ${tags ? `<div class="works-top-card__tags flex flex-wrap gap-2 mt-auto">${tags}</div>` : ''}
-            </div>
-        </a>
-    `;
+    return createWorksPickItemHtml(work);
 }
 
 function buildPaginationHtml(totalPages, currentPage) {

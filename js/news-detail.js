@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const updatedEl = document.getElementById('detail-updated');
         if (updatedEl) {
-            const formatted = formatNewsDate(item.date);
+            const formatted = formatDateJa(item.date);
             updatedEl.textContent = formatted ? `公開日：${formatted}` : '';
         }
 
@@ -70,15 +70,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-function formatNewsDate(dateString) {
-    const date = new Date(dateString);
-    if (Number.isNaN(date.getTime())) return String(dateString || '');
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, '0');
-    const d = String(date.getDate()).padStart(2, '0');
-    return `${y}.${m}.${d}`;
-}
-
 async function loadOtherBlogs(currentId) {
     const loadingEl = document.getElementById('other-blogs-loading');
     const listEl = document.getElementById('other-blogs-list');
@@ -110,7 +101,7 @@ async function loadOtherBlogs(currentId) {
             const thumb = img
                 ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" width="72" height="54" class="w-[72px] h-[54px] object-cover bg-[#E2DDD2]">`
                 : `<div class="w-[72px] h-[54px] bg-[#E2DDD2]"></div>`;
-            const sub = escapeHtml(formatNewsDate(item.date));
+            const sub = escapeHtml(formatDateJa(item.date));
 
             return `
               <a href="${href}" class="block py-3 hover:bg-cream/60 transition-colors">
@@ -118,7 +109,7 @@ async function loadOtherBlogs(currentId) {
                   <span class="shrink-0">${thumb}</span>
                   <span class="min-w-0">
                     <span class="block text-sm text-ink line-clamp-2">${title}</span>
-                    <span class="block mt-1 text-xs text-muted">${sub}</span>
+                    <time class="text-date text-date--sm block mt-1">${sub}</time>
                   </span>
                 </div>
               </a>

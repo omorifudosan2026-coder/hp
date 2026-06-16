@@ -24,7 +24,7 @@ pageScript: js/contact-firebase.js
     <!-- STEP 01 + 02: 入力 -->
     <div x-show="step === 'form'" x-cloak>
       <div class="mb-10">
-        <p class="text-sm md:text-base font-medium text-ink mb-4 tracking-widest font-mono-label">STEP 01 — 相談の種類を選んでください</p>
+        <p class="text-sm md:text-base font-medium text-ink mb-4 font-mono-label">STEP 01 — 相談の種類を選んでください</p>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button type="button"
             @click="consultType = 'free'"
@@ -59,7 +59,7 @@ pageScript: js/contact-firebase.js
         </div>
       </div>
 
-      <p class="text-sm md:text-base font-medium text-ink mb-6 tracking-widest font-mono-label">STEP 02 — お名前・連絡先を入力してください</p>
+      <p class="text-sm md:text-base font-medium text-ink mb-6 font-mono-label">STEP 02 — お名前・連絡先を入力してください</p>
       <form id="contact-form" class="space-y-6" novalidate>
         <input type="hidden" id="consult-type-hidden" name="consult-type" :value="consultType">
         <div class="grid md:grid-cols-2 gap-5">
@@ -110,7 +110,7 @@ pageScript: js/contact-firebase.js
 
     <!-- STEP 03: 確認 -->
     <div x-show="step === 'confirm'" x-cloak>
-      <p class="text-sm md:text-base font-medium text-ink mb-6 tracking-widest font-mono-label">STEP 03 — 入力内容の確認</p>
+      <p class="text-sm md:text-base font-medium text-ink mb-6 font-mono-label">STEP 03 — 入力内容の確認</p>
       <p class="text-sm text-muted mb-8">内容をご確認のうえ、問題なければ送信してください。</p>
       <div class="border border-[#DDD9D2] rounded-sm overflow-hidden mb-8" x-show="confirmData">
         <dl class="divide-y divide-[#DDD9D2]">
@@ -179,12 +179,12 @@ pageScript: js/contact-firebase.js
     <!-- Contact Info（入力時のみ） -->
     <div x-show="step === 'form'" class="mt-16 pt-12 border-t border-[#DDD9D2] grid md:grid-cols-2 gap-10">
       <div>
-        <p class="font-mono-label text-xs mb-4 tracking-widest" style="color:#E8621A">PHONE</p>
+        <p class="font-mono-label text-xs mb-4" style="color:#E8621A">PHONE</p>
         <a href="tel:0648627770" class="font-serif text-2xl text-ink hover:text-[#E8621A] transition-colors">06-4862-7770</a>
         <p class="text-xs text-muted mt-2">営業時間: 9:00〜18:00（定休日: 水、祝）</p>
       </div>
       <div>
-        <p class="font-mono-label text-xs mb-4 tracking-widest" style="color:#E8621A">VISIT</p>
+        <p class="font-mono-label text-xs mb-4" style="color:#E8621A">VISIT</p>
         <p class="text-sm text-muted leading-relaxed mb-2">〒532-0026<br>大阪府大阪市淀川区塚本2丁目2-23<br>シャンティー塚本108</p>
         <a href="/company" class="text-xs text-ink hover:text-[#E8621A] transition-colors border-b border-[#DDD9D2] pb-0.5">地図を見る →</a>
       </div>

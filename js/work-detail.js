@@ -42,8 +42,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const updatedEl = document.getElementById('detail-updated');
         if (updatedEl) {
             const ts = w.updatedAt || w.createdAt;
-            const dt = toDate(ts);
-            updatedEl.textContent = dt ? `更新日：${formatYmd(dt)}` : '';
+            const formatted = formatDateJa(ts);
+            updatedEl.textContent = formatted ? `更新日：${formatted}` : '';
         }
 
         document.getElementById('detail-meta').textContent = [w.area, w.layout].filter(Boolean).join(' · ');
@@ -74,30 +74,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         showError('データの読み込みに失敗しました。');
     }
 });
-
-function toDate(value) {
-    if (!value) return null;
-    if (value instanceof Date) return value;
-    if (typeof value === 'string' || typeof value === 'number') {
-        const d = new Date(value);
-        return Number.isNaN(d.getTime()) ? null : d;
-    }
-    if (value && typeof value.toDate === 'function') {
-        try {
-            return value.toDate();
-        } catch (e) {
-            return null;
-        }
-    }
-    return null;
-}
-
-function formatYmd(date) {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, '0');
-    const d = String(date.getDate()).padStart(2, '0');
-    return `${y}.${m}.${d}`;
-}
 
 async function loadOtherWorks(currentId) {
     const loadingEl = document.getElementById('other-works-loading');

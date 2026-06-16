@@ -14,7 +14,7 @@
       {% for step in flowSteps %}
       <div class="flow-step-card{% if loop.first %} flow-step-card--start{% endif %}{% if loop.last %} flow-step-card--last{% endif %}{% if not loop.first %} lg:-ml-5{% endif %}">
         <div class="flow-step-card__surface flex flex-col p-8 lg:py-10 {% if loop.first %}lg:pl-8 lg:pr-12{% else %}lg:pl-12 lg:pr-12{% endif %} bg-white max-lg:border-0 lg:border-0 border border-[#DDD9D2]/70">
-          <p class="font-mono-label text-sm md:text-base tracking-widest text-[#E8621A] mb-4">Step {{ step.number }}</p>
+          <p class="font-mono-label text-sm md:text-base text-[#E8621A] mb-4">Step {{ step.number }}</p>
           <h3 class="font-serif text-lg max-md:text-sm text-ink mb-3">{{ step.title }}</h3>
           <p class="text-sm text-muted leading-relaxed">{{ step.description }}</p>
         </div>

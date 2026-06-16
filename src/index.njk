@@ -7,41 +7,29 @@ pageScript: js/news-top.js
 ---
 
 <!-- Hero -->
-<section class="hero-intro hero-intro--layout relative min-h-screen max-lg:flex max-lg:flex-col bg-cream pt-[calc(var(--site-header-height)+1.25rem)] md:pt-[calc(var(--site-header-height)+1.5rem)] max-lg:pb-0 pb-10 lg:pt-0 lg:pb-0">
-  <div class="hero-intro__left-col max-lg:contents lg:flex lg:flex-col lg:min-h-0 lg:items-center lg:justify-center lg:bg-dots lg:relative">
-    <div class="hero-intro__title-wrap flex flex-col items-center text-center gap-7 px-6 md:px-10 xl:px-12 max-lg:max-w-xl max-lg:mb-6 lg:mb-0 lg:w-full lg:max-w-xl lg:gap-8 lg:py-4 lg:px-0">
-      <h1 id="hero-heading" class="hero-intro__title font-serif text-ink">
-        <span class="hero-intro__title-row hero-intro__title-row--lede"><span class="hero-intro__lede-line hero-intro__lede-line--first">工務店がいる</span></span>
-        <em class="hero-intro__title-row hero-intro__title-accent not-italic" style="color:#E8621A">不動産会社。</em>
-      </h1>
-      <p class="text-muted text-sm md:text-base leading-relaxed max-w-md" data-hero-piece data-hero-delay="180">物件を買う前から、建物の未来まで見て提案する。<br>それが大森不動産です。</p>
-      <!-- Stats badges -->
-      <div class="flex items-center gap-5 md:gap-6" data-hero-piece data-hero-delay="220">
-        <div class="flex flex-col items-center">
-          <p class="font-serif text-xl md:text-3xl text-ink font-bold tabular-nums">
-            <span data-hero-count-root><span data-hero-count="200">0</span><span class="text-lg md:text-xl text-[#E8621A]">+</span></span>
-          </p>
-          <p class="text-xs text-muted mt-0.5 tracking-wide">年間施工実績</p>
-        </div>
-        <span class="w-px h-8 bg-[#DDD9D2]" aria-hidden="true"></span>
-        <div class="flex flex-col items-center">
-          <p class="font-serif text-xl md:text-3xl text-ink font-bold"><span class="text-[#E8621A]">★</span><span class="tabular-nums">4.7</span></p>
-          <p class="text-xs text-muted mt-0.5 tracking-wide">Google口コミ</p>
-        </div>
+<section class="hero-intro hero-intro--layout relative min-h-screen max-lg:flex max-lg:flex-col bg-white pt-[calc(var(--site-header-height)+1.25rem)] md:pt-[calc(var(--site-header-height)+1.5rem)] max-lg:pb-0 pb-10 lg:pt-0 lg:pb-0">
+  <div class="hero-intro__left-col max-lg:contents lg:flex lg:flex-col lg:min-h-0 lg:items-center lg:justify-center lg:relative">
+    <div class="hero-intro__title-wrap flex flex-col items-center text-center px-6 md:px-10 xl:px-12 max-lg:mb-6 lg:mb-0 lg:w-full lg:py-4 lg:px-0">
+      <div class="hero-intro__head-block">
+        <h1 id="hero-heading" class="hero-intro__title font-serif text-ink">工務店がいる、不動産会社。</h1>
+        <p class="hero-intro__lede text-muted" data-hero-piece data-hero-delay="160">物件を買う前から、建物の未来まで見て提案する。<br>それが大森不動産です。</p>
+        <p class="hero-intro__stats-inline" data-hero-piece data-hero-delay="220">
+          <span class="hero-intro__stat-inline">
+            <span class="hero-intro__stat-inline-value">
+              <span data-hero-count-root><span data-hero-count="200">0</span><span class="hero-intro__stat-inline-accent">+</span></span>
+            </span>
+            <span class="hero-intro__stat-inline-label">年間施工</span>
+          </span>
+          <span class="hero-intro__stat-inline-sep" aria-hidden="true"></span>
+          <span class="hero-intro__stat-inline">
+            <span class="hero-intro__stat-inline-value"><span class="hero-intro__stat-inline-accent">★</span>4.7</span>
+            <span class="hero-intro__stat-inline-label">Google</span>
+          </span>
+        </p>
       </div>
-      <a href="/concept" class="site-btn site-btn--md site-btn--outline-ink shrink-0 self-center" data-hero-piece data-hero-delay="280">
-        <span class="site-btn__inner">選ばれる理由<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
-      </a>
     </div>
-    <a href="#works" class="hero-scroll-hint hidden lg:flex" data-hero-piece data-hero-delay="520" aria-label="次のセクションへスクロール">
-      <span class="hero-scroll-hint__label font-mono-label">Scroll</span>
-      <span class="hero-scroll-hint__rail" aria-hidden="true">
-        <span class="hero-scroll-hint__rail-line"></span>
-        <span class="hero-scroll-hint__rail-dot"></span>
-      </span>
-    </a>
   </div>
-  <div class="hero-intro__media-col w-full lg:min-h-0 flex flex-col max-lg:mt-8 lg:pr-0 lg:relative">
+  <div class="hero-intro__media-col w-full lg:min-h-0 flex flex-col max-lg:mt-8 lg:pr-0">
     <div class="hero-intro__visual-frame hidden lg:flex flex-1 min-h-0 flex-col pt-0 pb-0">
       <div class="hero-intro__visual relative flex-1 min-h-0 w-full overflow-hidden">
         <div class="hero-intro__visual-inner absolute inset-0 overflow-hidden">
@@ -51,9 +39,6 @@ pageScript: js/news-top.js
         </div>
       </div>
     </div>
-    <p class="section-label hero-intro__photo-tagline shrink-0 px-6 max-lg:pt-0 max-lg:pb-0 pt-2 pb-8 md:px-10 md:pb-9 lg:px-0 lg:pt-1.5 lg:pb-10" data-hero-piece>
-      <span class="hero-intro__photo-tagline__text">Real Estate &amp; Renovation</span>
-    </p>
   </div>
 </section>
 
@@ -92,54 +77,34 @@ pageScript: js/news-top.js
 
   </div>
 
-  <!-- Desktop: 2-col [left text+photo | right photo collage] -->
+  <!-- Desktop: 左縦長 / 中央テキスト / 右2枚 -->
   <div class="hidden lg:block lg:py-16 xl:py-20 lg:px-10 xl:px-14">
-    <div class="flex lg:h-[620px] xl:h-[680px] gap-6 xl:gap-8">
-      <!-- Left col: text top, photo bottom -->
-      <div class="flex flex-col lg:w-[42%] xl:w-[40%] shrink-0 pb-10 xl:pb-12">
-        <div class="pr-10 xl:pr-14 pb-8 flex-1 flex flex-col" data-reveal>
-          <p class="section-label mb-5">Our Story</p>
-          <h2 class="font-serif text-3xl xl:text-4xl text-ink leading-tight">買って終わりじゃない、<br>不動産。</h2>
-          <span class="mt-4 block h-px w-10 bg-[#E8621A]" aria-hidden="true"></span>
-          <p class="mt-5 text-base leading-relaxed text-muted">不動産の失敗は、買った後に起きます。<br>だから大森不動産は、工務店と一体になり、物件探しの段階からリフォーム・将来の売却まで責任を持って関わります。<br><br>買ってから後悔する人を、一人でも減らすために。</p>
-          <div class="mt-7">
-            <a href="/story" class="site-btn site-btn--md site-btn--outline-ink">
-              <span class="site-btn__inner">私たちの想い<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
-            </a>
-          </div>
-        </div>
-        <!-- Bottom photo -->
-        <div class="h-[220px] xl:h-[250px] shrink-0 overflow-hidden" data-reveal data-delay="100">
-          <img src="/images/story/story-exterior.webp" alt="戸建て外観" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async">
+    <div class="story-desktop-layout lg:h-[620px] xl:h-[680px]">
+      <!-- Left: tall vertical photo -->
+      <div class="story-desktop-layout__photo min-w-0 overflow-hidden" data-reveal>
+        <img src="/images/story/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover" width="600" height="900" loading="lazy" decoding="async">
+      </div>
+
+      <!-- Center: text -->
+      <div class="story-desktop-layout__text min-w-0 flex flex-col justify-center items-center text-center px-2 xl:px-4" data-reveal data-delay="100">
+        <p class="section-label mb-5">Our Story</p>
+        <h2 class="font-serif text-3xl xl:text-4xl text-ink leading-tight text-balance">買って終わりじゃない、<br>不動産。</h2>
+        <span class="mt-4 mx-auto block h-px w-10 bg-[#E8621A]" aria-hidden="true"></span>
+        <p class="mt-5 w-full text-base leading-relaxed text-muted">不動産の失敗は、買った後に起きます。<br>だから大森不動産は、工務店と一体になり、物件探しの段階から<br>リフォーム・将来の売却まで責任を持って関わります。<br><br>買ってから後悔する人を、一人でも減らすために。</p>
+        <div class="mt-7">
+          <a href="/story" class="site-btn site-btn--md site-btn--outline-ink">
+            <span class="site-btn__inner">私たちの想い<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
+          </a>
         </div>
       </div>
-      <!-- Right col: photo collage + service labels -->
-      <div class="flex-1 flex flex-col min-w-0">
-        <!-- Photos -->
-        <div class="flex flex-1 min-h-0 gap-3 xl:gap-4">
-          <!-- Main large photo -->
-          <div class="flex-[3] overflow-hidden" data-reveal data-delay="200">
-            <img src="/images/story/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover" width="600" height="900" loading="lazy" decoding="async">
-          </div>
-          <!-- 2 stacked photos -->
-          <div class="flex-[2] flex flex-col gap-3 xl:gap-4">
-            <div class="flex-1 overflow-hidden" data-reveal data-delay="300">
-              <img src="/images/story/story-consultation.webp" alt="" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async" aria-hidden="true">
-            </div>
-            <div class="flex-1 overflow-hidden" data-reveal data-delay="400">
-              <img src="/images/story/story-exterior.webp" alt="" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async" aria-hidden="true">
-            </div>
-          </div>
+
+      <!-- Right: 2 stacked photos -->
+      <div class="story-desktop-layout__stack min-w-0 flex flex-col gap-3 xl:gap-4">
+        <div class="flex-1 min-h-0 overflow-hidden" data-reveal data-delay="200">
+          <img src="/images/story/story-consultation.webp" alt="家族との相談風景" class="w-full h-full object-cover" width="400" height="400" loading="lazy" decoding="async">
         </div>
-        <!-- Service labels -->
-        <div class="flex items-center text-xs text-muted py-3.5 xl:py-4 mt-2" data-reveal data-delay="500">
-          <span class="px-4 xl:px-5">物件探し・仲介</span>
-          <span class="text-[#C8C3BB] select-none" aria-hidden="true">|</span>
-          <span class="px-4 xl:px-5">リノベーション</span>
-          <span class="text-[#C8C3BB] select-none" aria-hidden="true">|</span>
-          <span class="px-4 xl:px-5">買取再販</span>
-          <span class="text-[#C8C3BB] select-none" aria-hidden="true">|</span>
-          <span class="px-4 xl:px-5">収益不動産・資産活用</span>
+        <div class="flex-1 min-h-0 overflow-hidden" data-reveal data-delay="300">
+          <img src="/images/story/story-exterior.webp" alt="戸建て外観" class="w-full h-full object-cover" width="400" height="400" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -153,7 +118,7 @@ pageScript: js/news-top.js
 {% set worksId = "works" %}
 {% include "partials/works-pickup.njk" %}
 
-<!-- Why Omori：3カラム段差カード -->
+<!-- Why Omori：2×2グリッド -->
 <section class="index-advantage-section bg-white pt-6 pb-9 md:pt-28 md:pb-16" aria-label="大森不動産の強み">
   <div class="max-w-7xl mx-auto px-6 md:px-10">
 
@@ -167,62 +132,46 @@ pageScript: js/news-top.js
       </p>
     </div>
 
-    <!-- ジグザグ4行 -->
-    <div class="flex flex-col gap-16 md:gap-20">
+    <!-- 2×2グリッド -->
+    <div class="advantage-grid grid grid-cols-1 md:grid-cols-2" data-reveal>
 
-      <!-- POINT 01：画像左・テキスト右 -->
-      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16" data-reveal>
-        <div class="w-full md:w-[30%] shrink-0 flex items-center justify-center">
-          <img src="/images/advantage/advantage-point-01.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full max-w-[260px] md:max-w-[280px] object-contain">
+      <div class="advantage-grid__item flex items-start gap-5 md:gap-6">
+        <div class="advantage-grid__icon shrink-0">
+          <img src="/images/advantage/advantage-point-01.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
         </div>
-        <div class="flex-1 min-w-0">
-          <div class="advantage-point__head max-md:flex max-md:flex-wrap max-md:items-center max-md:gap-x-2.5 max-md:gap-y-1 max-md:mb-4">
-            <span class="advantage-point__label inline-block bg-[#E8621A] text-white text-xs font-mono-label font-medium tracking-widest px-3 py-1.5 mb-4 max-md:mb-0 max-md:px-2 shrink-0" aria-label="POINT 01"><span class="md:hidden">01</span><span class="hidden md:inline" aria-hidden="true">POINT 01</span></span>
-            <h3 class="advantage-point__title font-serif text-2xl md:text-3xl text-ink leading-snug mb-5 max-md:mb-0 max-md:flex-1 max-md:min-w-0">失敗物件を避けられる</h3>
-          </div>
-          <p class="text-sm md:text-base leading-relaxed text-muted">安く見える物件でも、リフォーム費用や修繕費が高くつけば結局高い買い物になります。<br class="hidden md:block">リフォーム費用を妥協して、理想の住まいから遠ざかってしまうことも。<br>大森不動産は購入前に建物の状態を工務店目線で診断し、「買っていい物件かどうか」まで判断します。</p>
+        <div class="advantage-grid__body min-w-0">
+          <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">失敗物件を避けられる</h3>
+          <p class="text-sm md:text-base leading-relaxed text-muted">建物のプロが物件をチェックするから、見えないリスクや将来のコストまで事前に見極められます。</p>
         </div>
       </div>
 
-      <!-- POINT 02：テキスト左・画像右 -->
-      <div class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-16" data-reveal>
-        <div class="w-full md:w-[30%] shrink-0 flex items-center justify-center">
-          <img src="/images/advantage/advantage-point-02.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full max-w-[320px] md:max-w-[360px] object-contain">
+      <div class="advantage-grid__item flex items-start gap-5 md:gap-6">
+        <div class="advantage-grid__icon advantage-grid__icon--sm shrink-0">
+          <img src="/images/advantage/advantage-point-02.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
         </div>
-        <div class="flex-1 min-w-0">
-          <div class="advantage-point__head max-md:flex max-md:flex-wrap max-md:items-center max-md:gap-x-2.5 max-md:gap-y-1 max-md:mb-4">
-            <span class="advantage-point__label inline-block bg-[#E8621A] text-white text-xs font-mono-label font-medium tracking-widest px-3 py-1.5 mb-4 max-md:mb-0 max-md:px-2 shrink-0" aria-label="POINT 02"><span class="md:hidden">02</span><span class="hidden md:inline" aria-hidden="true">POINT 02</span></span>
-            <h3 class="advantage-point__title font-serif text-2xl md:text-3xl text-ink leading-snug mb-5 max-md:mb-0 max-md:flex-1 max-md:min-w-0">総額で判断できる</h3>
-          </div>
-          <p class="text-sm md:text-base leading-relaxed text-muted">普通は、不動産・リフォーム・銀行がバラバラで、最後まで総額が見えません。<br>大森不動産なら、物件価格＋諸費用＋リフォーム費用＋将来の修繕費まで含めて判断できる為、<br class="hidden md:block">購入前に総額の見通しが立ちます。</p>
+        <div class="advantage-grid__body min-w-0">
+          <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">総額で判断できる</h3>
+          <p class="text-sm md:text-base leading-relaxed text-muted">購入費用だけでなく、リノベーション費用や諸費用まで含めた総額で判断できるので、予算オーバーの不安を減らせます。</p>
         </div>
       </div>
 
-      <!-- POINT 03：画像左・テキスト右 -->
-      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16" data-reveal>
-        <div class="w-full md:w-[30%] shrink-0 flex items-center justify-center">
-          <img src="/images/advantage/advantage-point-03.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full max-w-[260px] md:max-w-[280px] object-contain">
+      <div class="advantage-grid__item flex items-start gap-5 md:gap-6">
+        <div class="advantage-grid__icon shrink-0">
+          <img src="/images/advantage/advantage-point-03.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
         </div>
-        <div class="flex-1 min-w-0">
-          <div class="advantage-point__head max-md:flex max-md:flex-wrap max-md:items-center max-md:gap-x-2.5 max-md:gap-y-1 max-md:mb-4">
-            <span class="advantage-point__label inline-block bg-[#E8621A] text-white text-xs font-mono-label font-medium tracking-widest px-3 py-1.5 mb-4 max-md:mb-0 max-md:px-2 shrink-0" aria-label="POINT 03"><span class="md:hidden">03</span><span class="hidden md:inline" aria-hidden="true">POINT 03</span></span>
-            <h3 class="advantage-point__title font-serif text-2xl md:text-3xl text-ink leading-snug mb-5 max-md:mb-0 max-md:flex-1 max-md:min-w-0">工事の現実性が分かる</h3>
-          </div>
-          <p class="text-sm md:text-base leading-relaxed text-muted">「この壁を抜きたい」「水回りを移動したい」「賃貸用に間取りを変えたい」<br class="hidden md:block">　——普通の不動産会社では、その場で判断しにくいです。<br>大森不動産なら、できる・できない・いくらかかるを早い段階ではっきりお伝えできます。</p>
+        <div class="advantage-grid__body min-w-0">
+          <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">工事の現実性が分かる</h3>
+          <p class="text-sm md:text-base leading-relaxed text-muted">希望の暮らしがその物件で実現できるか、設計・施工のプロが事前に検証し、的確にアドバイスします。</p>
         </div>
       </div>
 
-      <!-- POINT 04：テキスト左・画像右 -->
-      <div class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-16" data-reveal>
-        <div class="w-full md:w-[30%] shrink-0 flex items-center justify-center">
-          <img src="/images/advantage/advantage-point-04.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full max-w-[310px] md:max-w-[340px] object-contain">
+      <div class="advantage-grid__item flex items-start gap-5 md:gap-6">
+        <div class="advantage-grid__icon advantage-grid__icon--sm shrink-0">
+          <img src="/images/advantage/advantage-point-04.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
         </div>
-        <div class="flex-1 min-w-0">
-          <div class="advantage-point__head max-md:flex max-md:flex-wrap max-md:items-center max-md:gap-x-2.5 max-md:gap-y-1 max-md:mb-4">
-            <span class="advantage-point__label inline-block bg-[#E8621A] text-white text-xs font-mono-label font-medium tracking-widest px-3 py-1.5 mb-4 max-md:mb-0 max-md:px-2 shrink-0" aria-label="POINT 04"><span class="md:hidden">04</span><span class="hidden md:inline" aria-hidden="true">POINT 04</span></span>
-            <h3 class="advantage-point__title font-serif text-2xl md:text-3xl text-ink leading-snug mb-5 max-md:mb-0 max-md:flex-1 max-md:min-w-0">資産価値を上げる提案ができる</h3>
-          </div>
-          <p class="text-sm md:text-base leading-relaxed text-muted">単にきれいにするリフォームではなく、売れる・貸せる・高く評価されるリフォームを考えます。<br class="hidden md:block">水回りの刷新・間取りの変更・断熱改善など、不動産価値を上げる改修を提案します。</p>
+        <div class="advantage-grid__body min-w-0">
+          <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">資産価値を上げる提案ができる</h3>
+          <p class="text-sm md:text-base leading-relaxed text-muted">将来の売却や賃貸まで見据えた資産価値向上の提案で、長く安心できる住まいを実現します。</p>
         </div>
       </div>
 
@@ -252,10 +201,10 @@ pageScript: js/news-top.js
     <div class="mb-8 md:mb-16">
       <div class="text-center">
         <p class="section-label mb-6">Services</p>
-        <h2 class="font-serif text-3xl md:text-4xl xl:text-5xl text-ink">あなたの状況に合わせた、<br class="md:hidden"><br class="hidden md:inline">3つのサービス</h2>
+        <h2 class="font-serif text-3xl md:text-4xl text-ink">3つのサービス</h2>
       </div>
       <p class="text-muted text-sm md:text-base mt-6 mx-auto max-w-2xl w-full leading-relaxed text-center">
-        どのサービスにも共通しているのは、工務店があるから「未来まで見て提案できる」こと。
+        物件探しからリフォームまで、状況に合わせて。
       </p>
     </div>
     {% include "partials/services-cards.njk" %}
@@ -265,12 +214,12 @@ pageScript: js/news-top.js
 <!-- Blog / News preview -->
 <section class="py-16 md:py-24 bg-white" data-reveal>
   <div class="max-w-7xl mx-auto px-6 md:px-10">
-    <div class="mb-12">
+    <div class="mb-12 text-center">
       <p class="section-label mb-4">Blog</p>
-      <h2 class="font-serif text-3xl md:text-4xl text-ink">不安を解消する、お役立ち情報</h2>
-      <p class="text-muted text-base mt-3 leading-relaxed">「中古はやめた方がいい？」「リフォーム費のリアル」など、不動産購入の不安に答えるコンテンツを発信中。</p>
+      <h2 class="font-serif text-3xl md:text-4xl text-ink">お役立ち情報</h2>
+      <p class="text-muted text-sm md:text-base mt-6 mx-auto max-w-2xl leading-relaxed">購入前の疑問に答える記事を更新しています。</p>
     </div>
-    <div>
+    <div class="news-top-panel mx-auto w-full max-w-5xl">
       <div id="news-top-loading" class="py-6 text-center">
         <div class="inline-block animate-spin rounded-full h-5 w-5 border-2 border-[#DDD9D2] border-t-[#1A1A1A]"></div>
       </div>
