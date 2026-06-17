@@ -165,6 +165,47 @@ section:not(.hero-intro) h3.font-serif {
     height: clamp(13rem, 19vw, 17rem);
   }
 }
+
+/* 会社概要：行と行の間だけ薄い区切り線（上下端には線なし） */
+.company-profile-table {
+  width: min(100%, 58rem);
+  margin-inline: auto;
+  border-collapse: collapse;
+}
+.company-profile-table tr:not(:last-child) {
+  border-bottom: 1px solid #EEEEEE;
+}
+.company-profile-table th {
+  width: 28%;
+  padding: 1.625rem 2rem 1.625rem 0;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: var(--text-tracking);
+}
+.company-profile-table td {
+  padding: 1.625rem 0;
+  vertical-align: middle;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-ink);
+  line-height: var(--text-leading);
+  letter-spacing: var(--text-tracking);
+}
+.company-profile-table tr:not(:last-child) th {
+  position: relative;
+}
+.company-profile-table tr:not(:last-child) th::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 66%;
+  border-bottom: 2px solid #DDD9D2;
+}
+
 .text-muted {
   color: var(--color-muted);
   font-weight: var(--text-weight);
