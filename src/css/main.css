@@ -2500,7 +2500,7 @@ footer .footer-meta {
   line-height: var(--text-leading);
 }
 .buyback-section-heading {
-  margin-block: clamp(5rem, 8vw, 6.5rem) clamp(2rem, 4vw, 3rem);
+  margin-block: clamp(6.5rem, 10vw, 9rem) clamp(3.5rem, 6vw, 6rem);
   text-align: center;
 }
 .buyback-section-heading__title {
@@ -2532,11 +2532,11 @@ footer .footer-meta {
 }
 .buyback-reason-list {
   margin-top: 0;
-  max-width: min(100%, 66rem);
+  max-width: min(100%, 72rem);
   margin-inline: auto;
   display: flex;
   flex-direction: column;
-  gap: clamp(3.5rem, 7vw, 5.75rem);
+  gap: clamp(5.5rem, 10vw, 9.5rem);
 }
 .buyback-reason-item {
   display: grid;
@@ -2590,7 +2590,7 @@ p.buyback-reason-item__num {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin: 0.5rem 0 0;
+  margin: clamp(1.5rem, 2.5vw, 2rem) 0 0;
   color: #E8621A;
   font-size: 1rem;
   letter-spacing: 0.18em;
@@ -2616,10 +2616,10 @@ p.buyback-reason-item__num {
 }
 @media (min-width: 768px) {
   .buyback-reason-item {
-    grid-template-columns: minmax(0, 0.85fr) minmax(18rem, 1fr);
+    grid-template-columns: minmax(0, 0.88fr) minmax(17rem, 1fr);
   }
   .buyback-reason-item--reverse {
-    grid-template-columns: minmax(18rem, 1fr) minmax(0, 0.85fr);
+    grid-template-columns: minmax(17rem, 1fr) minmax(0, 0.88fr);
   }
   .buyback-reason-item--reverse .buyback-reason-item__media {
     grid-column: 2;
@@ -2634,7 +2634,7 @@ p.buyback-reason-item__num {
     width: 100%;
   }
   .buyback-reason-item__body {
-    max-width: 33rem;
+    max-width: 37rem;
   }
 }
 .buyback-flow-cta {
