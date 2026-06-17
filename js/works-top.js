@@ -1,4 +1,4 @@
-// TOP・下層用：最新施工事例を3件
+// TOP・下層用：最新施工事例（TOPは4件、下層は3件）
 
 document.addEventListener('DOMContentLoaded', function () {
     loadWorksTop();
@@ -10,10 +10,13 @@ async function loadWorksTop() {
 
     if (!gridEl) return;
 
+    var limit = parseInt(gridEl.getAttribute('data-works-limit'), 10);
+    if (isNaN(limit) || limit < 1) limit = 3;
+
     try {
         var snapshot = await db.collection(COLLECTIONS.works)
             .orderBy('createdAt', 'desc')
-            .limit(3)
+            .limit(limit)
             .get();
 
         if (loadingEl) loadingEl.classList.add('hidden');

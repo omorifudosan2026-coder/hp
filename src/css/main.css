@@ -136,7 +136,7 @@ section:not(.hero-intro) h3.font-serif {
   aspect-ratio: 16 / 9;
   background-image: var(--page-header-photo);
   background-size: cover;
-  background-position: center;
+  background-position: var(--page-header-photo-position, center);
   /* メインヒーローと同じノリで右から現れる（clip-path リビール） */
   animation: page-header-photo-reveal 1.1s cubic-bezier(0.77, 0, 0.175, 1) 0.1s both;
 }
@@ -1043,6 +1043,15 @@ section:not(.hero-intro) h3.font-serif {
   justify-content: center;
 }
 
+/* Story: 章テキスト — 不自然な改行を抑える */
+.story-chapter__copy h2,
+.story-chapter__copy p {
+  word-break: keep-all;
+  overflow-wrap: normal;
+  line-break: strict;
+  text-wrap: pretty;
+}
+
 /* トップ：選ばれる理由 — 2×2グリッド */
 .advantage-grid__item {
   padding: 1.25rem 0;
@@ -1063,13 +1072,15 @@ section:not(.hero-intro) h3.font-serif {
     border-bottom: 1px solid rgba(26, 26, 26, 0.08);
   }
 }
-.index-advantage-section .advantage-grid__body p {
+.index-advantage-section .advantage-grid__body p,
+.concept-advantage-section .advantage-grid__body p {
   font-size: var(--text-size-13);
   line-height: var(--text-leading);
   font-weight: var(--text-weight);
   color: var(--color-muted);
 }
-.index-advantage-section .advantage-grid__icon {
+.index-advantage-section .advantage-grid__icon,
+.concept-advantage-section .advantage-grid__icon {
   width: 4.75rem;
   height: 4.75rem;
   margin-top: -0.125rem;
@@ -1077,24 +1088,39 @@ section:not(.hero-intro) h3.font-serif {
   align-items: center;
   justify-content: center;
 }
-.index-advantage-section .advantage-grid__icon--sm {
+.index-advantage-section .advantage-grid__icon--sm,
+.concept-advantage-section .advantage-grid__icon--sm {
   width: 4rem;
   height: 4rem;
   margin-top: 0.25rem;
 }
+.concept-advantage-section .advantage-grid__body p + p,
+.concept-advantage-section .advantage-grid__body p + .concept-point__list {
+  margin-top: 0.75rem;
+}
+.concept-advantage-section .advantage-grid__body .concept-point__list li {
+  font-size: var(--text-size-13);
+  line-height: var(--text-leading);
+}
 @media (min-width: 768px) {
-  .index-advantage-section .advantage-grid__body p {
+  .index-advantage-section .advantage-grid__body p,
+  .concept-advantage-section .advantage-grid__body p {
     font-size: 0.875rem;
   }
-  .index-advantage-section .advantage-grid__icon {
+  .index-advantage-section .advantage-grid__icon,
+  .concept-advantage-section .advantage-grid__icon {
     width: 6rem;
     height: 6rem;
     margin-top: -0.25rem;
   }
-  .index-advantage-section .advantage-grid__icon--sm {
+  .index-advantage-section .advantage-grid__icon--sm,
+  .concept-advantage-section .advantage-grid__icon--sm {
     width: 5rem;
     height: 5rem;
     margin-top: 0.375rem;
+  }
+  .concept-advantage-section .advantage-grid__body .concept-point__list li {
+    font-size: 0.875rem;
   }
 }
 
@@ -1936,6 +1962,9 @@ footer .footer-meta {
   .works-pickup-grid {
     max-width: 64rem;
   }
+  .works-pickup-grid--four {
+    max-width: none;
+  }
 }
 .works-pickup-item {
   color: inherit;
@@ -1948,20 +1977,20 @@ footer .footer-meta {
 .works-pickup-item__body {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding-top: 1rem;
+  gap: 0.875rem;
+  padding-top: 1.125rem;
 }
 @media (min-width: 768px) {
   .works-pickup-item__body {
-    gap: 0.875rem;
-    padding-top: 1.125rem;
+    gap: 1rem;
+    padding-top: 1.25rem;
   }
 }
 .works-pickup-item__meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem 0.375rem;
+  gap: 0.375rem 0.5rem;
 }
 .works-pickup-item__date {
   flex-shrink: 0;
@@ -2282,12 +2311,30 @@ footer .footer-meta {
 }
 .services-showcase {
   --services-showcase-inset: clamp(1.5rem, 4vw, 2.5rem);
-  --services-showcase-photo-h: clamp(14.5rem, 31vw, 22rem);
-  --services-showcase-overlap: clamp(3.5rem, 7vw, 6rem);
+  --services-showcase-photo-h: clamp(12.75rem, 25vw, 18.5rem);
+  --services-showcase-overlap: clamp(2.75rem, 5vw, 4.75rem);
   max-width: 90rem;
   margin-inline: auto;
   padding-inline: 0;
-  row-gap: clamp(3.5rem, 7vw, 5.5rem);
+  row-gap: clamp(4.25rem, 8vw, 6.5rem);
+}
+.services-showcase__header {
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: var(--services-showcase-inset);
+  margin-bottom: 0;
+}
+.services-showcase__header + .services-showcase__row {
+  margin-top: calc(-1 * clamp(1.75rem, 3.5vw, 2.75rem));
+}
+.services-showcase__row--photo-left[data-reveal] {
+  transform: translateX(-32px);
+}
+.services-showcase__row--photo-right[data-reveal] {
+  transform: translateX(32px);
+}
+.services-showcase__row[data-reveal].is-revealed {
+  transform: translateX(0);
 }
 .services-showcase__body {
   display: flex;
@@ -2314,7 +2361,7 @@ footer .footer-meta {
 }
 .services-showcase__content {
   background: #ffffff;
-  padding-block: clamp(1.5rem, 3vw, 2.25rem);
+  padding-block: clamp(1.25rem, 2.5vw, 1.875rem);
   padding-inline: var(--services-showcase-inset);
 }
 .services-subtitle {
@@ -2345,27 +2392,29 @@ footer .footer-meta {
 }
 .services-showcase__btn {
   align-self: flex-start;
-  margin-top: 1.75rem;
+  margin-top: 1.375rem;
   padding-block: 0.65rem;
 }
 @media (min-width: 768px) {
   .services-showcase__btn {
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
   }
 }
 @media (min-width: 768px) {
   .services-showcase__body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2rem, 4vw, 3.25rem);
+    gap: 0;
     align-items: center;
     min-height: var(--services-showcase-photo-h);
   }
   .services-showcase__row--photo-left .services-showcase__body {
-    grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.68fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    transform: translateX(clamp(0.75rem, 2vw, 1.5rem));
   }
   .services-showcase__row--photo-right .services-showcase__body {
-    grid-template-columns: minmax(0, 0.68fr) minmax(0, 1.32fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    transform: translateX(calc(-1 * clamp(0.75rem, 2vw, 1.5rem)));
   }
   .services-showcase__row--photo-left .services-showcase__media,
   .services-showcase__row--photo-right .services-showcase__media {
@@ -2376,29 +2425,33 @@ footer .footer-meta {
   }
   .services-showcase__row--photo-left .services-showcase__media {
     grid-column: 1;
-    width: calc(100% + var(--services-showcase-overlap));
+    width: min(100%, clamp(30rem, 48vw, 42rem));
+    justify-self: end;
     margin: 0;
   }
   .services-showcase__row--photo-left .services-showcase__content {
     grid-column: 2;
-    max-width: clamp(24rem, 38vw, 32rem);
-    justify-self: end;
-    padding: clamp(1.25rem, 2.4vw, 1.75rem) clamp(2rem, 3.4vw, 2.75rem);
+    max-width: clamp(22rem, 34vw, 28rem);
+    justify-self: start;
+    margin-left: calc(var(--services-showcase-overlap) * -1);
+    padding: clamp(1.125rem, 2vw, 1.5rem) clamp(1.5rem, 2.8vw, 2.25rem);
     position: relative;
     z-index: 1;
   }
   .services-showcase__row--photo-right .services-showcase__content {
     grid-column: 1;
-    max-width: clamp(24rem, 38vw, 32rem);
-    justify-self: start;
-    padding: clamp(1.25rem, 2.4vw, 1.75rem) clamp(2rem, 3.4vw, 2.75rem);
+    max-width: clamp(22rem, 34vw, 28rem);
+    justify-self: end;
+    margin-right: calc(var(--services-showcase-overlap) * -1);
+    padding: clamp(1.125rem, 2vw, 1.5rem) clamp(1.5rem, 2.8vw, 2.25rem);
     position: relative;
     z-index: 1;
   }
   .services-showcase__row--photo-right .services-showcase__media {
     grid-column: 2;
-    width: calc(100% + var(--services-showcase-overlap));
-    margin-left: calc(var(--services-showcase-overlap) * -1);
+    width: min(100%, clamp(30rem, 48vw, 42rem));
+    justify-self: start;
+    margin-left: 0;
   }
 }
 
@@ -2606,12 +2659,13 @@ input:focus, textarea:focus, select:focus {
     padding-bottom: 0 !important;
   }
 
-  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section) {
+  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section) {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
   }
-  body[data-page] .index-advantage-section {
-    padding-top: 1.5rem !important;
+  body[data-page] .index-advantage-section,
+  body[data-page] .concept-advantage-section {
+    padding-top: 0.5rem !important;
     padding-bottom: 2.25rem !important;
   }
   body[data-page] .works-pickup-section__shell {
@@ -2790,26 +2844,35 @@ input:focus, textarea:focus, select:focus {
     word-break: keep-all;
     line-break: strict;
   }
-  body[data-page] .index-advantage-section .advantage-grid__icon {
+  body[data-page] .index-advantage-section .advantage-grid__icon,
+  body[data-page] .concept-advantage-section .advantage-grid__icon {
     width: 4.25rem !important;
     height: 4.25rem !important;
     margin-top: -0.125rem !important;
   }
-  body[data-page] .index-advantage-section .advantage-grid__icon--sm {
+  body[data-page] .index-advantage-section .advantage-grid__icon--sm,
+  body[data-page] .concept-advantage-section .advantage-grid__icon--sm {
     width: 3.75rem !important;
     height: 3.75rem !important;
     margin-top: 0.25rem !important;
   }
-  body[data-page] .index-advantage-section .advantage-grid__icon img {
+  body[data-page] .index-advantage-section .advantage-grid__icon img,
+  body[data-page] .concept-advantage-section .advantage-grid__icon img {
     width: 100% !important;
     max-width: 100% !important;
     height: 100% !important;
     margin: 0 !important;
   }
-  body[data-page] .index-advantage-section .advantage-grid__body p {
+  body[data-page] .index-advantage-section .advantage-grid__body p,
+  body[data-page] .concept-advantage-section .advantage-grid__body p {
     font-size: var(--text-size-xs) !important;
     line-height: var(--text-leading) !important;
     letter-spacing: var(--text-tracking) !important;
+  }
+  body[data-page] .concept-advantage-section .advantage-grid__body .concept-point__list li {
+    font-size: var(--text-size-xs) !important;
+    line-height: var(--text-leading) !important;
+    white-space: normal;
   }
 
   /* トップ：お役立ち情報 */
@@ -2868,50 +2931,10 @@ input:focus, textarea:focus, select:focus {
     padding: 0.125rem 0.375rem !important;
   }
 
-  /* story：ページヒーロー下リードのみ一段小さく */
-  /* story：締めの引用（スマホのみ・PC は元の -top-6 / 1行表示） */
-  body[data-page="story"] .story-closing-quote {
-    isolation: isolate;
-    padding-top: 1.125rem;
-  }
-  body[data-page="story"] .story-closing-quote__mark {
-    top: 0.55rem !important;
-    left: -0.08em !important;
-    z-index: 0;
-    color: #f0ebe3;
-    font-size: clamp(2.85rem, 9vw, 3.75rem) !important;
-  }
-  body[data-page="story"] .story-closing-quote__text {
-    position: relative;
-    z-index: 1;
-    font-size: 1.0625rem !important;
-    line-height: 1.55 !important;
-  }
-
-  /* concept：4 Reasons — ジグザグオフセットは md 以上のみ（上で定義）・イラストを小さく */
-  body[data-page="concept"] .concept-card {
-    padding: 1.5rem !important;
-  }
-  body[data-page="concept"] .concept-card img.object-contain {
-    max-width: min(68%, 9.5rem) !important;
-  }
-  body[data-page="concept"] .concept-card .flex.justify-center.mb-5 {
-    margin-bottom: 1rem !important;
-  }
-  body[data-page="concept"] .concept-point__head {
-    align-items: center;
-  }
-  body[data-page="concept"] .concept-point__label {
-    align-self: center !important;
-  }
-  body[data-page="concept"] .concept-point__head .concept-point__title {
-    font-size: 1rem !important;
-    line-height: 1.35 !important;
-    word-break: keep-all;
-    line-break: strict;
-  }
-  body[data-page="concept"] .concept-point__list li {
-    white-space: nowrap;
+  /* concept：4 Reasons — advantage-grid（旧 concept-card 用ルールは削除） */
+  body[data-page="concept"] .concept-advantage-section .advantage-grid__body p + p,
+  body[data-page="concept"] .concept-advantage-section .advantage-grid__body p + .concept-point__list {
+    margin-top: 0.625rem !important;
   }
   body[data-page="concept"] .concept-promise-section {
     display: flex;
@@ -2949,7 +2972,7 @@ input:focus, textarea:focus, select:focus {
     background-repeat: no-repeat;
   }
   /* py-20 md:py-28 bg-cream セクション（スマホのみ・下パディング +24px） */
-  body[data-page] section.py-20.bg-cream:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section) {
+  body[data-page] section.py-20.bg-cream:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section) {
     padding-bottom: 3rem !important; /* 1.5rem + 24px */
   }
 

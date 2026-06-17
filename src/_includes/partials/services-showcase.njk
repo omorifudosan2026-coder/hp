@@ -1,11 +1,26 @@
 <div class="services-showcase flex flex-col">
+  {% if servicesShowcaseLabel or servicesShowcaseTitle %}
+  <div class="services-showcase__header{% if servicesShowcaseTitle %} text-center{% endif %}" data-reveal>
+    {% if servicesShowcaseLabel %}
+    <p class="section-label{% if servicesShowcaseTitle %} mb-4 justify-center{% else %} mb-0{% endif %}">{{ servicesShowcaseLabel }}</p>
+    {% endif %}
+    {% if servicesShowcaseTitle %}
+    <h2 class="font-serif text-3xl md:text-4xl text-ink">{{ servicesShowcaseTitle }}</h2>
+    {% endif %}
+  </div>
+  {% endif %}
 
-  <!-- Service 01: 買取再販（写真：左） -->
-  <article class="services-showcase__row services-showcase__row--photo-left" data-reveal>
+  {% set showcaseIndex = 0 %}
+
+  {% if activePage != "service-buyback" %}
+  {% set photoSide = "photo-left" if showcaseIndex % 2 == 0 else "photo-right" %}
+  <article class="services-showcase__row services-showcase__row--{{ photoSide }}" data-reveal{% if showcaseIndex > 0 %} data-delay="{{ showcaseIndex * 100 }}"{% endif %}>
     <div class="services-showcase__body">
+      {% if photoSide == "photo-left" %}
       <div class="services-showcase__media">
         <img src="/images/services/service-buyback.webp" alt="買取再販の施工イメージ" width="1280" height="720" loading="lazy" decoding="async" class="services-showcase__img">
       </div>
+      {% endif %}
       <div class="services-showcase__content">
         <p class="services-subtitle services-showcase__label">Service 01</p>
         <h3 class="services-showcase__title font-serif text-2xl md:text-3xl text-ink leading-snug">買取再販</h3>
@@ -14,12 +29,25 @@
           <span class="site-btn__inner">詳しく見る<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
         </a>
       </div>
+      {% if photoSide == "photo-right" %}
+      <div class="services-showcase__media">
+        <img src="/images/services/service-buyback.webp" alt="買取再販の施工イメージ" width="1280" height="720" loading="lazy" decoding="async" class="services-showcase__img">
+      </div>
+      {% endif %}
     </div>
   </article>
+  {% set showcaseIndex = showcaseIndex + 1 %}
+  {% endif %}
 
-  <!-- Service 02: 仲介＋リノベ（写真：右） -->
-  <article class="services-showcase__row services-showcase__row--photo-right" data-reveal data-delay="100">
+  {% if activePage != "service-renovation" %}
+  {% set photoSide = "photo-left" if showcaseIndex % 2 == 0 else "photo-right" %}
+  <article class="services-showcase__row services-showcase__row--{{ photoSide }}" data-reveal{% if showcaseIndex > 0 %} data-delay="{{ showcaseIndex * 100 }}"{% endif %}>
     <div class="services-showcase__body">
+      {% if photoSide == "photo-left" %}
+      <div class="services-showcase__media">
+        <img src="/images/services/service-renovation.webp" alt="仲介＋リノベの施工イメージ" width="1280" height="720" loading="lazy" decoding="async" class="services-showcase__img">
+      </div>
+      {% endif %}
       <div class="services-showcase__content">
         <p class="services-subtitle services-showcase__label">Service 02</p>
         <h3 class="services-showcase__title font-serif text-2xl md:text-3xl text-ink leading-snug">仲介＋リノベ</h3>
@@ -28,18 +56,25 @@
           <span class="site-btn__inner">詳しく見る<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
         </a>
       </div>
+      {% if photoSide == "photo-right" %}
       <div class="services-showcase__media">
         <img src="/images/services/service-renovation.webp" alt="仲介＋リノベの施工イメージ" width="1280" height="720" loading="lazy" decoding="async" class="services-showcase__img">
       </div>
+      {% endif %}
     </div>
   </article>
+  {% set showcaseIndex = showcaseIndex + 1 %}
+  {% endif %}
 
-  <!-- Service 03: 収益不動産（写真：左） -->
-  <article class="services-showcase__row services-showcase__row--photo-left" data-reveal data-delay="200">
+  {% if activePage != "service-income" %}
+  {% set photoSide = "photo-left" if showcaseIndex % 2 == 0 else "photo-right" %}
+  <article class="services-showcase__row services-showcase__row--{{ photoSide }}" data-reveal{% if showcaseIndex > 0 %} data-delay="{{ showcaseIndex * 100 }}"{% endif %}>
     <div class="services-showcase__body">
+      {% if photoSide == "photo-left" %}
       <div class="services-showcase__media">
         <img src="/images/services/service-income.webp" alt="収益不動産の施工イメージ" width="1280" height="720" loading="lazy" decoding="async" class="services-showcase__img">
       </div>
+      {% endif %}
       <div class="services-showcase__content">
         <p class="services-subtitle services-showcase__label">Service 03</p>
         <h3 class="services-showcase__title font-serif text-2xl md:text-3xl text-ink leading-snug">収益不動産</h3>
@@ -48,7 +83,13 @@
           <span class="site-btn__inner">詳しく見る<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
         </a>
       </div>
+      {% if photoSide == "photo-right" %}
+      <div class="services-showcase__media">
+        <img src="/images/services/service-income.webp" alt="収益不動産の施工イメージ" width="1280" height="720" loading="lazy" decoding="async" class="services-showcase__img">
+      </div>
+      {% endif %}
     </div>
   </article>
+  {% endif %}
 
 </div>

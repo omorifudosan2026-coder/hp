@@ -8,12 +8,12 @@ firebase: true
 ---
 
 <!-- Page Header -->
-<section class="page-header page-header--split pt-20 pb-10 md:pt-24 md:pb-12">
+<section class="page-header page-header--split pt-20 pb-10 md:pt-24 md:pb-12" style="--page-header-photo: url('/images/services/service-renovation.webp');">
   <div class="page-header__grid">
     <div class="page-header__text">
       <p class="section-label mb-4">Service 02</p>
       <h1 class="font-serif text-ink">仲介＋リノベ</h1>
-      <p class="page-header__lede">中古物件の購入を検討している方へ。物件探しの段階から工務店目線で判断し、買う前に総額と完成形をお見せします。</p>
+      <p class="page-header__lede">買う前から工務店目線で、<br>総額と完成形まで見える提案をします。</p>
     </div>
     <div class="page-header__photo" role="img" aria-label="仲介＋リノベの写真"></div>
   </div>
@@ -116,11 +116,10 @@ firebase: true
 {% include "partials/summary-section.njk" %}
 
 <!-- 他のサービスも見る -->
-<section class="py-16 md:py-20">
-  <div class="max-w-7xl mx-auto px-6 md:px-10">
-    <p class="section-label mb-8" data-reveal>Other Services</p>
-    {% include "partials/services-cards.njk" %}
-  </div>
+<section class="py-8 md:py-16 bg-cream index-solution">
+  {% set servicesShowcaseLabel = "Other Services" %}
+  {% set servicesShowcaseTitle = "その他のサービス" %}
+  {% include "partials/services-showcase.njk" %}
 </section>
 
 {% include "partials/cta-section.njk" %}
