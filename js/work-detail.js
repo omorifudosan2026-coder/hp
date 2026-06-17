@@ -41,12 +41,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const updatedEl = document.getElementById('detail-updated');
         if (updatedEl) {
-            const ts = w.updatedAt || w.createdAt;
-            const formatted = formatDateJa(ts);
-            updatedEl.textContent = formatted ? `更新日：${formatted}` : '';
+            const formatted = formatDateJa(w.createdAt);
+            updatedEl.textContent = formatted ? `公開日：${formatted}` : '';
         }
 
-        document.getElementById('detail-meta').textContent = [w.area, w.layout].filter(Boolean).join(' · ');
+        const metaEl = document.getElementById('detail-meta');
+        if (metaEl) {
+            const tagsHtml = createWorksTagsHtml(w.area, w.layout);
+            metaEl.querySelectorAll('.works-pickup-item__tag').forEach((el) => el.remove());
+            if (tagsHtml) {
+                metaEl.insertAdjacentHTML('beforeend', tagsHtml);
+            }
+            const hasDate = updatedEl && updatedEl.textContent;
+            const hasTags = metaEl.querySelector('.works-pickup-item__tag');
+            if (!hasDate && !hasTags) {
+                metaEl.classList.add('hidden');
+            } else {
+                metaEl.classList.remove('hidden');
+            }
+        }
         const costLabel = Number.isFinite(Number(w.cost))
             ? `${formatPriceManYen(w.cost)}万円`
             : '—';
@@ -107,13 +120,15 @@ async function loadOtherWorks(currentId) {
                 ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" width="72" height="54" class="w-[72px] h-[54px] object-cover bg-[#E2DDD2]">`
                 : `<div class="w-[72px] h-[54px] bg-[#E2DDD2]"></div>`;
 
+            const tagsHtml = createWorksTagsHtml(w.area, w.layout);
+
             return `
               <a href="${href}" class="block py-3 hover:bg-cream/60 transition-colors">
                 <div class="flex items-center gap-4">
                   <span class="shrink-0">${thumb}</span>
                   <span class="min-w-0">
                     <span class="block text-sm text-ink line-clamp-2">${title}</span>
-                    <span class="block mt-1 text-xs text-muted">${escapeHtml([w.area, w.layout].filter(Boolean).join(' · '))}</span>
+                    ${tagsHtml ? `<div class="detail-aside-item__meta mt-1.5">${tagsHtml}</div>` : ''}
                   </span>
                 </div>
               </a>

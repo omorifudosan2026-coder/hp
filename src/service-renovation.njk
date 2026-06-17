@@ -19,73 +19,91 @@ firebase: true
   </div>
 </section>
 
-{% set worryCards = [
-  {
-    number: "01",
-    image: "/images/worries/renovation-worry-01.webp",
-    title: "中古物件は不安",
-    description: "見た目はきれいでも、構造や配管の状態が心配。買ってから問題が出てきたらどうしようと考えると踏み出せない。"
-  },
-  {
-    number: "02",
-    image: "/images/worries/renovation-worry-02.webp",
-    title: "リフォーム費がわからない",
-    description: "物件価格はわかっても、リフォームにいくらかかるかが不明。全部込みでいくらになるのか、判断する材料がない。"
-  },
-  {
-    number: "03",
-    image: "/images/worries/renovation-worry-03.webp",
-    title: "買ってから後悔したくない",
-    description: "大きな買い物だからこそ失敗したくない。「あの物件にしておけばよかった」と後悔するのが一番怖い。"
-  }
-] %}
-{% set worryBg = "bg-cream" %}
-{% set worryPb = "pb-12 md:pb-16" %}
-{% include "partials/worry-cards-section.njk" %}
+<!-- Worries & Reasons -->
+<section class="buyback-reason-section bg-white">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="buyback-reason-lead" data-reveal>
+      <h2 class="font-serif text-3xl md:text-4xl text-ink leading-tight">買う前に、完成形と総額まで見える。</h2>
+      <p>物件選びとリノベ提案を同時に進めるから、<br class="hidden md:inline">「あとで想定外」を減らしながら判断できます。</p>
+    </div>
 
-<!-- V字ディバイダー (cream → white) + 中央ラベル -->
-<div class="relative bg-white">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none" class="block w-full h-24 md:h-32 lg:h-40" aria-hidden="true">
-    <polygon points="0,0 1440,0 720,100" fill="#F7F4EF"/>
-  </svg>
-  <div class="absolute left-1/2 -translate-x-1/2 top-[38%] -translate-y-1/2">
-    <p class="font-serif text-xl md:text-2xl lg:text-3xl text-ink whitespace-nowrap">
-      大森不動産なら…
-    </p>
+    <div class="buyback-section-heading" data-reveal data-delay="60">
+      <div class="buyback-section-heading__title">
+        <span class="buyback-section-heading__line" aria-hidden="true"></span>
+        <div class="buyback-section-heading__copy">
+          <h2 class="font-serif text-xl md:text-2xl text-ink">こんなご相談に対応しています</h2>
+          <p class="buyback-section-intro">中古購入＋リノベを検討中の方へ、物件・費用・完成後まで一体でサポートします。</p>
+        </div>
+        <span class="buyback-section-heading__line" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <div class="buyback-reason-list" data-reveal data-delay="140">
+      <article class="buyback-reason-item">
+        <div class="buyback-reason-item__media">
+          <img src="/images/worries/renovation-worry-01.webp" alt="中古物件を確認する様子" width="960" height="720" loading="lazy" decoding="async">
+        </div>
+        <div class="buyback-reason-item__body">
+          <div class="buyback-reason-item__worry">
+            <div class="buyback-reason-item__header">
+              <p class="buyback-reason-item__num">01</p>
+              <h3 class="font-serif text-lg text-ink">中古物件は不安</h3>
+            </div>
+            <p>見た目だけでは分からない構造や配管の状態が心配。買ってから問題が出るのが怖い。</p>
+          </div>
+          <p class="buyback-reason-item__bridge">大森不動産なら</p>
+          <div class="buyback-reason-item__solution">
+            <h4 class="font-serif text-ink">工務店目線で、買う前にリスクを診断できる</h4>
+            <p>間取り変更の可否・構造壁・配管・雨漏りリスクまで事前に確認。購入後に発覚しやすい問題を先に把握し、判断しやすい状態をつくります。</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="buyback-reason-item buyback-reason-item--reverse">
+        <div class="buyback-reason-item__media">
+          <img src="/images/worries/renovation-worry-02.webp" alt="費用計画を相談する様子" width="960" height="720" loading="lazy" decoding="async">
+        </div>
+        <div class="buyback-reason-item__body">
+          <div class="buyback-reason-item__worry">
+            <div class="buyback-reason-item__header">
+              <p class="buyback-reason-item__num">02</p>
+              <h3 class="font-serif text-lg text-ink">リフォーム費がわからない</h3>
+            </div>
+            <p>物件価格だけでは総額が見えず、資金計画を立てにくい。</p>
+          </div>
+          <p class="buyback-reason-item__bridge">大森不動産なら</p>
+          <div class="buyback-reason-item__solution">
+            <h4 class="font-serif text-ink">物件＋工事＋諸費用を一体で見積もれる</h4>
+            <p>物件選定と同時にリノベ費用を積み上げるため、「結局いくらかかるか」を早い段階で把握できます。予算オーバーのリスクを抑えて検討できます。</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="buyback-reason-item">
+        <div class="buyback-reason-item__media">
+          <img src="/images/worries/renovation-worry-03.webp" alt="間取りプランを確認する様子" width="960" height="720" loading="lazy" decoding="async">
+        </div>
+        <div class="buyback-reason-item__body">
+          <div class="buyback-reason-item__worry">
+            <div class="buyback-reason-item__header">
+              <p class="buyback-reason-item__num">03</p>
+              <h3 class="font-serif text-lg text-ink">買ってから後悔したくない</h3>
+            </div>
+            <p>「完成後の暮らし」が見えないまま決めるのが不安。</p>
+          </div>
+          <p class="buyback-reason-item__bridge">大森不動産なら</p>
+          <div class="buyback-reason-item__solution">
+            <h4 class="font-serif text-ink">購入前に、完成後のイメージまで提案できる</h4>
+            <p>間取り・水回り・動線まで含めたプランを先に共有。暮らしのイメージを持ったうえで購入を決められるので、後悔の少ない選択につながります。</p>
+          </div>
+        </div>
+      </article>
+    </div>
   </div>
-</div>
-
-{% set reasonsPt = "pt-12 md:pt-16" %}
-{% set reasonsCatch = "物件も。費用も。完成形も。" %}
-{% set reasonsConclusion = "買う前に、ぜんぶお見せします。" %}
-{% set reasonsDescription = "物件＋リフォームを同時に提案し、<br>買う前に総額と完成形をお伝えできるのには、3つの理由があります。" %}
-{% set reasonsLabel = "Our Reason" %}
-{% set reasonsBg = "bg-white" %}
-{% set reasonsTitle = "買う前に、完成形と総額がわかる" %}
-{% set reasons = [
-  {
-    number: "01",
-    title: "工務店目線で物件を診断できる",
-    description: "間取り変更の可否・水回り移動・構造壁・配管・雨漏りリスクまで、専門家が現地で確認。「買っていい物件かどうか」を購入前にお伝えします。"
-  },
-  {
-    number: "02",
-    title: "物件＋リフォーム＋諸費用を総額で提示できる",
-    description: "不動産会社・リフォーム会社・銀行を別々に回らずに済むため、「結局いくらかかるか」を購入前に把握でき、資金計画が立てやすくなります。"
-  },
-  {
-    number: "03",
-    title: "購入前にリノベ後の<br class=\"md:hidden\">完成形を提案できる",
-    description: "壁を抜いた後の間取り・水回り移動後のプランなど、完成形を見せてから購入を決められるので、「買ってから後悔」を防げます。"
-  }
-] %}
-{% include "partials/reasons-section.njk" %}
-
-{% set worksPy = "pt-0 pb-20 md:pb-28" %}
-{% include "partials/works-pickup.njk" %}
+</section>
 
 {% set flowTitle = "ご利用の流れ" %}
-{% set flowDescription = "物件探しから施工・お引き渡しまで、ワンストップでサポート。総額が見えてから決められます。" %}
+{% set flowDescription = "物件探しから施工・お引き渡しまで、ワンストップで伴走します。買う前に総額と完成形を確認できます。" %}
 {% set flowSteps = [
   {
     number: "01",
@@ -110,10 +128,18 @@ firebase: true
 ] %}
 {% include "partials/flow-section.njk" %}
 
-{% set summaryHeadline = "買う前から、未来が見える。" %}
-{% set summaryText = "物件＋リフォームを同時に提案し、買う前に総額と完成形を見せる。<br>大森不動産は、未来まで先に見える買い方を提案します。" %}
-{% set summaryShowDivider = false %}
-{% include "partials/summary-section.njk" %}
+<section class="buyback-flow-cta bg-cream">
+  <div class="buyback-flow-cta__inner">
+    <p class="buyback-flow-cta__label">CONTACT</p>
+    <h2 class="font-serif text-2xl md:text-3xl text-ink leading-tight">まずは、理想の暮らしと予算感をお聞かせください。</h2>
+    <p>物件探しの前段階でも大丈夫です。購入後のリノベまで見据えた進め方を、一緒に整理します。</p>
+    <div class="buyback-flow-cta__actions">
+      <a href="/contact" class="site-btn site-btn--lg site-btn--primary inline-flex">
+        <span class="site-btn__inner">無料で相談する<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- 他のサービスも見る -->
 <section class="py-8 md:py-16 bg-cream index-solution">

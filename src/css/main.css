@@ -2065,6 +2065,76 @@ footer .footer-meta {
     font-size: var(--text-size-sm);
   }
 }
+
+/* 詳細ページサイドバー — 日付 */
+.detail-aside-item__date,
+#other-works-list time.detail-aside-item__date {
+  font-size: var(--text-size-xs);
+  line-height: 1.25;
+  font-weight: var(--text-weight);
+  letter-spacing: var(--text-tracking);
+  font-feature-settings: normal;
+  color: var(--color-muted);
+}
+@media (min-width: 768px) {
+  .detail-aside-item__date,
+  #other-works-list time.detail-aside-item__date {
+    font-size: var(--text-size-13);
+  }
+}
+
+/* ブログサイドバー — 日付は一段小さく・薄いグレー */
+#other-blogs-list time.detail-aside-item__date {
+  font-size: 0.6875rem;
+  color: rgba(26, 26, 26, 0.45);
+}
+@media (min-width: 768px) {
+  #other-blogs-list time.detail-aside-item__date {
+    font-size: 0.6875rem;
+  }
+}
+
+/* 詳細ページサイドバー — ラベル（カードより一段小さめ） */
+.detail-aside-item__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.375rem;
+}
+.detail-aside-item__meta .works-pickup-item__tag {
+  padding: 0.0625rem 0.3125rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.03em;
+}
+@media (min-width: 768px) {
+  .detail-aside-item__meta .works-pickup-item__tag {
+    padding: 0.125rem 0.375rem;
+    font-size: 0.6875rem;
+  }
+}
+
+/* 詳細ページ：公開日・更新日（グレー） */
+.detail-meta-date,
+#detail-updated.detail-meta-date {
+  font-size: var(--text-size-sm);
+  line-height: var(--text-leading);
+  font-weight: var(--text-weight);
+  letter-spacing: var(--text-tracking);
+  font-feature-settings: normal;
+  color: var(--color-muted);
+}
+
+/* 詳細ページメイン — 公開日＋ラベルを1行に */
+.detail-main-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 0.5rem;
+}
+.detail-main-meta .detail-meta-date {
+  flex-shrink: 0;
+  margin-right: 0.125rem;
+}
 .works-pickup-item__title {
   color: var(--color-ink, #1a1a1a);
   margin: 0;
@@ -2365,7 +2435,7 @@ footer .footer-meta {
 /* Service Buyback: 悩み + 理由（理由は写真付き） */
 .buyback-reason-section {
   padding-top: clamp(2.5rem, 5vw, 4rem);
-  padding-bottom: clamp(4.75rem, 9vw, 7.5rem);
+  padding-bottom: clamp(6rem, 10vw, 8.5rem);
 }
 .buyback-reason-lead {
   text-align: center;
@@ -2575,6 +2645,9 @@ p.buyback-reason-item__num {
 .index-solution {
   overflow-x: clip;
   padding-inline: clamp(1.5rem, 5vw, 4.5rem);
+}
+body[data-page^="service-"] section.index-solution {
+  padding-bottom: clamp(4rem, 8vw, 7rem);
 }
 .services-showcase {
   --services-showcase-inset: clamp(1.5rem, 4vw, 2.5rem);
@@ -2926,7 +2999,7 @@ input:focus, textarea:focus, select:focus {
     padding-bottom: 0 !important;
   }
 
-  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section):not(.story-closing-section):not(.story-chapter--closing):not(.story-services-section) {
+  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section):not(.buyback-reason-section):not(.story-closing-section):not(.story-chapter--closing):not(.story-services-section) {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
   }
@@ -2966,6 +3039,9 @@ input:focus, textarea:focus, select:focus {
   body[data-page="story"] section.story-services-section {
     padding-top: 2rem !important;
     padding-bottom: 3.5rem !important;
+  }
+  body[data-page^="service-"] section.index-solution {
+    padding-bottom: 4rem !important;
   }
 
   /* 横余白（セクション内コンテナ） */

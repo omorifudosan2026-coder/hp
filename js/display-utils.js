@@ -47,10 +47,17 @@ window.formatDateJa = function formatDateJa(value) {
     return year + '年' + month + '月' + day + '日';
 };
 
+window.createWorksTagsHtml = function createWorksTagsHtml(area, layout) {
+    let html = '';
+    const a = area != null && area !== '' ? escapeHtml(String(area)) : '';
+    const l = layout != null && layout !== '' ? escapeHtml(String(layout)) : '';
+    if (a) html += `<span class="works-pickup-item__tag">${a}</span>`;
+    if (l) html += `<span class="works-pickup-item__tag">${l}</span>`;
+    return html;
+};
+
 window.createWorksPickItemHtml = function createWorksPickItemHtml(work) {
     const title = escapeHtml(work.title || '');
-    const area = escapeHtml(work.area || '');
-    const layout = escapeHtml(work.layout || '');
     const safeImg = trustHttpsUrl(work.image);
     const imageHtml = safeImg
         ? `<img src="${escapeHtml(safeImg)}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]">`
@@ -58,9 +65,7 @@ window.createWorksPickItemHtml = function createWorksPickItemHtml(work) {
     const href = `/work-detail?id=${encodeURIComponent(work.id)}`;
     const date = formatDateJa(work.createdAt);
 
-    let tags = '';
-    if (area) tags += `<span class="works-pickup-item__tag">${area}</span>`;
-    if (layout) tags += `<span class="works-pickup-item__tag">${layout}</span>`;
+    const tags = createWorksTagsHtml(work.area, work.layout);
 
     const metaItems = [];
     if (date) metaItems.push(`<time class="works-pickup-item__date">${escapeHtml(date)}</time>`);

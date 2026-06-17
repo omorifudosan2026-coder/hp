@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (catEl) {
             if (cat) {
                 catEl.classList.remove('hidden');
-                catEl.textContent = `カテゴリー：${cat}`;
+                catEl.textContent = cat;
             } else {
                 catEl.classList.add('hidden');
                 catEl.textContent = '';
@@ -109,7 +109,7 @@ async function loadOtherBlogs(currentId) {
                   <span class="shrink-0">${thumb}</span>
                   <span class="min-w-0">
                     <span class="block text-sm text-ink line-clamp-2">${title}</span>
-                    <time class="text-date text-date--sm block mt-1">${sub}</time>
+                    <time class="detail-aside-item__date block mt-1">${sub}</time>
                   </span>
                 </div>
               </a>

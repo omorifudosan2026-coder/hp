@@ -16,26 +16,27 @@ pageScript: js/work-detail.js
     </div>
     <div id="detail-error" class="hidden text-center py-20">
       <p class="text-ink text-base mb-6" id="detail-error-text"></p>
-      <a href="/works" class="text-xs text-muted hover:text-ink transition-colors border-b border-[#DDD9D2] pb-0.5">施工事例一覧へ</a>
+      <a href="/works" class="text-sm text-muted hover:text-ink transition-colors border-b border-[#DDD9D2] pb-0.5">施工事例一覧へ</a>
     </div>
     <article id="detail-content" class="hidden">
       <div class="mb-8">
-        <a href="/works" class="text-xs text-muted hover:text-ink transition-colors inline-flex items-center gap-2">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+        <a href="/works" class="text-sm text-muted hover:text-ink transition-colors inline-flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
           施工事例一覧
         </a>
       </div>
 
-      <div class="grid lg:grid-cols-[1fr_22rem] gap-10 lg:gap-12 items-start">
+      <div class="grid lg:grid-cols-[1fr_20rem] gap-10 lg:gap-12 items-start">
         <!-- Main -->
         <div>
           <h1 id="detail-title" class="font-serif text-3xl md:text-4xl text-ink mb-4"></h1>
-          <time id="detail-updated" class="text-date block mb-4"></time>
-          <div id="detail-thumb" class="relative aspect-[16/9] bg-[#E2DDD2] mt-6 mb-5"></div>
+          <div id="detail-meta" class="detail-main-meta mb-4">
+            <time id="detail-updated" class="detail-meta-date"></time>
+          </div>
+          <div id="detail-thumb" class="relative aspect-[16/9] bg-[#E2DDD2] mb-5"></div>
           <p id="detail-cost" class="text-base font-medium mb-2" style="color:#E8621A"></p>
-          <p id="detail-meta" class="text-muted text-sm mb-10"></p>
 
-          <div id="detail-description" class="text-sm text-muted leading-relaxed whitespace-pre-line mb-10"></div>
+          <div id="detail-description" class="text-base text-muted leading-relaxed whitespace-pre-line mb-10"></div>
           <div id="detail-gallery" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
         </div>
 
