@@ -30,7 +30,7 @@ pageScript: js/news-top.js
     </div>
   </div>
   <div class="hero-intro__media-col w-full lg:min-h-0 flex flex-col max-lg:mt-8 lg:pr-0">
-    <div class="hero-intro__visual-frame hidden lg:flex flex-1 min-h-0 flex-col pt-0 pb-0">
+    <div class="hero-intro__visual-frame flex flex-1 min-h-0 flex-col pt-0 pb-0">
       <div class="hero-intro__visual relative flex-1 min-h-0 w-full overflow-hidden">
         <div class="hero-intro__visual-inner absolute inset-0 overflow-hidden">
           <img src="/images/backgrounds/hero-bg.jpg" alt="大森不動産の施工事例" width="1536" height="1024" fetchpriority="high" decoding="sync" sizes="100vw" class="hero-intro__img absolute inset-0 w-full h-full object-cover">
@@ -50,11 +50,11 @@ pageScript: js/news-top.js
     <div class="story-mobile-hero -mx-6 md:-mx-10 mb-8 overflow-hidden aspect-[3/1] max-h-[7rem]" data-reveal>
       <img src="/images/backgrounds/ideal-home-cta-bg.webp" alt="家族が集まるダイニングと庭" class="w-full h-full object-cover object-[left_68%]" width="1672" height="941" loading="lazy" decoding="async">
     </div>
-    <div class="mb-10" data-reveal data-delay="80">
+    <div class="mb-10 text-center" data-reveal data-delay="80">
       <p class="section-label mb-4">Our Story</p>
-      <h2 class="font-serif text-2xl text-ink leading-tight text-balance">買って終わりじゃない、<br>不動産。</h2>
-      <span class="mt-4 block h-px w-10 bg-[#E8621A]" aria-hidden="true"></span>
-      <p class="mt-5 text-base leading-relaxed text-muted">不動産の失敗は、買った後に起きます。工務店と一体で、物件探しから売却まで責任を持って関わります。</p>
+      <h2 class="font-serif text-2xl text-ink leading-tight text-balance">買って終わりじゃない、不動産。</h2>
+      <span class="mt-4 mx-auto block h-px w-10 bg-[#E8621A]" aria-hidden="true"></span>
+      <p class="mt-5 text-base leading-relaxed text-muted">不動産の失敗は、買った後に起きます。<br>工務店と一体で、物件探しから売却まで責任を持って関わります。</p>
       <div class="mt-7">
         <a href="/story" class="site-btn site-btn--md site-btn--outline-ink">
           <span class="site-btn__inner">私たちの想い<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
@@ -62,16 +62,11 @@ pageScript: js/news-top.js
       </div>
     </div>
     <div class="story-mobile-collage flex gap-2 min-h-0" data-reveal data-delay="160">
-      <div class="story-mobile-collage__main flex-[3] min-w-0 overflow-hidden bg-cream">
-        <img src="/images/backgrounds/ideal-home-cta-bg.webp" alt="家族が集まるダイニングと庭" class="w-full h-full object-cover object-[left_68%]" width="1672" height="941" loading="lazy" decoding="async">
+      <div class="story-mobile-collage__cell flex-1 min-w-0 min-h-0 overflow-hidden bg-cream">
+        <img src="/images/story/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async">
       </div>
-      <div class="story-mobile-collage__side flex flex-[2] min-w-0 flex-col gap-2">
-        <div class="story-mobile-collage__cell flex-1 min-h-0 overflow-hidden bg-cream">
-          <img src="/images/story/story-interior.webp" alt="リビング内観" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async">
-        </div>
-        <div class="story-mobile-collage__cell flex-1 min-h-0 overflow-hidden bg-cream">
-          <img src="/images/story/story-exterior.webp" alt="戸建て外観" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async">
-        </div>
+      <div class="story-mobile-collage__cell flex-1 min-w-0 min-h-0 overflow-hidden bg-cream">
+        <img src="/images/story/story-exterior.webp" alt="戸建て外観" class="w-full h-full object-cover" width="400" height="300" loading="lazy" decoding="async">
       </div>
     </div>
 
@@ -137,7 +132,10 @@ pageScript: js/news-top.js
           <img src="/images/advantage/advantage-point-01.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
         </div>
         <div class="advantage-grid__body min-w-0">
-          <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">失敗物件を避けられる</h3>
+          <div class="advantage-grid__head">
+            <span class="advantage-grid__num" aria-hidden="true">01</span>
+            <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">失敗物件を避けられる</h3>
+          </div>
           <p class="text-sm md:text-base leading-relaxed text-muted">建物のプロが物件をチェックするから、見えないリスクや将来のコストまで事前に見極められます。</p>
         </div>
       </div>
@@ -147,7 +145,10 @@ pageScript: js/news-top.js
           <img src="/images/advantage/advantage-point-02.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
         </div>
         <div class="advantage-grid__body min-w-0">
-          <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">総額で判断できる</h3>
+          <div class="advantage-grid__head">
+            <span class="advantage-grid__num" aria-hidden="true">02</span>
+            <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">総額で判断できる</h3>
+          </div>
           <p class="text-sm md:text-base leading-relaxed text-muted">購入費用だけでなく、リノベーション費用や諸費用まで含めた総額で判断できるので、予算オーバーの不安を減らせます。</p>
         </div>
       </div>
@@ -157,7 +158,10 @@ pageScript: js/news-top.js
           <img src="/images/advantage/advantage-point-03.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
         </div>
         <div class="advantage-grid__body min-w-0">
-          <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">工事の現実性が分かる</h3>
+          <div class="advantage-grid__head">
+            <span class="advantage-grid__num" aria-hidden="true">03</span>
+            <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">工事の現実性が分かる</h3>
+          </div>
           <p class="text-sm md:text-base leading-relaxed text-muted">希望の暮らしがその物件で実現できるか、設計・施工のプロが事前に検証し、的確にアドバイスします。</p>
         </div>
       </div>
@@ -167,7 +171,10 @@ pageScript: js/news-top.js
           <img src="/images/advantage/advantage-point-04.webp" alt="" width="400" height="400" loading="lazy" decoding="async" aria-hidden="true" class="w-full h-full object-contain">
         </div>
         <div class="advantage-grid__body min-w-0">
-          <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">資産価値を上げる提案ができる</h3>
+          <div class="advantage-grid__head">
+            <span class="advantage-grid__num" aria-hidden="true">04</span>
+            <h3 class="font-serif text-lg md:text-xl text-ink leading-snug mb-2 md:mb-3">資産価値を上げる提案ができる</h3>
+          </div>
           <p class="text-sm md:text-base leading-relaxed text-muted">将来の売却や賃貸まで見据えた資産価値向上の提案で、長く安心できる住まいを実現します。</p>
         </div>
       </div>
@@ -196,7 +203,7 @@ pageScript: js/news-top.js
 {% include "partials/works-pickup.njk" %}
 
 <!-- Blog / News preview -->
-<section class="py-16 md:py-24 bg-cream" data-reveal>
+<section class="pt-16 pb-28 md:py-24 bg-cream" data-reveal>
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <div class="mb-12 text-center">
       <p class="section-label mb-4">Blog</p>
