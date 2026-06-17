@@ -1072,15 +1072,13 @@ section:not(.hero-intro) h3.font-serif {
     border-bottom: 1px solid rgba(26, 26, 26, 0.08);
   }
 }
-.index-advantage-section .advantage-grid__body p,
-.concept-advantage-section .advantage-grid__body p {
+.index-advantage-section .advantage-grid__body p {
   font-size: var(--text-size-13);
   line-height: var(--text-leading);
   font-weight: var(--text-weight);
   color: var(--color-muted);
 }
-.index-advantage-section .advantage-grid__icon,
-.concept-advantage-section .advantage-grid__icon {
+.index-advantage-section .advantage-grid__icon {
   width: 4.75rem;
   height: 4.75rem;
   margin-top: -0.125rem;
@@ -1088,38 +1086,127 @@ section:not(.hero-intro) h3.font-serif {
   align-items: center;
   justify-content: center;
 }
-.index-advantage-section .advantage-grid__icon--sm,
-.concept-advantage-section .advantage-grid__icon--sm {
+.index-advantage-section .advantage-grid__icon--sm {
   width: 4rem;
   height: 4rem;
   margin-top: 0.25rem;
 }
-.concept-advantage-section .advantage-grid__body p + p,
-.concept-advantage-section .advantage-grid__body p + .concept-point__list {
-  margin-top: 0.75rem;
-}
-.concept-advantage-section .advantage-grid__body .concept-point__list li {
-  font-size: var(--text-size-13);
-  line-height: var(--text-leading);
-}
 @media (min-width: 768px) {
-  .index-advantage-section .advantage-grid__body p,
-  .concept-advantage-section .advantage-grid__body p {
+  .index-advantage-section .advantage-grid__body p {
     font-size: 0.875rem;
   }
-  .index-advantage-section .advantage-grid__icon,
-  .concept-advantage-section .advantage-grid__icon {
+  .index-advantage-section .advantage-grid__icon {
     width: 6rem;
     height: 6rem;
     margin-top: -0.25rem;
   }
-  .index-advantage-section .advantage-grid__icon--sm,
-  .concept-advantage-section .advantage-grid__icon--sm {
+  .index-advantage-section .advantage-grid__icon--sm {
     width: 5rem;
     height: 5rem;
     margin-top: 0.375rem;
   }
-  .concept-advantage-section .advantage-grid__body .concept-point__list li {
+}
+
+/* Concept：工務店と一体 — 横長リスト（アイコン左右交互） */
+.concept-advantage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.concept-advantage-list__item {
+  display: grid;
+  grid-template-columns: clamp(4.5rem, 11vw, 7rem) minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: center;
+  padding-block: clamp(1.375rem, 2.8vw, 2rem);
+}
+.concept-advantage-list__item + .concept-advantage-list__item {
+  border-top: 1px solid rgba(26, 26, 26, 0.09);
+}
+.concept-advantage-list__icon {
+  width: clamp(4.5rem, 11vw, 7rem);
+  height: clamp(4.5rem, 11vw, 7rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.concept-advantage-list__body {
+  --concept-advantage-num-width: 2.25rem;
+}
+.concept-advantage-list__head {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: 0.625rem;
+}
+.concept-advantage-list__num {
+  color: #E8621A;
+  font-family: var(--font-body);
+  font-size: clamp(1.25rem, 2.4vw, 1.5625rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  width: var(--concept-advantage-num-width);
+  text-align: right;
+  transform: translateY(-0.08em);
+  flex-shrink: 0;
+}
+.concept-advantage-list__head h3 {
+  margin: 0;
+}
+.concept-advantage-list__body p:not(.concept-advantage-list__num) {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: var(--text-leading);
+  font-weight: var(--text-weight);
+  color: var(--color-muted);
+  margin-left: calc(var(--concept-advantage-num-width) + 0.875rem);
+}
+.concept-advantage-list__body p:not(.concept-advantage-list__num) + p:not(.concept-advantage-list__num),
+.concept-advantage-list__body p:not(.concept-advantage-list__num) + .concept-point__list {
+  margin-top: 0.75rem;
+}
+.concept-advantage-list__body .concept-point__list li {
+  font-size: var(--text-size-13);
+  line-height: var(--text-leading);
+}
+.concept-advantage-list__body .concept-point__list {
+  margin-left: calc(var(--concept-advantage-num-width) + 0.875rem);
+}
+@media (min-width: 768px) {
+  .concept-advantage-list__item {
+    grid-template-columns: minmax(0, 1fr) minmax(0, clamp(30rem, 56vw, 44rem)) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+  .concept-advantage-list__body {
+    grid-column: 2;
+    max-width: none;
+    justify-self: center;
+  }
+  .concept-advantage-list__icon {
+    justify-self: end;
+  }
+  .concept-advantage-list__item--reverse .concept-advantage-list__icon {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: start;
+  }
+  .concept-advantage-list__item--reverse .concept-advantage-list__body {
+    grid-row: 1;
+  }
+  .concept-advantage-list__icon {
+    width: clamp(5.5rem, 12vw, 8.5rem);
+    height: clamp(5.5rem, 12vw, 8.5rem);
+  }
+  .concept-advantage-list__icon--02 {
+    width: clamp(4.6rem, 10.2vw, 7.1rem);
+    height: clamp(4.6rem, 10.2vw, 7.1rem);
+  }
+  .concept-advantage-list__body p:not(.concept-advantage-list__num) {
+    font-size: 0.9375rem;
+  }
+  .concept-advantage-list__body .concept-point__list li {
     font-size: 0.875rem;
   }
 }
@@ -1155,44 +1242,17 @@ section:not(.hero-intro) h3.font-serif {
   }
 }
 
-/* Concept: Our Promise — 白背景＋線画
-   ※ イラスト位置 = --promise-art-anchor（触ると上下に動く）
-   ※ 次セクションとの間だけ詰めるときは margin-bottom を使う */
+/* Concept: Our Promise — 白背景＋中央コピー */
 .concept-promise-section {
-  --promise-art-w: min(96vw, 48rem);
-  --promise-art-h: calc(var(--promise-art-w) * 748 / 2103);
-  --promise-art-anchor: 3rem;
-  --promise-tail: 1rem;
-  --promise-lift: 2rem;
-  --promise-art-slot: calc(var(--promise-art-h) * 0.48);
-  --promise-art-x: 66%;
   position: relative;
   overflow: visible;
   background-color: #ffffff;
   padding-top: clamp(4.25rem, 8vw, 6rem);
-  padding-bottom: calc(var(--promise-art-slot) + var(--promise-tail));
-  margin-bottom: -1.25rem;
+  padding-bottom: clamp(4.25rem, 8vw, 6rem);
+  margin-bottom: 0;
 }
 .concept-promise-section::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: var(--promise-art-anchor);
-  z-index: 0;
-  height: var(--promise-art-h);
-  background-image:
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 1) 28%,
-      rgba(255, 255, 255, 0) 56%
-    ),
-    url('/images/backgrounds/promise-section-bg.webp');
-  background-repeat: no-repeat;
-  background-size: 100% 100%, var(--promise-art-w) auto;
-  background-position: 0 0, var(--promise-art-x) bottom;
-  pointer-events: none;
+  content: none;
 }
 .concept-promise-section__inner {
   position: relative;
@@ -1200,6 +1260,8 @@ section:not(.hero-intro) h3.font-serif {
 }
 .concept-promise-section__copy {
   max-width: min(100%, 44rem);
+  margin-inline: auto;
+  text-align: center;
 }
 @media (min-width: 768px) {
   .concept-promise-section #concept-promise-heading {
@@ -1208,32 +1270,14 @@ section:not(.hero-intro) h3.font-serif {
 }
 @media (min-width: 768px) {
   .concept-promise-section {
-    --promise-art-w: min(84vw, 56rem);
-    --promise-art-anchor: 4.25rem;
-    --promise-tail: 1.5rem;
-    --promise-lift: 2.75rem;
-    --promise-art-slot: calc(var(--promise-art-h) * 0.46);
-    --promise-art-x: 68%;
     padding-top: clamp(4.75rem, 6.5vw, 7rem);
-    margin-bottom: -1.5rem;
-  }
-  .concept-promise-section__copy {
-    margin-left: clamp(0rem, 2vw, 1rem);
+    padding-bottom: clamp(4.75rem, 6.5vw, 7rem);
   }
 }
 @media (min-width: 1024px) {
   .concept-promise-section {
-    --promise-art-w: min(74vw, 58rem);
-    --promise-art-anchor: 5.25rem;
-    --promise-tail: 1.75rem;
-    --promise-lift: 3.5rem;
-    --promise-art-slot: calc(var(--promise-art-h) * 0.44);
-    --promise-art-x: 70%;
     padding-top: clamp(5rem, 5.5vw, 7.5rem);
-    margin-bottom: -1.75rem;
-  }
-  .concept-promise-section__copy {
-    margin-left: 0;
+    padding-bottom: clamp(5rem, 5.5vw, 7.5rem);
   }
 }
 
@@ -2844,32 +2888,59 @@ input:focus, textarea:focus, select:focus {
     word-break: keep-all;
     line-break: strict;
   }
-  body[data-page] .index-advantage-section .advantage-grid__icon,
-  body[data-page] .concept-advantage-section .advantage-grid__icon {
+  body[data-page] .index-advantage-section .advantage-grid__icon {
     width: 4.25rem !important;
     height: 4.25rem !important;
     margin-top: -0.125rem !important;
   }
-  body[data-page] .index-advantage-section .advantage-grid__icon--sm,
-  body[data-page] .concept-advantage-section .advantage-grid__icon--sm {
+  body[data-page] .index-advantage-section .advantage-grid__icon--sm {
     width: 3.75rem !important;
     height: 3.75rem !important;
     margin-top: 0.25rem !important;
   }
-  body[data-page] .index-advantage-section .advantage-grid__icon img,
-  body[data-page] .concept-advantage-section .advantage-grid__icon img {
+  body[data-page] .index-advantage-section .advantage-grid__icon img {
     width: 100% !important;
     max-width: 100% !important;
     height: 100% !important;
     margin: 0 !important;
   }
-  body[data-page] .index-advantage-section .advantage-grid__body p,
-  body[data-page] .concept-advantage-section .advantage-grid__body p {
+  body[data-page] .index-advantage-section .advantage-grid__body p {
     font-size: var(--text-size-xs) !important;
     line-height: var(--text-leading) !important;
     letter-spacing: var(--text-tracking) !important;
   }
-  body[data-page] .concept-advantage-section .advantage-grid__body .concept-point__list li {
+
+  /* concept：工務店と一体 — 横長リスト */
+  body[data-page="concept"] .concept-advantage-list__item {
+    gap: 1rem !important;
+  }
+  body[data-page="concept"] .concept-advantage-list__icon {
+    width: 4rem !important;
+    height: 4rem !important;
+  }
+  body[data-page="concept"] .concept-advantage-list__icon--02 {
+    width: 3.3rem !important;
+    height: 3.3rem !important;
+  }
+  body[data-page="concept"] .concept-advantage-list__head {
+    margin-bottom: 0.5rem !important;
+  }
+  body[data-page="concept"] .concept-advantage-list__head h3.font-serif {
+    font-size: 0.9375rem !important;
+    line-height: 1.4 !important;
+    word-break: keep-all;
+    line-break: strict;
+  }
+  body[data-page="concept"] .concept-advantage-list__body p:not(.concept-advantage-list__num) {
+    font-size: var(--text-size-13) !important;
+    line-height: var(--text-leading) !important;
+    letter-spacing: var(--text-tracking) !important;
+  }
+  body[data-page="concept"] .concept-advantage-list__body p:not(.concept-advantage-list__num) + p:not(.concept-advantage-list__num),
+  body[data-page="concept"] .concept-advantage-list__body p:not(.concept-advantage-list__num) + .concept-point__list {
+    margin-top: 0.625rem !important;
+  }
+  body[data-page="concept"] .concept-advantage-list__body .concept-point__list li {
     font-size: var(--text-size-xs) !important;
     line-height: var(--text-leading) !important;
     white-space: normal;
@@ -2931,19 +3002,12 @@ input:focus, textarea:focus, select:focus {
     padding: 0.125rem 0.375rem !important;
   }
 
-  /* concept：4 Reasons — advantage-grid（旧 concept-card 用ルールは削除） */
-  body[data-page="concept"] .concept-advantage-section .advantage-grid__body p + p,
-  body[data-page="concept"] .concept-advantage-section .advantage-grid__body p + .concept-point__list {
-    margin-top: 0.625rem !important;
-  }
+  /* concept：Our Promise */
   body[data-page="concept"] .concept-promise-section {
     display: flex;
     flex-direction: column;
     padding-top: clamp(4rem, 8vw, 5.5rem) !important;
-    --promise-tail: 2.25rem;
-    --promise-art-w: min(88vw, 19.5rem);
-    --promise-art-h: calc(var(--promise-art-w) * 748 / 2103);
-    padding-bottom: 1rem !important;
+    padding-bottom: clamp(4rem, 8vw, 5.5rem) !important;
     margin-bottom: 0;
   }
   body[data-page="concept"] .concept-promise-section #concept-promise-heading {
@@ -2954,22 +3018,12 @@ input:focus, textarea:focus, select:focus {
   body[data-page="concept"] .concept-promise-section__inner {
     order: 1;
   }
+  body[data-page="concept"] .concept-promise-section__copy {
+    margin-inline: auto;
+    text-align: center;
+  }
   body[data-page="concept"] .concept-promise-section::after {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    right: auto;
-    order: 2;
-    flex-shrink: 0;
-    width: 100%;
-    height: var(--promise-art-h);
-    margin-top: 0.25rem;
-    margin-right: -0.5rem;
-    transform: translateY(-1.75rem);
-    background-image: url('/images/backgrounds/promise-section-bg.webp');
-    background-size: var(--promise-art-w) auto;
-    background-position: right 72%;
-    background-repeat: no-repeat;
+    content: none !important;
   }
   /* py-20 md:py-28 bg-cream セクション（スマホのみ・下パディング +24px） */
   body[data-page] section.py-20.bg-cream:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section) {
