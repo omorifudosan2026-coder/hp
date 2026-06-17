@@ -1052,6 +1052,20 @@ section:not(.hero-intro) h3.font-serif {
   text-wrap: pretty;
 }
 
+@media (min-width: 768px) {
+  body[data-page="story"] section.story-chapter--closing {
+    padding-bottom: 5rem !important;
+  }
+  body[data-page="story"] section.story-closing-section {
+    padding-top: 3rem !important;
+    padding-bottom: 8rem !important;
+  }
+  body[data-page="story"] section.story-services-section {
+    padding-top: 5rem !important;
+    padding-bottom: 8rem !important;
+  }
+}
+
 /* トップ：選ばれる理由 — 2×2グリッド */
 .advantage-grid__item {
   padding: 1.25rem 0;
@@ -2348,6 +2362,215 @@ footer .footer-meta {
   }
 }
 
+/* Service Buyback: 悩み + 理由（理由は写真付き） */
+.buyback-reason-section {
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(4.75rem, 9vw, 7.5rem);
+}
+.buyback-reason-lead {
+  text-align: center;
+}
+.buyback-reason-lead h2 {
+  margin: 0;
+}
+.buyback-reason-lead h2::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  margin: clamp(1rem, 2.2vw, 1.35rem) auto 0;
+  background: #E8621A;
+}
+.buyback-reason-lead p {
+  margin: 1rem auto 0;
+  max-width: 44rem;
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: var(--text-leading);
+}
+.buyback-section-heading {
+  margin-block: clamp(5rem, 8vw, 6.5rem) clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+.buyback-section-heading__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  width: 100%;
+}
+.buyback-section-heading__copy {
+  flex: 0 1 auto;
+  max-width: 42rem;
+}
+.buyback-section-heading__copy h2 {
+  margin: 0;
+}
+.buyback-section-heading__line {
+  flex: 1 1 0;
+  max-width: clamp(8rem, 25vw, 18rem);
+  height: 1px;
+  background: rgba(26, 26, 26, 0.22);
+}
+.buyback-section-intro {
+  margin: clamp(0.65rem, 1.5vw, 0.85rem) 0 0;
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: var(--text-leading);
+  text-align: center;
+}
+.buyback-reason-list {
+  margin-top: 0;
+  max-width: min(100%, 66rem);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3.5rem, 7vw, 5.75rem);
+}
+.buyback-reason-item {
+  display: grid;
+  gap: clamp(1.75rem, 5vw, 4rem);
+  align-items: center;
+}
+.buyback-reason-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.buyback-reason-item__worry,
+.buyback-reason-item__solution {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.buyback-reason-item__worry h3,
+.buyback-reason-item__solution h4 {
+  margin: 0;
+}
+.buyback-reason-item__worry h3 {
+  font-size: clamp(1.2rem, 1.8vw, 1.375rem);
+}
+.buyback-reason-item__header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.buyback-reason-item__media {
+  overflow: hidden;
+  background: var(--color-cream);
+  aspect-ratio: 16 / 11.4;
+}
+.buyback-reason-item__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+p.buyback-reason-item__num {
+  margin: 0;
+  color: #E8621A !important;
+  font-family: var(--font-body);
+  font-size: clamp(1.25rem, 2vw, 1.5rem) !important;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.12em;
+}
+.buyback-reason-item__bridge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0.5rem 0 0;
+  color: #E8621A;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+}
+.buyback-reason-item__bridge::after {
+  content: "";
+  width: 2.25rem;
+  height: 1px;
+  background: rgba(232, 98, 26, 0.55);
+}
+.buyback-reason-item__solution h4 {
+  color: var(--color-ink);
+  font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+  font-weight: 500;
+  line-height: var(--heading-leading);
+}
+.buyback-reason-item__worry p,
+.buyback-reason-item__solution p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: var(--text-leading);
+}
+@media (min-width: 768px) {
+  .buyback-reason-item {
+    grid-template-columns: minmax(0, 0.85fr) minmax(18rem, 1fr);
+  }
+  .buyback-reason-item--reverse {
+    grid-template-columns: minmax(18rem, 1fr) minmax(0, 0.85fr);
+  }
+  .buyback-reason-item--reverse .buyback-reason-item__media {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .buyback-reason-item--reverse .buyback-reason-item__body {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+  }
+  .buyback-reason-item__media {
+    width: 100%;
+  }
+  .buyback-reason-item__body {
+    max-width: 33rem;
+  }
+}
+.buyback-flow-cta {
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem) clamp(3.5rem, 7vw, 5.5rem);
+}
+.buyback-flow-cta__inner {
+  max-width: min(100%, 64rem);
+  margin-inline: auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem) 0 0;
+  border-top: 1px solid rgba(26, 26, 26, 0.14);
+  position: relative;
+  text-align: center;
+}
+.buyback-flow-cta__inner::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  width: clamp(3.25rem, 8vw, 5.5rem);
+  height: 1px;
+  background: #E8621A;
+  transform: translateX(-50%);
+}
+.buyback-flow-cta__label {
+  margin: 0 0 0.75rem;
+  color: #C85A1A;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+}
+.buyback-flow-cta__inner h2 {
+  margin: 0;
+}
+.buyback-flow-cta__inner p:not(.buyback-flow-cta__label) {
+  max-width: 43rem;
+  margin: 1rem auto 0;
+  color: var(--color-muted);
+  font-size: var(--text-size-sm);
+  line-height: var(--text-leading);
+}
+.buyback-flow-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.875rem;
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+}
+
 /* Services showcase（端から生える写真＋余白テキスト・ジグザグ） */
 .index-solution {
   overflow-x: clip;
@@ -2703,7 +2926,7 @@ input:focus, textarea:focus, select:focus {
     padding-bottom: 0 !important;
   }
 
-  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section) {
+  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section):not(.story-closing-section):not(.story-chapter--closing):not(.story-services-section) {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
   }
@@ -2730,6 +2953,19 @@ input:focus, textarea:focus, select:focus {
   }
   body[data-page] .cta-ideal-home__inner {
     padding: 2.75rem 1.25rem !important;
+  }
+
+  body[data-page="story"] section.story-chapter--closing {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+  body[data-page="story"] section.story-closing-section {
+    padding-top: 1.25rem !important;
+    padding-bottom: 2.75rem !important;
+  }
+  body[data-page="story"] section.story-services-section {
+    padding-top: 2rem !important;
+    padding-bottom: 3.5rem !important;
   }
 
   /* 横余白（セクション内コンテナ） */
