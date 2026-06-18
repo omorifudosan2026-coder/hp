@@ -180,7 +180,7 @@ section:not(.hero-intro) h3.font-serif {
   padding: 1.625rem 2rem 1.625rem 0;
   text-align: left;
   vertical-align: middle;
-  font-size: 1rem;
+  font-size: var(--text-size);
   font-weight: 700;
   color: var(--color-ink);
   letter-spacing: var(--text-tracking);
@@ -188,8 +188,8 @@ section:not(.hero-intro) h3.font-serif {
 .company-profile-table td {
   padding: 1.625rem 0;
   vertical-align: middle;
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: var(--text-size);
+  font-weight: var(--text-weight);
   color: var(--color-ink);
   line-height: var(--text-leading);
   letter-spacing: var(--text-tracking);
@@ -3279,9 +3279,109 @@ input:focus, textarea:focus, select:focus {
     --heading-leading: 1.45;
   }
 
-  .hero-intro.hero-intro--layout {
-    padding-top: calc(var(--site-header-height) + 0.75rem) !important;
+  /* トップヒーロー：スマホは写真全面＋下に白文字オーバーレイ */
+  body[data-page="index"] .hero-intro.hero-intro--layout {
+    position: relative;
+    display: block !important;
+    min-height: 100svh;
+    padding-top: 0 !important;
     padding-bottom: 0 !important;
+    background: transparent !important;
+    overflow: hidden;
+  }
+  body[data-page="index"] .hero-intro--layout .hero-intro__left-col {
+    display: contents;
+  }
+  body[data-page="index"] .hero-intro--layout .hero-intro__media-col {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    order: unset;
+    width: 100% !important;
+    min-height: 0 !important;
+    margin-top: 0 !important;
+    flex: none !important;
+  }
+  body[data-page="index"] .hero-intro--layout .hero-intro__visual-frame,
+  body[data-page="index"] .hero-intro--layout .hero-intro__visual,
+  body[data-page="index"] .hero-intro--layout .hero-intro__visual-inner {
+    min-height: 100%;
+    height: 100%;
+  }
+  body[data-page="index"] .hero-intro--layout .hero-intro__img {
+    object-position: 68% 28%;
+  }
+  body[data-page="index"] .hero-intro__visual-fade {
+    display: block;
+    background: linear-gradient(
+      180deg,
+      rgba(26, 26, 26, 0.12) 0%,
+      rgba(26, 26, 26, 0) 22%,
+      rgba(26, 26, 26, 0) 38%,
+      rgba(26, 26, 26, 0.45) 68%,
+      rgba(26, 26, 26, 0.84) 100%
+    );
+  }
+  body[data-page="index"] .hero-intro--layout .hero-intro__title-wrap {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    flex: none !important;
+    margin: 0 !important;
+    padding: 0 1.25rem max(1.75rem, env(safe-area-inset-bottom, 0px)) !important;
+    text-align: left;
+  }
+  body[data-page="index"] .hero-intro--layout .hero-intro__head-block {
+    align-items: flex-start;
+    width: 100%;
+    max-width: none;
+    gap: 0.75rem;
+  }
+  body[data-page="index"] .hero-intro__title {
+    color: #fff;
+    font-size: 1.4375rem !important;
+    line-height: 1.38 !important;
+    text-align: left;
+    text-wrap: balance;
+  }
+  body[data-page="index"] .hero-intro__lede {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--text-size-13) !important;
+    line-height: 1.65 !important;
+    text-align: left;
+    max-width: 18.5rem;
+  }
+  body[data-page="index"] .hero-intro__lede-keep {
+    white-space: nowrap;
+  }
+  body[data-page="index"] .hero-intro__stats-inline {
+    align-self: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 1.125rem;
+    gap: 0.5rem 0.875rem;
+  }
+  body[data-page="index"] .hero-intro__stat-inline-value {
+    font-size: calc(0.9375rem + 1px) !important;
+    color: rgba(255, 255, 255, 0.95);
+  }
+  body[data-page="index"] .hero-intro__stat-inline-label {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: calc(0.6875rem + 1px) !important;
+  }
+  body[data-page="index"] .hero-intro__stat-inline-accent {
+    color: #e8621a;
+  }
+  body[data-page="index"] .hero-intro__stat-inline-sep {
+    background: rgba(255, 255, 255, 0.42);
+    height: 0.875rem;
   }
 
   body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section):not(.buyback-reason-section):not(.flow-section):not(.buyback-flow-cta):not(.story-closing-section):not(.story-chapter--closing):not(.story-services-section):not(.content-list-section) {
@@ -3384,9 +3484,17 @@ input:focus, textarea:focus, select:focus {
   body[data-page] section:not(.hero-intro) span.text-body,
   body[data-page] section:not(.hero-intro) p.text-muted,
   body[data-page] section:not(.hero-intro) p.text-muted.leading-relaxed,
-  body[data-page] section:not(.hero-intro) .story-mobile-block p.leading-relaxed {
+  body[data-page] section:not(.hero-intro) .story-mobile-block p.leading-relaxed,
+  body[data-page] section:not(.hero-intro) .company-profile-table th,
+  body[data-page] section:not(.hero-intro) .company-profile-table td {
     font-size: 0.875rem !important;
     line-height: 1.65 !important;
+  }
+  body[data-page] .company-profile-table th {
+    padding: 1.125rem 0.75rem 1.125rem 0;
+  }
+  body[data-page] .company-profile-table td {
+    padding: 1.125rem 0;
   }
   body[data-page] section:not(.hero-intro) p.text-sm,
   body[data-page] section:not(.hero-intro) .text-body-sm,
