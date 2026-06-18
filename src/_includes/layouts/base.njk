@@ -292,16 +292,30 @@
   var roots = document.querySelectorAll('[data-hero-count-root]');
   if (!roots.length) return;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var started = new WeakSet();
+  function startCount(root) {
+    if (started.has(root)) return;
+    started.add(root);
+    io.unobserve(root);
+    if (reduced) setHeroCountFinals(root);
+    else runHeroCountUp(root);
+  }
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if (!e.isIntersecting) return;
-      var root = e.target;
-      io.unobserve(root);
-      if (reduced) setHeroCountFinals(root);
-      else runHeroCountUp(root);
+      startCount(e.target);
     });
-  }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+  }, { threshold: 0 });
   roots.forEach(function(el){ io.observe(el); });
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      roots.forEach(function(el){
+        var rect = el.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        if (rect.top < vh && rect.bottom > 0) startCount(el);
+      });
+    });
+  });
 })();
 </script>
 </body>
