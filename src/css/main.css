@@ -2796,7 +2796,7 @@ p.buyback-reason-item__num {
     transform: translateX(-50%);
   }
 
-  /* こんなご相談に対応しています：見出し・本文・サイド線 */
+  /* こんなご相談に対応しています：見出し・サイド線 */
   body[data-page] section.buyback-reason-section .buyback-section-heading {
     margin-top: 3rem !important;
     margin-bottom: 2.5rem !important;
@@ -2812,10 +2812,8 @@ p.buyback-reason-item__num {
     line-height: 1.5 !important;
   }
   body[data-page] section.buyback-reason-section .buyback-section-intro {
-    font-size: 0.8125rem !important;
-    line-height: 1.7 !important;
+    display: none;
   }
-  /* サイド線をスマホでも表示（幅0で消えていたので固定幅に） */
   body[data-page] section.buyback-reason-section .buyback-section-heading__line {
     flex: 0 0 clamp(1.25rem, 6vw, 2.5rem);
   }
@@ -3984,6 +3982,7 @@ input:focus, textarea:focus, select:focus {
   }
 
   body[data-page^="service-"] section.buyback-reason-section {
+    padding-top: 1.5rem !important;
     padding-bottom: 3rem !important;
   }
 
