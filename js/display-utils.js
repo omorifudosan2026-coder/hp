@@ -86,3 +86,34 @@ window.createWorksPickItemHtml = function createWorksPickItemHtml(work) {
         </a>
     `;
 };
+
+window.createBlogPickItemHtml = function createBlogPickItemHtml(item) {
+    const title = escapeHtml(item.title || '');
+    const safeImg = trustHttpsUrl(item.image);
+    const imageHtml = safeImg
+        ? `<img src="${escapeHtml(safeImg)}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]">`
+        : '<div class="absolute inset-0 bg-[#E2DDD2]"></div>';
+    const href = `/blog-detail?id=${encodeURIComponent(item.id)}`;
+    const date = formatDateJa(item.date);
+    const cat = escapeHtml(item.category || 'その他');
+    const dateAttr = item.date && typeof item.date === 'string' ? escapeHtml(item.date) : '';
+
+    const metaItems = [];
+    if (date) {
+        metaItems.push(`<time class="works-pickup-item__date"${dateAttr ? ` datetime="${dateAttr}"` : ''}>${escapeHtml(date)}</time>`);
+    }
+    metaItems.push(`<span class="works-pickup-item__tag">${cat}</span>`);
+    const metaHtml = `<div class="works-pickup-item__meta">${metaItems.join('')}</div>`;
+
+    return `
+        <a href="${href}" class="works-pickup-item group flex h-full flex-col">
+            <div class="works-pickup-item__media relative aspect-[3/2] shrink-0 overflow-hidden bg-[#E2DDD2]">
+                ${imageHtml}
+            </div>
+            <div class="works-pickup-item__body flex flex-1 flex-col">
+                ${metaHtml}
+                <h3 class="works-pickup-item__title">${title}</h3>
+            </div>
+        </a>
+    `;
+};

@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loadNews();
 });
 
-const NEWS_PAGE_SIZE = 10;
+const NEWS_PAGE_SIZE = 9;
 
 function excerptText(text, maxLen) {
     if (!text) return '';
@@ -18,6 +18,7 @@ async function loadNews() {
     const listEl = document.getElementById('news-list');
     const noNewsEl = document.getElementById('no-news');
     const tabsEl = document.getElementById('news-tabs');
+    const tabsSelectEl = document.getElementById('news-tabs-select');
     const paginationEl = document.getElementById('news-pagination');
 
     try {
@@ -61,7 +62,7 @@ async function loadNews() {
             noNewsEl.classList.add('hidden');
             const totalPages = Math.ceil(filtered.length / NEWS_PAGE_SIZE);
             const start = (currentPage - 1) * NEWS_PAGE_SIZE;
-            listEl.innerHTML = filtered.slice(start, start + NEWS_PAGE_SIZE).map(createNewsRow).join('');
+            listEl.innerHTML = filtered.slice(start, start + NEWS_PAGE_SIZE).map(createBlogPickItemHtml).join('');
 
             if (paginationEl) {
                 paginationEl.innerHTML = buildPaginationHtml(totalPages, currentPage);
@@ -91,6 +92,9 @@ async function loadNews() {
                     btn.classList.toggle('hover:text-ink', !isActive);
                 });
             }
+            if (tabsSelectEl) {
+                tabsSelectEl.value = activeCat;
+            }
             render();
         }
 
@@ -102,22 +106,44 @@ async function loadNews() {
             });
         }
 
-        // タブをマスタから動的生成
-        if (tabsEl) {
-            const allBtn = document.createElement('button');
-            allBtn.type = 'button';
-            allBtn.className = 'news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-ink text-white';
-            allBtn.setAttribute('data-news-tab', '__all');
-            allBtn.textContent = 'すべて';
-            tabsEl.appendChild(allBtn);
-            categories.forEach((cat) => {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-white text-ink hover:bg-cream hover:text-ink transition-colors';
-                btn.setAttribute('data-news-tab', cat);
-                btn.textContent = cat;
-                tabsEl.appendChild(btn);
+        if (tabsSelectEl) {
+            tabsSelectEl.addEventListener('change', () => {
+                setActiveTab(tabsSelectEl.value || '__all');
             });
+        }
+
+        // カテゴリフィルター（PCタブ・スマホプルダウン）をマスタから動的生成
+        if (tabsEl || tabsSelectEl) {
+            if (tabsSelectEl) {
+                tabsSelectEl.innerHTML = '';
+                const allOption = document.createElement('option');
+                allOption.value = '__all';
+                allOption.textContent = 'すべて';
+                tabsSelectEl.appendChild(allOption);
+                categories.forEach((cat) => {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    option.textContent = cat;
+                    tabsSelectEl.appendChild(option);
+                });
+            }
+            if (tabsEl) {
+                tabsEl.innerHTML = '';
+                const allBtn = document.createElement('button');
+                allBtn.type = 'button';
+                allBtn.className = 'news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-ink text-white';
+                allBtn.setAttribute('data-news-tab', '__all');
+                allBtn.textContent = 'すべて';
+                tabsEl.appendChild(allBtn);
+                categories.forEach((cat) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'news-tab cursor-pointer px-4 py-2 text-sm border border-[#DDD9D2] bg-white text-ink hover:bg-cream hover:text-ink transition-colors';
+                    btn.setAttribute('data-news-tab', cat);
+                    btn.textContent = cat;
+                    tabsEl.appendChild(btn);
+                });
+            }
         }
 
         setActiveTab('__all');
@@ -126,31 +152,6 @@ async function loadNews() {
         loadingEl.classList.add('hidden');
         noNewsEl.classList.remove('hidden');
     }
-}
-
-function createNewsRow(item) {
-    const cat = item.category || 'その他';
-    const title = escapeHtml(item.title || '');
-    const detailHref = `/blog-detail?id=${encodeURIComponent(item.id)}`;
-
-    return `
-        <article>
-            <a href="${detailHref}" class="block py-6 md:py-7 group hover:bg-cream/60 transition-colors">
-                <div class="flex items-start gap-4 md:gap-6">
-                    <time class="text-date shrink-0 pt-0.5">${escapeHtml(formatDateJa(item.date))}</time>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex flex-wrap items-center gap-3">
-                            <span class="news-list-cat">${escapeHtml(cat)}</span>
-                            <h2 class="news-list-title group-hover:text-[#E8621A] transition-colors line-clamp-1">${title}</h2>
-                        </div>
-                    </div>
-                    <svg class="shrink-0 w-5 h-5 text-muted group-hover:text-[#E8621A] transition-colors mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </div>
-            </a>
-        </article>
-    `;
 }
 
 function buildPaginationHtml(totalPages, currentPage) {

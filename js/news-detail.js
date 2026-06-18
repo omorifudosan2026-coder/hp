@@ -99,8 +99,8 @@ async function loadOtherBlogs(currentId) {
             const title = escapeHtml(item.title || '');
             const img = trustHttpsUrl(item.image);
             const thumb = img
-                ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" width="72" height="54" class="w-[72px] h-[54px] object-cover bg-[#E2DDD2]">`
-                : `<div class="w-[72px] h-[54px] bg-[#E2DDD2]"></div>`;
+                ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" width="72" height="54" class="detail-aside-item__thumb object-cover bg-[#E2DDD2]">`
+                : `<div class="detail-aside-item__thumb bg-[#E2DDD2]"></div>`;
             const sub = escapeHtml(formatDateJa(item.date));
 
             return `
