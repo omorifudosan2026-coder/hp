@@ -134,27 +134,27 @@
 {{ content | safe }}
 
 <!-- Footer（白地：暗い CTA との明暗コントラストで締める） -->
-<footer class="bg-white text-[#1a1a1a] pt-12 pb-8 md:pt-16 md:pb-10">
-  <div class="max-w-7xl mx-auto px-6 md:px-10">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 md:gap-12 pb-8 md:pb-12 border-b border-black/10">
+<footer class="bg-white text-[#1a1a1a] pt-8 pb-6 md:pt-16 md:pb-10">
+  <div class="max-w-7xl mx-auto px-5 md:px-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-5 md:gap-x-6 md:gap-y-8 lg:gap-12 pb-5 md:pb-12 border-b border-black/10 items-start">
       <div class="col-span-2 md:col-span-1">
-        <div class="flex items-center gap-2.5 md:gap-3 mb-4 md:mb-5">
-          <img src="/images/brand/logo.png" alt="大森不動産" class="h-9 w-auto md:h-10">
-          <span class="header-brand text-base md:text-lg text-[#1a1a1a]">大森不動産</span>
+        <div class="flex items-center gap-2 md:gap-3 mb-2 md:mb-5">
+          <img src="/images/brand/logo.png" alt="大森不動産" class="h-7 w-auto md:h-10">
+          <span class="header-brand text-sm md:text-lg text-[#1a1a1a]">大森不動産</span>
         </div>
-        <address class="footer-meta text-[#777] text-sm not-italic leading-relaxed">〒532-0026<br>大阪府大阪市淀川区塚本2丁目2-23<br>シャンティー塚本108</address>
+        <address class="footer-meta footer-address text-[#777] text-xs md:text-sm not-italic leading-snug md:leading-relaxed">〒532-0026<span class="md:hidden"> </span><span class="hidden md:inline"><br></span>大阪府大阪市淀川区塚本2丁目2-23<br>シャンティー塚本108</address>
       </div>
       <div>
-        <p class="font-mono-label text-[0.6rem] md:text-[0.65rem] text-[#999] uppercase mb-3 md:mb-5">Service</p>
-        <ul class="space-y-1.5 md:space-y-3 text-sm">
+        <p class="font-mono-label text-[0.55rem] md:text-[0.65rem] text-[#999] uppercase mb-1.5 md:mb-5">Service</p>
+        <ul class="space-y-1 md:space-y-3 text-xs md:text-sm">
           <li><a href="/service-buyback" class="text-[#555] hover:text-[#1a1a1a] transition-colors">買取再販</a></li>
           <li><a href="/service-renovation" class="text-[#555] hover:text-[#1a1a1a] transition-colors">仲介＋リノベ</a></li>
           <li><a href="/service-income" class="text-[#555] hover:text-[#1a1a1a] transition-colors">収益不動産</a></li>
         </ul>
       </div>
       <div>
-        <p class="font-mono-label text-[0.6rem] md:text-[0.65rem] text-[#999] uppercase mb-3 md:mb-5">Info</p>
-        <ul class="space-y-1.5 md:space-y-3 text-sm">
+        <p class="font-mono-label text-[0.55rem] md:text-[0.65rem] text-[#999] uppercase mb-1.5 md:mb-5">Info</p>
+        <ul class="space-y-1 md:space-y-3 text-xs md:text-sm">
           <li><a href="/concept" class="text-[#555] hover:text-[#1a1a1a] transition-colors">選ばれる理由</a></li>
           <li><a href="/works" class="text-[#555] hover:text-[#1a1a1a] transition-colors">施工事例</a></li>
           <li><a href="/story" class="text-[#555] hover:text-[#1a1a1a] transition-colors">私たちの想い</a></li>
@@ -163,15 +163,19 @@
         </ul>
       </div>
       <div class="col-span-2 md:col-span-1">
-        <p class="font-mono-label text-[0.6rem] md:text-[0.65rem] text-[#999] uppercase mb-3 md:mb-5">Contact</p>
-        <a href="/contact" class="site-btn site-btn--footer site-btn--outline-ink mb-4 md:mb-5 inline-flex"><span class="site-btn__inner">無料相談を予約する →</span></a>
-        <p class="footer-phone text-[#1a1a1a] text-base md:text-lg mb-1"><a href="tel:0648627770" class="text-[#1a1a1a] hover:text-[#e8621a] transition-colors">06-4862-7770</a></p>
-        <p class="footer-meta text-[#777] text-sm">9:00〜18:00 / 定休日：水、祝</p>
+        <p class="font-mono-label text-[0.55rem] md:text-[0.65rem] text-[#999] uppercase mb-1.5 md:mb-5">Contact</p>
+        <div class="footer-contact-block">
+          <a href="/contact" class="site-btn site-btn--footer site-btn--outline-ink inline-flex"><span class="site-btn__inner">無料相談を予約する →</span></a>
+          <div class="footer-contact-meta">
+            <p class="footer-phone text-[#1a1a1a] text-sm md:text-lg"><a href="tel:0648627770" class="text-[#1a1a1a] hover:text-[#e8621a] transition-colors">06-4862-7770</a></p>
+            <p class="footer-meta text-[#777] text-xs md:text-sm">9:00〜18:00 / 定休日：水、祝</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 md:pt-8">
-      <p class="footer-meta text-sm text-[#999]">&copy; 2026 大森不動産. All rights reserved.</p>
-      <div class="flex flex-wrap justify-center gap-x-4 gap-y-1 md:gap-6 text-sm text-[#777]">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-4 pt-4 md:pt-8">
+      <p class="footer-meta text-xs md:text-sm text-[#999]">&copy; 2026 大森不動産. All rights reserved.</p>
+      <div class="flex flex-wrap justify-start md:justify-center gap-x-3 gap-y-0.5 md:gap-x-6 text-xs md:text-sm text-[#777]">
         <a href="/privacy" class="hover:text-[#1a1a1a] transition-colors">プライバシーポリシー</a>
         <a href="/terms" class="hover:text-[#1a1a1a] transition-colors">利用規約</a>
         <a href="/sitemap" class="hover:text-[#1a1a1a] transition-colors">サイトマップ</a>

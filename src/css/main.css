@@ -1078,6 +1078,11 @@ section:not(.hero-intro) h3.font-serif {
     padding-top: 3rem !important;
     padding-bottom: 8rem !important;
   }
+  body[data-page="story"] .story-closing-section__statement {
+    font-size: 1.4375rem; /* 23px */
+    line-height: var(--heading-leading);
+    letter-spacing: var(--heading-tracking);
+  }
   body[data-page="story"] section.story-services-section {
     padding-top: 5rem !important;
     padding-bottom: 8rem !important;
@@ -1805,6 +1810,38 @@ footer .footer-phone {
 footer .footer-meta {
   font-weight: var(--text-weight);
   letter-spacing: var(--text-tracking);
+}
+@media (max-width: 767px) {
+  footer .footer-address {
+    max-width: 18rem;
+  }
+  footer .footer-contact-block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.625rem 1rem;
+  }
+  footer .footer-contact-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.125rem 0.625rem;
+  }
+  footer .footer-contact-meta .footer-phone {
+    margin: 0;
+  }
+  footer .footer-contact-meta .footer-meta {
+    font-size: 0.6875rem;
+    line-height: 1.4;
+  }
+}
+@media (min-width: 768px) {
+  footer .footer-contact-block .site-btn {
+    margin-bottom: 1.25rem;
+  }
+  footer .footer-contact-meta .footer-phone {
+    margin-bottom: 0.25rem;
+  }
 }
 
 /* Hamburger */
@@ -2739,17 +2776,36 @@ p.buyback-reason-item__num {
     height: 0.875rem;
   }
   /* 簡易CTA：上下余白を少し広げる */
-  body[data-page] section.buyback-flow-cta {
-    padding-top: 2.5rem !important;
-    padding-bottom: 4.5rem !important;
+  body[data-page^="service-"] section.buyback-flow-cta {
+    padding-top: 2.25rem !important;
+    padding-bottom: 2.25rem !important;
   }
   body[data-page] section.buyback-flow-cta .buyback-flow-cta__inner {
-    padding-top: 2.75rem !important;
+    padding-top: 1.375rem !important;
+    padding-bottom: 1.75rem !important;
+    border-bottom: 1px solid rgba(26, 26, 26, 0.14);
+  }
+  body[data-page] section.buyback-flow-cta .buyback-flow-cta__inner::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    width: clamp(3.25rem, 8vw, 5.5rem);
+    height: 1px;
+    background: #E8621A;
+    transform: translateX(-50%);
   }
 
   /* こんなご相談に対応しています：見出し・本文・サイド線 */
   body[data-page] section.buyback-reason-section .buyback-section-heading {
     margin-top: 3rem !important;
+    margin-bottom: 2.5rem !important;
+  }
+  body[data-page] section.buyback-reason-section .buyback-reason-list {
+    gap: 4.25rem !important;
+  }
+  body[data-page] section.buyback-reason-section .buyback-reason-item {
+    gap: 1.375rem !important;
   }
   body[data-page] section.buyback-reason-section .buyback-section-heading__copy h2.font-serif.text-ink {
     font-size: 1rem !important;
@@ -2768,13 +2824,19 @@ p.buyback-reason-item__num {
   body[data-page] section.buyback-reason-section .buyback-reason-item__worry h3.font-serif {
     font-size: 1.0625rem !important;
   }
+  body[data-page] section.buyback-reason-section p.buyback-reason-item__num {
+    font-size: 1.0625rem !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0.06em !important;
+  }
   body[data-page] section.buyback-reason-section .buyback-reason-item__bridge {
     font-size: 0.8125rem !important;
+    margin-top: 1rem !important;
   }
   body[data-page] section.buyback-reason-section .buyback-reason-item__solution h4 {
     font-size: 1.0625rem !important;
   }
-  body[data-page] section.buyback-reason-section .buyback-reason-item__worry p,
+  body[data-page] section.buyback-reason-section .buyback-reason-item__worry p:not(.buyback-reason-item__num),
   body[data-page] section.buyback-reason-section .buyback-reason-item__solution p {
     font-size: 0.8125rem !important;
     line-height: 1.75 !important;
@@ -3097,7 +3159,7 @@ body[data-page^="service-"] section.index-solution {
   }
 }
 
-/* Form */
+/* Form — 入力欄も本文と同一タイポ */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -3106,6 +3168,13 @@ input[type="number"],
 input[type="date"],
 textarea,
 select {
+  font-family: var(--font-body);
+  font-size: var(--text-size);
+  line-height: var(--text-leading);
+  font-weight: var(--text-weight);
+  letter-spacing: var(--text-tracking);
+  font-feature-settings: 'palt' 1;
+  color: var(--color-ink);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   border-radius: 0 !important;
   border: 1px solid #DDD9D2 !important;
@@ -3222,7 +3291,7 @@ input:focus, textarea:focus, select:focus {
     padding-bottom: 0 !important;
   }
 
-  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section):not(.buyback-reason-section):not(.story-closing-section):not(.story-chapter--closing):not(.story-services-section) {
+  body[data-page] section:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section):not(.buyback-reason-section):not(.flow-section):not(.buyback-flow-cta):not(.story-closing-section):not(.story-chapter--closing):not(.story-services-section) {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
   }
@@ -3256,8 +3325,13 @@ input:focus, textarea:focus, select:focus {
     padding-bottom: 1.5rem !important;
   }
   body[data-page="story"] section.story-closing-section {
-    padding-top: 1.25rem !important;
+    padding-top: 1.5rem !important;
     padding-bottom: 2.75rem !important;
+  }
+  body[data-page="story"] .story-closing-section__statement {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+    letter-spacing: var(--text-tracking) !important;
   }
   body[data-page="story"] section.story-services-section {
     padding-top: 2rem !important;
@@ -3310,6 +3384,11 @@ input:focus, textarea:focus, select:focus {
 
   /* 説明文（セクション本文・リード）— 12px→13px / 13px→14px（+1px） */
   body[data-page] section:not(.hero-intro) p.text-base,
+  body[data-page] section:not(.hero-intro) .text-body,
+  body[data-page] section:not(.hero-intro) p.text-body,
+  body[data-page] section:not(.hero-intro) label.text-body,
+  body[data-page] section:not(.hero-intro) dd.text-body,
+  body[data-page] section:not(.hero-intro) span.text-body,
   body[data-page] section:not(.hero-intro) p.text-muted,
   body[data-page] section:not(.hero-intro) p.text-muted.leading-relaxed,
   body[data-page] section:not(.hero-intro) .story-mobile-block p.leading-relaxed {
@@ -3317,6 +3396,11 @@ input:focus, textarea:focus, select:focus {
     line-height: 1.65 !important;
   }
   body[data-page] section:not(.hero-intro) p.text-sm,
+  body[data-page] section:not(.hero-intro) .text-body-sm,
+  body[data-page] section:not(.hero-intro) p.text-body-sm,
+  body[data-page] section:not(.hero-intro) span.text-body-sm,
+  body[data-page] section:not(.hero-intro) dt.text-body-sm,
+  body[data-page] section:not(.hero-intro) label.text-body-sm,
   body[data-page] section:not(.hero-intro) p.text-muted.text-sm,
   body[data-page] section:not(.hero-intro) .text-sm.leading-relaxed,
   body[data-page] section:not(.hero-intro) p.text-sm.text-muted,
@@ -3326,6 +3410,54 @@ input:focus, textarea:focus, select:focus {
     font-size: var(--text-size-13) !important;
     line-height: 1.65 !important;
   }
+  body[data-page] section:not(.hero-intro) input[type="text"],
+  body[data-page] section:not(.hero-intro) input[type="email"],
+  body[data-page] section:not(.hero-intro) input[type="tel"],
+  body[data-page] section:not(.hero-intro) textarea,
+  body[data-page] section:not(.hero-intro) select {
+    font-size: 0.875rem !important;
+    line-height: 1.65 !important;
+  }
+
+  /* contact：相談種類ボックス（スマホのみコンパクト） */
+  body[data-page="contact"] .contact-type-grid {
+    gap: 0.5rem !important;
+  }
+  body[data-page="contact"] .contact-type-option {
+    padding: 0.6875rem 0.8125rem !important;
+    gap: 0.125rem !important;
+  }
+  body[data-page="contact"] .contact-type-option__title {
+    font-size: var(--text-size-sm) !important;
+    line-height: 1.5 !important;
+  }
+  body[data-page="contact"] .contact-type-option__desc {
+    font-size: var(--text-size-13) !important;
+    line-height: 1.55 !important;
+  }
+
+  /* contact：フォーム項目（スマホのみコンパクト） */
+  body[data-page="contact"] #contact-form label.contact-field-label {
+    font-size: var(--text-size-13) !important;
+    line-height: 1.5 !important;
+    font-weight: 600 !important;
+  }
+  body[data-page="contact"] #contact-form input[type="text"],
+  body[data-page="contact"] #contact-form input[type="email"],
+  body[data-page="contact"] #contact-form input[type="tel"],
+  body[data-page="contact"] #contact-form select,
+  body[data-page="contact"] #contact-form textarea {
+    font-size: var(--text-size-13) !important;
+    line-height: 1.5 !important;
+  }
+  body[data-page="contact"] #contact-form select {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  body[data-page="contact"] #contact-form textarea {
+    min-height: 7.5rem;
+  }
+
   body[data-page] .cta-ideal-home__lede {
     font-size: 0.75rem !important;
     line-height: 1.58 !important;
@@ -3529,6 +3661,34 @@ input:focus, textarea:focus, select:focus {
     margin-top: 1.25rem;
   }
 
+  /* concept：チェックリスト（スマホのみコンパクト・上下余白統一） */
+  body[data-page="concept"] .concept-checklist {
+    margin-top: 1.25rem !important;
+    margin-bottom: 1.25rem !important;
+    padding: 0.75rem 0.875rem !important;
+  }
+  body[data-page="concept"] .concept-checklist > div {
+    gap: 0.5rem !important;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+  body[data-page="concept"] .concept-checklist span.text-sm {
+    font-size: var(--text-size-13) !important;
+    line-height: 1.55 !important;
+  }
+  body[data-page="concept"] .concept-checklist-after {
+    margin-top: 0 !important;
+  }
+
+  /* concept：4つの理由セクション（スマホのみ上余白増・下余白なし） */
+  body[data-page="concept"] .concept-advantage-section {
+    padding-top: 2.25rem !important;
+    padding-bottom: 0 !important;
+  }
+  body[data-page="concept"] .concept-advantage-section .mb-12.text-center {
+    margin-bottom: 0 !important;
+  }
+
   /* concept：工務店と一体 — 横長リスト */
   body[data-page="concept"] .concept-advantage-list__item {
     display: flex;
@@ -3668,7 +3828,7 @@ input:focus, textarea:focus, select:focus {
     display: flex;
     flex-direction: column;
     padding-top: clamp(2.75rem, 6.5vw, 4rem) !important;
-    padding-bottom: clamp(4rem, 8vw, 5.5rem) !important;
+    padding-bottom: clamp(2.75rem, 6.5vw, 3.5rem) !important;
     margin-bottom: 0;
   }
   body[data-page="concept"] .concept-promise-section #concept-promise-heading {
@@ -3687,7 +3847,7 @@ input:focus, textarea:focus, select:focus {
     content: none !important;
   }
   /* py-20 md:py-28 bg-cream セクション（スマホのみ・下パディング +24px） */
-  body[data-page] section.py-20.bg-cream:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section) {
+  body[data-page] section.py-20.bg-cream:not(.hero-intro):not(.page-header):not(.cta-ideal-home):not(.index-advantage-section):not(.concept-advantage-section):not(.works-pickup-section):not(.concept-promise-section):not(.service-reasons-section):not(.flow-section) {
     padding-bottom: 3rem !important; /* 1.5rem + 24px */
   }
 
@@ -3823,12 +3983,16 @@ input:focus, textarea:focus, select:focus {
     padding-top: 1.5rem !important;
   }
 
-  /* サービス3ページ：流れ — スマホは clip-path で下向き矢印連結（参考 polygon 方式） */
-  body[data-page^="service-"] section.bg-cream:has(.flow-steps) {
-    padding-top: 3rem !important;
-    padding-bottom: 4.5rem !important; /* 3rem + 24px */
+  body[data-page^="service-"] section.buyback-reason-section {
+    padding-bottom: 3rem !important;
   }
-  body[data-page^="service-"] section.bg-cream:has(.flow-steps) > div:first-child .mb-14 {
+
+  /* サービス3ページ：流れ — スマホは clip-path で下向き矢印連結（参考 polygon 方式） */
+  body[data-page^="service-"] section.flow-section.bg-cream.py-20 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  body[data-page^="service-"] section.flow-section.bg-cream > div:first-child .mb-14 {
     margin-bottom: 2rem !important;
   }
   body[data-page^="service-"] .flow-steps {
@@ -3882,7 +4046,7 @@ input:focus, textarea:focus, select:focus {
     margin: 0 !important;
     white-space: nowrap;
   }
-  body[data-page^="service-"] section.bg-cream:has(.flow-steps) .flow-step-card__surface > h3.font-serif.text-lg {
+  body[data-page^="service-"] section.flow-section.bg-cream .flow-step-card__surface > h3.font-serif.text-lg {
     grid-column: 2;
     grid-row: 1;
     margin: 0 !important;
